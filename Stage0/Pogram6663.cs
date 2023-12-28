@@ -2,8 +2,8 @@
 
 partial class PROGRAM
 {
-	static partial void welcome7947()
+	static partial void welcome6663()
 	{
-		console.WriteLine("I am also here!");
+		Console.WriteLine("I am also here!");
 	}
 }
