@@ -1,9 +1,10 @@
 ﻿using System;
 
-partial class PROGRAM
+partial class Program
 {
-	static partial void welcome7947()
+	static partial void welcome6663()
 	{
 		Console.WriteLine("I am also here!");
 	}
 }
+
