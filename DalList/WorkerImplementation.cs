@@ -5,11 +5,15 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-public class WorkerImplementation : IWorker
+public class WorkerImplementation :IWorker
 {
-    public int Create(IWorker item)
+    public int Create(Worker w)
     {
-        throw new NotImplementedException();
+        //for entities with normal id (not auto id)
+        if (Read(w.IdWorker) is not null)
+            throw new Exception($"Worker with ID={w.IdWorker} already exists");
+        DataSource.Workers.Add(w);
+        return w.IdWorker;
     }
 
     public void Delete(int id)
@@ -17,17 +21,17 @@ public class WorkerImplementation : IWorker
         throw new NotImplementedException();
     }
 
-    public IWorker? Read(int id)
+    public Worker? Read(int id)
     {
         throw new NotImplementedException();
     }
 
-    public List<IWorker> ReadAll()
+    public List<Worker> ReadAll()
     {
         throw new NotImplementedException();
     }
 
-    public void Update(IWorker item)
+    public void Update(Worker item)
     {
         throw new NotImplementedException();
     }
