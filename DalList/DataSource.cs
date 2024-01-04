@@ -1,5 +1,5 @@
 ﻿
-
+// פה צריך ללכת לשלוש ג ללכת לעשות שלוש שדות פה ווכו
 namespace Dal;
 //using DO;
 internal static class DataSource
@@ -15,5 +15,7 @@ internal static class DataSource
 */
     }
     internal static List<DO.Worker> Workers { get; } = new();
+
+
 
 }
