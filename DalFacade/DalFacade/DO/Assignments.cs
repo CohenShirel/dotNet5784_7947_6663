@@ -4,26 +4,21 @@ namespace DO;
 
 public record Assignments
 (
-    int Id,//מספר מזהה
+    int IdAssignments,//מספר מזהה
     string Name,//כינוי
     string Description,//תיאור
-    bool Milestone,//אבן דרך
-    DateTime DateStart,//תאריך מתוכנן לתחילת העבודה
+    DateTime DateBegin,//תאריך מתוכנן לתחילת העבודה
+    DateTime DeadLine,//תאריך מתוכנן לסיום 
+    DateTime DateStart,//תאריך תחילת העבודה על המשימה
     DateTime DateFinish,//תאריך סיום בפועל
-    DateTime DeadLine,//תאריך סיום אחרון אפשרי 
-
-    int LevelAssignments,//רמת קושי משימה
-
-    int IdWorker,//מזהה  המהנדס שהוקצה למשימה
     int DurationAssignments,//משך הזמן הנדרש לביצוע המשימה
-    string Remarks //הערות
-
-                                 //תוצר?          
+    int LevelAssignments,//רמת קושי משימה
+    int IdWorker,//מזהה  המהנדס שהוקצה למשימה
+    string Remarks,//הערות
+    bool Milestone = false//אבן דרך
 )
 {
-    public DateTime Date => DateTime.Now;//תאריך יצירת המשימה   
-
-
+    public DateTime Date => DateTime.Now;//תאריך יצירת המשימה                                 
 }
 
 
