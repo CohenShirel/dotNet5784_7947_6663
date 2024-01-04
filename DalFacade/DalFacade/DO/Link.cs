@@ -1,13 +1,29 @@
 ﻿
 
 namespace DO;
-//תלויות
+/// <summary>
+/// 
+/// </summary>
+/// <param  מזהה מספר ="IdLink"></param>
+/// <param  תלויה משימה ="IdAssignments"></param>
+/// <param קודמת משימה="IdPAssignments"></param>
 public record Link
 (
-   int IdLink,//מספר מזהה 
-   int IdAssignments,//משימה תלויה
-   int IdPAssignments//משימה קודמת
+   int IdLink, 
+   int IdAssignments,
+   int IdPAssignments
 )
 {
+    //empty ctor
+    public Link() : this(0,0,0) 
+    { 
+    
+    }
+
+    //ctor
+    public Link()
+    {
+
+    }
 
 }

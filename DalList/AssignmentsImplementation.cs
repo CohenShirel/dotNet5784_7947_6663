@@ -7,9 +7,14 @@ using System.Collections.Generic;
 
 internal class AssignmentsImplementation : IAssignments
 {
-    public int Create(IWorker item)
+    public int Create(Assignments ass)
     {
-        throw new NotImplementedException();
+        //for entities with auto id
+        int id = DataSource.Config.IdPAssignments;
+        Assignments copy = ass with { IdAssignments = id };
+        DataSource.Assignmentss.Add(copy);
+        return id;
+
     }
 
     public void Delete(int id)
@@ -17,17 +22,17 @@ internal class AssignmentsImplementation : IAssignments
         throw new NotImplementedException();
     }
 
-    public IWorker? Read(int id)
+    public Assignments? Read(int id)
     {
         throw new NotImplementedException();
     }
 
-    public List<IWorker> ReadAll()
+    public List<Assignments> ReadAll()
     {
         throw new NotImplementedException();
     }
 
-    public void Update(IWorker item)
+    public void Update(Assignments item)
     {
         throw new NotImplementedException();
     }
