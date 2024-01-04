@@ -1,7 +1,7 @@
 ﻿
 
 namespace DO;
-
+//תלויות
 public record Link
 (
    int IdLink,//מספר מזהה 

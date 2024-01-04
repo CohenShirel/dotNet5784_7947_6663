@@ -7,8 +7,8 @@ public record Worker
     int IdWorker,
     string Name,
     string Email,
-    int Level,
-    double HourSalary
+    int Experience,//ניסיון
+    double HourSalary//שכר לשעה
 )
 {
 

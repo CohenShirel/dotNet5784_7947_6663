@@ -1,7 +1,7 @@
 ﻿
 
 namespace DO;
-
+//Assignments
 public record Assignments
 (
     int IdAssignments,//מספר מזהה
@@ -15,6 +15,7 @@ public record Assignments
     int LevelAssignments,//רמת קושי משימה
     int IdWorker,//מזהה  המהנדס שהוקצה למשימה
     string Remarks,//הערות
+    String ResultProduct,//תיאור תוצאות התוצר בסיום המשימה
     bool Milestone = false//אבן דרך
 )
 {
