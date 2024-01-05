@@ -39,12 +39,7 @@ public record Assignments
     public Assignments() : this(0,0,0,0)
     {
 
-    }
-    //ctor
-    public Assignments()
-    {
-
-    }                        
+    }                  
 }
 
 

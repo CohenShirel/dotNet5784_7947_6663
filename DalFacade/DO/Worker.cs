@@ -16,19 +16,12 @@ public record Worker
     double HourSalary,
     string? Name=null,
     string? Email = null
-)
-{ 
+);
     //empty ctor
     public Worker(): this(0, 0, 0)   
     {  
 
     }
-    //ctor
-    public Worker()
-    {
-
-    }
-}
 
 
 

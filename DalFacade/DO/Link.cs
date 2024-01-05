@@ -12,18 +12,9 @@ public record Link
    int IdLink, 
    int IdAssignments,
    int IdPAssignments
-)
-{
+);
     //empty ctor
     public Link() : this(0,0,0) 
     { 
     
     }
-
-    //ctor
-    public Link()
-    {
-
-    }
-
-}
