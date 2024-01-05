@@ -23,7 +23,10 @@ public class WorkerImplementation :IWorker
 
     public Worker? Read(int id)
     {
-        throw new NotImplementedException();
+        if (DataSource.Workers.Find(IdW->Idw.WorkerId == id) = !null)
+            return DataSource.Workers;//תחזיר הפניה לאותו עובד שנמצא
+        return null;
+            
     }
 
     public List<Worker> ReadAll()
