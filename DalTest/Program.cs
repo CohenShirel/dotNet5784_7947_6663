@@ -2,8 +2,8 @@
 //Neomi Golkin ?????????
 
 
-using DO;
 namespace DalTest;
+using DO;
 
 internal class Program
 {
