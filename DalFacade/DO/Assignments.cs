@@ -21,6 +21,7 @@ namespace DO;
 public record Assignments
 (
     
+    
     int IdAssignments,
     int DurationAssignments,
     int LevelAssignments,

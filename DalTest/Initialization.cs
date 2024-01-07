@@ -12,7 +12,7 @@ public static class Initialization
     //בנוסף, נצטרך שדה אחד, שכל הישויות יעשו בו שימוש, ליצירת מספרים רנדומליים בזמן מילוי ערכי האובייקטים. 
 
     private static readonly Random s_rand = new();
-
+    
 
     private static void creatWorkers()
     {
