@@ -46,35 +46,47 @@ public static class Initialization
     }
     private static void creatAssignmentss()
     {
-        int _idA;
-        do
-            _idA = s_rand.Next(200000000, 400000001);
-        while (s_dalAssignments!.Read(_idA) != null);
+        string[] AssignmentssNames =
+        {
+           "confirmation","budget_planning","Architectural_design", "Building_foundations", "Sewage_infrastructure",
+           "Electrical_Systems", "walls_roofs","Climate_systems","Windows_doors","elevators","Emergency_systems",
+           "Automation_networks","Finishes_colors","Safety_systems","Technological_spaces","parkingLots","yards","External_installations",
+           "final_inspections","residents_Transferring"
+        };
+        foreach (var _name in AssignmentssNames)
+        {
+            //האם צריך להגששזדיר זאת גם למספר רץ?
+            int _idA;
+            do
+                _idA = s_rand.Next(200000000, 400000001);
+            while (s_dalAssignments!.Read(_idA) != null);
 
-        int _durationA = s_rand.Next(50, 600);
-        int _levelA = s_rand.Next(50, 600);
+            int _durationA = s_rand.Next(50, 600);
+            int _levelA = s_rand.Next(50, 600);
 
-        int _idW;
-        do
-            _idW = s_rand.Next(200000000, 400000001);
-        while (s_dalWorker!.Read(_idW) == null);//if you find it!
+            int _idW;
+            do
+                _idW = s_rand.Next(200000000, 400000001);
+            while (s_dalWorker!.Read(_idW) == null);//if you find it!
 
-        TimeSpan? _dateBegin = null;
-        TimeSpan? _deadLine = null;
-        TimeSpan? _dateStart = null;
-        TimeSpan? _dateFinish = null;
-        string? _name = null;
-        string? _description = null;
-        string? _remarks = null;
-        string? _resultProduct = null;
-        bool _milestone = false;
+            //האם צריך לתת תאריכים רנדומלים או  שככה זה מספיק?
+            TimeSpan? _dateBegin = null;
+            TimeSpan? _deadLine = null;
+            TimeSpan? _dateStart = null;
+            TimeSpan? _dateFinish = null;
+            string? _description = null;
+            string? _remarks = null;
+            string? _resultProduct = null;
+            bool _milestone = false;
 
-        Assignments newA = new(_idA, _durationA, _idW, _dateBegin, _deadLine, _dateStart,
-            _dateFinish, _name, _description, _remarks, _resultProduct, _milestone);
+            Assignments newA = new(_idA, _durationA, _idW, _dateBegin, _deadLine, _dateStart,
+                _dateFinish, _name, _description, _remarks, _resultProduct, _milestone);
 
-        s_dalAssignments!.Create(newA);
+            s_dalAssignments!.Create(newA);
+        }
+           
     }
-    private static void creatLnk()
+    private static void creatLink()
     {
         int _idL;
         do
@@ -95,3 +107,26 @@ public static class Initialization
         s_dalLink!.Create(newL);
     }
 }
+
+
+
+// confirmation   
+//budget planning  
+//Architectural design  
+//Building foundations   
+//Sewage infrastructure   
+//Electrical Systems      
+//walls_roofs             
+//Climate systems         
+//Windows and doors        
+//elevators               
+//Emergency systems       
+//Automation networks    
+//Finishes and colors     
+//Safety systems          
+//Technological spaces    
+//parking lots  
+//yards          
+//External installations  
+//Final inspections       
+//transfer to residents   

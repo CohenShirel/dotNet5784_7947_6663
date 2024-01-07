@@ -15,27 +15,42 @@ public class WorkerImplementation :IWorker
         DataSource.Workers.Add(w);
         return w.IdWorker;
     }
-
+    //checkkkkkkkkkkkkkkkkkkkkkkkkk
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        if (Read(id) is null)
+            throw new Exception($"Worker with ID={id} not exists");
+        Worker w = Read(id);
+        DataSource.Workers.Remove(w);
+        return w.IdWorker;
     }
 
     public Worker? Read(int id)
     {
-        if (DataSource.Workers.Find(IdW->Idw.WorkerId == id) = !null)
-            return DataSource.Workers;//תחזיר הפניה לאותו עובד שנמצא
-        return null;
-            
+        return (DataSource.Workers.Find(IdW->Idw.WorkerId == id) = !null)
+            //return IdW;
+       // return null;
+        //return DataSource.Workers;//תחזיר הפניה לאותו עובד שנמצא
+
     }
 
     public List<Worker> ReadAll()
     {
-        throw new NotImplementedException();
+        return new List<Worker>(DataSource.Workers.ToList);
     }
-
-    public void Update(Worker item)
+    //ref?
+    //אם זה לא טוב אולי נעשה מחיקה ואז הוספה מחדש...
+    /*יש להסיר את ההפניה לאובייקט הקיים מרשימה
+ לאחר מכן, יש להוסיף לרשימה את ההפניה לאובייקט המעודכן שהתקבל כפרמטר
+ */
+    public void Update(ref Worker w)
     {
-        throw new NotImplementedException();
+        if (Read(w.IdWorker) is null)
+            throw new Exception($"Worker with ID={w.IdWorker} not exists");
+        Worker worker=Read(w.IdWorker);
+        worker.Experience=w.Experience;
+        worker.HourSalary = w.HourSalary;
+        worker.Name = w.Name;
+        worker.Email = w.Email;
     }
 }
