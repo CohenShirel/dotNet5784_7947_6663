@@ -6,7 +6,7 @@ public enum levelWorker
 {
     Beginner, AdvancedBeginner, Intermediate, Advanced, Expert
 }
-public enum option
+public enum Option
 {
     EXIT, ADD, READ, ReadAll, Update, Delete,
 }
