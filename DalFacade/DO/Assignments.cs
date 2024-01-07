@@ -1,6 +1,7 @@
 ﻿
 
 namespace DO;
+
 /// <summary>
 /// 
 /// </summary>
@@ -19,6 +20,7 @@ namespace DO;
 /// <param דרן אבן="Milestone"></param>
 public record Assignments
 (
+    
     int IdAssignments,
     int DurationAssignments,
     int LevelAssignments,
@@ -39,7 +41,7 @@ public record Assignments
     public Assignments() : this(0,0,0,0)
     {
 
-    }                  
+    }      
 }
 
 

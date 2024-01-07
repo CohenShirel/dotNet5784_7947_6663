@@ -1,7 +1,10 @@
 ﻿//Shirel Cohen 214377947
-//Neomi Golkin ?????????
+//Neomi Golkin 325946663
 
 
+using Dal;
+using DalApi;
+using DO;
 namespace DalTest;
 using DO;
 
@@ -24,30 +27,8 @@ internal class Program
             int op1 = Console.ReadLine();
             do
             {
-               Console.WriteLine("choose 1-Worker,2-Assignments,3-Link");
-               int op2 = Console.ReadLine();
-             }while(op2<1||op2>3)
-
-            switch(op1)
-            {
-               try
-              {
                 case ADD:
-               {
-                if(op2==1)
-                { 
-
-                }
-                else if (op2 == 2)
-                {
-
-                }
-                  else
-                  {
-
-                  }
-              break;
-             }
+                break;
                 case READ:
                 break;
                 case ReadAll:
@@ -59,14 +40,12 @@ internal class Program
                 default:
                 Console.WriteLine("ERROR");
 			    break;
-              }
-              catch(Exception ex)
-              {
-                   Console.WriteLine(ex.Message);
-              }
            }
-        }while (op1 != Exit)
+        }while(op!=Exit)
         //Exception
     }
 
+
+
+    
 }

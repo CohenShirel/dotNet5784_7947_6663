@@ -28,7 +28,7 @@ internal class LinkImplementation : ILink
     public ILink? Read(int id)
     {
         return (DataSource.Links.Find(IdL->IdL.IdLink == id) = !null)
-
+   
     }
 
     public List<ILink> ReadAll()

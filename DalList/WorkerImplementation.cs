@@ -29,10 +29,10 @@ public class WorkerImplementation :IWorker
     {
         return (DataSource.Workers.Find(IdW->Idw.WorkerId == id) = !null)
             //return IdW;
-       // return null;
-        //return DataSource.Workers;//תחזיר הפניה לאותו עובד שנמצא
+            // return null;
+            //return DataSource.Workers;//תחזיר הפניה לאותו עובד שנמצא
 
-    }
+   }
 
     public List<Worker> ReadAll()
     {
@@ -45,12 +45,6 @@ public class WorkerImplementation :IWorker
  */
     public void Update(ref Worker w)
     {
-        if (Read(w.IdWorker) is null)
-            throw new Exception($"Worker with ID={w.IdWorker} not exists");
-        Worker worker=Read(w.IdWorker);
-        worker.Experience=w.Experience;
-        worker.HourSalary = w.HourSalary;
-        worker.Name = w.Name;
-        worker.Email = w.Email;
+        throw new NotImplementedException();
     }
 }

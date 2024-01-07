@@ -1,5 +1,6 @@
 ﻿
 
+
 namespace DO;
 /// <summary>
 /// 
@@ -11,6 +12,7 @@ namespace DO;
 /// <param מייל="Email"></param>
 public record Worker
 (
+    GCGeneranfo;
     int IdWorker,
     int Experience,
     double HourSalary,
@@ -18,6 +20,7 @@ public record Worker
     string? Email = null
 );
     //empty ctor
+    
     public Worker(): this(0, 0, 0)   
     {  
 

@@ -11,7 +11,7 @@ using DalApi;
 /// <param קודמת משימה="IdPAssignments"></param>
 public record Link
 (
-   int IdLink, 
+   int IdLink,
    int IdAssignments,
    int IdPAssignments
 );
