@@ -1,4 +1,4 @@
-﻿namespace Neomi
+﻿namespace DalFacade
 {
     public class Class1
     {

@@ -1,8 +1,7 @@
-﻿
-//Enum
+﻿//Enum
 namespace DO;
 
-public enum levelWorker
+public enum LevelWorker
 {
     Beginner, AdvancedBeginner, Intermediate, Advanced, Expert
 }

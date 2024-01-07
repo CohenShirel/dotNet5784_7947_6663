@@ -1,11 +1,9 @@
-﻿
-
-namespace Dal;
+﻿namespace Dal;
 using DalApi;
 using DO;
 using System.Collections.Generic;
 
-public class WorkerImplementation :IWorker
+public class WorkerImplementation:IWorker
 {
     public int Create(Worker w)
     {
@@ -22,29 +20,23 @@ public class WorkerImplementation :IWorker
             throw new Exception($"Worker with ID={id} not exists");
         Worker w = Read(id);
         DataSource.Workers.Remove(w);
-        return w.IdWorker;
     }
-
+    //???????????????????????
     public Worker? Read(int id)
     {
-        return (DataSource.Workers.Find(IdW->Idw.WorkerId == id) = !null)
-            //return IdW;
-            // return null;
-            //return DataSource.Workers;//תחזיר הפניה לאותו עובד שנמצא
-
-   }
+       if (DataSource.Workers.Find(IdW => IdW.IdWorker == id) != null)
+            return DataSource.Workers.Find(IdW => IdW.IdWorker == id);
+        return null;
+    }
 
     public List<Worker> ReadAll()
     {
-        return new List<Worker>(DataSource.Workers.ToList);
+        return new List<Worker>(DataSource.Workers.ToList());
     }
-    //ref?
-    //אם זה לא טוב אולי נעשה מחיקה ואז הוספה מחדש...
-    /*יש להסיר את ההפניה לאובייקט הקיים מרשימה
- לאחר מכן, יש להוסיף לרשימה את ההפניה לאובייקט המעודכן שהתקבל כפרמטר
- */
+
     public void Update(ref Worker w)
     {
-        throw new NotImplementedException();
+        Delete(w.IdWorker);
+        Create(w);
     }
 }

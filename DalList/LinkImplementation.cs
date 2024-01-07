@@ -1,13 +1,11 @@
-﻿
-
-namespace Dal;
+﻿namespace Dal;
 using DalApi;
 using DO;
 using System.Collections.Generic;
 
-internal class LinkImplementation : ILink
+internal class LinkImplementation:ILink
 {
-    public int Create(ILink link)
+    public int Create(Link link)
     {
         //for entities with normal id (not auto id)
         if (Read(link.IdLink) is not null)
@@ -22,28 +20,24 @@ internal class LinkImplementation : ILink
             throw new Exception($"Link with ID={id} not exists");
         Link link = Read(id);
         DataSource.Links.Remove(link);
-        return link.IdWorker;
     }
-
-    public ILink? Read(int id)
+    //????????????????????????????
+    public Link? Read(int id)
     {
-        return (DataSource.Links.Find(IdL->IdL.IdLink == id) = !null)
+        if (DataSource.Links.Find(IdL => IdL.IdLink == id) != null)
+            return DataSource.Links.Find(IdL => IdL.IdLink == id);
+        return null;
    
     }
 
-    public List<ILink> ReadAll()
+    public List<Link> ReadAll()
     {
-        return new List<Link>(DataSource.Links.ToList);
+        return new List <Link> (DataSource.Links.ToList());
     }
     //checkkkkkkkkkkkkkkkkkkk
     public void Update(ref Link item)
     {
-        if (Read(item.IdLink) is null)
-            throw new Exception($"Link with ID={item.IdLink} not exists");
-        Link item = Read(item.IdLink);
-        //worker.Experience = w.Experience;
-        //worker.HourSalary = w.HourSalary;
-        //worker.Name = w.Name;
-        //worker.Email = w.Email;
+        Delete(item.IdLink);
+        Create(item);
     }
 }

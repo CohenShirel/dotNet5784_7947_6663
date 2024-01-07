@@ -1,16 +1,16 @@
 ﻿
-
+//using DalList;
 namespace Dal;
-using DalApi;
 using DO;
+using DalApi;
 using System.Collections.Generic;
 
-internal class AssignmentsImplementation : IAssignments
+internal class AssignmentsImplementation:IAssignments
 {
     public int Create(Assignments ass)
     {
         //for entities with auto id
-        int id = DataSource.Config.IdPAssignments;
+        int id = DataSource.Config.idPAssignments;
         Assignments copy = ass with { IdAssignments = id };
         DataSource.Assignmentss.Add(copy);
         return id;
@@ -19,39 +19,32 @@ internal class AssignmentsImplementation : IAssignments
 
     public void Delete(int id)
     {
-        throw new NotImplementedException();
+        if (Read(id) is null)
+            throw new Exception($"Assignments with ID={id} not exists");
+        DataSource.Assignmentss.Remove(Read(id));
     }
-    //int IdAssignments,
-    //int DurationAssignments,
-    //int LevelAssignments,
-    //int IdWorker,
-    //TimeSpan? DateBegin=null,
-    //TimeSpan? DeadLine = null,
-    //TimeSpan? DateStart = null,
-    //TimeSpan? DateFinish = null,
-    //string? Name = null,
-    //string? Description = null,
-    //string? Remarks = null,
-    //string? ResultProduct = null,
-    //bool Milestone = false
+    //??????????????????????????
     public Assignments? Read(int id)
     {
-        return (DataSource.Assignments.Find(IdA->IdA.IdAssignments == id) = !null)
+        if (DataSource.Assignmentss.Find(IdA => IdA.IdAssignments == id) != null)
+            return DataSource.Assignmentss.Find(IdA => IdA.IdAssignments == id);
+        return null;
+    }
+    public int ReadName(string name)
+    {
+        if (DataSource.Assignmentss.Find(n => n.Name == name) != null)
+            return DataSource.Assignmentss.Find(n => n.Name == name).IdAssignments;
+        return 0;
     }
 
     public List<Assignments> ReadAll()
     {
-        return new List<Assignments>(DataSource.Assignments.ToList);
+        return new List<Assignments>(DataSource.Assignmentss.ToList());
     }
 
     public void Update(ref Assignments ass)
     {
-        if (Read(ass.IdAssignments) is null)
-            throw new Exception($"Assignments with ID={ass.IdAssignments} not exists");
-        Assignments assignment = Read(ass.IdAssignments);
-        //worker.Experience = w.Experience;
-        //worker.HourSalary = w.HourSalary;
-        //worker.Name = w.Name;
-        //worker.Email = w.Email;
+        Delete(ass.IdAssignments);
+        Create(ass);
     }
 }

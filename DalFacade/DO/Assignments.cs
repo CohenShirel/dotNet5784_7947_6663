@@ -1,6 +1,4 @@
-﻿
-
-namespace DO;
+﻿namespace DO;
 
 /// <summary>
 /// 
@@ -20,17 +18,15 @@ namespace DO;
 /// <param דרן אבן="Milestone"></param>
 public record Assignments
 (
-    
-    
+
     int IdAssignments,
     int DurationAssignments,
     int LevelAssignments,
     int IdWorker,
-
-    TimeSpan? DateBegin=null,
+    TimeSpan? DateBegin = null,
     TimeSpan? DeadLine = null,
     TimeSpan? DateStart = null,
-    TimeSpan? DateFinish = null ,
+    TimeSpan? DateFinish = null,
     string? Name = null,
     string? Description = null,
     string? Remarks = null,
@@ -40,10 +36,10 @@ public record Assignments
 {
     public DateTime Date => DateTime.Now;//תאריך יצירת המשימה         
     //empty ctor
-    public Assignments() : this(0,0,0,0)
+    public Assignments() : this(0, 0, 0, 0)
     {
 
-    }      
+    }
 }
 
 
