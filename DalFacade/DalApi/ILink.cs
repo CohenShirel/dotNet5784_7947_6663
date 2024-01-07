@@ -9,5 +9,6 @@ public interface ILink
     ILink? Read(int id); //Reads entity object by its ID 
     List<ILink> ReadAll(); //stage 1 only, Reads all entity objects
     void Update(ILink item); //Updates entity object
-    void Delete(int id); //Deletes an object by its Id
+    void Delete(int id); //Deletes an object by its Id\
+    
 }

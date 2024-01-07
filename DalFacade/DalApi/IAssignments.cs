@@ -9,4 +9,5 @@ public interface IAssignments
     List<IAssignments> ReadAll(); //stage 1 only, Reads all entity objects
     void Update(IAssignments item); //Updates entity object
     void Delete(int id); //Deletes an object by its Id
+    
 }

@@ -25,6 +25,7 @@ public record Assignments
     int DurationAssignments,
     int LevelAssignments,
     int IdWorker,
+
     TimeSpan? DateBegin=null,
     TimeSpan? DeadLine = null,
     TimeSpan? DateStart = null,
