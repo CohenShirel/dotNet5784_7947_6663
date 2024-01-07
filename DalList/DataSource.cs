@@ -12,6 +12,7 @@ internal static class DataSource
         internal static int IdPAssignments { get => IdPAssignments++; }
 
     }
+    //לעשות קונפיג גם על תאריך?עמוד 8 למעלה בתיאור הכללי
     internal static List<DO.Worker> Workers { get; } = new();
     internal static List<DO.Assignments> Assignmentss { get; } = new();
 
