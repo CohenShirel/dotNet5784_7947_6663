@@ -11,7 +11,7 @@ namespace DO;
 public record Worker
 (
     int IdWorker,
-    LevelWorker Experience,
+    Level Experience,
     double HourSalary,
     string? Name = null,
     string? Email = null
