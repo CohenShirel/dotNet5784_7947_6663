@@ -10,7 +10,7 @@ internal static class DataSource
         private static int IdPAssignments = IdAssignments;
         internal static int idPAssignments { get => IdPAssignments++; }
     }
-    //לעשות קונפיג גם על תאריך?עמוד 8 למעלה בתיאור הכללי
+    //לעשות קונפיג גם על link?
     internal static List<DO.Worker> Workers { get; } = new();
     internal static List<DO.Assignments> Assignmentss { get; } = new();
     internal static List<DO.Link> Links { get; } = new();

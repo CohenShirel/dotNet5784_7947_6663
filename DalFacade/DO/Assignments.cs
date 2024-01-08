@@ -23,10 +23,9 @@ public record Assignments
     int DurationAssignments,
     int LevelAssignments,
     int IdWorker,
-    TimeSpan? DateBegin = null,
-    TimeSpan? DeadLine = null,
-    TimeSpan? DateStart = null,
-    TimeSpan? DateFinish = null,
+    DateTime? DateBegin = null,
+    DateTime? DeadLine = null,
+    DateTime? DateFinish = null,
     string? Name = null,
     string? Description = null,
     string? Remarks = null,
@@ -34,7 +33,7 @@ public record Assignments
     bool Milestone = false
 )
 {
-    public DateTime Date => DateTime.Now;//תאריך יצירת המשימה         
+    public DateTime DateStart => DateTime.Now;//תאריך יצירת המשימה         
     //empty ctor
     public Assignments() : this(0, 0, 0, 0)
     {

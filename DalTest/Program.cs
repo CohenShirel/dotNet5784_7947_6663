@@ -16,7 +16,7 @@ namespace DalTest
 
         static void Main(string[] args)
         {
-            Initialization.DO(s_dalWorker, s_dalAssignments, s_dalLinks);
+            Initialization.Do(s_dalWorker, s_dalAssignments, s_dalLinks);
 
             Console.WriteLine("choose 1 for exit main menue");
             Console.WriteLine("choose 2 for creat a new object");
@@ -25,29 +25,31 @@ namespace DalTest
             Console.WriteLine("choose 5 for updating existing object data");
             Console.WriteLine("choose 6 for deleting an existing object from a list");
 
-            Option op;
+            //Option op;
             do
             {
-                op = (Option)Enum.Parse(typeof(Option), Console.ReadLine() ?? string.Empty);
+                Array OptionArray = Enum.GetValues(typeof(Option));
+               // LevelWorker randomLevel = (LevelWorker)levelArray.GetValue(s_rand.Next(levelArray.Length));
+                //op = (Option)Enum.Parse(typeof(Option), Console.ReadLine() ?? string.Empty);
 
-                switch (op)
+                switch (OptionArray)
                 {
-                    case Option.ADD:
+                    case ADD:
                         // פעולות להוספה
                         break;
-                    case Option.READ:
+                    case READ:
                         // פעולות לקריאה
                         break;
-                    case Option.ReadAll:
+                    case ReadAll:
                         // פעולות לקריאת כל האובייקטים
                         break;
-                    case Option.Update:
+                    case Update:
                         // פעולות לעדכון
                         break;
-                    case Option.Delete:
+                    case Delete:
                         // פעולות למחיקה
                         break;
-                    case Option.Exit:
+                    case Exit:
                         // יציאה
                         break;
                     default:

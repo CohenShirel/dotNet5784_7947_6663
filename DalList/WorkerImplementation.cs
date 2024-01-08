@@ -13,7 +13,6 @@ public class WorkerImplementation:IWorker
         DataSource.Workers.Add(w);
         return w.IdWorker;
     }
-    //checkkkkkkkkkkkkkkkkkkkkkkkkk
     public void Delete(int id)
     {
         if (Read(id) is null)
@@ -21,19 +20,16 @@ public class WorkerImplementation:IWorker
         Worker w = Read(id);
         DataSource.Workers.Remove(w);
     }
-    //???????????????????????
     public Worker? Read(int id)
     {
        if (DataSource.Workers.Find(IdW => IdW.IdWorker == id) != null)
             return DataSource.Workers.Find(IdW => IdW.IdWorker == id);
         return null;
     }
-
     public List<Worker> ReadAll()
     {
         return new List<Worker>(DataSource.Workers.ToList());
     }
-
     public void Update(ref Worker w)
     {
         Delete(w.IdWorker);
