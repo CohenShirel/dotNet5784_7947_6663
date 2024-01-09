@@ -12,7 +12,7 @@ public record Worker
 (
     int IdWorker,
     Level Experience,
-    double HourSalary,
+    int HourSalary,
     string? Name = null,
     string? Email = null
 )

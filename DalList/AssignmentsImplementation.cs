@@ -9,7 +9,7 @@ public class AssignmentsImplementation:IAssignments
 {
     public int Create(Assignments ass)
     {
-        Assignments newAssignments = ass with { IdAssignments = DataSource.Config.IdAssignments };
+        Assignments newAssignments = ass with { IdAssignments = DataSource.Config.idPAssignments };
         DataSource.Assignmentss.Add(newAssignments);
         return newAssignments.IdAssignments;
 

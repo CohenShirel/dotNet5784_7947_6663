@@ -1,5 +1,6 @@
 ﻿using DalApi;
 using DO;
+using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Xml.Linq;
@@ -23,7 +24,7 @@ public static class Initialization
         s_dalLink = dalLinks ?? throw new NullReferenceException("DAL can not be null!");
 
     }
-
+    //function that creat random workers
     private static void creatWorkers()
     {
         string[] WorkersNames =
@@ -58,6 +59,7 @@ public static class Initialization
             index++;
         }
     }
+    //function that creat random assignment
     private static void creatAssignmentss()
     {
         string[] AssignmentssNames =
@@ -71,41 +73,38 @@ public static class Initialization
         {
             int _durationA = s_rand.Next(50, 600);
 
-            // בחירת ערך רנדומלי מהמערך של Enums.Level
+            // choose random level from Enums.Level
             Array levelArray = Enum.GetValues(typeof(Level));
-            Level randomLevel = (Level)levelArray.GetValue(s_rand.Next(levelArray.Length));
+            Level randomLevel = (Level)levelArray.GetValue(s_rand.Next(levelArray.Length))!;
 
-            //להוסיף כאן תאריך תחילת עבודה
-            //לעשות את זה עם רנדומליות ולא על "עכשיו" נגריל על חודש אחורה
-            //כדי לשא כולם יווצרו באותו הזמן
+           
+            //I make new array just with all the worker with the same Experience
+            List<Worker> workersLst = new List<Worker>();
+            foreach(var worker in s_dalWorker.ReadAll())
+            {
+                if(worker.Experience== randomLevel)
+                    workersLst.Add(worker);
+            }
+            int ID = workersLst[s_rand.Next(workersLst.Count)].IdWorker;
 
-            //לתקן את הגרלת עובד
-            int _idW;
-            do
-                _idW = s_rand.Next(200000000, 400000001);
-            while (s_dalWorker!.Read(_idW) == null);//if you find it!
-
-            //לבדןק שוב את ההגרלות תאריכים
-            //בין תאריך תחילת הפרויקט
-            int rangeYears = s_rand.Next(1, 6);//randomly num on the range of year
-            int rangeWeeks = s_rand.Next(1,13);//randomly num on the range of weeks
-            int rangeDays = s_rand.Next(7, 57);//randomly num on the range of days-one week to 2 month
-            DateTime _dateStart = DateTime.Now;//תאריך התחלה
-            DateTime _dateFinish = _dateStart.AddYears(rangeYears);//תאריך סיום 
-            DateTime _dateBegin = _dateStart.AddDays(-rangeDays);//תאריך מתוכנן לתחילת העבודה
-            DateTime _deadLine = _dateFinish.AddDays(rangeDays);// תאריך מתוכנן לסיום
+            DateTime _date = DateTime.Now;// help date
+            DateTime _dateStart = _date.AddDays(s_rand.Next(30, 61));//random date for "datestart" in range of month=תאריך מתוכנן להתחלה
+            DateTime _deadLine = _dateStart.AddYears(s_rand.Next(1, 4));// "_dateBegin" late in month from datestart=תאריך מתוכנן לסיום
+            DateTime _dateBegin = _dateStart.AddDays(s_rand.Next(30, 61));//when we are start=תאריך התחלה בפועל
+            DateTime _dateFinish = _deadLine.AddDays(s_rand.Next(30,61));//when we are finish=,תאריך סיום בפועל
 
             string? _description = null;
             string? _remarks = null;
             string? _resultProduct = null;
             bool _milestone = false;
-            Assignments newA = new(0, _durationA, randomLevel, _idW, _dateStart, _dateBegin, _deadLine,
+            Assignments newA = new(0, _durationA, randomLevel, ID, _dateStart, _dateBegin, _deadLine,
                 _dateFinish, _name, _description, _remarks, _resultProduct,_milestone);
 
             s_dalAssignments!.Create(newA);
         }
 
     }
+    //function that creat random links
     private static void creatLink()
     {
         s_dalLink!.Create(new Link(0, 0, 1));

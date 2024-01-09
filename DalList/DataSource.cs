@@ -17,7 +17,7 @@ internal static class DataSource
         internal static int idlink { get => IDLink++; }
 
         
-        public static DateTime? dateSrart { get; set; } = null;
+        public static DateTime? dateStart { get; set; } = null;
         public static DateTime? DateBegin { get; set; } = null;
     }
     //list of name,assigment,link

@@ -7,27 +7,9 @@ public class LinkImplementation:ILink
 {
     public int Create(Link link)
     {
-        //for entities with normal id (not auto id)
-        //if (Read(link.IdLink) is not null)
-        //  throw new Exception($"Link with ID={link.IdLink} already exists");
-        //for entities with auto id
-        Link newLink = link with { IdLink = DataSource.Config.IdLink };
+        Link newLink = link with { IdLink = DataSource.Config.idlink };
         DataSource.Links.Add(newLink);
         return newLink.IdLink;
-
-
-
-
-        //int id = DataSource.Config.IdAssignments;
-        //Link copy = link with { IdLink = id };
-        //DataSource.Links.Add(copy);
-        //return id;
-
-       // DataSource.Links.Add(link);
-       // return link.IdLink;
-
-
-       
     }
     public void Delete(int id)
     {
