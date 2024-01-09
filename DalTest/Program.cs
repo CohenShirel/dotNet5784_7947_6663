@@ -1,5 +1,6 @@
 ﻿//Shirel Cohen 214377947
 //Neomi Golkin 325946663
+//עשינו את התוספת של TryParse
 using Dal;
 using DalApi;
 using DalFacade;
@@ -161,16 +162,13 @@ namespace DalTest
                             if (!int.TryParse(Console.ReadLine(), out int iD))
                                 throw new Exception("Wrong input");
                             Worker updatedWorker = s_dalWorker!.Read(iD)! ?? throw new Exception($"Can't update, worker does not exist!!");
+                            Console.WriteLine(updatedWorker);
                             Console.WriteLine("Please update the details -- name, email, level .\n");
                             string? updatedName = Console.ReadLine() ?? throw new Exception("Wrong input");
                             string? updetedEmail = Console.ReadLine() ?? throw new Exception("Wrong input");
                             if (!int.TryParse(Console.ReadLine(), out int updatedCost))
                                 throw new Exception("Wrong input");
                             Level updatedLevel = (Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
-
-                            // Level level = (Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
-
-                            //EngineerExperience updatedLevel = (EngineerExperience)int.Parse(Console.ReadLine() ?? $"{updatedEngineer.Level}");
                             Worker worker = new Worker(iD, updatedLevel, updatedCost, updatedName, updetedEmail);
                             s_dalWorker!.Update(ref worker);
 
@@ -255,6 +253,8 @@ namespace DalTest
                             if (!int.TryParse(Console.ReadLine(), out int updatedId))
                                 throw new Exception("Wrong input");
                             Link? updatedDependency = s_dalLinks!.Read(updatedId) ?? throw new Exception("Wrong input");
+                            Console.WriteLine(updatedDependency);
+                            Console.WriteLine("Enter the  two updated task codes:");
                             if (!int.TryParse(Console.ReadLine(), out int updaupdatedAssignment))
                                 throw new Exception("Wrong input");
                             if (!int.TryParse(Console.ReadLine(), out int updatedPAssignment))
@@ -360,17 +360,18 @@ namespace DalTest
                             Console.WriteLine("Enter Assignments Id: ");
                             if (!int.TryParse(Console.ReadLine(), out int Id))
                                 throw new Exception("Wrong input");
+                            Console.WriteLine(s_dalAssignments!.Read(Id));
                             Console.WriteLine("enter Name of the Assignment: ");
-                            string? name1 = Console.ReadLine() ?? throw new FormatException("Wrong input");
+                            string? name1 = Console.ReadLine() ?? throw new Exception("Wrong input");
 
                             Console.WriteLine("enter Description of the Assignment: ");
-                            string? Description1 = Console.ReadLine() ?? throw new FormatException("Wrong input");
+                            string? Description1 = Console.ReadLine() ?? throw new Exception("Wrong input");
 
                             Console.WriteLine("enter Remarks of the Assignment: ");
-                            string? Remarks1 = Console.ReadLine() ?? throw new FormatException("Wrong input");
+                            string? Remarks1 = Console.ReadLine() ?? throw new Exception("Wrong input");
 
                             Console.WriteLine("enter ResultProduct of the Assignment: ");
-                            string? ResultProduct1 = Console.ReadLine() ?? throw new FormatException("Wrong input");
+                            string? ResultProduct1 = Console.ReadLine() ?? throw new Exception("Wrong input");
 
                             Console.WriteLine("enter DurationAssignments of the Assignment: ");
                             if (!int.TryParse(Console.ReadLine(), out int DurationAssignments1))
