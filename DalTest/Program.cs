@@ -26,7 +26,7 @@ namespace DalTest
         UPDATE,
         DELETE
     }
-    //private static void creatLink(out Link link,int id=0)
+    //rivate static void creatLink(out Link link,int id=0)
     //{
     //    Console.WriteLine("enter AssignmentsID of the link: ");
     //    if (!int.TryParse(Console.ReadLine(), out int idAssigment1))
@@ -86,7 +86,7 @@ namespace DalTest
                                 break;
                             case ENTITY.ASSIGNMENT:
                                 optionAssignment();
-                                // פעולות למחיקה
+                                // פעולת למחיקה
                                 break;
                             default:
                                 Console.WriteLine("ERROR");
