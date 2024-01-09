@@ -435,9 +435,6 @@ namespace DalTest
                 }
 
             } while (myChoice != CRUD.EXIT);
-
-
-
         }
     }
 }
