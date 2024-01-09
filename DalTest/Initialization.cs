@@ -36,10 +36,9 @@ public static class Initialization
         "Dani@gmail.com", "Eli@gmail.com", "Yair@gmail.com",
         "Ariela@gmail.com", "Dina@gmail.com", "Shira@gmail.com"
         };
-
+        int index = 0;
         foreach (var _name in WorkersNames)
         {
-            int index = 0;
             //id randomly
             int _idW;
             do
@@ -52,10 +51,9 @@ public static class Initialization
             Array levelArray = Enum.GetValues(typeof(LevelWorker));
             LevelWorker randomLevel = (LevelWorker)levelArray.GetValue(s_rand.Next(levelArray.Length));
 
-            Worker newWork = new(_idW, randomLevel, _hourSalary,_name,WorkersEmail[index]);
+            Worker newWork = new(_idW, randomLevel, _hourSalary,_name,WorkersEmail[index++]);
 
             s_dalWorker!.Create(newWork);
-            index++;
         }
     }
     private static void creatAssignmentss()

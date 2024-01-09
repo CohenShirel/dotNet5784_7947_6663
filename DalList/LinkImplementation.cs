@@ -11,7 +11,7 @@ public class LinkImplementation:ILink
         if (Read(link.IdLink) is not null)
             throw new Exception($"Link with ID={link.IdLink} already exists");
         //for entities with auto id
-        int id = DataSource.Config.IdAssignments;
+        int id = DataSource.Config.IdLink;
         Link copy = link with { IdLink = id };
         DataSource.Links.Add(copy);
         return id;
