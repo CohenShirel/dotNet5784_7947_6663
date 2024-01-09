@@ -1,5 +1,6 @@
 ﻿using DalApi;
 using DO;
+using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Xml.Linq;
@@ -23,7 +24,7 @@ public static class Initialization
         s_dalLink = dalLinks ?? throw new NullReferenceException("DAL can not be null!");
 
     }
-
+    //function that creat random workers
     private static void creatWorkers()
     {
         string[] WorkersNames =
@@ -47,15 +48,16 @@ public static class Initialization
 
             int _hourSalary = s_rand.Next(50, 600);
 
-            // בחירת ערך רנדומלי מהמערך של Enums.LevelWorkers
-            Array levelArray = Enum.GetValues(typeof(LevelWorker));
-            LevelWorker randomLevel = (LevelWorker)levelArray.GetValue(s_rand.Next(levelArray.Length));
+            // בחירת ערך רנדומלי מהמערך של Enums.Level
+            Array levelArray = Enum.GetValues(typeof(Level));
+            Level randomLevel = (Level)levelArray.GetValue(s_rand.Next(levelArray.Length));
 
             Worker newWork = new(_idW, randomLevel, _hourSalary,_name,WorkersEmail[index++]);
 
             s_dalWorker!.Create(newWork);
         }
     }
+    //function that creat random assignment
     private static void creatAssignmentss()
     {
         string[] AssignmentssNames =
@@ -67,102 +69,52 @@ public static class Initialization
         };
         foreach (var _name in AssignmentssNames)
         {
-            //האם צריך להגדיר זאת גם למספר רץ?
-            int _idA;
-            do
-                _idA = s_rand.Next(200000000, 400000001);
-            while (s_dalAssignments!.Read(_idA) != null);
-
             int _durationA = s_rand.Next(50, 600);
-            int _levelA = s_rand.Next(0, 11);
 
-            int _idW;
-            do
-                _idW = s_rand.Next(200000000, 400000001);
-            while (s_dalWorker!.Read(_idW) == null);//if you find it!
+            // choose random level from Enums.Level
+            Array levelArray = Enum.GetValues(typeof(Level));
+            Level randomLevel = (Level)levelArray.GetValue(s_rand.Next(levelArray.Length))!;
 
-           int _level = s_rand.Next(0, 11);
+           
+            //I make new array just with all the worker with the same Experience
+            List<Worker> workersLst = new List<Worker>();
+            foreach(var worker in s_dalWorker.ReadAll())
+            {
+                if(worker.Experience== randomLevel)
+                    workersLst.Add(worker);
+            }
+            int ID = workersLst[s_rand.Next(workersLst.Count)].IdWorker;
 
-            int rangeYears = s_rand.Next(1, 6);//randomly num on the range of year
-            int rangeWeeks = s_rand.Next(1,13);//randomly num on the range of weeks
-            int rangeDays = s_rand.Next(7, 57);//randomly num on the range of days-one week to 2 month
-            DateTime _dateStart = DateTime.Now;//תאריך התחלה
-            DateTime _dateFinish = _dateStart.AddYears(rangeYears);//תאריך סיום 
-            DateTime _dateBegin = _dateStart.AddDays(-rangeDays);//תאריך מתוכנן לתחילת העבודה
-            DateTime _deadLine = _dateFinish.AddDays(rangeDays);// תאריך מתוכנן לסיום
+            DateTime _date = DateTime.Now;// help date
+            DateTime _dateStart = _date.AddDays(s_rand.Next(30, 61));//random date for "datestart" in range of month=תאריך מתוכנן להתחלה
+            DateTime _deadLine = _dateStart.AddYears(s_rand.Next(1, 4));// "_dateBegin" late in month from datestart=תאריך מתוכנן לסיום
+            DateTime _dateBegin = _dateStart.AddDays(s_rand.Next(30, 61));//when we are start=תאריך התחלה בפועל
+            DateTime _dateFinish = _deadLine.AddDays(s_rand.Next(30,61));//when we are finish=,תאריך סיום בפועל
 
             string? _description = null;
             string? _remarks = null;
             string? _resultProduct = null;
             bool _milestone = false;
-
-            Assignments newA = new(_idA, _durationA, _idW,_level,_dateBegin, _deadLine,
+            Assignments newA = new(0, _durationA, randomLevel, ID, _dateStart, _dateBegin, _deadLine,
                 _dateFinish, _name, _description, _remarks, _resultProduct,_milestone);
 
             s_dalAssignments!.Create(newA);
         }
 
     }
-    //את מי צריך לקשר כאן?
+    //function that creat random links
     private static void creatLink()
     {
-        //האם צריך להגדיר זאת גם למספר רץ?
-        string[] AssignmentssNames2 =
-        {
-           "floors","Climate_systems","Windows_doors",
-            "elevators","Finishes_colors","final_inspections","residents_Transferring","parkingLots","yards",
-
-        };
-        string[] AssignmentssNames1 =
-        {
-           "confirmation","budget_planning","Architectural_design", "Building_foundations",
-           "Electrical_Systems","Emergency_systems","Automation_networks","Safety_systems",
-            "External_installations","Technological_spaces",
-        };
-        int index = 1,_idL, _idPA, _idA;
-        foreach (var _name in AssignmentssNames1.Take(AssignmentssNames1.Length-1))
-        {
-            do
-                _idL = s_rand.Next(200000000, 400000001);
-            while (s_dalLink!.Read(_idL) != null);
-            _idPA = s_dalAssignments.ReadName(_name);
-            _idA = s_dalAssignments.ReadName(AssignmentssNames1[index++]);
-            if (_idA != 0 && _idPA != 0)
-            {
-                Link newL = new(_idL, _idA, _idPA);
-                s_dalLink!.Create(newL);
-            }
-            else
-                throw new Exception("Assignments are not exists");
-        }
-        //האם אתה מספר רץץץץץץץץ
-        do
-            _idL = s_rand.Next(200000000, 400000001);
-        while (s_dalLink!.Read(_idL) != null);
-        _idPA = s_dalAssignments.ReadName("Building_foundations");
-        _idA = s_dalAssignments.ReadName("Sewage_infrastructure");
-        if (_idA != 0 && _idPA != 0)
-        {
-            Link newL = new(_idL, _idA, _idPA);
-            s_dalLink!.Create(newL);
-        }
-        else
-            throw new Exception("Assignments are not exists");
-        //connnnnnnnnn
-        //האם אתה מספר רץץץץץץץץ
-        do
-            _idL = s_rand.Next(200000000, 400000001);
-        while (s_dalLink!.Read(_idL) != null);
-        _idPA = s_dalAssignments.ReadName("final_inspections");
-        _idA = s_dalAssignments.ReadName("residents_Transferring");
-        if (_idA != 0 && _idPA != 0)
-        {
-            Link newL = new(_idL, _idA, _idPA);
-            s_dalLink!.Create(newL);
-        }
-        else
-            throw new Exception("Assignments are not exists");
-
-
+        s_dalLink!.Create(new Link(0, 0, 1));
+        s_dalLink!.Create(new Link(0, 1, 2));
+        s_dalLink!.Create(new Link(0, 2, 3));
+        s_dalLink!.Create(new Link(0, 3, 4));
+        s_dalLink!.Create(new Link(0, 3, 5));
+        s_dalLink!.Create(new Link(0, 5, 10));
+        s_dalLink!.Create(new Link(0, 10, 11));
+        s_dalLink!.Create(new Link(0, 11, 13));
+        s_dalLink!.Create(new Link(0, 13, 17));
+        s_dalLink!.Create(new Link(0, 17, 14));
+        s_dalLink!.Create(new Link(0, 18, 19));
     }
 }

@@ -21,8 +21,9 @@ public record Assignments
 
     int IdAssignments,
     int DurationAssignments,
-    int LevelAssignments,
+    Level LevelAssignments,
     int IdWorker,
+    DateTime? dateSrart=null,
     DateTime? DateBegin = null,
     DateTime? DeadLine = null,
     DateTime? DateFinish = null,
@@ -33,9 +34,9 @@ public record Assignments
     bool Milestone = false
 )
 {
-    public DateTime DateStart => DateTime.Now;//תאריך יצירת המשימה         
+          
     //empty ctor
-    public Assignments() : this(0, 0, 0, 0)
+    public Assignments() : this(0, 0,0,0)
     {
 
     }

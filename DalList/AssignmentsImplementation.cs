@@ -9,13 +9,18 @@ public class AssignmentsImplementation:IAssignments
 {
     public int Create(Assignments ass)
     {
-        if (Read(ass.IdAssignments) is not null)
-            throw new Exception($"Assignment with ID={ass.IdAssignments} already exists");
-        //for entities with auto id
-        int id = DataSource.Config.idPAssignments;
-        Assignments copy = ass with { IdAssignments = id };
-        DataSource.Assignmentss.Add(copy);
-        return id;
+        Assignments newAssignments = ass with { IdAssignments = DataSource.Config.idPAssignments };
+        DataSource.Assignmentss.Add(newAssignments);
+        return newAssignments.IdAssignments;
+
+
+        //if (Read(ass.IdAssignments) is not null)
+        //    throw new Exception($"Assignment with ID={ass.IdAssignments} already exists");
+        ////for entities with auto id
+        //int id = DataSource.Config.idPAssignments;
+        //Assignments copy = ass with { IdAssignments = id };
+        //DataSource.Assignmentss.Add(copy);
+        //return id;
     }
     public void Delete(int id)
     {
