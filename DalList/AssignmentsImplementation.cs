@@ -37,7 +37,7 @@ public class AssignmentsImplementation:IAssignments
     public int ReadName(string name)
     {
         if (DataSource.Assignmentss.Find(n => n.Name == name) != null)
-            return DataSource.Assignmentss.Find(n => n.Name == name).IdAssignments;
+            return DataSource.Assignmentss.Find(n => n.Name == name)!.IdAssignments;
         return 0;
     }
     public List<Assignments> ReadAll()

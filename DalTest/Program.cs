@@ -169,6 +169,11 @@ namespace DalTest
                             if (!int.TryParse(Console.ReadLine(), out int updatedCost))
                                 throw new Exception("Wrong input");
                             Level updatedLevel = (Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
+                            //if i got space/null save the old one
+                            //if (string.IsNullOrWhiteSpace(updatedName))
+                            //    updatedName = s_dalWorker.Read(iD)!.Name;
+                            //if (string.IsNullOrWhiteSpace(updetedEmail))
+                            //    updetedEmail = s_dalWorker.Read(iD)!.Email;
                             Worker worker = new Worker(iD, updatedLevel, updatedCost, updatedName, updetedEmail);
                             s_dalWorker!.Update(ref worker);
 
@@ -249,7 +254,7 @@ namespace DalTest
                             break;
                         case CRUD.UPDATE:
                             // Perform update operation
-                            Console.WriteLine("Enter the requested link number, and two updated task codes:");
+                            Console.WriteLine("Enter the requested link number");
                             if (!int.TryParse(Console.ReadLine(), out int updatedId))
                                 throw new Exception("Wrong input");
                             Link? updatedDependency = s_dalLinks!.Read(updatedId) ?? throw new Exception("Wrong input");
@@ -361,6 +366,7 @@ namespace DalTest
                             if (!int.TryParse(Console.ReadLine(), out int Id))
                                 throw new Exception("Wrong input");
                             Console.WriteLine(s_dalAssignments!.Read(Id));
+
                             Console.WriteLine("enter Name of the Assignment: ");
                             string? name1 = Console.ReadLine() ?? throw new Exception("Wrong input");
 
@@ -393,6 +399,15 @@ namespace DalTest
                                 throw new Exception("datestart is not correct");
                             if (!DateTime.TryParse(Console.ReadLine(), out DateTime DateFinish1))
                                 throw new Exception("datestart is not correct");
+                            //if i got space/null save the old one
+                            //if (string.IsNullOrWhiteSpace(name1))
+                            //    name1 = s_dalAssignments.Read(Id)!.Name;
+                            //if (string.IsNullOrWhiteSpace(Description1))
+                            //    Description1 = s_dalAssignments.Read(Id)!.Description;
+                            //if (string.IsNullOrWhiteSpace(Remarks1))
+                            //    Remarks1 = s_dalAssignments.Read(Id)!.Remarks;
+                            //if (string.IsNullOrWhiteSpace(ResultProduct1))
+                            //    ResultProduct1 = s_dalAssignments.Read(Id)!.ResultProduct;
                             Assignments ass = new Assignments(Id, DurationAssignments1, level1, IdWorker1, datestart1, DateBegin1, DeadLine1,
                             DateFinish1, name1, Description1, Remarks1, ResultProduct1, milestone1);
                             s_dalAssignments!.Update(ref ass);
@@ -420,9 +435,6 @@ namespace DalTest
                 }
 
             } while (myChoice != CRUD.EXIT);
-
-
-
         }
     }
 }
