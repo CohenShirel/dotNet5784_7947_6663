@@ -78,18 +78,18 @@ public static class Initialization
            
             //I make new array just with all the worker with the same Experience
             List<Worker> workersLst = new List<Worker>();
-            foreach(var worker in s_dalWorker.ReadAll())
+            foreach(var worker in s_dalWorker!.ReadAll())
             {
                 if(worker.Experience== randomLevel)
                     workersLst.Add(worker);
             }
             int ID = workersLst[s_rand.Next(workersLst.Count)].IdWorker;
 
-            DateTime _date = DateTime.Now;// help date
-            DateTime _dateStart = _date.AddDays(s_rand.Next(30, 61));//random date for "datestart" in range of month=תאריך מתוכנן להתחלה
-            DateTime _deadLine = _dateStart.AddYears(s_rand.Next(1, 4));// "_dateBegin" late in month from datestart=תאריך מתוכנן לסיום
-            DateTime _dateBegin = _dateStart.AddDays(s_rand.Next(30, 61));//when we are start=תאריך התחלה בפועל
-            DateTime _dateFinish = _deadLine.AddDays(s_rand.Next(30,61));//when we are finish=,תאריך סיום בפועל
+            DateOnly _date = DateOnly.FromDateTime(DateTime.Now);// help date
+            DateOnly _dateStart = _date.AddDays(s_rand.Next(30, 61));//random date for "datestart" in range of month=תאריך מתוכנן להתחלה
+            DateOnly _deadLine = _dateStart.AddYears(s_rand.Next(1, 4));// "_dateBegin" late in month from datestart=תאריך מתוכנן לסיום
+            DateOnly _dateBegin = _dateStart.AddDays(s_rand.Next(30, 61));//when we are start=תאריך התחלה בפועל
+            DateOnly _dateFinish = _deadLine.AddDays(s_rand.Next(30,61));//when we are finish=,תאריך סיום בפועל
 
             string? _description = null;
             string? _remarks = null;

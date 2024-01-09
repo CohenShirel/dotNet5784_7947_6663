@@ -163,7 +163,7 @@ namespace DalTest
                                 throw new Exception("Wrong input");
                             Worker updatedWorker = s_dalWorker!.Read(iD)! ?? throw new Exception($"Can't update, worker does not exist!!");
                             Console.WriteLine(updatedWorker);
-                            Console.WriteLine("Please update the details -- name, email, level .\n");
+                            Console.WriteLine("Please update the details -- name, email, level, cost.\n");
                             string? updatedName = Console.ReadLine() ?? throw new Exception("Wrong input");
                             string? updetedEmail = Console.ReadLine() ?? throw new Exception("Wrong input");
                             if (!int.TryParse(Console.ReadLine(), out int updatedCost))
@@ -335,13 +335,13 @@ namespace DalTest
                                 throw new Exception("Wrong input");
 
                             Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
-                            if (!DateTime.TryParse(Console.ReadLine(), out DateTime datestart))
+                            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly datestart))
                                 throw new Exception("datestart is not correct");
-                            if (!DateTime.TryParse(Console.ReadLine(), out DateTime DateBegin))
+                            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateBegin))
                                 throw new Exception("datestart is not correct");
-                            if (!DateTime.TryParse(Console.ReadLine(), out DateTime DeadLine))
+                            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DeadLine))
                                 throw new Exception("datestart is not correct");
-                            if (!DateTime.TryParse(Console.ReadLine(), out DateTime DateFinish))
+                            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateFinish))
                                 throw new Exception("datestart is not correct");
                             s_dalAssignments!.Create(new(0, DurationAssignments, level, IdWorker, datestart, DateBegin, DeadLine,
                              DateFinish, name, Description, Remarks, ResultProduct, milestone));
@@ -391,13 +391,13 @@ namespace DalTest
                                 throw new Exception("Wrong input");
 
                             Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
-                            if (!DateTime.TryParse(Console.ReadLine(), out DateTime datestart1))
+                            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly datestart1))
                                 throw new Exception("datestart is not correct");
-                            if (!DateTime.TryParse(Console.ReadLine(), out DateTime DateBegin1))
+                            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateBegin1))
                                 throw new Exception("datestart is not correct");
-                            if (!DateTime.TryParse(Console.ReadLine(), out DateTime DeadLine1))
+                            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DeadLine1))
                                 throw new Exception("datestart is not correct");
-                            if (!DateTime.TryParse(Console.ReadLine(), out DateTime DateFinish1))
+                            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateFinish1))
                                 throw new Exception("datestart is not correct");
                             //if i got space/null save the old one
                             //if (string.IsNullOrWhiteSpace(name1))

@@ -17,8 +17,8 @@ internal static class DataSource
         internal static int idlink { get => IDLink++; }
 
         
-        public static DateTime? dateStart { get; set; } = null;
-        public static DateTime? DateBegin { get; set; } = null;
+        public static DateOnly? dateStart { get; set; } = null;
+        public static DateOnly? DateBegin { get; set; } = null;
     }
     //list of name,assigment,link
     internal static List<DO.Worker> Workers { get; } = new();
