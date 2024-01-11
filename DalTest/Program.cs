@@ -3,12 +3,8 @@
 //עשינו את התוספת של TryParse
 using Dal;
 using DalApi;
-using DalFacade;
 using DO;
-using System;
-using System.Reflection.Emit;
-using System.Runtime.InteropServices;
-using System.Xml.Linq;
+
 namespace DalTest
 {
     public enum ENTITY
@@ -27,39 +23,19 @@ namespace DalTest
         UPDATE,
         DELETE
     }
-    //rivate static void creatLink(out Link link,int id=0)
-    //{
-    //    Console.WriteLine("enter AssignmentsID of the link: ");
-    //    if (!int.TryParse(Console.ReadLine(), out int idAssigment1))
-    //        throw new FormatException("Wrong input");
-
-    //    Console.WriteLine("enter AssignmentsID of the link: ");
-    //    if (!int.TryParse(Console.ReadLine(), out int idAssigment2))
-    //        throw new FormatException("Wrong input");
-
-    //    link = new Link(id, idAssigment1, idAssigment2);
-    //}
     internal class Program
     {
         private static readonly Random s_rand = new();
 
-        private static IWorker? s_dalWorker = new WorkerImplementation();
-        private static IAssignments? s_dalAssignments = new AssignmentsImplementation();
-        private static ILink? s_dalLinks = new LinkImplementation();
-        
+        //private static IWorker? s_dal.Worker = new WorkerImplementation();
+        //private static IAssignments? s_dal.Assignments = new AssignmentsImplementation();
+        //private static ILink? s_dal.Link = new LinkImplementation();
+        static readonly IDal s_dal = new Dal.DalList(); //stage 2
         static void Main(string[] args)
         {
             try
             {
-                Initialization.Do(s_dalWorker, s_dalAssignments, s_dalLinks);
-
-
-                //Console.WriteLine("choose 0 for exit main menu");
-                //Console.WriteLine("choose 1 for Worker");
-                //Console.WriteLine("choose 2 for Link");
-                //Console.WriteLine("choose 3 for ASSIGNMENT");
-
-
+                Initialization.Do(s_dal);
                 ENTITY myChoice;// = ENTITY.ASSIGNMENT;
                 do
                 {
@@ -67,9 +43,6 @@ namespace DalTest
                     Console.WriteLine("choose 1 for Worker");
                     Console.WriteLine("choose 2 for Link");
                     Console.WriteLine("choose 3 for ASSIGNMENT");
-                    //Array OptionArray = Enum.GetValues(typeof(ENTITY));
-                    // LevelWorker randomLevel = (LevelWorker)levelArray.GetValue(s_rand.Next(levelArray.Length));
-                    //op = (Option)Enum.Parse(typeof(Option), Console.ReadLine() ?? string.Empty);
                     if (Enum.TryParse(Console.ReadLine(), out myChoice))
                     {
                         switch (myChoice)
@@ -130,14 +103,14 @@ namespace DalTest
                             // Perform create operation
                             Console.WriteLine("Enter worker ID, Cost, name and Email, level : ");
                             if (!int.TryParse(Console.ReadLine(), out int id))
-                                throw new Exception("Wrong input");
+                                throw new DalAlreadyExistsException("Wrong input");
                             if (!int.TryParse(Console.ReadLine(), out int cost))
                                 throw new Exception("Wrong input");
-                            string? name = Console.ReadLine() ?? throw new Exception("Wrong input");
+                            string? name = Console.ReadLine() ?? throw new ArgumentException("Wrong input");
                             string? email = Console.ReadLine() ?? throw new Exception("Wrong input");
                             Level level = (Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
 
-                            s_dalWorker!.Create(new(id, level, cost, name, email));
+                            s_dal.Worker!.Create(new(id, level, cost, name, email));
                             
                             break;
                         case CRUD.READ:
@@ -145,13 +118,13 @@ namespace DalTest
                         
                             Console.WriteLine("Enter worker ID: ");
                             if (!int.TryParse(Console.ReadLine(), out int ID))
-                                throw new Exception("Wrong input"); 
-                            Worker? readWorker = s_dalWorker!.Read(ID);
-                            Console.WriteLine(readWorker);
+                                throw new DalDoesNotExistException("Wrong input");
+                            Worker? rea = s_dal.Worker!.Read(a => a.IdWorker == ID);
+                            Console.WriteLine(rea);
                             break;
                         case CRUD.READ_ALL:
                             // Perform read all operation
-                            foreach(var Workers in s_dalWorker!.ReadAll())
+                            foreach(var Workers in s_dal.Worker!.ReadAll())
                             {
                                 Console.WriteLine(Workers);
                             }
@@ -160,8 +133,8 @@ namespace DalTest
                             // Perform update operation
                             Console.WriteLine("Enter worker ID: ");
                             if (!int.TryParse(Console.ReadLine(), out int iD))
-                                throw new Exception("Wrong input");
-                            Worker updatedWorker = s_dalWorker!.Read(iD)! ?? throw new Exception($"Can't update, worker does not exist!!");
+                                throw new DalDoesNotExistException("Wrong input");
+                            Worker updatedWorker = s_dal.Worker!.Read(a => a.IdWorker == iD)! ?? throw new Exception($"Can't update, worker does not exist!!");
                             Console.WriteLine(updatedWorker);
                             Console.WriteLine("Please update the details -- name, email, level, cost.\n");
                             string? updatedName = Console.ReadLine() ?? throw new Exception("Wrong input");
@@ -171,19 +144,19 @@ namespace DalTest
                             Level updatedLevel = (Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
                             //if i got space/null save the old one
                             //if (string.IsNullOrWhiteSpace(updatedName))
-                            //    updatedName = s_dalWorker.Read(iD)!.Name;
+                            //    updatedName = s_dal.Worker.Read(iD)!.Name;
                             //if (string.IsNullOrWhiteSpace(updetedEmail))
-                            //    updetedEmail = s_dalWorker.Read(iD)!.Email;
+                            //    updetedEmail = s_dal.Worker.Read(iD)!.Email;
                             Worker worker = new Worker(iD, updatedLevel, updatedCost, updatedName, updetedEmail);
-                            s_dalWorker!.Update(ref worker);
+                            s_dal.Worker!.Update(ref worker);
 
                             break;
                         case CRUD.DELETE:
                             // Perform delete operation
                             Console.WriteLine("Enter worker ID: ");
                             if (!int.TryParse(Console.ReadLine(), out int Id))
-                                throw new Exception("Wrong input"); 
-                            s_dalWorker!.Delete(Id);
+                                throw new DalDoesNotExistException("Wrong input"); 
+                            s_dal.Worker!.Delete(Id);
                                 break;
                         case CRUD.EXIT:
                             Console.WriteLine("Exiting program");
@@ -199,9 +172,6 @@ namespace DalTest
                 }
 
             } while (myChoice != CRUD.EXIT);
-
-
-
         }
         private static void optionLink()
         {
@@ -224,30 +194,30 @@ namespace DalTest
                     {
                         case CRUD.CREATE:
                             int idAssigment1, idAssigment2;
-                            //it will get into the loop *there are item in the s_dalAssignments **if idAssigment1 exist
+                            //it will get into the loop *there are item in the s_dal.Assignments **if idAssigment1 exist
                             Console.WriteLine("enter AssignmentsID of the link: ");
                             if (!int.TryParse(Console.ReadLine(), out idAssigment1))
-                                throw new Exception("Wrong input");
+                                throw new DalAlreadyExistsException("Wrong input");
                            Console.WriteLine("enter AssignmentsID of the link: ");
                             if (!int.TryParse(Console.ReadLine(), out idAssigment2))
                                 throw new Exception("Wrong input");
                             //do
                             //{
                                
-                            //} while (s_dalAssignments!.Read(idAssigment2) != null && s_dalAssignments!=null);
-                            s_dalLinks!.Create(new(0, idAssigment1, idAssigment2));
+                            //} while (s_dalAssignments!.Read(idAssigment2) != null && s_dal.Assignments!=null);
+                            s_dal.Link!.Create(new(0, idAssigment1, idAssigment2));
                             break;
                         case CRUD.READ:
                             // Perform read operation
                             Console.WriteLine("Enter Link ID: ");
                             if (!int.TryParse(Console.ReadLine(), out int readId))
-                                throw new Exception("Wrong input");
-                            Link ? readLink = s_dalLinks!.Read(readId);
+                                throw new DalDoesNotExistException("Wrong input");
+                            Link? readLink = s_dal.Link!.Read(a => a.IdLink == readId);
                             Console.WriteLine(readLink is null ? "Link was not found!\n" : readLink);
                             break;
                         case CRUD.READ_ALL:
                             Console.WriteLine("List of Links: ");
-                            foreach (var item in s_dalLinks!.ReadAll())
+                            foreach (var item in s_dal.Link!.ReadAll())
                             {
                                 Console.WriteLine(item);
                             }
@@ -256,8 +226,8 @@ namespace DalTest
                             // Perform update operation
                             Console.WriteLine("Enter the requested link number");
                             if (!int.TryParse(Console.ReadLine(), out int updatedId))
-                                throw new Exception("Wrong input");
-                            Link? updatedDependency = s_dalLinks!.Read(updatedId) ?? throw new Exception("Wrong input");
+                                throw new DalDoesNotExistException("Wrong input");
+                            Link? updatedDependency = s_dal.Link!.Read(a => a.IdLink == updatedId) ?? throw new Exception("Wrong input");
                             Console.WriteLine(updatedDependency);
                             Console.WriteLine("Enter the  two updated task codes:");
                             if (!int.TryParse(Console.ReadLine(), out int updaupdatedAssignment))
@@ -265,13 +235,13 @@ namespace DalTest
                             if (!int.TryParse(Console.ReadLine(), out int updatedPAssignment))
                                 throw new Exception("Wrong input");
                             Link a=new(updatedId, updaupdatedAssignment, updatedPAssignment);
-                            s_dalLinks!.Update(ref a);
+                            s_dal.Link!.Update(ref a);
                             break;
                         case CRUD.DELETE:
                             Console.WriteLine("Enter Link ID: ");
                             if (!int.TryParse(Console.ReadLine(), out int idDelete))
-                                throw new Exception("Wrong input");
-                            s_dalLinks!.Delete(idDelete);
+                                throw new DalDoesNotExistException("Wrong input");
+                            s_dal.Link!.Delete(idDelete);
                             break;
 
                         case CRUD.EXIT:
@@ -311,7 +281,7 @@ namespace DalTest
                     {
                         case CRUD.CREATE:
                             Console.WriteLine("enter Name of the Assignment: ");
-                            string? name = Console.ReadLine() ?? throw new Exception("Wrong input");
+                            string? name = Console.ReadLine() ?? throw new DalAlreadyExistsException("Wrong input");
 
                             Console.WriteLine("enter Description of the Assignment: ");
                             string? Description = Console.ReadLine() ?? throw new Exception("Wrong input");
@@ -343,29 +313,29 @@ namespace DalTest
                                 throw new Exception("datestart is not correct");
                             if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateFinish))
                                 throw new Exception("datestart is not correct");
-                            s_dalAssignments!.Create(new(0, DurationAssignments, level, IdWorker, datestart, DateBegin, DeadLine,
+                            s_dal.Assignments!.Create(new(0, DurationAssignments, level, IdWorker, datestart, DateBegin, DeadLine,
                              DateFinish, name, Description, Remarks, ResultProduct, milestone));
                             break;
 
                         case CRUD.READ:
                             Console.WriteLine("Enter Assignment ID: ");
                             if (!int.TryParse(Console.ReadLine(), out int ID))
-                                throw new Exception("Wrong input");
-                            Assignments? readAssignment = s_dalAssignments!.Read(ID);
-                            Console.WriteLine(readAssignment);
+                                throw new DalDoesNotExistException("Wrong input");
+                            Assignments rea = s_dal.Assignments!.Read(a => a.IdWorker == ID)!;
+                            Console.WriteLine(rea);
                             break;
-
+                            
                         case CRUD.READ_ALL:
                             Console.WriteLine("List of Assigments: ");
-                            foreach (var item in s_dalAssignments!.ReadAll())
+                            foreach (var item in s_dal.Assignments!.ReadAll())
                                 Console.WriteLine(item);
                             break; 
 
                         case CRUD.UPDATE:
                             Console.WriteLine("Enter Assignments Id: ");
                             if (!int.TryParse(Console.ReadLine(), out int Id))
-                                throw new Exception("Wrong input");
-                            Console.WriteLine(s_dalAssignments!.Read(Id));
+                                throw new DalDoesNotExistException("Wrong input");
+                            Console.WriteLine(s_dal.Assignments!.Read(a => a.IdWorker == Id));
 
                             Console.WriteLine("enter Name of the Assignment: ");
                             string? name1 = Console.ReadLine() ?? throw new Exception("Wrong input");
@@ -401,23 +371,23 @@ namespace DalTest
                                 throw new Exception("datestart is not correct");
                             //if i got space/null save the old one
                             //if (string.IsNullOrWhiteSpace(name1))
-                            //    name1 = s_dalAssignments.Read(Id)!.Name;
+                            //    name1 = s_dal.Assignments.Read(Id)!.Name;
                             //if (string.IsNullOrWhiteSpace(Description1))
-                            //    Description1 = s_dalAssignments.Read(Id)!.Description;
+                            //    Description1 = s_dal.Assignments.Read(Id)!.Description;
                             //if (string.IsNullOrWhiteSpace(Remarks1))
-                            //    Remarks1 = s_dalAssignments.Read(Id)!.Remarks;
+                            //    Remarks1 = s_dal.Assignments.Read(Id)!.Remarks;
                             //if (string.IsNullOrWhiteSpace(ResultProduct1))
-                            //    ResultProduct1 = s_dalAssignments.Read(Id)!.ResultProduct;
+                            //    ResultProduct1 = s_dal.Assignments.Read(Id)!.ResultProduct;
                             Assignments ass = new Assignments(Id, DurationAssignments1, level1, IdWorker1, datestart1, DateBegin1, DeadLine1,
                             DateFinish1, name1, Description1, Remarks1, ResultProduct1, milestone1);
-                            s_dalAssignments!.Update(ref ass);
+                            s_dal.Assignments!.Update(ref ass);
                             break;
 
                         case CRUD.DELETE:
                             Console.WriteLine("Enter Assigments ID: ");
                             if (!int.TryParse(Console.ReadLine(), out int idDelete))
-                                throw new Exception("Wrong input");
-                            s_dalAssignments!.Delete(idDelete);
+                                throw new DalDoesNotExistException("Wrong input");
+                            s_dal.Assignments!.Delete(idDelete);
                             break;
 
                         case CRUD.EXIT:

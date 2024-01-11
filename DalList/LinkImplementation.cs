@@ -3,7 +3,7 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-public class LinkImplementation:ILink
+internal class LinkImplementation: ILink
 {
     public int Create(Link link)
     {
@@ -13,21 +13,26 @@ public class LinkImplementation:ILink
     }
     public void Delete(int id)
     {
-        if (Read(id) is null)
-            throw new Exception($"Link with ID={id} not exists");
-        Link link = Read(id);
+        if (Read(a => a.IdLink == id) is null)
+            throw new DalDoesNotExistException($"Link with ID={id} not exists");
+        Link link = Read(a => a.IdLink == id)!;
         DataSource.Links.Remove(link);
     }
-    public Link? Read(int id)
+    public Link? Read(Func<Link, bool> filter)
     {
-        if (DataSource.Links.Find(IdL => IdL.IdLink == id) != null)
-            return DataSource.Links.Find(IdL => IdL.IdLink == id);
-        return null;
+        return DataSource.Links.FirstOrDefault(filter);
     }
 
-    public List<Link> ReadAll()
+    public IEnumerable<Link> ReadAll(Func<Link, bool>? filter = null) //stage 2
     {
-        return new List <Link> (DataSource.Links.ToList());
+        if (filter != null)
+        {
+            return from item in DataSource.Links
+                   where filter(item)
+                   select item;
+        }
+        return from item in DataSource.Links
+               select item;
     }
     public void Update(ref Link item)
     {
