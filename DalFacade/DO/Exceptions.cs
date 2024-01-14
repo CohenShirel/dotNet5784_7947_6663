@@ -28,4 +28,12 @@ public class DalDeletionImpossible : Exception
        
     }
 }
+//[Serializable]//המחיקה בלתי אפשרית
+//public class FormatException : Exception
+//{
+//    public FormatException(string? message) : base(message)
+//    {
+
+//    }
+//}
 
