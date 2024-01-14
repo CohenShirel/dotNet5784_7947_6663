@@ -23,6 +23,10 @@ namespace DalTest
         UPDATE,
         DELETE
     }
+    public enum Levels
+    {
+        Beginner, AdvancedBeginner, Intermediate, Advanced, Expert
+    }
     internal class Program
     {
         private static readonly Random s_rand = new();
@@ -108,8 +112,7 @@ namespace DalTest
                                 throw new Exception("Wrong input");
                             string? name = Console.ReadLine() ?? throw new ArgumentException("Wrong input");
                             string? email = Console.ReadLine() ?? throw new Exception("Wrong input");
-                            Level level = (Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
-
+                            Level level = (Level)int.Parse(Console.ReadLine() ?? throw new IndexOutOfRangeException("Out Of Array"));
                             s_dal.Worker!.Create(new(id, level, cost, name, email));
                             
                             break;
