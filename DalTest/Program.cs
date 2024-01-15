@@ -104,33 +104,50 @@ namespace DalTest
                     switch (myChoice)
                     {
                         case CRUD.CREATE:
-                            // Perform create operation
-                            Console.WriteLine("Enter worker ID, Cost, name and Email, level : ");
-
-                            if (!int.TryParse(Console.ReadLine(), out int id))
-                                throw new DalAlreadyExistsException("Wrong input");
-                            if (!int.TryParse(Console.ReadLine(), out int cost))
-                               throw new FormatException("Wrong input");
-                            string? name = Console.ReadLine() ?? throw new FormatException("Wrong input");
-                            string? email = Console.ReadLine() ?? throw new FormatException("Wrong input");
-                            // if(!)
-                            Level userLevel;
-                           // Level level = (Level)int.Parse(Console.ReadLine() ?? throw new IndexOutOfRangeException("Out Of Array"));
-
-                            if (!Enum.TryParse(Console.ReadLine(), out userLevel))
+                            try
                             {
-                                throw new FormatException("Wrong input");
+                                // Perform create operation
+                                Console.WriteLine("Enter worker ID, Cost, name and Email, level : ");
+
+                                if (!int.TryParse(Console.ReadLine(), out int id))
+                                    throw new DalAlreadyExistsException("Wrong input");
+                                if (!int.TryParse(Console.ReadLine(), out int cost))
+                                    throw new FormatException("Wrong input");
+                                string? name = Console.ReadLine() ?? throw new FormatException("Wrong input");
+                                string? email = Console.ReadLine() ?? throw new FormatException("Wrong input");
+                                // if(!)
+                                Level userLevel;
+                                // Level level = (Level)int.Parse(Console.ReadLine() ?? throw new IndexOutOfRangeException("Out Of Array"));
+
+                                if (!Enum.TryParse(Console.ReadLine(), out userLevel))
+                                {
+                                    throw new FormatException("Wrong input");
+                                }
+                                s_dal.Worker!.Create(new(id, userLevel, cost, name, email));
                             }
-                            s_dal.Worker!.Create(new(id, userLevel, cost, name, email));
+                            catch(DalAlreadyExistsException e) 
+                            {
+                                Console.WriteLine(e.Message);
+                            }
+                            catch (FormatException e)
+                            {
+                                Console.WriteLine(e.Message);
+                            }
                             break;
                         case CRUD.READ:
                             // Perform read operation
-                        
-                            Console.WriteLine("Enter worker ID: ");
-                            if (!int.TryParse(Console.ReadLine(), out int ID))
-                                throw new DalDoesNotExistException("Wrong input");
-                            Worker? rea = s_dal.Worker!.Read(a => a.IdWorker == ID);
-                            Console.WriteLine(rea);
+                            try
+                            {
+                                Console.WriteLine("Enter worker ID: ");
+                                if (!int.TryParse(Console.ReadLine(), out int ID))
+                                    throw new DalDoesNotExistException("Wrong input");
+                                Worker? rea = s_dal.Worker!.Read(a => a.IdWorker == ID);
+                                Console.WriteLine(rea);
+                            }
+                            catch(DalDoesNotExistException e)
+                            {
+                                Console.WriteLine(e.Message);
+                            }
                             break;
                         case CRUD.READ_ALL:
                             // Perform read all operation
@@ -140,26 +157,37 @@ namespace DalTest
                             }
                             break;
                         case CRUD.UPDATE:
-                            // Perform update operation
-                            Console.WriteLine("Enter worker ID: ");
-                            if (!int.TryParse(Console.ReadLine(), out int iD))
-                                throw new DalDoesNotExistException("Wrong input");
-                            Worker updatedWorker = s_dal.Worker!.Read(a => a.IdWorker == iD)! ?? throw new FormatException($"Can't update, worker does not exist!!");
-                            Console.WriteLine(updatedWorker);
-                            Console.WriteLine("Please update the details -- name, email, level, cost.\n");
-                            string? updatedName = Console.ReadLine() ?? throw new FormatException("Wrong input");
-                            string? updetedEmail = Console.ReadLine() ?? throw new FormatException("Wrong input");
-                            if (!int.TryParse(Console.ReadLine(), out int updatedCost))
-                                throw new FormatException("Wrong input");
-                            Level updatedLevel = (Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
-                            //if i got space/null save the old one
-                            //if (string.IsNullOrWhiteSpace(updatedName))
-                            //    updatedName = s_dal.Worker.Read(iD)!.Name;
-                            //if (string.IsNullOrWhiteSpace(updetedEmail))
-                            //    updetedEmail = s_dal.Worker.Read(iD)!.Email;
-                            Worker worker = new Worker(iD, updatedLevel, updatedCost, updatedName, updetedEmail);
-                            s_dal.Worker!.Update(ref worker);
+                            try
+                            {
+                                // Perform update operation
+                                Console.WriteLine("Enter worker ID: ");
+                                if (!int.TryParse(Console.ReadLine(), out int iD))
+                                    throw new DalDoesNotExistException("Wrong input");
+                                Worker updatedWorker = s_dal.Worker!.Read(a => a.IdWorker == iD)! ?? throw new FormatException($"Can't update, worker does not exist!!");
+                                Console.WriteLine(updatedWorker);
+                                Console.WriteLine("Please update the details -- name, email, level, cost.\n");
+                                string? updatedName = Console.ReadLine() ?? throw new FormatException("Wrong input");
+                                string? updetedEmail = Console.ReadLine() ?? throw new FormatException("Wrong input");
+                                if (!int.TryParse(Console.ReadLine(), out int updatedCost))
+                                    throw new FormatException("Wrong input");
+                                Level updatedLevel = (Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
+                                //if i got space/null save the old one
+                                //if (string.IsNullOrWhiteSpace(updatedName))
+                                //    updatedName = s_dal.Worker.Read(iD)!.Name;
+                                //if (string.IsNullOrWhiteSpace(updetedEmail))
+                                //    updetedEmail = s_dal.Worker.Read(iD)!.Email;
+                                Worker worker = new Worker(iD, updatedLevel, updatedCost, updatedName, updetedEmail);
+                                s_dal.Worker!.Update(ref worker);
 
+                            }
+                            catch (DalDoesNotExistException e)
+                            {
+                                Console.WriteLine(e.Message);
+                            }
+                            catch (FormatException e)
+                            {
+                                Console.WriteLine(e.Message);
+                            }
                             break;
                         case CRUD.DELETE:
                             // Perform delete operation
@@ -318,11 +346,11 @@ namespace DalTest
                             if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly datestart))
                                 throw new FormatException("datestart is not correct");
                             if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateBegin))
-                                throw new Exception("datestart is not correct");
+                                throw new FormatException("datestart is not correct");
                             if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DeadLine))
-                                throw new Exception("datestart is not correct");
+                                throw new FormatException("datestart is not correct");
                             if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateFinish))
-                                throw new Exception("datestart is not correct");
+                                throw new FormatException("datestart is not correct");
                             s_dal.Assignments!.Create(new(0, DurationAssignments, level, IdWorker, datestart, DateBegin, DeadLine,
                              DateFinish, name, Description, Remarks, ResultProduct, milestone));
                             break;
@@ -348,37 +376,37 @@ namespace DalTest
                             Console.WriteLine(s_dal.Assignments!.Read(a => a.IdWorker == Id));
 
                             Console.WriteLine("enter Name of the Assignment: ");
-                            string? name1 = Console.ReadLine() ?? throw new Exception("Wrong input");
+                            string? name1 = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
                             Console.WriteLine("enter Description of the Assignment: ");
-                            string? Description1 = Console.ReadLine() ?? throw new Exception("Wrong input");
+                            string? Description1 = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
                             Console.WriteLine("enter Remarks of the Assignment: ");
-                            string? Remarks1 = Console.ReadLine() ?? throw new Exception("Wrong input");
+                            string? Remarks1 = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
                             Console.WriteLine("enter ResultProduct of the Assignment: ");
-                            string? ResultProduct1 = Console.ReadLine() ?? throw new Exception("Wrong input");
+                            string? ResultProduct1 = Console.ReadLine() ?? throw new FormatException("Wrong input");
 
                             Console.WriteLine("enter DurationAssignments of the Assignment: ");
                             if (!int.TryParse(Console.ReadLine(), out int DurationAssignments1))
-                                throw new Exception("Wrong input");
+                                throw new FormatException("Wrong input");
                             Console.WriteLine("enter id of the worker : ");
                             if (!int.TryParse(Console.ReadLine(), out int IdWorker1))
-                                throw new Exception("Wrong input");
+                                throw new FormatException("Wrong input");
                             Level level1 = (Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
                             Console.WriteLine("enter milestone-False/True : ");
                             if (!bool.TryParse(Console.ReadLine(), out bool milestone1))
-                                throw new Exception("Wrong input");
+                                throw new FormatException("Wrong input");
 
                             Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
                             if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly datestart1))
-                                throw new Exception("datestart is not correct");
+                                throw new FormatException("datestart is not correct");
                             if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateBegin1))
-                                throw new Exception("datestart is not correct");
+                                throw new FormatException("datestart is not correct");
                             if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DeadLine1))
-                                throw new Exception("datestart is not correct");
+                                throw new FormatException("datestart is not correct");
                             if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateFinish1))
-                                throw new Exception("datestart is not correct");
+                                throw new FormatException("datestart is not correct");
                             //if i got space/null save the old one
                             //if (string.IsNullOrWhiteSpace(name1))
                             //    name1 = s_dal.Assignments.Read(Id)!.Name;
