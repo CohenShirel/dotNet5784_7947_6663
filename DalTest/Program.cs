@@ -1,5 +1,4 @@
-﻿using DalApi;
-using DO;
+﻿
 
 //Shirel Cohen 214377947
 //Neomi Golkin 325946663
@@ -117,7 +116,7 @@ namespace DalTest
                                 // Perform create operation
                                 Console.WriteLine("Enter worker ID, Cost, name and Email, level : ");
 
-if (!int.TryParse(Console.ReadLine(), out int id))
+                                if (!int.TryParse(Console.ReadLine(), out int id))
                                     throw new FormatException("Wrong input");
                                 if (!int.TryParse(Console.ReadLine(), out int cost))
                                     throw new FormatException("Wrong input");
@@ -174,7 +173,7 @@ if (!int.TryParse(Console.ReadLine(), out int id))
                                 Console.WriteLine("Enter worker ID: ");
                                 if (!int.TryParse(Console.ReadLine(), out int Id))
 
-throw new FormatException("Wrong input");
+                                    throw new FormatException("Wrong input");
                                 s_dal.Worker!.Delete(Id);
                                 break;
                             case CRUD.EXIT:
@@ -237,7 +236,7 @@ throw new FormatException("Wrong input");
                                 //do
                                 //{
 
-//} while (s_dalAssignments!.Read(idAssigment2) != null && s_dal.Assignments!=null);
+                                //} while (s_dalAssignments!.Read(idAssigment2) != null && s_dal.Assignments!=null);
                                 s_dal.Link!.Create(new(0, idAssigment1, idAssigment2));
                                 break;
                             case CRUD.READ:
@@ -351,7 +350,7 @@ throw new FormatException("Wrong input");
                                 if (!bool.TryParse(Console.ReadLine(), out bool milestone))
                                     throw new FormatException("Wrong input");
 
-Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
+                                Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly datestart))
                                     throw new FormatException("datestart is not correct");
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateBegin))
@@ -407,7 +406,7 @@ Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of t
                                 if (!bool.TryParse(Console.ReadLine(), out bool milestone1))
                                     throw new FormatException("Wrong input");
 
-Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
+                                Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly datestart1))
                                     throw new FormatException("datestart is not correct");
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateBegin1))
