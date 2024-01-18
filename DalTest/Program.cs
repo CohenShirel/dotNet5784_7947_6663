@@ -400,6 +400,7 @@ Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of t
                                     throw new FormatException("datestart is not correct");
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DeadLine1))
                                     throw new FormatException("datestart is not correct");
+
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateFinish1))
                                     throw new FormatException("datestart is not correct");
                                 //if i got space/null save the old one
