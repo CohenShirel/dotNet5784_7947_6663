@@ -1,68 +1,53 @@
 ﻿using DalApi;
 using DO;
+using System.Data.Common;
 
 namespace Dal;
 
 internal class LinkImplementation : ILink
 {
-    int ICrud<Link>.Create(Link item)
+    readonly string s_Links_xml = "links";
+    public int Create(Link lnk)
     {
-        Link newLink = link with { IdLink = DataSource.Config.idlink };
-        DataSource.Links.Add(newLink);
+        List<DO.Link> links = XMLTools.LoadListFromXMLSerializer<DO.Link>(s_Links_xml);
+        Link newLink = lnk with { IdLink =Config.IDLink };
+        links.Add(newLink);
+        XMLTools.SaveListToXMLSerializer<DO.Link>(links, s_Links_xml);
         return newLink.IdLink;
-
-
-
-       
     }
 
-    void ICrud<Link>.Delete(int id)
+    public void Delete(int id)
     {
+        List<DO.Link> links = XMLTools.LoadListFromXMLSerializer<DO.Link>(s_Links_xml);
+        if (links.RemoveAll(item => item.IdLink == id) == 0)
+        {
+            throw new DalDoesNotExistException($"Link with id {id} does not exist");
+        }
+        XMLTools.SaveListToXMLSerializer<DO.Link>(links, s_Links_xml);
     }
 
-    Link? ICrud<Link>.Read(Func<Link, bool> filter)
+    public Link? Read(Func<Link, bool> filter)
     {
+        List<DO.Link> links = XMLTools.LoadListFromXMLSerializer<DO.Link>(s_Links_xml);
+        //return assignmentss.FirstOrDefault(item => filter(item));
+        return links.FirstOrDefault(filter);
     }
 
-    IEnumerable<Link?> ICrud<Link>.ReadAll(Func<Link, bool>? filter)
+    public IEnumerable<Link> ReadAll(Func<Link, bool>? filter)
     {
-    }
-
-    void ICrud<Link>.Update(ref Link item)
-    {
-    }
-}/*
-public int Create(Link link)
-{
-    Link newLink = link with { IdLink = DataSource.Config.idlink };
-    DataSource.Links.Add(newLink);
-    return newLink.IdLink;
-}
-public void Delete(int id)
-{
-    if (Read(a => a.IdLink == id) is null)
-        throw new DalDoesNotExistException($"Link with ID={id} not exists");
-    Link link = Read(a => a.IdLink == id)!;
-    DataSource.Links.Remove(link);
-}
-public Link? Read(Func<Link, bool> filter)
-{
-    return DataSource.Links.FirstOrDefault(filter);
-}
-
-public IEnumerable<Link> ReadAll(Func<Link, bool>? filter = null) //stage 2
-{
-    if (filter != null)
-    {
-        return from item in DataSource.Links
-               where filter(item)
+        List<DO.Link> links = XMLTools.LoadListFromXMLSerializer<DO.Link>(s_Links_xml);
+        if (filter != null)
+        {
+            return from item in links
+                   where filter(item)
+                   select item;
+        }
+        return from item in links
                select item;
     }
-    return from item in DataSource.Links
-           select item;
+    public void Update(ref Link item)
+    {
+        Delete(item.IdLink);
+        Create(item);
+    }
 }
-public void Update(ref Link item)
-{
-    Delete(item.IdLink);
-    Create(item);
-}*/

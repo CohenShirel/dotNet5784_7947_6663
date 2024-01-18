@@ -10,31 +10,15 @@ internal class AssignmentsImplementation : IAssignments
     readonly string s_assignmentss_xml = "assignmentss";
     public int Create(Assignments ass)
     {
-
-    
-
-
         List<DO.Assignments> assignmentss = XMLTools.LoadListFromXMLSerializer<DO.Assignments>(s_assignmentss_xml);
-
         Assignments newAssignments = ass with { IdAssignments = Config.IdPAssignments };
         assignmentss.Add(newAssignments);
         XMLTools.SaveListToXMLSerializer<DO.Assignments>(assignmentss, s_assignmentss_xml);
         return newAssignments.IdAssignments;
-
-        //if (Read(ass.IdAssignments) is not null)
-        //{
-        //    throw new DalAlreadyExistsException($"Assignments with id {ass.IdAssignments} does not exist");
-        //}
-
-
-        //return ass.IdAssignments;  
     }
 
     public void Delete(int id)
     {
-
-      
-
         List<DO.Assignments> assignmentss = XMLTools.LoadListFromXMLSerializer<DO.Assignments>(s_assignmentss_xml);
         if (assignmentss.RemoveAll(item => item.IdAssignments == id) == 0)
         {
@@ -67,8 +51,6 @@ internal class AssignmentsImplementation : IAssignments
     public void Update(ref Assignments ass)
     {
         //List<DO.Assignments> assignmentss = XMLTools.LoadListFromXMLSerializer<DO.Assignments>(s_assignmentss_xml);
-
-
         Delete(ass.IdAssignments);
         Create(ass);
         //XMLTools.SaveListToXMLSerializer<DO.Assignments>(assignmentss, s_assignmentss_xml);
