@@ -236,7 +236,7 @@ namespace DalTest
                                 //do
                                 //{
 
-                                //} while (s_dalAssignments!.Read(idAssigment2) != null && s_dal.Assignments!=null);
+//} while (s_dalAssignments!.Read(idAssigment2) != null && s_dal.Assignments!=null);
                                 s_dal.Link!.Create(new(0, idAssigment1, idAssigment2));
                                 break;
                             case CRUD.READ:
@@ -290,20 +290,7 @@ namespace DalTest
                         Console.WriteLine("Invalid input. Please enter a valid number.");
                     }
 
-} while (myChoice != CRUD.EXIT);
-            }
-            catch (DalAlreadyExistsException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            catch (DalDoesNotExistException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            catch (FormatException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+            } while (myChoice != CRUD.EXIT);
         }
         private static void optionAssignment()
         {
@@ -350,7 +337,7 @@ namespace DalTest
                                 if (!bool.TryParse(Console.ReadLine(), out bool milestone))
                                     throw new FormatException("Wrong input");
 
-                                Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
+Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly datestart))
                                     throw new FormatException("datestart is not correct");
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateBegin))
@@ -406,13 +393,14 @@ namespace DalTest
                                 if (!bool.TryParse(Console.ReadLine(), out bool milestone1))
                                     throw new FormatException("Wrong input");
 
-                                Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
+Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly datestart1))
                                     throw new FormatException("datestart is not correct");
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateBegin1))
                                     throw new FormatException("datestart is not correct");
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DeadLine1))
                                     throw new FormatException("datestart is not correct");
+
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateFinish1))
                                     throw new FormatException("datestart is not correct");
                                 //if i got space/null save the old one
