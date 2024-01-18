@@ -1,13 +1,12 @@
 ﻿
-using DalApi;
-using DO;
-
 //Shirel Cohen 214377947
 //Neomi Golkin 325946663
 //עשינו את התוספת של TryParse
 using Dal;
 using DalApi;
 using DO;
+//using DalXml;
+
 
 //לינק ומטלות
 //האם מספיק פורמט להכל וזהו
@@ -41,10 +40,19 @@ namespace DalTest
         //private static IWorker? s_dal.Worker = new WorkerImplementation();
         //private static IAssignments? s_dal.Assignments = new AssignmentsImplementation();
         //private static ILink? s_dal.Link = new LinkImplementation();
-        static readonly IDal s_dal = new Dal.DalList(); //stage 2
+
+
+       // static readonly IDal s_dal = new Dal.DalList(); //stage 2
+        static readonly IDal s_dal = new Dal.DalXml(); //stage 3
+
+
         static void Main(string[] args)
         {
-            Initialization.Do(s_dal);
+            //Initialization.Do(s_dal);
+            Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
+            string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
+            if (ans == "Y") //stage 3
+                Initialization.Do(s_dal); //stage 2
             ENTITY myChoice = ENTITY.ASSIGNMENT;
             do
             {
