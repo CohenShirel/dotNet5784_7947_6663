@@ -1,4 +1,6 @@
 ﻿
+using DalApi;
+using DO;
 
 //Shirel Cohen 214377947
 //Neomi Golkin 325946663
@@ -172,7 +174,6 @@ namespace DalTest
                                 // Perform delete operation
                                 Console.WriteLine("Enter worker ID: ");
                                 if (!int.TryParse(Console.ReadLine(), out int Id))
-
                                     throw new FormatException("Wrong input");
                                 s_dal.Worker!.Delete(Id);
                                 break;
@@ -289,8 +290,20 @@ namespace DalTest
                     {
                         Console.WriteLine("Invalid input. Please enter a valid number.");
                     }
-
-            } while (myChoice != CRUD.EXIT);
+                } while (myChoice != CRUD.EXIT);
+            }
+            catch (DalAlreadyExistsException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (DalDoesNotExistException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (FormatException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         private static void optionAssignment()
         {
@@ -336,8 +349,7 @@ namespace DalTest
                                 Console.WriteLine("enter milestone-False/True : ");
                                 if (!bool.TryParse(Console.ReadLine(), out bool milestone))
                                     throw new FormatException("Wrong input");
-
-Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
+                                Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly datestart))
                                     throw new FormatException("datestart is not correct");
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateBegin))
@@ -392,15 +404,13 @@ Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of t
                                 Console.WriteLine("enter milestone-False/True : ");
                                 if (!bool.TryParse(Console.ReadLine(), out bool milestone1))
                                     throw new FormatException("Wrong input");
-
-Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
+                                Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly datestart1))
                                     throw new FormatException("datestart is not correct");
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateBegin1))
                                     throw new FormatException("datestart is not correct");
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DeadLine1))
                                     throw new FormatException("datestart is not correct");
-
                                 if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateFinish1))
                                     throw new FormatException("datestart is not correct");
                                 //if i got space/null save the old one
@@ -496,12 +506,6 @@ Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of t
 //            break;
 //    }
 //} while (op != Option.Exit);
-
-
-
-
-
-
 
 
 
