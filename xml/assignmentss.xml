@@ -1,63 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfAssignments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Assignments>
-    <IdAssignments>1018</IdAssignments>
-    <DurationAssignments>2</DurationAssignments>
+    <IdAssignments>1023</IdAssignments>
+    <DurationAssignments>654</DurationAssignments>
     <LevelAssignments>Intermediate</LevelAssignments>
-    <IdWorker>33</IdWorker>
+    <IdWorker>3</IdWorker>
     <dateSrart />
     <DateBegin />
     <DeadLine />
     <DateFinish />
-    <Name>LK</Name>
-    <Description>K</Description>
-    <Remarks>M</Remarks>
-    <ResultProduct>K</ResultProduct>
-    <Milestone>true</Milestone>
+    <Name>GDF</Name>
+    <Description>GF</Description>
+    <Remarks>FDGT</Remarks>
+    <ResultProduct>FDG</ResultProduct>
+    <Milestone>false</Milestone>
   </Assignments>
   <Assignments>
-    <IdAssignments>1019</IdAssignments>
-    <DurationAssignments>77</DurationAssignments>
+    <IdAssignments>1025</IdAssignments>
+    <DurationAssignments>54</DurationAssignments>
     <LevelAssignments>Expert</LevelAssignments>
-    <IdWorker>55</IdWorker>
+    <IdWorker>4</IdWorker>
     <dateSrart />
     <DateBegin />
     <DeadLine />
     <DateFinish />
-    <Name>FGH</Name>
-    <Description>GHJ</Description>
-    <Remarks>YU</Remarks>
-    <ResultProduct>H</ResultProduct>
-    <Milestone>true</Milestone>
-  </Assignments>
-  <Assignments>
-    <IdAssignments>1020</IdAssignments>
-    <DurationAssignments>22</DurationAssignments>
-    <LevelAssignments>Advanced</LevelAssignments>
-    <IdWorker>44</IdWorker>
-    <dateSrart />
-    <DateBegin />
-    <DeadLine />
-    <DateFinish />
-    <Name>GFG</Name>
-    <Description>GFH</Description>
-    <Remarks>HFG</Remarks>
-    <ResultProduct>DF</ResultProduct>
-    <Milestone>true</Milestone>
-  </Assignments>
-  <Assignments>
-    <IdAssignments>1021</IdAssignments>
-    <DurationAssignments>33</DurationAssignments>
-    <LevelAssignments>Expert</LevelAssignments>
-    <IdWorker>55</IdWorker>
-    <dateSrart />
-    <DateBegin />
-    <DeadLine />
-    <DateFinish />
-    <Name>TH</Name>
-    <Description>JGYJ</Description>
-    <Remarks>FY</Remarks>
-    <ResultProduct>D</ResultProduct>
+    <Name>GFD</Name>
+    <Description>GDF</Description>
+    <Remarks>GFD</Remarks>
+    <ResultProduct>FD</ResultProduct>
     <Milestone>false</Milestone>
   </Assignments>
 </ArrayOfAssignments>

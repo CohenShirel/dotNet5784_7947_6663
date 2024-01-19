@@ -17,12 +17,11 @@ internal class WorkerImplementation : IWorker
     {
         return new Worker()
         {
-            IdWorker = int.TryParse((string?)wrk.Element("IdWorker"), out var idWorker) ? idWorker : throw new FormatException("can't convert id"),
+            IdWorker = int.TryParse((string?)wrk.Element("IdWorker"), out var IdWorker) ? IdWorker :throw new FormatException("can't convert id"),
+            Experience = Enum.TryParse<DO.Level>((string?)wrk.Element("Experience"), out var Experience) ? Experience : 0,
+            HourSalary = int.TryParse((string?)wrk.Element("HourSalary"), out var HourSalary) ? HourSalary : 0,
             Name = (string?)wrk.Element("Name") ?? "",
             Email = (string?)wrk.Element("Email") ?? "",
-            HourSalary = int.TryParse((string?)wrk.Element("HourSalary"), out var hourSalary) ? hourSalary : 0,
-            Experience = Enum.TryParse<DO.Level>((string?)wrk.Element("Experience"), out var experience) ? experience :0
-
         };
     }
     public int Create(Worker item)
@@ -31,15 +30,21 @@ internal class WorkerImplementation : IWorker
         XElement? wrkElem = wrkRoot.Elements().FirstOrDefault(wrk => (int?)wrk.Element("IdWorker") == item.IdWorker);
         if(wrkElem != null)
             throw new DalAlreadyExistsException($"Worker with ID={item.IdWorker} already exists");
-        //אולי יהיה צריך לעשות את זה דרך גטוורקר 
-        wrkRoot.Add(item);
+
+        XElement id = new XElement("IdWorker", item.IdWorker);
+        XElement Name = new XElement("Name", item.Name);
+        XElement Email = new XElement("Email", item.Email);
+        XElement Experience = new XElement("Experience", item.Experience);
+        XElement HourSalary = new XElement("HourSalary", item.HourSalary);
+        wrkRoot.Add(new XElement("Worker",id,Experience, HourSalary,Name,Email));
+
         XMLTools.SaveListToXMLElement(wrkRoot, s_workers_xml);//save the changes in the file
         return item.IdWorker;
     }
     public void Delete(int id)
     {
         XElement? wrkRoot = XMLTools.LoadListFromXMLElement(s_workers_xml);
-        XElement? elemToDelete = wrkRoot.Elements().FirstOrDefault(wrk => (int?)wrk.Element("idWorker") == id);
+        XElement? elemToDelete = wrkRoot.Elements().FirstOrDefault(wrk => (int?)wrk.Element("IdWorker") == id);
         if (elemToDelete == null)
             throw new DalDoesNotExistException($"Worker with ID={id} not exists");
         elemToDelete!.Remove();//delete
