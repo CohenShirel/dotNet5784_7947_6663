@@ -1,3 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfAssignments>
+<ArrayOfAssignments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Assignments>
+    <IdAssignments>1018</IdAssignments>
+    <DurationAssignments>2</DurationAssignments>
+    <LevelAssignments>Intermediate</LevelAssignments>
+    <IdWorker>33</IdWorker>
+    <dateSrart />
+    <DateBegin />
+    <DeadLine />
+    <DateFinish />
+    <Name>LK</Name>
+    <Description>K</Description>
+    <Remarks>M</Remarks>
+    <ResultProduct>K</ResultProduct>
+    <Milestone>true</Milestone>
+  </Assignments>
+  <Assignments>
+    <IdAssignments>1019</IdAssignments>
+    <DurationAssignments>77</DurationAssignments>
+    <LevelAssignments>Expert</LevelAssignments>
+    <IdWorker>55</IdWorker>
+    <dateSrart />
+    <DateBegin />
+    <DeadLine />
+    <DateFinish />
+    <Name>FGH</Name>
+    <Description>GHJ</Description>
+    <Remarks>YU</Remarks>
+    <ResultProduct>H</ResultProduct>
+    <Milestone>true</Milestone>
+  </Assignments>
+  <Assignments>
+    <IdAssignments>1020</IdAssignments>
+    <DurationAssignments>22</DurationAssignments>
+    <LevelAssignments>Advanced</LevelAssignments>
+    <IdWorker>44</IdWorker>
+    <dateSrart />
+    <DateBegin />
+    <DeadLine />
+    <DateFinish />
+    <Name>GFG</Name>
+    <Description>GFH</Description>
+    <Remarks>HFG</Remarks>
+    <ResultProduct>DF</ResultProduct>
+    <Milestone>true</Milestone>
+  </Assignments>
+  <Assignments>
+    <IdAssignments>1021</IdAssignments>
+    <DurationAssignments>33</DurationAssignments>
+    <LevelAssignments>Expert</LevelAssignments>
+    <IdWorker>55</IdWorker>
+    <dateSrart />
+    <DateBegin />
+    <DeadLine />
+    <DateFinish />
+    <Name>TH</Name>
+    <Description>JGYJ</Description>
+    <Remarks>FY</Remarks>
+    <ResultProduct>D</ResultProduct>
+    <Milestone>false</Milestone>
+  </Assignments>
 </ArrayOfAssignments>

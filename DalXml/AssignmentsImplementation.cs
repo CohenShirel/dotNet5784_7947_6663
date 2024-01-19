@@ -24,6 +24,9 @@ internal class AssignmentsImplementation : IAssignments
         {
             throw new DalDoesNotExistException($"Assignments with id {id} does not exist");
         }
+        //if (Read(a => a.IdAssignments == id) is null)
+        //    throw new DalDoesNotExistException($"Assignments with ID={id} not exists");
+        //assignmentss.Remove(Read(a => a.IdAssignments == id)!);
         XMLTools.SaveListToXMLSerializer<DO.Assignments>(assignmentss, s_assignmentss_xml);
     }
 

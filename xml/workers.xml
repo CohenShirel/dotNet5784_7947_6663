@@ -1,2 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ArrayOfWorker>Worker { IdWorker = 325946663, Experience = 5, HourSalary = 2000000, Name = NEOMI, Email = NEOMI }Worker { IdWorker = 325888, Experience = AdvancedBeginner, HourSalary = 4000000, Name = SHIREL, Email = SGG }</ArrayOfWorker>
+<ArrayOfWorker>Worker { IdWorker = 325946663, Experience = 5, HourSalary = 2000000, Name = NEOMI, Email = NEOMI }Worker { IdWorker = 325888, Experience = AdvancedBeginner, HourSalary = 4000000, Name = SHIREL, Email = SGG }Worker { IdWorker = 11, Experience = Advanced, HourSalary = 33000, Name = SS, Email = QQ }</ArrayOfWorker>
