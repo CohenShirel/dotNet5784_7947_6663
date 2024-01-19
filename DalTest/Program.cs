@@ -408,6 +408,7 @@ namespace DalTest
                                 Console.WriteLine("enter id of the worker : ");
                                 if (!int.TryParse(Console.ReadLine(), out int IdWorker1))
                                     throw new FormatException("Wrong input");
+                                Console.WriteLine("enter level of the worker : ");
                                 Level level1 = (Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
                                 Console.WriteLine("enter milestone-False/True : ");
                                 if (!bool.TryParse(Console.ReadLine(), out bool milestone1))
