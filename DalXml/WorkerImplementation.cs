@@ -44,7 +44,7 @@ internal class WorkerImplementation : IWorker
     public void Delete(int id)
     {
         XElement? wrkRoot = XMLTools.LoadListFromXMLElement(s_workers_xml);
-        XElement? elemToDelete = wrkRoot.Elements().FirstOrDefault(wrk => (int?)wrk.Element("idWorker") == id);
+        XElement? elemToDelete = wrkRoot.Elements().FirstOrDefault(wrk => (int?)wrk.Element("IdWorker") == id);
         if (elemToDelete == null)
             throw new DalDoesNotExistException($"Worker with ID={id} not exists");
         elemToDelete!.Remove();//delete
