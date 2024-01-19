@@ -2,6 +2,7 @@
 
 using DalApi;
 using DO;
+using System.Xml.Linq;
 
 namespace Dal;
 
@@ -33,7 +34,6 @@ internal class AssignmentsImplementation : IAssignments
     public Assignments? Read(Func<Assignments, bool> filter)
     {
         List<DO.Assignments> assignmentss = XMLTools.LoadListFromXMLSerializer<DO.Assignments>(s_assignmentss_xml);
-        //return assignmentss.FirstOrDefault(item => filter(item));
         return assignmentss.FirstOrDefault(filter);
     }
 

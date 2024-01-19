@@ -374,7 +374,7 @@ namespace DalTest
                                 Console.WriteLine("Enter Assignment ID: ");
                                 if (!int.TryParse(Console.ReadLine(), out int ID))
                                     throw new FormatException("Wrong input");
-                                Assignments rea = s_dal.Assignments!.Read(a => a.IdWorker == ID)!;
+                                Assignments rea = s_dal.Assignments!.Read(a => a.IdAssignments == ID)!;
                                 Console.WriteLine(rea);
                                 break;
 
@@ -388,7 +388,7 @@ namespace DalTest
                                 Console.WriteLine("Enter Assignments Id: ");
                                 if (!int.TryParse(Console.ReadLine(), out int Id))
                                     throw new FormatException("Wrong input");
-                                Console.WriteLine(s_dal.Assignments!.Read(a => a.IdWorker == Id));
+                                Console.WriteLine(s_dal.Assignments!.Read(a => a.IdAssignments == Id));
 
                                 Console.WriteLine("enter Name of the Assignment: ");
                                 string? name1 = Console.ReadLine() ?? throw new FormatException("Wrong input");
