@@ -20,5 +20,7 @@ namespace DalApi
         //IEnumerable<T?> ReadAll(Func<T, bool>? filter = null); // stage 2
         void Update(ref T item);
         void Delete(int id);
+        void DeleteAll();
+
     }
 }

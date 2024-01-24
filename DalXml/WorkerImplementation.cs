@@ -51,6 +51,13 @@ internal class WorkerImplementation : IWorker
         XMLTools.SaveListToXMLElement(wrkRoot, s_workers_xml);//save the changes in the file
     }
 
+    public void DeleteAll()
+    {
+        XElement? wrkRoot = XMLTools.LoadListFromXMLElement(s_workers_xml);
+        wrkRoot.RemoveAll();
+        XMLTools.SaveListToXMLElement(wrkRoot, s_workers_xml);//save the changes in the file
+    }
+
     public Worker? Read(Func<Worker, bool> filter)
     {
         XElement? wrkRoot = XMLTools.LoadListFromXMLElement(s_workers_xml);

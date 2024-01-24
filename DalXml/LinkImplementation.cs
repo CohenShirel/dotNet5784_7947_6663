@@ -1,6 +1,7 @@
 ﻿using DalApi;
 using DO;
 using System.Data.Common;
+using System.Xml.Linq;
 
 namespace Dal;
 
@@ -25,7 +26,12 @@ internal class LinkImplementation : ILink
         }
         XMLTools.SaveListToXMLSerializer<DO.Link>(links, s_Links_xml);
     }
-
+    public void DeleteAll()
+    {
+        List<DO.Link> links = XMLTools.LoadListFromXMLSerializer<DO.Link>(s_Links_xml);
+        links.RemoveAll(link => true);
+        XMLTools.SaveListToXMLSerializer<DO.Link>(links, s_Links_xml);
+    }
     public Link? Read(Func<Link, bool> filter)
     {
         List<DO.Link> links = XMLTools.LoadListFromXMLSerializer<DO.Link>(s_Links_xml);

@@ -31,6 +31,12 @@ internal class AssignmentsImplementation : IAssignments
         XMLTools.SaveListToXMLSerializer<DO.Assignments>(assignmentss, s_assignmentss_xml);
     }
 
+    public void DeleteAll()
+    {
+        List<DO.Assignments> assignmentss = XMLTools.LoadListFromXMLSerializer<DO.Assignments>(s_assignmentss_xml);
+        assignmentss.RemoveAll(item => true);
+        XMLTools.SaveListToXMLSerializer<DO.Assignments>(assignmentss, s_assignmentss_xml);
+    }
     public Assignments? Read(Func<Assignments, bool> filter)
     {
         List<DO.Assignments> assignmentss = XMLTools.LoadListFromXMLSerializer<DO.Assignments>(s_assignmentss_xml);

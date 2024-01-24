@@ -20,6 +20,11 @@ internal class WorkerImplementation: IWorker
         Worker w = Read(a => a.IdWorker == id)!;
         DataSource.Workers.Remove(w);
     }
+    public void DeleteAll()
+    {
+        Worker w = Read(a =>true)!;
+        DataSource.Workers.Remove(w);
+    }
     public Worker? Read(Func<Worker, bool> filter)
     {
         return DataSource.Workers.FirstOrDefault(filter);

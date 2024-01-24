@@ -18,6 +18,11 @@ internal class LinkImplementation: ILink
         Link link = Read(a => a.IdLink == id)!;
         DataSource.Links.Remove(link);
     }
+    public void DeleteAll()
+    {
+        Link link = Read(a => true)!;
+        DataSource.Links.Remove(link);
+    }
     public Link? Read(Func<Link, bool> filter)
     {
         return DataSource.Links.FirstOrDefault(filter);

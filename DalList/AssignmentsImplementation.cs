@@ -19,6 +19,11 @@ internal class AssignmentsImplementation:IAssignments
             throw new DalDoesNotExistException($"Assignments with ID={id} not exists");
         DataSource.Assignmentss.Remove(Read(a => a.IdAssignments == id)!);
     }
+    public void DeleteAll()
+    {
+        Assignments ass = Read(a => true)!;
+        DataSource.Assignmentss.Remove(ass);
+    }
     public Assignments? Read(Func <Assignments, bool> filter)
     {
         return DataSource.Assignmentss.FirstOrDefault(filter);

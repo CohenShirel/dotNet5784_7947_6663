@@ -52,7 +52,13 @@ namespace DalTest
             Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
             string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
             if (ans == "Y") //stage 3
+            {
                 Initialization.Do(s_dal); //stage 2
+                //reset the data
+                s_dal.Worker!.DeleteAll();
+                s_dal.Link!.DeleteAll();
+                s_dal.Assignments!.DeleteAll();
+            }
             ENTITY myChoice = ENTITY.ASSIGNMENT;
             do
             {
