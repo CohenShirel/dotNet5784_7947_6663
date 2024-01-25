@@ -26,6 +26,7 @@ public static class Initialization
     //function that creat random workers
     private static void creatWorkers()
     {
+
         string[] WorkersNames =
         {
         "Dani Levi", "Eli Amar", "Yair Cohen",
