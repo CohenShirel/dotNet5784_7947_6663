@@ -10,6 +10,6 @@ internal class Schedule
 {
     public int WorkertId { get; init; }
     public string? WorkerName { get; init; }
-    public List<WorkerInAssignments>? Courses { get; init; } = null;
+    public List<WorkerInAssignments>? Assignments { get; init; } = null;
     public override string ToString() => this.ToStringProperty();
 }

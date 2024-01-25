@@ -1,11 +1,11 @@
 ﻿using BO;
-
 namespace BlApi;
-public interface IBl
+public interface IBl 
 {
-    public IWorker Student { get; }
-    public IAssignments Course { get; }
-    public IWorkerInAssignments GradeSheet { get; }
+    //just for read
+    public IWorker Worker { get; }
+    public IAssignments Assignments { get; }
+    public IWorkerInAssignments WorkerInAssignments { get; }
     public ISchedule Schedule { get; }
 }
 
