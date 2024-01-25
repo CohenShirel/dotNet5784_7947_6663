@@ -1,15 +1,15 @@
 ﻿using DalApi;
+using System.Diagnostics;
 namespace Dal;
 
 //stage 3
-sealed public class DalXml : IDal
+sealed internal class DalXml : IDal
 {
+    public static IDal Instance { get; } = new DalXml();
+    private DalXml() { }
+
     public IWorker Worker => new WorkerImplementation();
     public IAssignments Assignments => new AssignmentsImplementation();
     public ILink Link => new LinkImplementation();
-
-    //IWorker IDal.Worker => throw new NotImplementedException();
-    //IAssignments IDal.Assignments => throw new NotImplementedException();
-    //ILink IDal.Link => throw new NotImplementedException();
 }
 

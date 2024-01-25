@@ -42,9 +42,9 @@ namespace DalTest
         //private static ILink? s_dal.Link = new LinkImplementation();
 
 
-       // static readonly IDal s_dal = new Dal.DalList(); //stage 2
-        static readonly IDal s_dal = new Dal.DalXml(); //stage 3
-
+        // static readonly IDal s_dal = new Dal.DalList(); //stage 2
+        // static readonly IDal s_dal = new Dal.DalXml(); //stage 3
+        static readonly IDal s_dal = Factory.Get; //stage 4
 
         static void Main(string[] args)
         {
@@ -53,7 +53,8 @@ namespace DalTest
             string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
             if (ans == "Y") //stage 3
             {
-                Initialization.Do(s_dal); //stage 2
+                //Initialization.Do(s_dal); //stage 2
+                Initialization.Do(); //stage 4
                 //reset the data
                 s_dal.Worker!.DeleteAll();
                 s_dal.Link!.DeleteAll();

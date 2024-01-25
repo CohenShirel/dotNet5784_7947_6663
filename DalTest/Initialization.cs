@@ -18,9 +18,10 @@ public static class Initialization
 
     //Initialization class from a public method, which will schedule
     //the private methods we have prepared and trigger the initialization of the lists.
-    public static void Do(IDal dal)
+    public static void Do()
     {
-        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stage 2
+        //s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stage 2
+       s_dal =Factory.Get; //stage 4  
     }
     //function that creat random workers
     private static void creatWorkers()
