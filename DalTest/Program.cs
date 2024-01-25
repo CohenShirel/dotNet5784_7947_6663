@@ -2,6 +2,7 @@
 //Shirel Cohen 214377947
 //Neomi Golkin 325946663
 //עשינו את התוספת של TryParse
+//עשינו את התוספת של ToString  בשיטת Reflection
 using Dal;
 using DalApi;
 using DO;
