@@ -12,6 +12,6 @@ public interface IAssignments
     public IEnumerable<BO.AssignmentsInList> ReadAll();
     public void Update(BO.Assignments item);
     public void Delete(int id);
-    public BO.WorkerInAssignments GetDetailedCourseForStudent(int WorkerId, int AssignmentsId);
+   // public BO.WorkerInAssignments GetDetailedCourseForStudent(int WorkerId, int AssignmentsId);
 
 }

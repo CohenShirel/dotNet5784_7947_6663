@@ -9,12 +9,12 @@ public class Assignments
 {
     public int IdAssignments { get; init;}
     public int DurationAssignments { get; set; }
-    public Level LevelAssignments { get; set; }
+    public DO.Level LevelAssignments { get; set; }
     public int IdWorker { get; set; }
-    DateOnly? dateSrart { get; set; }
-    DateOnly? DateBegin { get; set; }
-    DateOnly? DeadLine { get; set; }
-    DateOnly? DateFinish { get; set; }
+    public DateOnly? dateSrart { get; set; }
+    public DateOnly? DateBegin { get; set; }
+    public DateOnly? DeadLine { get; set; }
+    public DateOnly? DateFinish { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }
     public string? Remarks { get; set; }

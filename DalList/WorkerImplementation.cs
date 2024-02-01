@@ -1,7 +1,8 @@
 ﻿namespace Dal;
-using DalApi;
 using DO;
 using System.Collections.Generic;
+using DalApi;
+
 
 internal class WorkerImplementation: IWorker
 {

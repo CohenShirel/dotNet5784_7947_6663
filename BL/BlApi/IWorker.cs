@@ -13,7 +13,7 @@ namespace BlApi
         public IEnumerable<BO.WorkerInList> ReadAll();
         public void Update(BO.Worker item);
         public void Delete(int id);
-        public BO.WorkerInAssignments GetDetailedCourseForStudent(int WorkerId, int AssignmentsId);
+        //public BO.WorkerInAssignments GetDetailedCourseForStudent(int WorkerId, int AssignmentsId);
 
     }
 }

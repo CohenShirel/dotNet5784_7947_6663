@@ -10,7 +10,7 @@ public class Worker
     public int Id { get; init; }
     public string? Name { get; set; }
     public string? Email { get; set; }
-    public Level Experience { get; set;}
+    public DO.Level Experience { get; set;}
     public int HourSalary { get; set;}
 
     //we had it on DO
