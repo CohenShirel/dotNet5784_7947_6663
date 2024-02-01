@@ -8,6 +8,7 @@ namespace BO;
 
 public class WorkerInList
 {
+    //האם צריך לעשות?
     public int Id { get; init; }
     public required string WorkerNumber { get; set; }
     public required string WorkerName { get; set; }

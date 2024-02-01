@@ -12,16 +12,20 @@ public class Worker
     public string? Email { get; set; }
     public Level Experience { get; set;}
     public int HourSalary { get; set;}
+
     //we had it on DO
-    DateTime? BirthDate { get; set; }
-    public DateTime RegistrationDate { get; init; }
+    //DateTime? BirthDate { get; set; }
+    // public DateTime RegistrationDate { get; init; }
 
     //אתגררררררררררררר
     public override string ToString()
     {
        return ToolStringClass.ToStringProperty(this);
     }
-   
+
+    //החזרה של משימה נוכחית עי שאילתא
+    public Tuple<int, string>? Assignment { get; set; }
+
     //public bool IsActive { get; set; }
     //DateTime? BirthDate { get; set; }
     //public DateTime RegistrationDate { get; init; }
@@ -33,14 +37,3 @@ public class Worker
 //    int HourSalary,
 //    string? Name = null,////////////////////
 //    string? Email = null//////////////////
-
-
-//public record StudentA
-//{
-//    Id { get; init; }
-//  Name { get; init; }
-//    Alias { get; init; } = null;
-//   IsActive { get; init; } = false;
-//   CurrentYear { get; init; } = Year.FirstYear;
-//}
-

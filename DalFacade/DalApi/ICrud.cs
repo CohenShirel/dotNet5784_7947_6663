@@ -14,7 +14,7 @@ namespace DalApi
 
         T? Read(Func<T, bool> filter); // stage 2
         //? Read(int id);
-        IEnumerable<T?> ReadAll(Func<T, bool>? filter = null); // stage 2
+        IEnumerable<T> ReadAll(Func<T, bool>? filter = null); // stage 2
 
         //List<T> ReadAll();
         //IEnumerable<T?> ReadAll(Func<T, bool>? filter = null); // stage 2

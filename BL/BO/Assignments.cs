@@ -13,16 +13,23 @@ public class Assignments
     public int IdWorker { get; set; }
     DateOnly? dateSrart { get; set; }
     DateOnly? DateBegin { get; set; }
+    DateOnly? DeadLine { get; set; }
+    DateOnly? DateFinish { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }
     public string? Remarks { get; set; }
     public string? ResultProduct { get; set; }
-    //public  bool Milestone { get; set; }????????????????
     //אתגררררררררררררר//
     public override string ToString()
     {
         return ToolStringClass.ToStringProperty(this);
     }
+    public Status status { get; set; }
+    //רשימת תלויות??????????????מסוג משימה ברשימה
+    public List<AssignmentsInList>? links { get; set; }//link ssignments
+    //החזרת עובד נוכחי עי שאילתא
+    public Tuple <int,string>? Worker { get; set; }
+    public DateTime endProject { get; set; }//calculate the end of the project
 }
 
 
