@@ -1,7 +1,6 @@
 ﻿namespace BlImplementation;
 using BlApi;
 using BO;
-using DalApi;
 using System.Collections.Generic;
 
 internal class WorkerImplementation : IWorker
@@ -19,7 +18,7 @@ internal class WorkerImplementation : IWorker
         }
         catch (DO.DalAlreadyExistsException ex)
         {
-            throw new BO.BlAlreadyExistsException($"Worker with ID={boWorker.Id} already exists", ex);
+            throw new Exceptions.BlAlreadyExistsException($"Worker with ID={boWorker.Id} already exists", ex);
         }
     }
 
@@ -31,7 +30,7 @@ internal class WorkerImplementation : IWorker
         }
         catch (DO.DalAlreadyExistsException ex)
         {
-            //throw new BO.BlDoesNotExistException($"Worker with ID={id} does Not exists", ex);
+            throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exists", ex);
         }
     }
 
@@ -59,7 +58,7 @@ internal class WorkerImplementation : IWorker
     public Worker Read(int id)
     {
         // קוד הבא מבצע קריאה לפונקציה Read בשכבת ה DO ומצפה לקבל את המופע של Worker המתאים למזהה id
-        DO.Worker? doWorker = _dal.Worker.Read(w => w.IdWorker == id) ?? throw new BO.BlDoesNotExistException($"Worker with ID={id} does Not exist");
+        DO.Worker? doWorker = _dal.Worker.Read(w => w.IdWorker == id) ?? throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exist");
 
         // אם המופע הוא null, כלומר לא נמצא Worker עם המזהה הנתון, נזרוק חריגת BO.BlDoesNotExistException
         //if (doWorker == null)
@@ -78,19 +77,59 @@ internal class WorkerImplementation : IWorker
         };
     }
 
-    public IEnumerable<Worker> ReadAll(Func<BO.Worker, bool>? filter = null) =>
-        from doWorker in _dal.Worker.ReadAll()
+    IEnumerable<BO.WorkerInList> ReadAll(Func<BO.WorkerInList, bool>? filter = null)
+    {
+        if (null == filter)
+            //return (from DO.Course doCourse in _dal.Course.ReadAll()
+            //        select new BO.CourseInList
+            //        {
+            //            Id = doCourse.Id,
+            //            CourseNumber = doCourse.CourseNumber,
+            //            CourseName = doCourse.CourseName,
+            //            InYear = (BO.Year)doCourse.InYear!,
+            //            InSemester = (BO.SemesterNames)doCourse?.InSemester!
+            //        });
 
-        let b = new Worker
-        {
-            Id = doWorker.IdWorker,
-            Name = doWorker.Name,
-            Email = doWorker.Email,
-            Experience = doWorker.Experience,
-            HourSalary = doWorker.HourSalary
-        }
-        where filter?.Invoke(b) ?? true
-        select b;
+            return _dal.Worker.ReadAll().Select(doWorker => new BO.WorkerInList
+            {
+                IdWorker = doWorker.IdWorker,
+                Name = doWorker.Name,
+                Email = doWorker.Email,
+                Experience = doWorker.Experience,
+                HourSalary = doWorker.HourSalary
+            });
+
+        //else
+        return (from DO.Worker doCourse in _dal.Worker.ReadAll()
+                let boCIL = new BO.WorkerInList
+                {
+                    IdWorker = doWorker.IdWorker,
+                    Name = doWorker.Name,
+                    Email = doWorker.Email,
+                    Experience = doWorker.Experience,
+                    HourSalary = doWorker.HourSalary
+                }
+                where filter(boCIL)
+                select boCIL);
+    }
+    //public IEnumerable<Worker> ReadAll(Func<BO.Worker, bool>? filter = null) =>
+    //    from doWorker in _dal.Worker.ReadAll()
+
+    //    let b = new Worker
+    //    {
+    //        IdWorker = doWorker.IdWorker,
+    //        Name = doWorker.Name,
+    //        Email = doWorker.Email,
+    //        Experience = doWorker.Experience,
+    //        HourSalary = doWorker.HourSalary
+    //    }
+    //    where filter?.Invoke(b) ?? true
+    //    select b;
+
+    //public IEnumerable<WorkerInList> ReadAll()
+    //{
+    //    throw new NotImplementedException();
+    //}
 
     public void Update(BO.Worker boWorker)
     {
@@ -102,9 +141,11 @@ internal class WorkerImplementation : IWorker
         }
         catch (DO.DalAlreadyExistsException ex)
         {
-            //throw new BO.BlDoesNotExistException($"Worker with ID={boWorker.Id} does Not exists", ex);
+            throw new Exceptions.BlDoesNotExistException($"Worker with ID={boWorker.Id} does Not exists", ex);
         }
     }
+
+   
 }
 
 

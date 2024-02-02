@@ -22,7 +22,7 @@ public class Assignments
     //אתגררררררררררררר//
     public override string ToString()
     {
-        return ToolStringClass.ToStringProperty(this);
+        return Tools.ToStringProperty(this);
     }
     public Status status { get; set; }
     //רשימת תלויות??????????????מסוג משימה ברשימה

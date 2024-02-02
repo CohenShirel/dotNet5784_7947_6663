@@ -2,10 +2,8 @@
 using BlApi;
 using BO;
 //namespace Implementation
-
 using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Security.AccessControl;
+
 internal class AssignmentsImplementation : IAssignments
 {
     private static DalApi.IDal _dal = DalApi.Factory.Get;
@@ -23,7 +21,7 @@ internal class AssignmentsImplementation : IAssignments
         }
         catch (DO.DalAlreadyExistsException ex)
         {
-            throw new BO.BlAlreadyExistsException($"Assignments with ID={boAssignments.IdAssignments} already exists", ex);
+            throw new Exceptions.BlAlreadyExistsException($"Assignments with ID={boAssignments.IdAssignments} already exists", ex);
         }
     }
 
@@ -35,7 +33,7 @@ internal class AssignmentsImplementation : IAssignments
         }
         catch (DO.DalAlreadyExistsException ex)
         {
-            throw new BO.BlDoesNotExistException($"Assignments with ID={id} does Not exists", ex);
+            throw new Exceptions.BlDoesNotExistException($"Assignments with ID={id} does Not exists", ex);
         }
     }
 
@@ -78,9 +76,10 @@ internal class AssignmentsImplementation : IAssignments
     }
     public Assignments? Read(int id)
     {
-        DO.Assignments doAssignments = _dal.Assignments.Read(assignments => assignments.IdAssignments == id)?? throw new BO.BlDoesNotExistException($"Worker with ID={id} does Not exist");
+        DO.Assignments doAssignments = _dal.Assignments.Read(assignments => assignments.IdAssignments == id)?? throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exist");
         return new Assignments
         {
+        
             IdAssignments = doAssignments.IdAssignments,
             Name = doAssignments.Name,
             Description = doAssignments.Description,
@@ -124,7 +123,7 @@ internal class AssignmentsImplementation : IAssignments
         }
         catch (DO.DalAlreadyExistsException ex)
         {
-            throw new BO.BlDoesNotExistException($"Assignments with ID={boAss.IdAssignments} does Not exists", ex);
+            throw new Exceptions.BlDoesNotExistException($"Assignments with ID={boAss.IdAssignments} does Not exists", ex);
         }
     }
 }

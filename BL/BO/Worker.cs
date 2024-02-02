@@ -20,7 +20,7 @@ public class Worker
     //אתגררררררררררררר
     public override string ToString()
     {
-       return ToolStringClass.ToStringProperty(this);
+       return Tools.ToStringProperty(this);
     }
 
     //החזרה של משימה נוכחית עי שאילתא
