@@ -216,15 +216,33 @@ internal class Program
         catch (BlAlreadyExistsException ex)
         {
             Console.WriteLine($"Exception Type: {ex.GetType().Name},Exception Message: {ex.Message}");
+            // Check if there is inner exception
+            if (ex.InnerException != null)
+            {
+                Console.WriteLine($"Inner Exception Type: {ex.InnerException.GetType().Name}");
+                Console.WriteLine($"Inner Exception Message: {ex.InnerException.Message}");
+            }
 
         }
         catch (BlDoesNotExistException ex)
         {
             Console.WriteLine($"Exception Type: {ex.GetType().Name},Exception Message: {ex.Message}");
+            // Check if there is inner exception
+            if (ex.InnerException != null)
+            {
+                Console.WriteLine($"Inner Exception Type: {ex.InnerException.GetType().Name}");
+                Console.WriteLine($"Inner Exception Message: {ex.InnerException.Message}");
+            }
         }
         catch (FormatException ex)
         {
             Console.WriteLine($"Exception Type: {ex.GetType().Name},Exception Message: {ex.Message}");
+            // Check if there is inner exception
+            if (ex.InnerException != null)
+            {
+                Console.WriteLine($"Inner Exception Type: {ex.InnerException.GetType().Name}");
+                Console.WriteLine($"Inner Exception Message: {ex.InnerException.Message}");
+            }
         }
     }
     private static void optionAssignment()
@@ -380,14 +398,32 @@ internal class Program
         catch (BlAlreadyExistsException ex)
         {
             Console.WriteLine($"Exception Type: {ex.GetType().Name},Exception Message: {ex.Message}");
+            // Check if there is inner exception
+            if (ex.InnerException != null)
+            {
+                Console.WriteLine($"Inner Exception Type: {ex.InnerException.GetType().Name}");
+                Console.WriteLine($"Inner Exception Message: {ex.InnerException.Message}");
+            }
         }
         catch (BlDoesNotExistException ex)
         {
             Console.WriteLine($"Exception Type: {ex.GetType().Name},Exception Message: {ex.Message}");
+            // Check if there is inner exception
+            if (ex.InnerException != null)
+            {
+                Console.WriteLine($"Inner Exception Type: {ex.InnerException.GetType().Name}");
+                Console.WriteLine($"Inner Exception Message: {ex.InnerException.Message}");
+            }
         }
         catch (FormatException ex)
         {
             Console.WriteLine($"Exception Type: {ex.GetType().Name},Exception Message: {ex.Message}");
+            // Check if there is inner exception
+            if (ex.InnerException != null)
+            {
+                Console.WriteLine($"Inner Exception Type: {ex.InnerException.GetType().Name}");
+                Console.WriteLine($"Inner Exception Message: {ex.InnerException.Message}");
+            }
         }
     }
 }
