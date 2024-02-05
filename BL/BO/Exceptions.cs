@@ -16,7 +16,18 @@ public class Exceptions
     {
         public BlNullPropertyException(string? message) : base(message) { }
     }
-
+    [Serializable]
+    public class BlNotCorrectDetailsException : Exception
+    {
+        public BlNotCorrectDetailsException(string? message) : base(message) { }
+    }
+    [Serializable]
+    public class BlException: Exception
+    {
+        public BlException(string? message) : base(message) { }
+        public BlException(string message, Exception innerException)
+                    : base(message, innerException) { }
+    }
     [Serializable]
     public class BlAlreadyExistsException : Exception
     {
