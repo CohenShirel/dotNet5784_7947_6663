@@ -13,7 +13,6 @@ internal class WorkerImplementation : IWorker
         (boWorker.Id, boWorker.Experience, boWorker.HourSalary, boWorker.Name, boWorker.Email);
         try
         {
-            int idWor = _dal.Worker.Create(doWorker);
             return idWor;
         }
         catch (DO.DalAlreadyExistsException ex)
