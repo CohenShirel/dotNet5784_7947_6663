@@ -9,6 +9,7 @@ internal class WorkerImplementation : IWorker
 
     public int Create(BO.Worker boWorker)
     {
+        Tools.CheckId()
         DO.Worker doWorker = new DO.Worker
         (boWorker.Id, boWorker.Experience, boWorker.HourSalary, boWorker.Name, boWorker.Email);
         try

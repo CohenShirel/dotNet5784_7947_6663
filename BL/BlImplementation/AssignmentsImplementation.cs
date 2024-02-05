@@ -1,6 +1,8 @@
 ﻿namespace BlImplementation;
 using BlApi;
 using BO;
+using DalApi;
+using DO;
 //namespace Implementation
 using System.Collections.Generic;
 
@@ -11,6 +13,14 @@ internal class AssignmentsImplementation : IAssignments
     //  private static readonly Random s_rand = new();
     public int Create(BO.Assignments boAssignments)
     {
+        //check the name and the id
+        Tools.IsName(boAssignments.Description!); 
+        Tools.CheckId(boAssignments.IdAssignments);
+        //Add dependencies for previous tasks from the existing task list
+        for (int i=0;i<boAssignments.links.Count;i++)
+        {
+            _dal.Link!.Create(new Link(i, boAssignments.links[i].Id, boAssignments.IdAssignments));
+        }
         DO.Assignments doAss = new DO.Assignments
          (boAssignments.IdAssignments, boAssignments.DurationAssignments, boAssignments.LevelAssignments, boAssignments.IdWorker, boAssignments.dateSrart, boAssignments.DateBegin,
             boAssignments.DeadLine, boAssignments.DateFinish, boAssignments.Name, boAssignments.Description, boAssignments.Remarks, boAssignments.ResultProduct);
@@ -23,10 +33,16 @@ internal class AssignmentsImplementation : IAssignments
         {
             throw new Exceptions.BlAlreadyExistsException($"Assignments with ID={boAssignments.IdAssignments} already exists", ex);
         }
+        catch (Exception ex)
+        {
+            // טיפול בחריגות אחרות כפי שנדרש
+            throw new Exceptions.BlException("Failed to create task", ex);
+        }
     }
 
     public void Delete(int id)
     {
+        Tools.CheckId(id); 
         try
         {
             _dal.Assignments.Delete(id);
@@ -43,7 +59,7 @@ internal class AssignmentsImplementation : IAssignments
     //}
     private static Tuple<int,string> getWorker(int id)
     {
-        if (id == null)
+        if (id == 0)
             return new Tuple<int, string>(0, " ");
         var worker = _dal.Worker.Read(worker => worker.IdWorker == id);
         if (worker == null)
