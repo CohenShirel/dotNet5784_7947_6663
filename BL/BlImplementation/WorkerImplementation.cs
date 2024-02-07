@@ -72,6 +72,7 @@ internal class WorkerImplementation : IWorker
         BO.Worker wrk = Read(id)!;
         if (wrk.currentAssignment.status == Status.Unscheduled || wrk.currentAssignment.status == Status.Scheduled)
         {
+
             //to check if the worker  in the middle of ass or he finished ass
             //0??
             bool hasCompletedTask = ConvertLstAssDOToBO().Any(ass => ass.IdWorker != null && ass.IdWorker.Equals(id) &&

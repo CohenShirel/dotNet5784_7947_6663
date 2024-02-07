@@ -8,7 +8,74 @@ using static BO.Exceptions;
 
 internal class AssignmentsImplementation : IAssignments
 {
-   
+    private static DalApi.IDal _dal = DalApi.Factory.Get;
+    //private static readonly DalApi.IDal s_dal = Bl.s_dal;
+    //  private static readonly Random s_rand = new();
+    public int Create(BO.Assignments boAssignments)
+    {
+        if (boAssignments.status == Status.Unscheduled  || boAssignments.status == Status.Scheduled)
+     {
+            //check the name and the id
+            Tools.IsName(boAssignments.Description!);
+            Tools.CheckId(boAssignments.IdAssignments);
+            //Add dependencies for previous tasks from the existing ta
+            //sk list
+            for (int i = 0; i < boAssignments.links!.Count; i++)
+            {
+                _dal.Link!.Create(new Link(i, boAssignments.links[i].Id, boAssignments.IdAssignments));
+            }
+            DO.Assignments doAss = new DO.Assignments
+             (boAssignments.IdAssignments, boAssignments.DurationAssignments, boAssignments.LevelAssignments, boAssignments.IdWorker, boAssignments.dateSrart, boAssignments.DateBegin,
+                boAssignments.DeadLine, boAssignments.DateFinish, boAssignments.Name, boAssignments.Description, boAssignments.Remarks, boAssignments.ResultProduct);
+            try
+            {
+                int idAss = _dal.Assignments.Create(doAss);
+                return idAss;
+            }
+            catch (DO.DalAlreadyExistsException ex)
+            {
+                throw new Exceptions.BlAlreadyExistsException($"Assignments with ID={boAssignments.IdAssignments} already exists", ex);
+            }
+            catch (Exception ex)
+            {
+                // טיפול בחריגות אחרות כפי שנדרש
+                throw new Exceptions.BlException("Failed to create task", ex);
+            }
+        }
+        throw new Exceptions.BlException("Failed to create task");
+
+    }
+
+    public void Delete(int id)
+    {
+        BO.Assignments ass1 = Read(id)!;
+        if (ass1.status == Status.Unscheduled  || ass1.status == Status.Scheduled)
+     {
+            Tools.CheckId(id);
+            //BO.Assignments ass = Read(id)!;
+            // Check if the assignment is linked to other assignments
+            for (int i = 0; i < ass1.links!.Count; i++)
+                //if there is ass that wasnt finished && the ass will finish after the current ass??????????
+                if (ass1.links[i].DateFinish != null && ass1.links[i].DateFinish > ass1.dateSrart)
+                    throw new Exceptions.BlInvalidOperationException($"Cannot delete assignment with ID={id} as it is linked to other assignments");
+            try
+            {
+                _dal.Assignments.Delete(id);
+            }
+            catch (DO.DalAlreadyExistsException ex)
+            {
+                throw new Exceptions.BlDoesNotExistException($"Assignments with ID={id} does Not exists", ex);
+            }
+            catch (Exception ex)
+            {
+                // טיפול בחריגות אחרות כפי שנדרש
+                throw new Exceptions.BlException("Failed to delete task", ex);
+            }
+        }
+
+        //שימו לב: אי אפשר למחוק משימות לאחר יצירת לו"ז הפרויקט.
+    }
+
     //public WorkerInAssignments GetDetailedCourseForStudent(int WorkerId, int AssignmentsId)
     //{
     //    throw new NotImplementedException();
