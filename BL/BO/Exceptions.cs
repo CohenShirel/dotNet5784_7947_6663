@@ -43,5 +43,12 @@ public class Exceptions
         public BlDeletionImpossibleException(string message, Exception innerException)
                     : base(message, innerException) { }
     }
-
+    //business Logic Invalid 
+    [Serializable]
+    public class BlInvalidOperationException : Exception
+    {
+        public BlInvalidOperationException(string? message) : base(message) { }
+        public BlInvalidOperationException(string message, Exception innerException)
+                    : base(message, innerException) { }
+    }
 }

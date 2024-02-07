@@ -10,6 +10,96 @@ namespace BO
 {
     static class Tools
     {
+        
+        //function that convert BOToDO
+        public static DO.Worker ConvertWrkBOToDO(BO.Worker doWorker)
+        {
+            return new DO.Worker
+            {
+                IdWorker = doWorker.Id,
+                Name = doWorker.Name,
+                Email = doWorker.Email,
+                Experience = doWorker.Experience,
+                HourSalary = doWorker.HourSalary,
+            };
+        }
+        //function that convert DOToBO
+        public static BO.Worker ConvertWrkDOToBO(DO.Worker doWorker)
+        {
+            return new BO.Worker
+            {
+                Id = doWorker.IdWorker,
+                Name = doWorker.Name,
+                Email = doWorker.Email,
+                Experience = doWorker.Experience,
+                HourSalary = doWorker.HourSalary,
+            };
+        }
+        //function that convert DOToBO
+        public static BO.Assignments ConvertAssDOToBO(DO.Assignments doAss)
+        {
+            return new BO.Assignments
+            {
+                IdAssignments = doAss.IdWorker,
+                DurationAssignments = doAss.DurationAssignments,
+                LevelAssignments = doAss.LevelAssignments,
+                IdWorker = doAss.IdWorker,
+                dateSrart = doAss.dateSrart,
+                DateBegin = doAss.DateBegin,
+                DeadLine = doAss.DeadLine,
+                DateFinish = doAss.DateFinish,
+                Name = doAss.Name,
+                Description = doAss.Description,
+                Remarks = doAss.Remarks,
+                ResultProduct = doAss.ResultProduct,
+            };
+        }
+        public static Status calaStatus(DO.Assignments assignments)
+        {
+            if (assignments.DateBegin is null)
+                return BO.Status.Unscheduled;
+            if (assignments.DateFinish is not null)
+                return BO.Status.OnTrack;
+            return BO.Status.Done;
+        }
+      
+        public static Status GetEmployeeStatus(List<Assignments> lstAssignment)
+        {
+            bool PartTime = false;// קיימת משימה עם תאריך
+            bool allTime = true;//לכל המשימות יש תאריך
+
+            foreach (Assignments assignment in lstAssignment)
+            {
+                //if (task.DependencyTaskId != null)
+                if (assignment.dateSrart!=null)
+                    PartTime = true;// אז אם יש למשימה תלות, אז יש הקצאת זמן
+                else
+                    allTime = false;// אם יש משימה ללא הקצאת זמן, אז לא כל המשימות הוקצו
+            }
+            if (allTime)
+            {
+                //reset all the status
+                foreach (Assignments assignment in lstAssignment)
+                    assignment.status = Status.OnTrack;
+                return Status.OnTrack; //אם כל המשימות הוקצו זמן, הסטטוס הוא סופי
+            }
+            else if (PartTime)
+            {
+                //reset all the status
+                foreach (Assignments assignment in lstAssignment)
+                    assignment.status = Status.Scheduled;
+                return Status.Scheduled; // אם יש הקצאת זמן למשימות, הסטטוס הוא ביניים
+            }
+            else
+            {
+                //reset all the status
+                foreach (Assignments assignment in lstAssignment)
+                    assignment.status = Status.Unscheduled;
+                return Status.Unscheduled; // אם אין הקצאת זמן למשימות, הסטטוס הוא התחלתי
+            }
+        }
+
+
         public static string ToStringProperty<T>(this T t)
         {
             string str = "";
@@ -122,3 +212,20 @@ namespace BO
 
 
 }
+//check if there are ass that link
+//private static bool IsLinks(BO.Assignments ass)
+//{
+//    for (int i = 0; i < ass.links!.Count; i++)
+//        //if there is ass that wasnt finished && the ass will finish after the current ass??????????
+//        if (ass.links[i].DateFinish != null && ass.links[i].DateFinish > ass.dateSrart)
+//            return false;
+//    return true;
+//}
+//private static bool NoStartDate(BO.Assignments ass)
+//{
+//    for (int i = 0; i < ass.links!.Count; i++)
+//        //if there is ass that wasnt finished && the ass will finish after the current ass??????????
+//        if (ass.links[i].dateSrart!=null)
+//            return false;
+//    return true;//there are start date for everyone
+//}
