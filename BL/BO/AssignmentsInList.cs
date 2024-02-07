@@ -15,6 +15,9 @@ public class AssignmentsInList
     public Status status { get; set; }
     //public DateOnly? dateSrart {get; init;}
     //public DateOnly? DateBegin {get; init;}
+    public int IdWorker { get; set; }
+    public DateOnly? dateSrart { get; set; }
+    public DateOnly? DateFinish { get; set; }
     public override string ToString() => this.ToStringProperty();
 
 

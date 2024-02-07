@@ -13,10 +13,6 @@ public class Worker
     public DO.Level Experience { get; set;}
     public int HourSalary { get; set;}
 
-    //we had it on DO
-    //DateTime? BirthDate { get; set; }
-    // public DateTime RegistrationDate { get; init; }
-
     //אתגררררררררררררר
     public override string ToString()
     {
@@ -24,16 +20,16 @@ public class Worker
     }
 
     //החזרה של משימה נוכחית עי שאילתא
-    public Tuple<int, string>? Assignment { get; set; }
+    public Assignments currentAssignment { get; set; }
 
-    //public bool IsActive { get; set; }
-    //DateTime? BirthDate { get; set; }
-    //public DateTime RegistrationDate { get; init; }
-    //Year CurrentYear { get; init; } // (Year)(DateTime.Now.Year - RegistrationDate.Year);
-
+    //public Tuple<int, string>? currentAssignment { get; set; }
 }
-//int IdWorker,///////////////////////////////
-//    Level Experience,
-//    int HourSalary,
-//    string? Name = null,////////////////////
-//    string? Email = null//////////////////
+
+//public bool IsActive { get; set; }
+//DateTime? BirthDate { get; set; }
+//public DateTime RegistrationDate { get; init; }
+//Year CurrentYear { get; init; } // (Year)(DateTime.Now.Year - RegistrationDate.Year);
+
+//we had it on DO
+//DateTime? BirthDate { get; set; }
+// public DateTime RegistrationDate { get; init; }

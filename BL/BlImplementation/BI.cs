@@ -1,13 +1,33 @@
 ﻿namespace BlImplementation;
 using BlApi;
+using DalApi;
+using BO;
+using BlImplementation;
+using static BO.Exceptions;
+using System;
 
 internal class Bl : IBl
 {
-    public IWorker Worker => new WorkerImplementation();
+    public BlApi.IWorker Worker => new WorkerImplementation();
 
-    public IAssignments Assignments => new AssignmentsImplementation();
+    public BlApi.IAssignments Assignments => new AssignmentsImplementation();
 
-   // public IWorkerInAssignments WorkerInAssignments => new WorkerInAssignmentsImplementation();
+    DateOnly? IBl.DateBegin => throw new NotImplementedException();
 
-  //  public ISchedule Schedule =>new ScheduleImplementation();
+    DateOnly? IBl.DeadLine => throw new NotImplementedException();
+
+    private static IDal? s_dal;
+    public void reset()
+    {
+        //מנקה את כל הרשומות
+        //DalTest.Initialization.Do();
+        //המס הרצים חוזרים למס ההתחלתיים
+        s_dal = DalApi.Factory.Get;
+        s_dal.Worker!.DeleteAll();
+        s_dal.Assignments!.DeleteAll();
+    }
+    //לעשות כאן לוז אוטומטי??
+    // public IWorkerInAssignments WorkerInAssignments => new WorkerInAssignmentsImplementation();
+
+    //  public ISchedule Schedule =>new ScheduleImplementation();
 }

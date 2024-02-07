@@ -1,7 +1,10 @@
 ﻿using BO;
 using BlApi;
 using BlImplementation;
+using BL;
 using static BO.Exceptions;
+using System.Threading.Tasks;
+using System.Security.Cryptography;
 namespace BlTest;
 
 internal class Program
@@ -25,6 +28,56 @@ internal class Program
         UPDATE,
         DELETE
     }
+    public void ScheduleProject()
+    {
+        Console.WriteLine("Enter startDate of the project");
+        DateTime projectStartDate = DateTime.TryParse(Console.ReadLine());
+        foreach (  in tasks)
+        {
+            if (task.Dependencies.Count == 0)
+            {
+                task.ScheduledDate = projectStartDate;
+            }
+            else
+            {
+                DateTime maxDependencyDate = DateTime.MinValue;
+                foreach (var dependency in task.Dependencies)
+                {
+                    if (dependency.ScheduledDate > maxDependencyDate)
+                    {
+                        maxDependencyDate = dependency.ScheduledDate.Value;
+                    }
+                }
+                task.ScheduledDate = maxDependencyDate;
+            }
+
+            Console.WriteLine($"Task: {task.Name}, Scheduled Date: {task.ScheduledDate}");
+        }
+    }
+    public class ProjectScheduler
+    {
+        private List<Task> tasks;
+        private DateTime? projectStartDate;
+
+        public ProjectScheduler()
+        {
+            tasks = new List<Task>();
+            projectStartDate = null;
+        }
+
+        public void AddTask(Task task)
+        {
+            tasks.Add(task);
+        }
+
+        public void SetProjectStartDate(DateTime startDate)
+        {
+            projectStartDate = startDate;
+        }
+
+        
+    }
+
     //function that convert DOToBO
     public static BO.Worker ConvertWrkDOToBO(DO.Worker doWorker)
     {
@@ -63,10 +116,13 @@ internal class Program
         string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
         if (ans == "Y") //stage 3
         {
-            DalTest.Initialization.Do(); 
-
+            BlImplementation.Bl.reset();
+           // DalTest.Initialization.Do(); 
+           //reset();
             //s_bl.Worker!.DeleteAll();
+            
             //s_bl.Assignments!.DeleteAll();
+            
         }
         ENTITY myChoice = ENTITY.ASSIGNMENT;
         do
@@ -83,6 +139,7 @@ internal class Program
                     switch (myChoice)
                     {
                         case ENTITY.EXIT:
+                            //SCUDLE
                             // יציאה
                             break;
                         case ENTITY.WORKER:
@@ -286,9 +343,9 @@ internal class Program
                                 throw new FormatException("Wrong input");
                             Console.WriteLine("enter level of the worker : ");
                             DO.Level level = (DO.Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
-                            Console.WriteLine("enter milestone-False/True : ");
-                            if (!bool.TryParse(Console.ReadLine(), out bool milestone))
-                                throw new FormatException("Wrong input");
+                            //Console.WriteLine("enter milestone-False/True : ");
+                            //if (!bool.TryParse(Console.ReadLine(), out bool milestone))
+                            //    throw new FormatException("Wrong input");
                             Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
                             if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly datestart))
                                 throw new FormatException("datestart is not correct");
@@ -299,7 +356,7 @@ internal class Program
                             if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateFinish))
                                 throw new FormatException("datestart is not correct");
                             DO.Assignments ass = new DO.Assignments(0, DurationAssignments, level, IdWorker, datestart, DateBegin, DeadLine,
-                            DateFinish, name, Description, Remarks, ResultProduct, milestone);
+                            DateFinish, name, Description, Remarks, ResultProduct,false);
                             Assignments assig = ConvertAssDOToBO(ass);
                             s_bl.Assignments!.Create(assig);
                             break;
