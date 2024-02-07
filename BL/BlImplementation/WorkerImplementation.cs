@@ -15,11 +15,6 @@ internal class WorkerImplementation : IWorker
 
     public int Create(BO.Worker boWorker)
     {
-        ////boWorker.currentAssignment != null && 
-        //if ((boWorker.currentAssignment!.Item1 == (int)Status.Unscheduled || boWorker.currentAssignment.Item1 == (int)Status.Scheduled))
-        //{
-
-        //}
         if (boWorker.currentAssignment.status==Status.Unscheduled || boWorker.currentAssignment.status == Status.Scheduled)
         {
             Tools.CheckId(boWorker.Id);
@@ -31,15 +26,13 @@ internal class WorkerImplementation : IWorker
 
             try
             {
-                BO.Worker bWorker = new BO.Worker
+                DO.Worker dWorker = new DO.Worker
                 {
                     Experience = boWorker.Experience,
                     HourSalary = boWorker.HourSalary,
                     Name = boWorker.Name,
                     Email = boWorker.Email,
-                    currentAssignment = checkCurrentAssignment(boWorker) ? boWorker.currentAssignment : throw new BlInvalidOperationException("Failed to update currentAssignment"),
                 };
-                DO.Worker dWorker = Tools.ConvertWrkBOToDO(bWorker);
                 int idWor = _dal.Worker.Create(dWorker);
                 return idWor;
             }
@@ -143,8 +136,7 @@ internal class WorkerImplementation : IWorker
                 Email = doWorker.Email,
                 Experience = doWorker.Experience,
                 HourSalary = doWorker.HourSalary,
-
-                //currentAssignment= checkCurrentAssignment()::??
+                currentAssignment= checkCurrentAssignment()::??
                 //currentAssignment = Console.ReadLine() ?? throw new FormatException("Wrong input")
             };
             if(checkCurrentAssignment())
@@ -152,6 +144,10 @@ internal class WorkerImplementation : IWorker
         catch (DO.DalAlreadyExistsException ex)
         {
             throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exists", ex);
+        }
+        catch (BlInvalidOperationException ex)
+        {
+            throw new Exceptions.BlInvalidOperationException($"Failed to update currentAssignment of Worker with ID={boWorker.Id} ", ex);
         }
         catch (Exception ex)
         {
