@@ -11,7 +11,7 @@ namespace BlApi;
 public interface IWorker
 {
     public int Create(BO.Worker item);
-    public BO.Worker? Read(int id);
+    public BO.Worker? Read(Func<BO.WorkerInList, bool>? filter = null);
 
     public IEnumerable<WorkerInList> ReadAll(Func<BO.WorkerInList, bool>? filter = null);
 

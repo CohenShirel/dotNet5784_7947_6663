@@ -114,6 +114,7 @@ internal class AssignmentsImplementation : IAssignments
     //    //    > assignments.DeadLine ? Status.InJeopardy : Status.OnTrack;
     //}
     //תאריך משוער לסיום,לעשות פונקציה כזאת כמו של הסטטוס
+    //לעשות את ריד עפ פילטר
     public BO.Assignments? Read(int id)
     {
         try
@@ -160,16 +161,28 @@ internal class AssignmentsImplementation : IAssignments
                 where filter!(ass)
                 select ass) ;
     }
-
-
-    //return (from DO.Assignments doAssignments in _dal.Assignments.ReadAll()
-    //        select new BO.AssignmentsInList
-    //        {
-    //            Id = doAssignments.IdAssignments,
-    //            AssignmentName = doAssignments.Name,
-    //            LevelAssignments = doAssignments.LevelAssignments,
-    //            status = calaStatus(doAssignments),
-    //        });
+    public IEnumerable<BO.Assignments> ReadAllAss(Func<BO.Assignments, bool>? filter = null)
+    {
+        return (from DO.Assignments doAssignments in _dal.Assignments.ReadAll()
+                let ass = new BO.Assignments
+                {
+                    IdAssignments = doAssignments.IdAssignments,
+                    DurationAssignments = doAssignments.DurationAssignments,
+                    IdWorker = doAssignments.IdWorker,
+                    Name = doAssignments.Name!,
+                    Description = doAssignments.Description,
+                    Remarks = doAssignments.Remarks,
+                    ResultProduct = doAssignments.ResultProduct,
+                    LevelAssignments = doAssignments.LevelAssignments,
+                    dateSrart = doAssignments.dateSrart,
+                    DateBegin = doAssignments.DateBegin,
+                    DeadLine = doAssignments.DeadLine,
+                    DateFinish = doAssignments.DateFinish,
+                    status = Tools.calaStatus(doAssignments)
+                }
+                where filter!(ass)
+                select ass);
+    }
     public void Update(BO.Assignments boAss)
     {
         BO.Assignments ass = Read(boAss.IdAssignments)!;
@@ -180,9 +193,6 @@ internal class AssignmentsImplementation : IAssignments
             Tools.CheckId(boAss.IdAssignments);
             try
             {
-            //    DO.Assignments doAssignments = new DO.Assignments
-            //    (ass.IdAssignments, ass.DurationAssignments, ass.LevelAssignments, ass.IdWorker, ass.dateSrart,ass.DateBegin,
-            //    ass.DeadLine, ass.DateFinish, boAss.Name, boAss.Description, boAss.Remarks, boAss.ResultProduct);
                  DO.Assignments doAssignments = new DO.Assignments
                  {
                      Description = boAss.Description,
@@ -208,19 +218,8 @@ internal class AssignmentsImplementation : IAssignments
             //check the name and the id
             Tools.IsName(boAss.Description!);
             Tools.CheckId(boAss.IdAssignments);
-            //try
-            //{
-            //    DO.Assignments doAssignments = new DO.Assignments
-            //    (boAss.IdAssignments, boAss.DurationAssignments, boAss.LevelAssignments, boAss.IdWorker, boAss.dateSrart, boAss.DateBegin,
-            //    boAss.DeadLine, boAss.DateFinish, boAss.Name, boAss.Description, boAss.Remarks, boAss.ResultProduct);
-
-            //    _dal.Assignments.Update(ref doAssignments);
-            //}
             try
             {
-                //    DO.Assignments doAssignments = new DO.Assignments
-                //    (ass.IdAssignments, ass.DurationAssignments, ass.LevelAssignments, ass.IdWorker, ass.dateSrart,ass.DateBegin,
-                //    ass.DeadLine, ass.DateFinish, boAss.Name, boAss.Description, boAss.Remarks, boAss.ResultProduct);
                 DO.Assignments doAssignments = new DO.Assignments
                 {
                     IdAssignments = boAss.IdAssignments,

@@ -12,7 +12,8 @@ namespace DalApi
         IWorker Worker { get; }
         IAssignments Assignments { get; }
         ILink Link { get; }
-       // ICrud crd { get; }
-
+        // ICrud crd { get; }
+        public DateTime? StartProjectTime { get; set; }
+        //public DateTime? DeadLine { get; set; }
     }
 }

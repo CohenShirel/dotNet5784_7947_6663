@@ -15,10 +15,8 @@ internal static class DataSource
         internal const int IdLink = 1;
         private static int IDLink = IdLink;
         internal static int idlink { get => IDLink++; }
-
-        
-        public static DateOnly? dateStart { get; set; } = null;
-        public static DateOnly? DateBegin { get; set; } = null;
+        // public static DateTime? dateStart { get; set; } = null;
+        internal static DateTime? StartProjectTime { get; set; } = DateTime.Now;
     }
     //list of name,assigment,link
     internal static List<DO.Worker> Workers { get; } = new();

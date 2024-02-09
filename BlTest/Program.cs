@@ -5,6 +5,11 @@ using BL;
 using static BO.Exceptions;
 using System.Threading.Tasks;
 using System.Security.Cryptography;
+using DalApi;
+using System.Runtime.InteropServices;
+using DO;
+using System.Collections.Generic;
+using System;
 namespace BlTest;
 
 internal class Program
@@ -28,32 +33,70 @@ internal class Program
         UPDATE,
         DELETE
     }
-    public void ScheduleProject()
+    //else
+    //{
+    //    foreach (var a in lstPLinks)
+    //    {
+    //        currentAss = s_bl.Assignments.Read(a.IdAssignments)!;
+    //        if (currentAss.DateBegin==null)
+    //            throw new FormatException("datestart is not reset");
+    //    }
+    //}
+    // int IdAssignments,
+    //int IdPAssignments
+    static readonly IDal s_dal = DalApi.Factory.Get;
+    IEnumerable<BO.Assignments> lstAss = s_bl.Assignments.ReadAllAss();
+    //משך זמן ורמת מורכבות\
+    public BO.Status ScheduleProject()
     {
-        Console.WriteLine("Enter startDate of the project");
-        DateTime projectStartDate = DateTime.TryParse(Console.ReadLine());
-        foreach (  in tasks)
+        IEnumerable<Link> lstPLinks;
+        foreach (var ass in lstAss)
         {
-            if (task.Dependencies.Count == 0)
+            lstPLinks = s_dal.Link.ReadAll(d => d.IdAssignments == ass.IdAssignments);//the previes ass
+            if (lstPLinks == null)
             {
-                task.ScheduledDate = projectStartDate;
+                ass.DateBegin = IBl.StartProjectTime;
+                ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
+                s_bl.Assignments!.Update(ass);
             }
-            else
-            {
-                DateTime maxDependencyDate = DateTime.MinValue;
-                foreach (var dependency in task.Dependencies)
-                {
-                    if (dependency.ScheduledDate > maxDependencyDate)
-                    {
-                        maxDependencyDate = dependency.ScheduledDate.Value;
-                    }
-                }
-                task.ScheduledDate = maxDependencyDate;
-            }
+            
+            //פונקציה לחישוב המשימה הבאה ועדכון הזמן שלה התלויות בה
+            Rec(ass);
+            
 
-            Console.WriteLine($"Task: {task.Name}, Scheduled Date: {task.ScheduledDate}");
         }
+        // משימות התחלתיות מעודכנות ומשמות התלויות בהן מעודכנות
+        //
+
+        return Status.Unscheduled;
+
     }
+    public void Rec(BO.Assignments ass)
+    {
+        BO.Assignments currentAss;
+        IEnumerable<Link> lstNLinks;
+
+        lstNLinks = s_dal.Link.ReadAll(d => d.IdPAssignments == ass.IdAssignments);//the Next ass
+        foreach (var a in lstNLinks)
+        {
+            Console.WriteLine($"Enter startDate of the project And the mininal start time that you can begin is: {ass.DeadLine}");
+            if (!DateTime.TryParse(Console.ReadLine(), out DateTime dt))
+                throw new FormatException("datestart is not correct");
+            if (dt >= ass.DeadLine)
+            {
+                currentAss = s_bl.Assignments.Read(a.IdAssignments)!;
+                currentAss.DateBegin = dt;
+                currentAss.DeadLine = currentAss.DateBegin + TimeSpan.FromDays(currentAss.DurationAssignments);
+                s_bl.Assignments!.Update(currentAss);
+                Rec(currentAss);
+
+            }
+            throw new FormatException("datestart is not correct");
+
+        }
+
+    }
+
     public class ProjectScheduler
     {
         private List<Task> tasks;
@@ -95,7 +138,7 @@ internal class Program
     {
         return new BO.Assignments
         {
-            IdAssignments = doAss.IdWorker,
+            IdAssignments = doAss.IdAssignments,
             DurationAssignments = doAss.DurationAssignments,
             LevelAssignments = doAss.LevelAssignments,
             IdWorker = doAss.IdWorker,
@@ -116,13 +159,7 @@ internal class Program
         string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
         if (ans == "Y") //stage 3
         {
-            BlImplementation.Bl.reset();
-           // DalTest.Initialization.Do(); 
-           //reset();
-            //s_bl.Worker!.DeleteAll();
-            
-            //s_bl.Assignments!.DeleteAll();
-            
+            Bl.reset();
         }
         ENTITY myChoice = ENTITY.ASSIGNMENT;
         do
@@ -207,16 +244,26 @@ internal class Program
                             {
                                 throw new FormatException("Wrong input");
                             }
-                            DO.Worker wrk = new DO.Worker(id, userLevel, cost, name, email);
-                            Worker worker = ConvertWrkDOToBO(wrk);
-                            s_bl.Worker!.Create(worker);
+                            //DO.Worker wrk = new DO.Worker(id, userLevel, cost, name, email);
+                            //Worker worker = ConvertWrkDOToBO(wrk);
+                            //s_bl.Worker!.Create(worker);
+                            BO.Worker wrk = new BO.Worker
+                            {
+                                Id = id,
+                                Experience = userLevel,
+                                HourSalary = cost,
+                                Email = email,
+                                Name = name,
+                            };
+                            s_bl.Worker!.Create(wrk);
+
                             break;
                         case CRUD.READ:
                             // Perform read operation
                             Console.WriteLine("Enter worker ID: ");
                             if (!int.TryParse(Console.ReadLine(), out int ID))
                                 throw new FormatException("Wrong input");
-                            Worker? rea = s_bl.Worker!.Read(ID);
+                            BO.Worker? rea = s_bl.Worker!.Read(ID);
                             Console.WriteLine(rea);
                             break;
                         case CRUD.READ_ALL:
@@ -231,7 +278,7 @@ internal class Program
                             Console.WriteLine("Enter worker ID: ");
                             if (!int.TryParse(Console.ReadLine(), out int iD))
                                 throw new FormatException("Wrong input");
-                            Worker updatedWorker = s_bl.Worker!.Read(iD)! ?? throw new FormatException($"Can't update, worker does not exist!!");
+                            BO.Worker updatedWorker = s_bl.Worker!.Read(iD)! ?? throw new FormatException($"Can't update, worker does not exist!!");
                             Console.WriteLine(updatedWorker);
                             Console.WriteLine("Please update the details -- name, email, level, cost.\n");
                             string? updatedName = Console.ReadLine() ?? throw new FormatException("Wrong input");
@@ -239,13 +286,14 @@ internal class Program
                             if (!int.TryParse(Console.ReadLine(), out int updatedCost))
                                 throw new FormatException("Wrong input");
                             DO.Level updatedLevel = (DO.Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
-                            //if i got space/null save the old one
-                            //if (string.IsNullOrWhiteSpace(updatedName))
-                            //    updatedName = s_dal.Worker.Read(iD)!.Name;
-                            //if (string.IsNullOrWhiteSpace(updetedEmail))
-                            //    updetedEmail = s_dal.Worker.Read(iD)!.Email;
-                            DO.Worker worker1 = new DO.Worker(iD,updatedLevel,updatedCost,updatedName,updetedEmail);
-                            Worker wrk1 = ConvertWrkDOToBO(worker1);
+                            BO.Worker wrk1 = new BO.Worker
+                            {
+                                Id = iD,
+                                Experience = updatedLevel,
+                                HourSalary = updatedCost,
+                                Email = updetedEmail,
+                                Name = updatedName,
+                            };
                             s_bl.Worker!.Update(wrk1);
                             break;
                         case CRUD.DELETE:
@@ -343,29 +391,25 @@ internal class Program
                                 throw new FormatException("Wrong input");
                             Console.WriteLine("enter level of the worker : ");
                             DO.Level level = (DO.Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
-                            //Console.WriteLine("enter milestone-False/True : ");
-                            //if (!bool.TryParse(Console.ReadLine(), out bool milestone))
-                            //    throw new FormatException("Wrong input");
-                            Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
-                            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly datestart))
-                                throw new FormatException("datestart is not correct");
-                            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateBegin))
-                                throw new FormatException("datestart is not correct");
-                            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DeadLine))
-                                throw new FormatException("datestart is not correct");
-                            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateFinish))
-                                throw new FormatException("datestart is not correct");
-                            DO.Assignments ass = new DO.Assignments(0, DurationAssignments, level, IdWorker, datestart, DateBegin, DeadLine,
-                            DateFinish, name, Description, Remarks, ResultProduct,false);
-                            Assignments assig = ConvertAssDOToBO(ass);
-                            s_bl.Assignments!.Create(assig);
+                            //DO.Assignments ass = new DO.Assignments(DurationAssignments, level, IdWorker,
+                            //name, Description, Remarks, ResultProduct);
+                            BO.Assignments ass=new BO.Assignments
+                            {
+                                DurationAssignments =DurationAssignments,
+                                LevelAssignments = level,
+                                IdWorker =IdWorker,
+                                Name =name,
+                                Description =Description,
+                                Remarks =Remarks,
+                                ResultProduct =ResultProduct,
+                            };
+                            s_bl.Assignments!.Create(ass);
                             break;
-
                         case CRUD.READ:
                             Console.WriteLine("Enter Assignment ID: ");
                             if (!int.TryParse(Console.ReadLine(), out int ID))
                                 throw new FormatException("Wrong input");
-                            Assignments rea = s_bl.Assignments!.Read(ID)!;
+                            BO.Assignments rea = s_bl.Assignments!.Read(ID)!;
                             Console.WriteLine(rea);
                             break;
 
@@ -401,32 +445,21 @@ internal class Program
                                 throw new FormatException("Wrong input");
                             Console.WriteLine("enter level of the worker : ");
                             DO.Level level1 = (DO.Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
-                            Console.WriteLine("enter milestone-False/True : ");
-                            if (!bool.TryParse(Console.ReadLine(), out bool milestone1))
-                                throw new FormatException("Wrong input");
-                            Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
-                            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly datestart1))
+                            Console.WriteLine("enter the datestart of the Assignment: ");
+                            if (!DateTime.TryParse(Console.ReadLine(), out DateTime datestart))
                                 throw new FormatException("datestart is not correct");
-                            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateBegin1))
-                                throw new FormatException("datestart is not correct");
-                            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DeadLine1))
-                                throw new FormatException("datestart is not correct");
-                            if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateFinish1))
-                                throw new FormatException("datestart is not correct");
-                            //if i got space/null save the old one
-                            //if (string.IsNullOrWhiteSpace(name1))
-                            //    name1 = s_dal.Assignments.Read(Id)!.Name;
-                            //if (string.IsNullOrWhiteSpace(Description1))
-                            //    Description1 = s_dal.Assignments.Read(Id)!.Description;
-                            //if (string.IsNullOrWhiteSpace(Remarks1))
-                            //    Remarks1 = s_dal.Assignments.Read(Id)!.Remarks;
-                            //if (string.IsNullOrWhiteSpace(ResultProduct1))
-                            //    ResultProduct1 = s_dal.Assignments.Read(Id)!.ResultProduct;
-                            DO.Assignments ass1 = new DO.Assignments(Id, DurationAssignments1, level1,
-                                IdWorker1, datestart1, DateBegin1, DeadLine1,
-                            DateFinish1, name1, Description1, Remarks1, ResultProduct1, milestone1);
-                            Assignments Ass= ConvertAssDOToBO(ass1);
-                            s_bl.Assignments!.Update(Ass);
+                            //ScheduleProject(IdWorker1, datestart);
+                            BO.Assignments ass1 = new BO.Assignments
+                            {
+                                DurationAssignments = DurationAssignments1,
+                                LevelAssignments = level1,
+                                IdWorker = IdWorker1,
+                                Name = name1,
+                                Description = Description1,
+                                Remarks = Remarks1,
+                                ResultProduct = ResultProduct1,
+                            };
+                            s_bl.Assignments!.Update(ass1);
                             break;
 
                         case CRUD.DELETE:
@@ -483,6 +516,7 @@ internal class Program
             }
         }
     }
+
 }
 
 

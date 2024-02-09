@@ -11,10 +11,10 @@ public class Assignments
     public int DurationAssignments { get; set; }
     public DO.Level LevelAssignments { get; set; }
     public int IdWorker { get; set; }
-    public DateOnly? dateSrart { get; set; }
-    public DateOnly? DateBegin { get; set; }
-    public DateOnly? DeadLine { get; set; }
-    public DateOnly? DateFinish { get; set; }
+    public DateTime ? dateSrart { get; set; }
+    public DateTime? DateBegin { get; set; }
+    public DateTime? DeadLine { get; set; }//calculate the end of the project
+    public DateTime? DateFinish { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }
     public string? Remarks { get; set; }
@@ -26,10 +26,9 @@ public class Assignments
     }
     public Status status { get; set; }
     //רשימת תלויות??????????????מסוג משימה ברשימה
-    public List<AssignmentsInList>? links { get; set; }//link ssignments
+    public List<Assignments>? links { get; set; }//link ssignmentsInList?
     //החזרת עובד נוכחי עי שאילתא
     public Tuple <int,string>? Worker { get; set; }
-    public DateTime endProject { get; set; }//calculate the end of the project
 }
 
 
@@ -37,10 +36,10 @@ public class Assignments
 //    int DurationAssignments,//////////////////////////////////
 //  Level LevelAssignments,
 //    int IdWorker,
-//  DateOnly? dateSrart=null,
-//  DateOnly? DateBegin = null,
-//  DateOnly? DeadLine = null,
-//  DateOnly? DateFinish = null,
+//  DateTime? dateSrart=null,
+//  DateTime? DateBegin = null,
+//  DateTime? DeadLine = null,
+//  DateTime? DateFinish = null,
 //    string? Name = null,
 //    string? Description = null,
 //    string? Remarks = null,
