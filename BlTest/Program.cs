@@ -39,30 +39,50 @@ internal class Program
             ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
             s_bl.Assignments!.Update(ass);
         }
-        DateTime? BiGTime=null;
-        foreach (var a in lstPLinks!)
-        {
-            BO.Assignments assP = s_bl.Assignments.Read(a.IdAssignments)!;
-            if(assP.DateBegin == null)
-            {
-                if (BiGTime < assP.DeadLine || BiGTime == null)
-                {
-                    BiGTime = assP.DeadLine;
-                }
-            }
+        //DateTime? BiGTime=null;
+        var maxDeadline = lstPLinks!.MaxBy(a => s_bl.Assignments.Read(a.IdAssignments)!.DeadLine);
+        if (maxDeadline == null)
             throw new FormatException("ERROR! There aren't dateBegin for previous assignments");
-        }
-        Console.WriteLine($"The Last deadLine for that assigment is:{BiGTime}");
-        if (!DateTime.TryParse(Console.ReadLine(), out DateTime dt))
-            throw new FormatException("datestart is not correct");
-        if(dt >= BiGTime)
-        {
-            ass.DateBegin = dt;
-            ass.DeadLine = dt + TimeSpan.FromDays(ass.DurationAssignments);
-            s_bl.Assignments!.Update(ass);
-        }
-        else//אם הכניס קוד שהוא קטן
-            throw new FormatException("ERROR! You enter error date");
+        // תאריך התחלתי
+       // DateTime startDate = new DateTime(maxDeadline);
+
+        // יצירת מחולק רנדומלי
+        Random random = new Random();
+
+        // הגרלת מספר ימים בטווח של שבוע
+        int daysToAdd = random.Next(7);
+
+        // הוספת מספר הימים המקריים לתאריך ההתחלתי
+        ass.DateBegin = maxDeadline + TimeSpan.FromDays(daysToAdd);
+        ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
+        s_bl.Assignments!.Update(ass);
+
+
+        //foreach (var a in lstPLinks!)
+        //{
+        //    BO.Assignments assP = s_bl.Assignments.Read(a.IdAssignments)!;
+        //    if (assP.DateBegin == null)
+        //    {
+        //        if (BiGTime < assP.DeadLine || BiGTime == null)
+        //        {
+        //            BiGTime = assP.DeadLine;
+        //        }
+        //    }
+        //    throw new FormatException("ERROR! There aren't dateBegin for previous assignments");
+        //}
+
+
+        //Console.WriteLine($"The Last deadLine for that assigment is:{BiGTime}");
+        //if (!DateTime.TryParse(Console.ReadLine(), out DateTime dt))
+        //throw new FormatException("datestart is not correct");
+        //if(dt >= BiGTime)
+        //{
+        //    ass.DateBegin = dt;
+        //    ass.DeadLine = dt + TimeSpan.FromDays(ass.DurationAssignments);
+        //    s_bl.Assignments!.Update(ass);
+        //}
+        //else//אם הכניס קוד שהוא קטן
+        //    throw new FormatException("ERROR! You enter error date");
         return BO.Tools.GetEmployeeStatus(lstPLinks);//מחשבת סטטוס
     }
 
