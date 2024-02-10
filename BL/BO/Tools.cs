@@ -1,4 +1,6 @@
-﻿using DO;
+﻿using BlApi;
+using DalApi;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +14,10 @@ namespace BO
     public static class Tools
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        static readonly IDal _dal = DalApi.Factory.Get;
         //function that convert BOToDO
-        public static DO.Worker ConvertWrkBOToDO(BO.Worker doWorker)
+     
+            public static DO.Worker ConvertWrkBOToDO(BO.Worker doWorker)
         {
             return new DO.Worker
             {
@@ -59,7 +63,7 @@ namespace BO
         {
             if (assignments.DateBegin is null)
                 return BO.Status.Unscheduled;
-            if (assignments.DateFinish is not null)
+            if (assignments.DeadLine is not null)
                 return BO.Status.OnTrack;
             return BO.Status.Done;
         }

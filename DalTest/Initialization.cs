@@ -84,16 +84,13 @@ public static class Initialization
                     workersLst.Add(worker);
             }
             int ID = workersLst[s_rand.Next(workersLst.Count)].IdWorker;
+            //DateTime? dat = DateTime.FromDateTime(DateTime.Now);// help date
+            DateTime? dat = DateTime.Now;
 
-            
-            
-            
-            _date = DateTime.FromDateTime(DateTime.Now);// help date
-            DateTime _dateStart = _date.AddDays(s_rand.Next(30, 61));//random date for "datestart" in range of month=תאריך מתוכנן להתחלה
-            DateTime _deadLine = _dateStart.AddYears(s_rand.Next(1, 4));// "_dateBegin" late in month from datestart=תאריך מתוכנן לסיום
-            DateTime _dateBegin = _dateStart.AddDays(s_rand.Next(30, 61));//when we are start=תאריך התחלה בפועל
-            DateTime _dateFinish = _deadLine.AddDays(s_rand.Next(30,61));//when we are finish=,תאריך סיום בפועל
-
+            DateTime? _dateStart = dat?.AddDays(s_rand.Next(30, 61));//random date for "datestart" in range of month=תאריך מתוכנן להתחלה
+            DateTime?_deadLine = _dateStart?.AddYears(s_rand.Next(1, 4));// "_dateBegin" late in month from datestart=תאריך מתוכנן לסיום
+            DateTime? _dateBegin = _dateStart?.AddDays(s_rand.Next(30, 61));//when we are start=תאריך התחלה בפועל
+            DateTime? _dateFinish = _deadLine?.AddDays(s_rand.Next(30,61));//when we are finish=,תאריך סיום בפועל
             string? _description = null;
             string? _remarks = null;
             string? _resultProduct = null;
