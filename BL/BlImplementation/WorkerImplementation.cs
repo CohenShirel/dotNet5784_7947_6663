@@ -1,6 +1,7 @@
 ﻿namespace BlImplementation;
 using BlApi;
 using BO;
+using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using static BO.Exceptions;
@@ -21,6 +22,7 @@ internal class WorkerImplementation : IWorker
         Tools.IsName(boWorker.Name!);
         Tools.checkCost(boWorker.HourSalary);
         Tools.IsMail(boWorker.Email!);
+        Tools.IsEnum((int)boWorker.Experience);
         DO.Worker doWorker = new DO.Worker
         (boWorker.Id, boWorker.Experience, boWorker.HourSalary, boWorker.Name, boWorker.Email);
 
@@ -99,14 +101,14 @@ internal class WorkerImplementation : IWorker
             DO.Worker doWrk = _dal.Worker.Read(wrk => wrk.IdWorker == id)!;
             DO.Assignments ass = _dal.Assignments.Read(t => t.IdWorker == doWrk.IdWorker)!;
             return new BO.Worker
-                   {
+            {
                        Id = doWrk.IdWorker,
                        Name = doWrk.Name,
                        Email = doWrk.Email,
                        Experience = doWrk.Experience,
                        HourSalary = doWrk.HourSalary,
                        currentAssignment = ass is not null ? new BO.WorkerInAssignments { WorkerId = doWrk.IdWorker, AssignmentsNumber = ass.IdAssignments } : null!,
-                   };
+            };
         }
         catch (DO.DalAlreadyExistsException ex)
         {

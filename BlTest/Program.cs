@@ -231,8 +231,7 @@ internal class Program
             {
                 Console.WriteLine("choose 0 for exit main menu");
                 Console.WriteLine("choose 1 for Worker");
-                Console.WriteLine("choose 2 for Link");
-                Console.WriteLine("choose 3 for ASSIGNMENT");
+                Console.WriteLine("choose 2 for ASSIGNMENT");
                 if (Enum.TryParse(Console.ReadLine(), out myChoice))
                 {
                     switch (myChoice)
@@ -342,7 +341,7 @@ internal class Program
                                 throw new FormatException("Wrong input");
                             BO.Worker updatedWorker = s_bl.Worker!.Read(iD)! ?? throw new FormatException($"Can't update, worker does not exist!!");
                             Console.WriteLine(updatedWorker);
-                            Console.WriteLine("Please update the details -- name, email, level, cost.\n");
+                            Console.WriteLine("Please update the details -- name, email, cost,level.\n");
                             string? updatedName = Console.ReadLine() ?? throw new FormatException("Wrong input");
                             string? updetedEmail = Console.ReadLine() ?? throw new FormatException("Wrong input");
                             if (!int.TryParse(Console.ReadLine(), out int updatedCost))

@@ -217,9 +217,16 @@ namespace BO
         //האם צקיך לבדוק שזה אותיות בעברית או אנגלית?
         public static void IsName(string name)
         {
-            if (name!=" ")
+            if (name==" ")
             {
                 throw new BlNotCorrectDetailsException("It's cannot be null");
+            }
+        }
+        public static void IsEnum(int l)
+        {
+            if (l<0 || l>5)
+            {
+                throw new BlNotCorrectDetailsException("This level doesn't exist");
             }
         }
         public static void IsMail(string s)
