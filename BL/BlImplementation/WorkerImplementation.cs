@@ -59,21 +59,22 @@ internal class WorkerImplementation : IWorker
                 {
                     Id = doAssignments.IdAssignments,
                     AssignmentName = doAssignments.Name!,
-                    LevelAssignments = doAssignments.LevelAssignments,
-                    status = Tools.calaStatus(doAssignments),
+                    //LevelAssignments = doAssignments.LevelAssignments,
+                    //status = Tools.calaStatus(doAssignments),
                 }
                 select ass);
     }
     public void Delete(int id)
     {
         BO.Worker wrk = Read(id)!;
-        if (wrk.currentAssignment.status == Status.Unscheduled || wrk.currentAssignment.status == Status.Scheduled)
+        Assignments a =s_bl.Assignments.Read(wrk.currentAssignment.AssignmentsNumber)!;
+        if (a.status == Status.Unscheduled || a.status == Status.Scheduled)
         {
 
             //to check if the worker  in the middle of ass or he finished ass
             //0??
             bool hasCompletedTask = ConvertLstAssDOToBO().Any(ass => ass.IdWorker != null && ass.IdWorker.Equals(id) &&
-            (ass.status == Status.Done || ass.status == Status.OnTrack));
+            (a.status == Status.Done || a.status == Status.OnTrack));
             if (hasCompletedTask)
                 throw new Exceptions.BlInvalidOperationException($"Cannot delete worker with ID={id} because he has link to assignments");
             try
@@ -104,7 +105,7 @@ internal class WorkerImplementation : IWorker
                        Email = doWrk.Email,
                        Experience = doWrk.Experience,
                        HourSalary = doWrk.HourSalary,
-                       currentAssignment = ass is not null ? new BO.AssignmentsInList { Id = ass.IdAssignments, AssignmentName = ass.Name! } : null!,
+                       currentAssignment = ass is not null ? new BO.WorkerInAssignments { WorkerId = doWrk.IdWorker, AssignmentsNumber = ass.IdAssignments } : null!,
                    };
         }
         catch (DO.DalAlreadyExistsException ex)
@@ -129,31 +130,33 @@ internal class WorkerImplementation : IWorker
        {
            Id = doWrk.IdWorker,
            Name = doWrk.Name!,
-           currentAssignment = ass is not null ? new BO.WorkerInAssignments { AssignmentsNumber = ass.IdAssignments!, AssignmentsName = ass.Name! } : null!,
+           currentAssignment = ass is not null ? new BO.WorkerInAssignments { AssignmentsNumber = ass.IdAssignments!, WorkerId = ass.IdWorker! } : null!,
        }
        where filter is null ? true : filter(wrkLst)
        select wrkLst;
     
     public bool checkCurrentAssignment(BO.Worker boWorker)
     {
-        BO.Assignments lstAss = s_bl.Assignments.Read(boWorker.currentAssignment.Id)!;
+        BO.Assignments lstAss = s_bl.Assignments.Read(boWorker.currentAssignment.AssignmentsNumber)!;
        // BO.Assignments lstAss=BO.Assignments
         // Check if the assignment is allocated to another worker
-        if (boWorker.currentAssignment == null|| boWorker.currentAssignment.IdWorker!= boWorker.Id)
+        if (boWorker.currentAssignment == null|| boWorker.currentAssignment.WorkerId!= boWorker.Id)
             throw new Exceptions.BlInvalidOperationException("The assignment is allocated to another worker");
 
         // Check if all dependent assignments are completed
-        if (boWorker.currentAssignment.links != null && boWorker.currentAssignment.links.All(link => link.status == Status.Done) == false)
+        Assignments a=s_bl.Assignments.Read(boWorker.currentAssignment.AssignmentsNumber)!;
+        if (a.links != null && a.links.All(l => l.status == Status.Done) == false)
             throw new Exceptions.BlInvalidOperationException("Not all dependent assignments are completed");
 
         // Check if the assignment's level is not higher than the worker's experience level
-        if ((int)boWorker.currentAssignment.LevelAssignments > (int)boWorker.Experience)
+        if ((int)a.LevelAssignments > (int)boWorker.Experience)
             throw new Exceptions.BlInvalidOperationException("The assignment's level ishigher than the worker's experience level");
         return true;
     }
     public void Update(BO.Worker boWorker)
     {
-        if (boWorker.currentAssignment.status == Status.Unscheduled || boWorker.currentAssignment.status == Status.Scheduled)
+        Assignments a = s_bl.Assignments.Read(boWorker.currentAssignment.AssignmentsNumber)!;
+        if (a.status == Status.Unscheduled || a.status == Status.Scheduled)
         {
             Tools.CheckId(boWorker.Id);
             Tools.IsName(boWorker.Name!);
@@ -186,7 +189,7 @@ internal class WorkerImplementation : IWorker
                 throw new Exceptions.BlException("Failed to update worker", ex);
             }
         }
-        if (boWorker.currentAssignment.status == Status.OnTrack)
+        if (a.status == Status.OnTrack)
         {
             Tools.CheckId(boWorker.Id);
             Tools.IsName(boWorker.Name!);

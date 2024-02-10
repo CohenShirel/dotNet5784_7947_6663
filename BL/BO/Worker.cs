@@ -13,14 +13,14 @@ public class Worker
     public DO.Level Experience { get; set;}
     public int HourSalary { get; set;}
 
-    //אתגררררררררררררר
+    //אתגרררררררררררר
     public override string ToString()
     {
        return Tools.ToStringProperty(this);
     }
 
     //החזרה של משימה נוכחית עי שאילתא
-    public AssignmentsInList currentAssignment { get; set; }
+    public WorkerInAssignments currentAssignment { get; set; }
 
     //public Tuple<int, string>? currentAssignment { get; set; }
 }

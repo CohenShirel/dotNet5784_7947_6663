@@ -1,25 +1,22 @@
-﻿using BO;
-using DalApi;
-using static BO.Exceptions;
+﻿using static BO.Exceptions;
 
 namespace BlImplementation;
 using BlApi;
-using BO;
-using DO;
-using BlTest;
+//using BlTest;
 //namespace Implementation
 using System.Collections.Generic;
 using static BO.Exceptions;
-using DalApi;
+using BO;
+using System.Net.NetworkInformation;
 
-internal class AssignmentsImplementation :IAssignments
+internal class AssignmentsImplementation : BlApi.IAssignments
 {
     private static DalApi.IDal _dal = DalApi.Factory.Get;
     //private static readonly DalApi.IDal s_dal = Bl.s_dal;
     //  private static readonly Random s_rand = new();
     public int Create(BO.Assignments boAssignments)
     {
-        if (boAssignments.status == Status.Unscheduled  || boAssignments.status == Status.Scheduled)
+        if (boAssignments.status == BO.Status.Unscheduled  || boAssignments.status == Status.Scheduled)
      {
             //check the name and the id
             Tools.IsName(boAssignments.Description!);
@@ -28,7 +25,7 @@ internal class AssignmentsImplementation :IAssignments
             //sk list
             for (int i = 0; i < boAssignments.links!.Count; i++)
             {
-                _dal.Link!.Create(new Link(i, boAssignments.links[i].Id, boAssignments.IdAssignments));
+                _dal.Link!.Create(new DO.Link(i, boAssignments.links[i].Id, boAssignments.IdAssignments));
             }
             DO.Assignments doAss = new DO.Assignments
              (boAssignments.IdAssignments, boAssignments.DurationAssignments, boAssignments.LevelAssignments, boAssignments.IdWorker, boAssignments.dateSrart, boAssignments.DateBegin,
@@ -62,7 +59,7 @@ internal class AssignmentsImplementation :IAssignments
             // Check if the assignment is linked to other assignments
             for (int i = 0; i < ass1.links!.Count; i++)
                 //if there is ass that wasnt finished && the ass will finish after the current ass??????????
-                if (ass1.links[i].DateFinish != null && ass1.links[i].DateFinish > ass1.dateSrart)
+                if (ass1.links[i].DeadLine != null && ass1.links[i].DeadLine > ass1.DateBegin)
                     throw new Exceptions.BlInvalidOperationException($"Cannot delete assignment with ID={id} as it is linked to other assignments");
             try
             {
@@ -137,7 +134,8 @@ internal class AssignmentsImplementation :IAssignments
                 {
                     Id = doAssignments.IdAssignments,
                     AssignmentName = doAssignments.Name!,
-                    LevelAssignments = doAssignments.LevelAssignments,
+                    IdWorker= doAssignments.IdWorker,
+                    //LevelAssignments = doAssignments.LevelAssignments,
                     status = Tools.calaStatus(doAssignments)
                 }
                 where filter!(ass)
@@ -226,17 +224,18 @@ internal class AssignmentsImplementation :IAssignments
             Tools.CheckId(boAss.IdAssignments);
             try
             {
-                
                 DO.Assignments doAssignments = new DO.Assignments
                 {
                     IdAssignments = boAss.IdAssignments,
                     DurationAssignments = boAss.DurationAssignments,
                     LevelAssignments = boAss.LevelAssignments,
                     IdWorker = boAss.IdWorker,//להוסיף בדיקה אם 
-                    Name = boAss.Name,  
+                    Name = boAss.Name,
                     Description = boAss.Description,
                     Remarks = boAss.Remarks,
-                    ResultProduct = boAss.ResultProduct
+                    ResultProduct = boAss.ResultProduct,
+                    DateBegin = boAss.DateBegin,
+                    DeadLine = boAss.DeadLine,
                 };
                 _dal.Assignments.Update(ref doAssignments);
             }

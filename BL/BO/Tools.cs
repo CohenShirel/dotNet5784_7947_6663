@@ -1,4 +1,6 @@
-﻿using DO;
+﻿using BlApi;
+using DalApi;
+using DO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +14,43 @@ namespace BO
     public static class Tools
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        static readonly IDal _dal = DalApi.Factory.Get;
+        public static void ScheduleProject(BO.Assignments ass)
+        {
+            IEnumerable<Link> lstPLinks;
+            //BO.Assignments ass = s_bl.Assignments.Read(ID)!;//מחזירה משימה נוכחית
+            //בדיקה אם למשימה שהכניס  אין משימות קודמות אז זה יהיה שווה למשימה הראשונה של הפרויקט
+            lstPLinks = _dal.Link.ReadAll(d => d.IdAssignments == ass.IdAssignments);//the previes ass
+
+            if (lstPLinks == null)//משימה ראשונית
+            {
+                ass.DateBegin = IBl.StartProjectTime;
+                ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
+                ass.status = GetEmployeeStatus(lstPLinks!);
+                s_bl.Assignments!.Update(ass);
+            }
+            var maxDeadline = lstPLinks!.MaxBy(a => s_bl.Assignments.Read(a.IdAssignments)!.DeadLine);
+            if (maxDeadline == null)
+                throw new FormatException("ERROR! There aren't dateBegin for previous assignments");
+            // תאריך התחלתי
+            // DateTime startDate = new DateTime(maxDeadline);
+
+            // יצירת מחולק רנדומלי
+            Random random = new Random();
+            // הגרלת מספר ימים בטווח של שבוע
+            int daysToAdd = random.Next(8);
+
+            // הוספת מספר הימים המקריים לתאריך ההתחלתי
+            DateTime? dt = s_bl.Assignments.Read(maxDeadline.IdAssignments)!.DeadLine;
+
+            ass.DateBegin = dt + TimeSpan.FromDays(daysToAdd);
+            ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
+            ass.status = GetEmployeeStatus(lstPLinks!);
+            s_bl.Assignments!.Update(ass);
+            //return GetEmployeeStatus(lstPLinks!);//מחשבת סטטוס
+        }
         //function that convert BOToDO
+
         public static DO.Worker ConvertWrkBOToDO(BO.Worker doWorker)
         {
             return new DO.Worker
@@ -59,7 +97,7 @@ namespace BO
         {
             if (assignments.DateBegin is null)
                 return BO.Status.Unscheduled;
-            if (assignments.DateFinish is not null)
+            if (assignments.DeadLine is not null)
                 return BO.Status.OnTrack;
             return BO.Status.Done;
         }

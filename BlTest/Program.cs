@@ -26,78 +26,65 @@ internal class Program
     static readonly IDal _dal = DalApi.Factory.Get;
     IEnumerable<BO.Assignments> lstAss1 = s_bl.Assignments.ReadAllAss();
 
-    public static BO.Status ScheduleProject0(int ID)
-    {/*int i*/
-        IEnumerable<Link> lstPLinks;
-        BO.Assignments ass = s_bl.Assignments.Read(ID);//מחזירה משימה נוכחית
-        //בדיקה אם למשימה שהכניס  אין משימות קודמות אז זה יהיה שווה למשימה הראשונה של הפרויקט
-        lstPLinks = _dal.Link.ReadAll(d => d.IdAssignments ==ass.IdAssignments);//the previes ass
+    //public static BO.Status ScheduleProject(int ID)
+    //{
+    //    IEnumerable<Link> lstPLinks;
+    //    BO.Assignments ass = s_bl.Assignments.Read(ID)!;//מחזירה משימה נוכחית
+    //    בדיקה אם למשימה שהכניס  אין משימות קודמות אז זה יהיה שווה למשימה הראשונה של הפרויקט
+    //    lstPLinks = _dal.Link.ReadAll(d => d.IdAssignments == ass.IdAssignments);//the previes ass
 
-        if (lstPLinks == null)//משימה ראשונית
-        {
-            ass.DateBegin = IBl.StartProjectTime;
-            ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
-            s_bl.Assignments!.Update(ass);
-        }
-        //DateTime? BiGTime=null;
-        var maxDeadline = lstPLinks!.MaxBy(a => s_bl.Assignments.Read(a.IdAssignments)!.DeadLine);
-        if (maxDeadline == null)
-            throw new FormatException("ERROR! There aren't dateBegin for previous assignments");
-        // תאריך התחלתי
-       // DateTime startDate = new DateTime(maxDeadline);
+    //    if (lstPLinks == null)//משימה ראשונית
+    //    {
+    //        ass.DateBegin = IBl.StartProjectTime;
+    //        ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
+    //        ass.status = Tools.GetEmployeeStatus(lstPLinks!);
+    //        s_bl.Assignments!.Update(ass);
+    //    }
+    //    var maxDeadline = lstPLinks!.MaxBy(a => s_bl.Assignments.Read(a.IdAssignments)!.DeadLine);
+    //    if (maxDeadline == null)
+    //        throw new FormatException("ERROR! There aren't dateBegin for previous assignments");
+    //    תאריך התחלתי
+    //     DateTime startDate = new DateTime(maxDeadline);
 
-        // יצירת מחולק רנדומלי
-        Random random = new Random();
+    //    יצירת מחולק רנדומלי
+    //   Random random = new Random();
+    //    הגרלת מספר ימים בטווח של שבוע
+    //    int daysToAdd = random.Next(8);
 
-        // הגרלת מספר ימים בטווח של שבוע
-        int daysToAdd = random.Next(7);
+    //    הוספת מספר הימים המקריים לתאריך ההתחלתי
+    //    DateTime? dt = s_bl.Assignments.Read(maxDeadline.IdAssignments)!.DeadLine;
 
-        // הוספת מספר הימים המקריים לתאריך ההתחלתי
-        ass.DateBegin = maxDeadline + TimeSpan.FromDays(daysToAdd);
-        ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
-        s_bl.Assignments!.Update(ass);
+    //    ass.DateBegin = dt + TimeSpan.FromDays(daysToAdd);
+    //    ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
+    //    ass.status = BO.Tools.GetEmployeeStatus(lstPLinks!);
+    //    s_bl.Assignments!.Update(ass);
 
-
-        //foreach (var a in lstPLinks!)
-        //{
-        //    BO.Assignments assP = s_bl.Assignments.Read(a.IdAssignments)!;
-        //    if (assP.DateBegin == null)
-        //    {
-        //        if (BiGTime < assP.DeadLine || BiGTime == null)
-        //        {
-        //            BiGTime = assP.DeadLine;
-        //        }
-        //    }
-        //    throw new FormatException("ERROR! There aren't dateBegin for previous assignments");
-        //}
-
-
-        //Console.WriteLine($"The Last deadLine for that assigment is:{BiGTime}");
-        //if (!DateTime.TryParse(Console.ReadLine(), out DateTime dt))
-        //throw new FormatException("datestart is not correct");
-        //if(dt >= BiGTime)
-        //{
-        //    ass.DateBegin = dt;
-        //    ass.DeadLine = dt + TimeSpan.FromDays(ass.DurationAssignments);
-        //    s_bl.Assignments!.Update(ass);
-        //}
-        //else//אם הכניס קוד שהוא קטן
-        //    throw new FormatException("ERROR! You enter error date");
-        return BO.Tools.GetEmployeeStatus(lstPLinks);//מחשבת סטטוס
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
+    //    return BO.Tools.GetEmployeeStatus(lstPLinks!);//מחשבת סטטוס
+    //    DateTime? BiGTime = null;
+    //    foreach (var a in lstPLinks!)
+    //    {
+    //        BO.Assignments assP = s_bl.Assignments.Read(a.IdAssignments)!;
+    //        if (assP.DateBegin == null)
+    //        {
+    //            if (BiGTime < assP.DeadLine || BiGTime == null)
+    //            {
+    //                BiGTime = assP.DeadLine;
+    //            }
+    //        }
+    //        throw new FormatException("ERROR! There aren't dateBegin for previous assignments");
+    //    }
+    //    Console.WriteLine($"The Last deadLine for that assigment is:{BiGTime}");
+    //    if (!DateTime.TryParse(Console.ReadLine(), out DateTime dt))
+    //        throw new FormatException("datestart is not correct");
+    //    if (dt >= BiGTime)
+    //    {
+    //        ass.DateBegin = dt;
+    //        ass.DeadLine = dt + TimeSpan.FromDays(ass.DurationAssignments);
+    //        s_bl.Assignments!.Update(ass);
+    //    }
+    //    else//אם הכניס קוד שהוא קטן
+    //        throw new FormatException("ERROR! You enter error date");
+    //}
 
     public enum ENTITY
     {
@@ -520,14 +507,6 @@ internal class Program
                                 throw new FormatException("Wrong input");
                             Console.WriteLine("enter level of the worker : ");
                             DO.Level level1 = (DO.Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
-                            //Console.WriteLine("enter the datestart of the Assignment: ");
-                            //if (!DateTime.TryParse(Console.ReadLine(), out DateTime datestart))
-                            //    throw new FormatException("datestart is not correct");
-
-
-                            
-                            Status s=ScheduleProject0(Id);
-                            //ScheduleProject(IdWorker1, datestart);
                             BO.Assignments ass1 = new BO.Assignments
                             {
                                 DurationAssignments = DurationAssignments1,
@@ -537,9 +516,10 @@ internal class Program
                                 Description = Description1,
                                 Remarks = Remarks1,
                                 ResultProduct = ResultProduct1,
-                                status = s,
+                                //status = Tools.ScheduleProject(Id),
                             };
-                            s_bl.Assignments!.Update(ass1);
+                            Tools.ScheduleProject(ass1);
+                            //s_bl.Assignments!.Update(ass1);
                             break;
 
                         case CRUD.DELETE:
