@@ -1,12 +1,18 @@
-﻿namespace BlImplementation;
+﻿using BO;
+using DalApi;
+using static BO.Exceptions;
+
+namespace BlImplementation;
 using BlApi;
 using BO;
 using DO;
+using BlTest;
 //namespace Implementation
 using System.Collections.Generic;
 using static BO.Exceptions;
+using DalApi;
 
-internal class AssignmentsImplementation : IAssignments
+internal class AssignmentsImplementation :IAssignments
 {
     private static DalApi.IDal _dal = DalApi.Factory.Get;
     //private static readonly DalApi.IDal s_dal = Bl.s_dal;
@@ -90,31 +96,7 @@ internal class AssignmentsImplementation : IAssignments
         string name = worker.Name!;
         return new Tuple<int, string>(id, name);
     }
-    //private static DateTime? a (DO.Assignments assignments)
-    //{
-    //    return a > 0 ? assignments.Date : null; 
-    //}
-    //schudledate->  DateBegin  העבודה לתחילת מתוכנן תאריך   
-    //completedate   DateFinish  בפועל סיום תארי  
-    //startdate      DateStart   המשימה על העבודה תחילת תאריך
-    //daedtimedate              לסיום מתוכנן תאריך="DeadLine
-    // Unscheduled, Scheduled,OnTrack,InJeopardy,Done
-    //private static Status calaStatus(DO.Assignments assignments)
-    //{
-    //    if (assignments.DateBegin is null)
-    //        return BO.Status.Unscheduled;
-    //    if (assignments.DateFinish is not null)
-    //        return BO.Status.Done;
-    //    return BO.Status.Done;//לא צריך את השורה הזאת
-    //    //if(assignments.dateSrart is null)
-    //    //    return BI.s_Clock= assignments.requidifferent :assignments.DeadLine
-    //    //    ?Status.InJeopardy: Status.Scheduled;
-    //    ////assignments has started but hasnt finished
-    //    //return BI.s_Clock = (+assignments.requidifferent - (BI.s_Clock - assignments.dateSrart))
-    //    //    > assignments.DeadLine ? Status.InJeopardy : Status.OnTrack;
-    //}
-    //תאריך משוער לסיום,לעשות פונקציה כזאת כמו של הסטטוס
-    //לעשות את ריד עפ פילטר
+   
     public BO.Assignments? Read(int id)
     {
         try
@@ -193,8 +175,34 @@ internal class AssignmentsImplementation : IAssignments
             Tools.CheckId(boAss.IdAssignments);
             try
             {
+                DO.Assignments doAssignments = new DO.Assignments
+                {
+                    Description = boAss.Description,
+                    Remarks = boAss.Remarks,
+                    ResultProduct = boAss.ResultProduct
+                };
+                _dal.Assignments.Update(ref doAssignments);
+            }
+            catch (DO.DalAlreadyExistsException ex)
+            {
+                throw new Exceptions.BlDoesNotExistException($"Assignments with ID={boAss.IdAssignments} does Not exists", ex);
+            }
+            catch (Exception ex)
+            {
+                // טיפול בחריגות אחרות כפי שנדרש
+                throw new Exceptions.BlException("Failed to create task", ex);
+            }
+        }
+        if (boAss.status == Status.Unscheduled)
+        {
+            //check the name and the id
+            Tools.IsName(boAss.Description!);
+            Tools.CheckId(boAss.IdAssignments);
+            try
+            {
                  DO.Assignments doAssignments = new DO.Assignments
                  {
+                     DurationAssignments = boAss.DurationAssignments,    
                      Description = boAss.Description,
                      Remarks = boAss.Remarks,
                      ResultProduct = boAss.ResultProduct
@@ -210,16 +218,15 @@ internal class AssignmentsImplementation : IAssignments
                 // טיפול בחריגות אחרות כפי שנדרש
                 throw new Exceptions.BlException("Failed to create task", ex);
             }
-
         }
-
-        if (boAss.status == Status.Unscheduled || boAss.status == Status.Scheduled)
+        if (boAss.status == Status.Scheduled)
         {
             //check the name and the id
             Tools.IsName(boAss.Description!);
             Tools.CheckId(boAss.IdAssignments);
             try
             {
+                
                 DO.Assignments doAssignments = new DO.Assignments
                 {
                     IdAssignments = boAss.IdAssignments,
@@ -252,3 +259,90 @@ internal class AssignmentsImplementation : IAssignments
 
    
 }
+//private static DateTime? a (DO.Assignments assignments)
+//{
+//    return a > 0 ? assignments.Date : null; 
+//}
+//schudledate->  DateBegin  העבודה לתחילת מתוכנן תאריך   
+//completedate   DateFinish  בפועל סיום תארי  
+//startdate      DateStart   המשימה על העבודה תחילת תאריך
+//daedtimedate              לסיום מתוכנן תאריך="DeadLine
+// Unscheduled, Scheduled,OnTrack,InJeopardy,Done
+//private static Status calaStatus(DO.Assignments assignments)
+//{
+//    if (assignments.DateBegin is null)
+//        return BO.Status.Unscheduled;
+//    if (assignments.DateFinish is not null)
+//        return BO.Status.Done;
+//    return BO.Status.Done;//לא צריך את השורה הזאת
+//    //if(assignments.dateSrart is null)
+//    //    return BI.s_Clock= assignments.requidifferent :assignments.DeadLine
+//    //    ?Status.InJeopardy: Status.Scheduled;
+//    ////assignments has started but hasnt finished
+//    //return BI.s_Clock = (+assignments.requidifferent - (BI.s_Clock - assignments.dateSrart))
+//    //    > assignments.DeadLine ? Status.InJeopardy : Status.OnTrack;
+//}
+//תאריך משוער לסיום,לעשות פונקציה כזאת כמו של הסטטוס
+//לעשות את ריד עפ פילטר
+//    try
+//        {
+//            return from DO.Worker doWrk in _dal.Worker.ReadAll()
+//                   let ass = _dal.Assignments.Read(t => t.IdWorker == doWrk.IdWorker && t.dateSrart is not null && t.DateFinish is null)
+//                   let worker = new BO.Worker
+//                   {
+//                       Id = doWrk.IdWorker,
+//                       Name = doWrk.Name,
+//                       Email = doWrk.Email,
+//                       Experience = doWrk.Experience,
+//                       HourSalary = doWrk.HourSalary,
+//                       currentAssignment = ass is not null ? new BO.WorkerInAssignments { AssignmentsNumber = ass.IdAssignments!, AssignmentsName = ass.Name } : null,
+//                   }
+//                   where filter is null ? true : filter(worker)
+//                   select worker;
+//}
+//          catch (DO.DalAlreadyExistsException ex)
+//        {
+//            throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exists", ex);
+//        }
+//        catch (BlInvalidOperationException ex)
+//        {
+//            throw new Exceptions.BlInvalidOperationException($"Failed to update currentAssignment of Worker with ID={boWorker.Id} ", ex);
+//        }
+//        catch (Exception ex)
+//        {
+//            // טיפול בחריגות אחרות כפי שנדרש
+//            throw new Exceptions.BlException("Failed to read worker", ex);
+//        }
+//public BO.Assignments? Read(Func<BO.Assignments, bool>? filter = null)
+//{
+//    try
+//    {
+//        return from DO.Assignments doAssignments in _dal.Assignments.ReadAll()
+//               let ass = new BO.Assignments
+//               {
+//                   IdAssignments = doAssignments.IdAssignments,
+//                   Name = doAssignments.Name,
+//                   Description = doAssignments.Description,
+//                   status = Tools.calaStatus(doAssignments),
+//                   dateSrart = doAssignments.dateSrart,
+//                   DateBegin = doAssignments.DateBegin,
+//                   DateFinish = doAssignments.DateFinish,
+//                   LevelAssignments = doAssignments.LevelAssignments,//???
+//                   DeadLine = doAssignments.DeadLine,
+//                   DurationAssignments = doAssignments.DurationAssignments,
+//                   //endProject = doAssignments.endProject,  
+//                   Worker = getWorker(doAssignments.IdWorker),
+//                   /////////links = Bl.GetLink(IdAssignments).ToList,
+//                   // = doAssignments.LevelAssignments,
+//                   ResultProduct = doAssignments.ResultProduct,
+//                   Remarks = doAssignments?.Remarks,
+//               }
+//               where filter is null ? true : filter(ass)
+//               select ass;
+//    }
+//    catch (Exception ex)
+//    {
+//        // טיפול בחריגות אחרות כפי שנדרש
+//        throw new Exceptions.BlException("Failed to delete task", ex);
+//    }
+//}

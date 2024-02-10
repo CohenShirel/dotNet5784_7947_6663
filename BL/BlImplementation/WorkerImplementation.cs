@@ -8,6 +8,8 @@ using static BO.Exceptions;
 internal class WorkerImplementation : IWorker
 {
     private DalApi.IDal _dal = DalApi.Factory.Get;
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
     // private BlApi.IBl _dal1 = BlApi.Factory.Get;
     //private static Assignments lstAss = 
 
@@ -47,11 +49,7 @@ internal class WorkerImplementation : IWorker
             // טיפול בחריגות אחרות כפי שנדרש
             throw new Exceptions.BlException("Failed to create new worker", ex);
         }
-
-
-
         throw new Exceptions.BlException("Failed to create new worker");
-
     }
 
     public IEnumerable<BO.AssignmentsInList> ConvertLstAssDOToBO()
@@ -68,7 +66,7 @@ internal class WorkerImplementation : IWorker
     }
     public void Delete(int id)
     {
-        BO.Worker wrk = Read()!;
+        BO.Worker wrk = Read(id)!;
         if (wrk.currentAssignment.status == Status.Unscheduled || wrk.currentAssignment.status == Status.Scheduled)
         {
 
@@ -93,31 +91,29 @@ internal class WorkerImplementation : IWorker
             }
         }     
     }
-    public IEnumerable<BO.Worker> Read(Func<BO.Worker, bool>? filter = null)
+    public BO.Worker Read(int id)
     {
         try
         {
-            return from DO.Worker doWrk in _dal.Worker.ReadAll()
-                   let ass = _dal.Assignments.Read(t => t.IdWorker == doWrk.IdWorker && t.dateSrart is not null && t.DateFinish is null)
-                   let worker = new BO.Worker
+            DO.Worker doWrk = _dal.Worker.Read(wrk => wrk.IdWorker == id)!;
+            DO.Assignments ass = _dal.Assignments.Read(t => t.IdWorker == doWrk.IdWorker)!;
+            return new BO.Worker
                    {
                        Id = doWrk.IdWorker,
                        Name = doWrk.Name,
                        Email = doWrk.Email,
                        Experience = doWrk.Experience,
                        HourSalary = doWrk.HourSalary,
-                       currentAssignment = ass is not null ? new BO.WorkerInAssignments { AssignmentsNumber = ass.IdAssignments!, AssignmentsName = ass.Name } : null,
-                   }
-                   where filter is null ? true : filter(worker)
-                   select worker;
+                       currentAssignment = ass is not null ? new BO.AssignmentsInList { Id = ass.IdAssignments, AssignmentName = ass.Name! } : null!,
+                   };
         }
-          catch (DO.DalAlreadyExistsException ex)
+        catch (DO.DalAlreadyExistsException ex)
         {
             throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exists", ex);
         }
         catch (BlInvalidOperationException ex)
         {
-            throw new Exceptions.BlInvalidOperationException($"Failed to update currentAssignment of Worker with ID={boWorker.Id} ", ex);
+            throw new Exceptions.BlInvalidOperationException($"Failed to update currentAssignment of Worker with ID={id} ", ex);
         }
         catch (Exception ex)
         {
@@ -125,54 +121,23 @@ internal class WorkerImplementation : IWorker
             throw new Exceptions.BlException("Failed to read worker", ex);
         }
     }
-       
 
-    public IEnumerable<WorkerInList> ReadAll(Func<BO.WorkerInList, bool>? filter = null)
-    {
-        if (filter==null)
-            return _dal.Worker.ReadAll().Select(doWorker => new BO.WorkerInList
-            {
-                Id = doWorker.IdWorker,
-                Name = doWorker.Name!,
-            });
-        return (from DO.Worker doWorker in _dal.Worker.ReadAll()
-                let boCIL = new BO.WorkerInList
-                {
-                    Id = doWorker.IdWorker,
-                    Name = doWorker.Name!,
-                    //currentAssignment = checkCurrentAssignment(doWorker) ? doWorker.currentAssignment : throw new BlInvalidOperationException("Failed to read currentAssignment"),
-                    currentAssignment = doWorker.currentAssignment
-                }
-                where filter(boCIL)
-                select boCIL) ;
-    }
     public IEnumerable<WorkerInList> ReadAll(Func<BO.WorkerInList, bool>? filter = null) =>
        from DO.Worker doWrk in _dal.Worker.ReadAll()
        let ass = _dal.Assignments.Read(t => t.IdWorker == doWrk.IdWorker && t.dateSrart is not null && t.DateFinish is null)
        let wrkLst = new BO.WorkerInList
        {
            Id = doWrk.IdWorker,
-           Name = doWrk.Name,
-           currentAssignment = ass is not null ? new BO.WorkerInAssignments { AssignmentsNumber = ass.IdAssignments!, AssignmentsName = ass.Name } : null,
+           Name = doWrk.Name!,
+           currentAssignment = ass is not null ? new BO.WorkerInAssignments { AssignmentsNumber = ass.IdAssignments!, AssignmentsName = ass.Name! } : null!,
        }
        where filter is null ? true : filter(wrkLst)
        select wrkLst;
-    //public IEnumerable<Worker> ReadAll(Func<BO.Worker, bool>? filter = null) =>
-    //    from doWorker in _dal.Worker.ReadAll()
-
-    //    let b = new Worker
-    //    {
-    //        IdWorker = doWorker.IdWorker,
-    //        Name = doWorker.Name,
-    //        Email = doWorker.Email,
-    //        Experience = doWorker.Experience,
-    //        HourSalary = doWorker.HourSalary
-    //    }
-    //    where filter?.Invoke(b) ?? true
-    //    select b;
-
+    
     public bool checkCurrentAssignment(BO.Worker boWorker)
     {
+        BO.Assignments lstAss = s_bl.Assignments.Read(boWorker.currentAssignment.Id)!;
+       // BO.Assignments lstAss=BO.Assignments
         // Check if the assignment is allocated to another worker
         if (boWorker.currentAssignment == null|| boWorker.currentAssignment.IdWorker!= boWorker.Id)
             throw new Exceptions.BlInvalidOperationException("The assignment is allocated to another worker");
@@ -256,6 +221,71 @@ internal class WorkerImplementation : IWorker
     }
 }
 
+//public IEnumerable<BO.Worker> Read(Func<BO.Worker, bool>? filter = null)
+//{
+//    try
+//    {
+//        return from DO.Worker doWrk in _dal.Worker.ReadAll()
+//               let ass = _dal.Assignments.Read(t => t.IdWorker == doWrk.IdWorker && t.dateSrart is not null && t.DateFinish is null)
+//               let worker = new BO.Worker
+//               {
+//                   Id = doWrk.IdWorker,
+//                   Name = doWrk.Name,
+//                   Email = doWrk.Email,
+//                   Experience = doWrk.Experience,
+//                   HourSalary = doWrk.HourSalary,
+//                   currentAssignment = ass is not null ? new BO.WorkerInAssignments { AssignmentsNumber = ass.IdAssignments!, AssignmentsName = ass.Name } : null,
+//               }
+//               where filter is null ? true : filter(worker)
+//               select worker;
+//    }
+//    catch (DO.DalAlreadyExistsException ex)
+//    {
+//        throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exists", ex);
+//    }
+//    catch (BlInvalidOperationException ex)
+//    {
+//        throw new Exceptions.BlInvalidOperationException($"Failed to update currentAssignment of Worker with ID={boWorker.Id} ", ex);
+//    }
+//    catch (Exception ex)
+//    {
+//        טיפול בחריגות אחרות כפי שנדרש
+//        throw new Exceptions.BlException("Failed to read worker", ex);
+//    }
+//}
+//public IEnumerable<WorkerInList> ReadAll(Func<BO.WorkerInList, bool>? filter = null)
+//{
+//    if (filter==null)
+//        return _dal.Worker.ReadAll().Select(doWorker => new BO.WorkerInList
+//        {
+//            Id = doWorker.IdWorker,
+//            Name = doWorker.Name!,
+//        });
+//    return (from DO.Worker doWorker in _dal.Worker.ReadAll()
+//            let boCIL = new BO.WorkerInList
+//            {
+//                Id = doWorker.IdWorker,
+//                Name = doWorker.Name!,
+//                //currentAssignment = checkCurrentAssignment(doWorker) ? doWorker.currentAssignment : throw new BlInvalidOperationException("Failed to read currentAssignment"),
+//                currentAssignment = doWorker.currentAssignment
+//            }
+//            where filter(boCIL)
+//            select boCIL) ;
+//}
+
+//public IEnumerable<Worker> ReadAll(Func<BO.Worker, bool>? filter = null) =>
+//    from doWorker in _dal.Worker.ReadAll()
+
+//    let b = new Worker
+//    {
+//        IdWorker = doWorker.IdWorker,
+//        Name = doWorker.Name,
+//        Email = doWorker.Email,
+//        Experience = doWorker.Experience,
+//        HourSalary = doWorker.HourSalary
+//    }
+//    where filter?.Invoke(b) ?? true
+//    select b;
 
 
 //****CURRENTASSIGMENT

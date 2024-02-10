@@ -26,7 +26,7 @@ public class Assignments
     }
     public Status status { get; set; }
     //רשימת תלויות??????????????מסוג משימה ברשימה
-    public List<Assignments>? links { get; set; }//link ssignmentsInList?
+    public List<AssignmentsInList>? links { get; set; }//link ssignmentsInList?
     //החזרת עובד נוכחי עי שאילתא
     public Tuple <int,string>? Worker { get; set; }
 }

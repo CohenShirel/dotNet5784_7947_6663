@@ -14,10 +14,71 @@ namespace BlTest;
 
 internal class Program
 {//program
-    //
+ //
+   
+
     private static readonly Random s_rand = new();
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    BO.Worker? boWork = s_bl.Worker.Read(3);
+    //BO.Worker? boWork = s_bl.Worker.Read(3);
+
+
+
+    static readonly IDal _dal = DalApi.Factory.Get;
+    IEnumerable<BO.Assignments> lstAss1 = s_bl.Assignments.ReadAllAss();
+
+    public static BO.Status ScheduleProject0(int ID)
+    {/*int i*/
+        IEnumerable<Link> lstPLinks;
+        BO.Assignments ass = s_bl.Assignments.Read(ID);//מחזירה משימה נוכחית
+        //בדיקה אם למשימה שהכניס  אין משימות קודמות אז זה יהיה שווה למשימה הראשונה של הפרויקט
+        lstPLinks = _dal.Link.ReadAll(d => d.IdAssignments ==ass.IdAssignments);//the previes ass
+
+        if (lstPLinks == null)//משימה ראשונית
+        {
+            ass.DateBegin = IBl.StartProjectTime;
+            ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
+            s_bl.Assignments!.Update(ass);
+        }
+        DateTime? BiGTime=null;
+        foreach (var a in lstPLinks!)
+        {
+            BO.Assignments assP = s_bl.Assignments.Read(a.IdAssignments)!;
+            if(assP.DateBegin == null)
+            {
+                if (BiGTime < assP.DeadLine || BiGTime == null)
+                {
+                    BiGTime = assP.DeadLine;
+                }
+            }
+            throw new FormatException("ERROR! There aren't dateBegin for previous assignments");
+        }
+        Console.WriteLine($"The Last deadLine for that assigment is:{BiGTime}");
+        if (!DateTime.TryParse(Console.ReadLine(), out DateTime dt))
+            throw new FormatException("datestart is not correct");
+        if(dt >= BiGTime)
+        {
+            ass.DateBegin = dt;
+            ass.DeadLine = dt + TimeSpan.FromDays(ass.DurationAssignments);
+            s_bl.Assignments!.Update(ass);
+        }
+        else//אם הכניס קוד שהוא קטן
+            throw new FormatException("ERROR! You enter error date");
+        return BO.Tools.GetEmployeeStatus(lstPLinks);//מחשבת סטטוס
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public enum ENTITY
     {
         EXIT,
@@ -47,30 +108,24 @@ internal class Program
     static readonly IDal s_dal = DalApi.Factory.Get;
     IEnumerable<BO.Assignments> lstAss = s_bl.Assignments.ReadAllAss();
     //משך זמן ורמת מורכבות\
-    public BO.Status ScheduleProject()
-    {
-        IEnumerable<Link> lstPLinks;
-        foreach (var ass in lstAss)
-        {
-            lstPLinks = s_dal.Link.ReadAll(d => d.IdAssignments == ass.IdAssignments);//the previes ass
-            if (lstPLinks == null)
-            {
-                ass.DateBegin = IBl.StartProjectTime;
-                ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
-                s_bl.Assignments!.Update(ass);
-            }
+    //public BO.Status ScheduleProject()
+    //{
+    //    IEnumerable<Link> lstPLinks;
+    //    foreach (var ass in lstAss)
+    //    {
+    //        lstPLinks = s_dal.Link.ReadAll(d => d.IdAssignments == ass.IdAssignments);//the previes ass
+    //        if (lstPLinks == null)
+    //        {
+    //            ass.DateBegin = IBl.StartProjectTime;
+    //            ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
+    //            s_bl.Assignments!.Update(ass);
+    //        }
             
-            //פונקציה לחישוב המשימה הבאה ועדכון הזמן שלה התלויות בה
-            Rec(ass);
-            
+    //        //פונקציה לחישוב המשימה הבאה ועדכון הזמן שלה התלויות בה
+    //        Rec(ass);
+    //    }
 
-        }
-        // משימות התחלתיות מעודכנות ומשמות התלויות בהן מעודכנות
-        //
-
-        return Status.Unscheduled;
-
-    }
+    //}
     public void Rec(BO.Assignments ass)
     {
         BO.Assignments currentAss;
@@ -445,9 +500,13 @@ internal class Program
                                 throw new FormatException("Wrong input");
                             Console.WriteLine("enter level of the worker : ");
                             DO.Level level1 = (DO.Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
-                            Console.WriteLine("enter the datestart of the Assignment: ");
-                            if (!DateTime.TryParse(Console.ReadLine(), out DateTime datestart))
-                                throw new FormatException("datestart is not correct");
+                            //Console.WriteLine("enter the datestart of the Assignment: ");
+                            //if (!DateTime.TryParse(Console.ReadLine(), out DateTime datestart))
+                            //    throw new FormatException("datestart is not correct");
+
+
+                            
+                            Status s=ScheduleProject0(Id);
                             //ScheduleProject(IdWorker1, datestart);
                             BO.Assignments ass1 = new BO.Assignments
                             {
@@ -458,6 +517,7 @@ internal class Program
                                 Description = Description1,
                                 Remarks = Remarks1,
                                 ResultProduct = ResultProduct1,
+                                status = s,
                             };
                             s_bl.Assignments!.Update(ass1);
                             break;
