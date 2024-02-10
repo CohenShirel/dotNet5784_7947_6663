@@ -9,9 +9,9 @@ namespace BO;
 public class WorkerInAssignments
 {
     public int WorkerId { get; init; }
-    public required string AssignmentsNumber { get; init; }
+    public required int AssignmentsNumber { get; init; }
     public required string AssignmentsName { get; init; }
-    public DateOnly? dateSrart { get; init; }
-    public DateOnly? DateBegin { get; init; }
+    public DateTime? dateSrart { get; init; }
+    public DateTime? DateBegin { get; init; }
     public override string ToString() => this.ToStringProperty();
 }

@@ -3,7 +3,7 @@ using DO;
 using DalApi;
 using System.Collections.Generic;
 
-internal class AssignmentsImplementation:IAssignments
+internal class AssignmentsImplementation : IAssignments
 {
     public int Create(Assignments ass)
     {

@@ -11,7 +11,7 @@ namespace BlApi;
 public interface IWorker
 {
     public int Create(BO.Worker item);
-    public BO.Worker? Read(int id);
+    public BO.Worker Read(int id);
 
     public IEnumerable<WorkerInList> ReadAll(Func<BO.WorkerInList, bool>? filter = null);
 
@@ -19,3 +19,8 @@ public interface IWorker
     public void Delete(int id);
     //public BO.WorkerInAssignments GetDetailedCourseForStudent(int WorkerId, int AssignmentsId);
 }
+
+
+//checkCurrentAssignment
+//read
+

@@ -1,4 +1,5 @@
 ﻿using DalApi;
+using System.Data.Common;
 using System.Diagnostics;
 namespace Dal;
 
@@ -11,5 +12,13 @@ sealed internal class DalXml : IDal
     public IWorker Worker => new WorkerImplementation();
     public IAssignments Assignments => new AssignmentsImplementation();
     public ILink Link => new LinkImplementation();
+    public DateTime? StartProjectTime
+    {
+
+        get { return Config.StartProjectTime; }
+
+        set { StartProjectTime = value; }
+
+    }
 }
 

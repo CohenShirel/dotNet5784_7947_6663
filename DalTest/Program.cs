@@ -366,13 +366,13 @@ namespace DalTest
                                 if (!bool.TryParse(Console.ReadLine(), out bool milestone))
                                     throw new FormatException("Wrong input");
                                 Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
-                                if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly datestart))
+                                if (!DateTime.TryParse(Console.ReadLine(), out DateTime datestart))
                                     throw new FormatException("datestart is not correct");
-                                if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateBegin))
+                                if (!DateTime.TryParse(Console.ReadLine(), out DateTime DateBegin))
                                     throw new FormatException("datestart is not correct");
-                                if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DeadLine))
+                                if (!DateTime.TryParse(Console.ReadLine(), out DateTime DeadLine))
                                     throw new FormatException("datestart is not correct");
-                                if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateFinish))
+                                if (!DateTime.TryParse(Console.ReadLine(), out DateTime DateFinish))
                                     throw new FormatException("datestart is not correct");
                                 s_dal.Assignments!.Create(new(0, DurationAssignments, level, IdWorker, datestart, DateBegin, DeadLine,
                                  DateFinish, name, Description, Remarks, ResultProduct, milestone));
@@ -422,13 +422,13 @@ namespace DalTest
                                 if (!bool.TryParse(Console.ReadLine(), out bool milestone1))
                                     throw new FormatException("Wrong input");
                                 Console.WriteLine("enter the datestart &  DateBegin & DeadLine & DateFinish of the Assignment: ");
-                                if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly datestart1))
+                                if (!DateTime.TryParse(Console.ReadLine(), out DateTime datestart1))
                                     throw new FormatException("datestart is not correct");
-                                if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateBegin1))
+                                if (!DateTime.TryParse(Console.ReadLine(), out DateTime DateBegin1))
                                     throw new FormatException("datestart is not correct");
-                                if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DeadLine1))
+                                if (!DateTime.TryParse(Console.ReadLine(), out DateTime DeadLine1))
                                     throw new FormatException("datestart is not correct");
-                                if (!DateOnly.TryParse(Console.ReadLine(), out DateOnly DateFinish1))
+                                if (!DateTime.TryParse(Console.ReadLine(), out DateTime DateFinish1))
                                     throw new FormatException("datestart is not correct");
                                 //if i got space/null save the old one
                                 //if (string.IsNullOrWhiteSpace(name1))

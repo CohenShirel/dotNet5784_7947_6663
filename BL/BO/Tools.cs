@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -8,9 +9,9 @@ using static BO.Exceptions;
 
 namespace BO
 {
-    static class Tools
+    public static class Tools
     {
-        
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         //function that convert BOToDO
         public static DO.Worker ConvertWrkBOToDO(BO.Worker doWorker)
         {
@@ -63,15 +64,16 @@ namespace BO
             return BO.Status.Done;
         }
       
-        public static Status GetEmployeeStatus(List<Assignments> lstAssignment)
+        public static Status GetEmployeeStatus(IEnumerable<Link> lstLink)
         {
             bool PartTime = false;// קיימת משימה עם תאריך
             bool allTime = true;//לכל המשימות יש תאריך
-
-            foreach (Assignments assignment in lstAssignment)
+            BO.Assignments assignment;
+            foreach (DO.Link lnk in lstLink)
             {
+                assignment = s_bl.Assignments.Read(lnk.IdAssignments)!;
                 //if (task.DependencyTaskId != null)
-                if (assignment.dateSrart!=null)
+                if (assignment.DateBegin!=null)
                     PartTime = true;// אז אם יש למשימה תלות, אז יש הקצאת זמן
                 else
                     allTime = false;// אם יש משימה ללא הקצאת זמן, אז לא כל המשימות הוקצו
@@ -79,26 +81,69 @@ namespace BO
             if (allTime)
             {
                 //reset all the status
-                foreach (Assignments assignment in lstAssignment)
+                foreach (DO.Link lnk in lstLink)
+                {
+                    assignment = s_bl.Assignments.Read(lnk.IdAssignments)!;
                     assignment.status = Status.OnTrack;
+                }
                 return Status.OnTrack; //אם כל המשימות הוקצו זמן, הסטטוס הוא סופי
             }
             else if (PartTime)
             {
                 //reset all the status
-                foreach (Assignments assignment in lstAssignment)
+                foreach (DO.Link lnk in lstLink)
+                {
+                    assignment = s_bl.Assignments.Read(lnk.IdAssignments)!;
                     assignment.status = Status.Scheduled;
+                }
                 return Status.Scheduled; // אם יש הקצאת זמן למשימות, הסטטוס הוא ביניים
             }
             else
             {
                 //reset all the status
-                foreach (Assignments assignment in lstAssignment)
+                foreach (DO.Link lnk in lstLink)
+                {
+                    assignment = s_bl.Assignments.Read(lnk.IdAssignments)!;
                     assignment.status = Status.Unscheduled;
+                }
                 return Status.Unscheduled; // אם אין הקצאת זמן למשימות, הסטטוס הוא התחלתי
             }
         }
+        //public static Status GetEmployeeStatus(List<DO.Link> lstLink)
+        //{
+        //    bool PartTime = false;// קיימת משימה עם תאריך
+        //    bool allTime = true;//לכל המשימות יש תאריך
 
+        //    foreach (Assignments assignment in lstAssignment)
+        //    {
+        //        //if (task.DependencyTaskId != null)
+        //        if (assignment.DateBegin != null)
+        //            PartTime = true;// אז אם יש למשימה תלות, אז יש הקצאת זמן
+        //        else
+        //            allTime = false;// אם יש משימה ללא הקצאת זמן, אז לא כל המשימות הוקצו
+        //    }
+        //    if (allTime)
+        //    {
+        //        //reset all the status
+        //        foreach (Assignments assignment in lstAssignment)
+        //            assignment.status = Status.OnTrack;
+        //        return Status.OnTrack; //אם כל המשימות הוקצו זמן, הסטטוס הוא סופי
+        //    }
+        //    else if (PartTime)
+        //    {
+        //        //reset all the status
+        //        foreach (Assignments assignment in lstAssignment)
+        //            assignment.status = Status.Scheduled;
+        //        return Status.Scheduled; // אם יש הקצאת זמן למשימות, הסטטוס הוא ביניים
+        //    }
+        //    else
+        //    {
+        //        //reset all the status
+        //        foreach (Assignments assignment in lstAssignment)
+        //            assignment.status = Status.Unscheduled;
+        //        return Status.Unscheduled; // אם אין הקצאת זמן למשימות, הסטטוס הוא התחלתי
+        //    }
+        //}
 
         public static string ToStringProperty<T>(this T t)
         {

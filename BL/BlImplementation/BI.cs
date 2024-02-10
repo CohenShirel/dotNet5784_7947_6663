@@ -6,25 +6,29 @@ using BlImplementation;
 using static BO.Exceptions;
 using System;
 
-internal class Bl : IBl
+public /*internal */class Bl : IBl
 {
+    private static DalApi.IDal s_dal = DalApi.Factory.Get;
+
+
     public BlApi.IWorker Worker => new WorkerImplementation();
 
     public BlApi.IAssignments Assignments => new AssignmentsImplementation();
 
-    DateOnly? IBl.DateBegin => throw new NotImplementedException();
+    public static DateTime? StartProjectTime => s_dal!.StartProjectTime;//לעשות פונקציה שתבקש מהמשתמש תאריך התחלה לפרויקט
 
-    DateOnly? IBl.DeadLine => throw new NotImplementedException();
+   // DateTime? IBl.DeadLine => null;
 
-    private static IDal? s_dal;
-    public void reset()
+    public static void reset()
     {
         //מנקה את כל הרשומות
+        BlApi.Factory.Get();
+        s_dal=DalApi.Factory.Get;
         //DalTest.Initialization.Do();
         //המס הרצים חוזרים למס ההתחלתיים
-        s_dal = DalApi.Factory.Get;
-        s_dal.Worker!.DeleteAll();
+        s_dal!.Worker!.DeleteAll();
         s_dal.Assignments!.DeleteAll();
+        s_dal.Link!.DeleteAll();
     }
     //לעשות כאן לוז אוטומטי??
     // public IWorkerInAssignments WorkerInAssignments => new WorkerInAssignmentsImplementation();

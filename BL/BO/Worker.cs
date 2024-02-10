@@ -20,7 +20,7 @@ public class Worker
     }
 
     //החזרה של משימה נוכחית עי שאילתא
-    public Assignments currentAssignment { get; set; }
+    public AssignmentsInList currentAssignment { get; set; }
 
     //public Tuple<int, string>? currentAssignment { get; set; }
 }
