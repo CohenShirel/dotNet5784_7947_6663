@@ -23,13 +23,13 @@ internal class WorkerImplementation : IWorker
         Tools.checkCost(boWorker.HourSalary);
         Tools.IsMail(boWorker.Email!);
         Tools.IsEnum((int)boWorker.Experience);
-        DO.Worker doWorker = new DO.Worker
-        (boWorker.Id, boWorker.Experience, boWorker.HourSalary, boWorker.Name, boWorker.Email);
-
+        //DO.Worker doWorker = new DO.Worker
+        //(boWorker.Id, boWorker.Experience, boWorker.HourSalary, boWorker.Name, boWorker.Email);
         try
         {
             DO.Worker dWorker = new DO.Worker
             {
+                IdWorker=boWorker.Id,
                 Experience = boWorker.Experience,
                 HourSalary = boWorker.HourSalary,
                 Name = boWorker.Name,
