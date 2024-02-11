@@ -164,9 +164,10 @@ internal class AssignmentsImplementation : BlApi.IAssignments
                 where filter!(ass)
                 select ass);
     }
-    public void Update(BO.Assignments boAss)
+    public void Update(ref BO.Assignments boAss)
     {
         BO.Assignments ass = Read(boAss.IdAssignments)!;
+     
         if (boAss.status == Status.OnTrack)
         {
             //check the name and the id
@@ -218,7 +219,8 @@ internal class AssignmentsImplementation : BlApi.IAssignments
                 throw new Exceptions.BlException("Failed to create task", ex);
             }
         }
-        if (boAss.status == Status.Scheduled)
+        // if (((boAss.status== Status.Scheduled) && (ass.status == Status.UnScheduled)) || boAss.status == Status.Scheduled)
+        if ( boAss.status == Status.Scheduled)
         {
             //check the name and the id
             Tools.IsName(boAss.Description!);

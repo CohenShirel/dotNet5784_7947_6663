@@ -531,6 +531,7 @@ internal class Program
                             DO.Level level1 = (DO.Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
                             BO.Assignments ass1 = new BO.Assignments
                             {
+                                IdAssignments = Id,
                                 DurationAssignments = DurationAssignments1,
                                 LevelAssignments = level1,
                                 IdWorker = IdWorker1,
