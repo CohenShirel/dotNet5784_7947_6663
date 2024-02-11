@@ -53,11 +53,11 @@ internal class AssignmentsImplementation : BlApi.IAssignments
     {
         BO.Assignments ass1 = Read(id)!;
         if (ass1.status == Status.Unscheduled  || ass1.status == Status.Scheduled)
-     {
+        {
             Tools.CheckId(id);
             //BO.Assignments ass = Read(id)!;
             // Check if the assignment is linked to other assignments
-            if(ass1.links != null)
+            if (ass1.links != null)
             {
                 for (int i = 0; i < ass1.links!.Count; i++)
                     //if there is ass that wasnt finished && the ass will finish after the current ass??????????
@@ -164,9 +164,10 @@ internal class AssignmentsImplementation : BlApi.IAssignments
                 where filter!(ass)
                 select ass);
     }
-    public void Update(BO.Assignments boAss)
+    public void Update(ref BO.Assignments boAss)
     {
         BO.Assignments ass = Read(boAss.IdAssignments)!;
+     
         if (boAss.status == Status.OnTrack)
         {
             //check the name and the id
@@ -218,7 +219,8 @@ internal class AssignmentsImplementation : BlApi.IAssignments
                 throw new Exceptions.BlException("Failed to create task", ex);
             }
         }
-        if (boAss.status == Status.Scheduled)
+        // if (((boAss.status== Status.Scheduled) && (ass.status == Status.UnScheduled)) || boAss.status == Status.Scheduled)
+        if ( boAss.status == Status.Scheduled)
         {
             //check the name and the id
             Tools.IsName(boAss.Description!);

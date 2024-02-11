@@ -1,18 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfAssignments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Assignments>
-    <IdAssignments>1026</IdAssignments>
-    <DurationAssignments>22</DurationAssignments>
-    <LevelAssignments>Intermediate</LevelAssignments>
-    <IdWorker>11</IdWorker>
-    <dateSrart xsi:nil="true" />
-    <DateBegin xsi:nil="true" />
-    <DeadLine xsi:nil="true" />
-    <DateFinish xsi:nil="true" />
-    <Name>D</Name>
-    <Description>F</Description>
-    <Remarks>E</Remarks>
-    <ResultProduct>W</ResultProduct>
-    <Milestone>false</Milestone>
-  </Assignments>
-</ArrayOfAssignments>
+<ArrayOfAssignments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />

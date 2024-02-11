@@ -12,7 +12,7 @@ public interface IAssignments
     public IEnumerable<BO.AssignmentsInList> ReadAll(Func<BO.AssignmentsInList, bool>? filter = null);
     public IEnumerable<BO.Assignments> ReadAllAss(Func<BO.Assignments, bool>? filter = null);
 
-    public void Update(BO.Assignments item);
+    public void Update(ref BO.Assignments item);
     public void Delete(int id);
    // public BO.WorkerInAssignments GetDetailedCourseForStudent(int WorkerId, int AssignmentsId);
 

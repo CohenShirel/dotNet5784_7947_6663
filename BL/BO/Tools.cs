@@ -13,21 +13,29 @@ namespace BO
 {
     public static class Tools
     {
+
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         static readonly IDal _dal = DalApi.Factory.Get;
+        public static Status ss(Status s)
+        {
+            return s;
+        }
         public static void ScheduleProject(BO.Assignments ass)
         {
             IEnumerable<Link> lstPLinks;
             //BO.Assignments ass = s_bl.Assignments.Read(ID)!;//מחזירה משימה נוכחית
             //בדיקה אם למשימה שהכניס  אין משימות קודמות אז זה יהיה שווה למשימה הראשונה של הפרויקט
             lstPLinks = _dal.Link.ReadAll(d => d.IdAssignments == ass.IdAssignments) ?? null!;//the previes ass
-
-            if (lstPLinks == null)//משימה ראשונית
+            if (lstPLinks.Count() == 0) // אם אין משימות קודמות
             {
                 ass.DateBegin = IBl.StartProjectTime;
                 ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
                 ass.status = GetEmployeeStatus(lstPLinks!);
-                s_bl.Assignments!.Update(ass);
+                //Status s = ss(ass.status);
+                s_bl.Assignments!.Update(ref ass);
+            //if (lstPLinks == null)//משימה ראשונית
+            //{
+                
             }
             var maxDeadline = lstPLinks!.MaxBy(a => s_bl.Assignments.Read(a.IdAssignments)!.DeadLine);
             if (maxDeadline == null)
@@ -46,7 +54,7 @@ namespace BO
             ass.DateBegin = dt + TimeSpan.FromDays(daysToAdd);
             ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
             ass.status = GetEmployeeStatus(lstPLinks!);
-            s_bl.Assignments!.Update(ass);
+            s_bl.Assignments!.Update(ref ass);
             //return GetEmployeeStatus(lstPLinks!);//מחשבת סטטוס
         }
         //function that convert BOToDO
@@ -107,6 +115,8 @@ namespace BO
             bool PartTime = false;// קיימת משימה עם תאריך
             bool allTime = true;//לכל המשימות יש תאריך
             BO.Assignments assignment;
+            //משימה ראשונה
+            int i = 0;
             foreach (DO.Link lnk in lstLink)
             {
                 assignment = s_bl.Assignments.Read(lnk.IdAssignments)!;
@@ -116,7 +126,17 @@ namespace BO
                 else
                     allTime = false;// אם יש משימה ללא הקצאת זמן, אז לא כל המשימות הוקצו
             }
-            if (allTime)
+            if (i==0)
+            {
+                //reset all the status
+                foreach (DO.Link lnk in lstLink)
+                {
+                    assignment = s_bl.Assignments.Read(lnk.IdAssignments)!;
+                    assignment.status = Status.Unscheduled;
+                }
+                return Status.Unscheduled; // אם אין הקצאת זמן למשימות, הסטטוס הוא התחלתי
+            }
+            else if (allTime)
             {
                 //reset all the status
                 foreach (DO.Link lnk in lstLink)
@@ -186,7 +206,7 @@ namespace BO
         public static string ToStringProperty<T>(this T t)
         {
             string str = "";
-            foreach (PropertyInfo item in t.GetType().GetProperties()) 
+            foreach (PropertyInfo item in t!.GetType().GetProperties()) 
             {
                 str += "\n" + item.Name + ": " + item.GetValue(t, null);
             }
