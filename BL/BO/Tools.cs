@@ -21,21 +21,13 @@ namespace BO
         public static void ScheduleProject(BO.Assignments ass)
         {
             IEnumerable<Link> lstPLinks;
-            //BO.Assignments ass = s_bl.Assignments.Read(ID)!;//מחזירה משימה נוכחית
-            //בדיקה אם למשימה שהכניס  אין משימות קודמות אז זה יהיה שווה למשימה הראשונה של הפרויקט
-            //if (lstPLinks == null)//משימה ראשונית
-            //{
-
-
-
             lstPLinks = _dal.Link.ReadAll(d => d.IdAssignments == ass.IdAssignments) ?? null!;//the previes ass
             if (lstPLinks.Count() == 0) // אם אין משימות קודמות
             {
                 ass.DateBegin = Bl.StartProjectTime;
                 ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
                 ass.status = GetEmployeeStatus(lstPLinks!);
-                s_bl.Assignments!.Update(ref ass);
-            
+                s_bl.Assignments!.Update(ref ass); 
             }
             else
             {
@@ -58,7 +50,6 @@ namespace BO
                 ass.status = GetEmployeeStatus(lstPLinks!);
                 s_bl.Assignments!.Update(ref ass);
             }
-            
             //return GetEmployeeStatus(lstPLinks!);//מחשבת סטטוס
         }
         //function that convert BOToDO
