@@ -137,6 +137,8 @@ internal class AssignmentsImplementation : BlApi.IAssignments
                     Id = doAssignments.IdAssignments,
                     AssignmentName = doAssignments.Name!,
                     IdWorker= doAssignments.IdWorker,
+                    DateBegin = doAssignments.DateBegin,
+                    DeadLine= doAssignments.DeadLine,   
                     //LevelAssignments = doAssignments.LevelAssignments,
                     status = Tools.calaStatus(doAssignments)
                 }

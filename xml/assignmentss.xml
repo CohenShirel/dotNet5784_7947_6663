@@ -1,2 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfAssignments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ArrayOfAssignments xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Assignments>
+    <IdAssignments>1028</IdAssignments>
+    <DurationAssignments>25</DurationAssignments>
+    <LevelAssignments>Intermediate</LevelAssignments>
+    <IdWorker>11</IdWorker>
+    <dateSrart xsi:nil="true" />
+    <DateBegin>2024-02-11T20:38:46.4595485+02:00</DateBegin>
+    <DeadLine>2024-03-07T20:38:46.4595485+02:00</DeadLine>
+    <DateFinish xsi:nil="true" />
+    <Name>F</Name>
+    <Description>F</Description>
+    <Remarks>F</Remarks>
+    <ResultProduct>F</ResultProduct>
+    <Milestone>false</Milestone>
+  </Assignments>
+  <Assignments>
+    <IdAssignments>1030</IdAssignments>
+    <DurationAssignments>55</DurationAssignments>
+    <LevelAssignments>Intermediate</LevelAssignments>
+    <IdWorker>11</IdWorker>
+    <dateSrart xsi:nil="true" />
+    <DateBegin>2024-02-11T20:49:21.4201228+02:00</DateBegin>
+    <DeadLine>2024-04-06T20:49:21.4201228+03:00</DeadLine>
+    <DateFinish xsi:nil="true" />
+    <Name>D</Name>
+    <Description>D</Description>
+    <Remarks>D</Remarks>
+    <ResultProduct>D</ResultProduct>
+    <Milestone>false</Milestone>
+  </Assignments>
+  <Assignments>
+    <IdAssignments>1032</IdAssignments>
+    <DurationAssignments>20</DurationAssignments>
+    <LevelAssignments>Intermediate</LevelAssignments>
+    <IdWorker>11</IdWorker>
+    <dateSrart xsi:nil="true" />
+    <DateBegin>2024-02-11T20:49:21.4201228+02:00</DateBegin>
+    <DeadLine>2024-03-02T20:49:21.4201228+02:00</DeadLine>
+    <DateFinish xsi:nil="true" />
+    <Name>A</Name>
+    <Description>A</Description>
+    <Remarks>A</Remarks>
+    <ResultProduct>A</ResultProduct>
+    <Milestone>false</Milestone>
+  </Assignments>
+  <Assignments>
+    <IdAssignments>1034</IdAssignments>
+    <DurationAssignments>22</DurationAssignments>
+    <LevelAssignments>Intermediate</LevelAssignments>
+    <IdWorker>11</IdWorker>
+    <dateSrart xsi:nil="true" />
+    <DateBegin>2024-02-11T20:57:52.0290885+02:00</DateBegin>
+    <DeadLine>2024-03-04T20:57:52.0290885+02:00</DeadLine>
+    <DateFinish xsi:nil="true" />
+    <Name>U</Name>
+    <Description>U</Description>
+    <Remarks>UU</Remarks>
+    <ResultProduct>U</ResultProduct>
+    <Milestone>false</Milestone>
+  </Assignments>
+</ArrayOfAssignments>
