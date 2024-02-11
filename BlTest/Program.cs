@@ -454,11 +454,11 @@ internal class Program
                             Console.WriteLine("enter DurationAssignments of the Assignment: ");
                             if (!int.TryParse(Console.ReadLine(), out int DurationAssignments))
                                 throw new FormatException("Wrong input");
-                            Console.WriteLine("enter id of the worker : ");
-                            if (!int.TryParse(Console.ReadLine(), out int IdWorker))
-                                throw new FormatException("Wrong input");
-                            Console.WriteLine("enter level of the worker : ");
-                            DO.Level level = (DO.Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
+                            //Console.WriteLine("enter id of the worker : ");
+                            //if (!int.TryParse(Console.ReadLine(), out int IdWorker))
+                            //    throw new FormatException("Wrong input");
+                            //Console.WriteLine("enter level of the worker : ");
+                            //DO.Level level = (DO.Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
                             //DO.Assignments ass = new DO.Assignments(DurationAssignments, level, IdWorker,
                             //name, Description, Remarks, ResultProduct);
                             //get from the user the link assigments
@@ -475,12 +475,11 @@ internal class Program
                                 if (!int.TryParse(Console.ReadLine(), out ID))
                                     throw new FormatException("Wrong input");
                             }
-
                             BO.Assignments ass=new BO.Assignments
                             {
                                 DurationAssignments =DurationAssignments,
-                                LevelAssignments = level,
-                                IdWorker =IdWorker,
+                                //LevelAssignments = level,
+                                //IdWorker =IdWorker,
                                 Name =name,
                                 Description =Description,
                                 Remarks =Remarks,

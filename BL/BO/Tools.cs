@@ -107,10 +107,14 @@ namespace BO
         }
         public static Status calaStatus(DO.Assignments assignments)
         {
-            if (assignments.DateBegin is null)
+            BO.Assignments boAss = ConvertAssDOToBO(assignments);
+            if (boAss.DateBegin is null)
                 return BO.Status.Unscheduled;
-            if (assignments.DeadLine is not null)
+            if (boAss.DeadLine is not null && boAss.links==null)
                 return BO.Status.OnTrack;
+            IEnumerable<Link> lstLinks= _dal.Link.ReadAll(d => d.IdAssignments == boAss.IdAssignments) ?? null!;//the previes ass
+            if (boAss.links!=null)
+                return GetEmployeeStatus(lstLinks);
             return BO.Status.Done;
         }
       
