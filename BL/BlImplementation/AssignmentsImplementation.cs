@@ -99,7 +99,7 @@ internal class AssignmentsImplementation : BlApi.IAssignments
         try
         {
             DO.Assignments doAssignments = _dal.Assignments.Read(assignments => assignments.IdAssignments == id)
-                ?? throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exist");
+                ?? throw new Exceptions.BlDoesNotExistException($"Assigment with ID={id} does Not exist");
             return new BO.Assignments
             {
 
@@ -124,12 +124,11 @@ internal class AssignmentsImplementation : BlApi.IAssignments
         catch (Exception ex)
         {
             // טיפול בחריגות אחרות כפי שנדרש
-            throw new Exceptions.BlException("Failed to delete task", ex);
+            throw new Exceptions.BlException("Failed to read task", ex);
         }
     }
-    public IEnumerable<BO.AssignmentsInList> ReadAll(Func<BO.AssignmentsInList, bool>? filter = null)
-    {
-        return (from DO.Assignments doAssignments in _dal.Assignments.ReadAll()
+    public IEnumerable<BO.AssignmentsInList> ReadAll(Func<BO.AssignmentsInList, bool>? filter = null)=>
+        from DO.Assignments doAssignments in _dal.Assignments.ReadAll()
                 let ass = new BO.AssignmentsInList
                 {
                     Id = doAssignments.IdAssignments,
@@ -138,9 +137,8 @@ internal class AssignmentsImplementation : BlApi.IAssignments
                     //LevelAssignments = doAssignments.LevelAssignments,
                     status = Tools.calaStatus(doAssignments)
                 }
-                where filter!(ass)
-                select ass) ;
-    }
+                where filter is null ? true : filter!(ass)
+                select ass;
     public IEnumerable<BO.Assignments> ReadAllAss(Func<BO.Assignments, bool>? filter = null)
     {
         return (from DO.Assignments doAssignments in _dal.Assignments.ReadAll()

@@ -269,7 +269,7 @@ namespace BO
         //בדיקת תקינות ת.ז
         public static void CheckId(int d)
         {
-            if(d<=0)
+            if(d<0)
                 throw new BlNotCorrectDetailsException("The id can't be a negative number");
             //while (d.Length < 9)
             //{
