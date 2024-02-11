@@ -17,17 +17,10 @@ namespace BO
 
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         static readonly IDal _dal = DalApi.Factory.Get;
-        
+
         public static void ScheduleProject(BO.Assignments ass)
         {
             IEnumerable<Link> lstPLinks;
-            //BO.Assignments ass = s_bl.Assignments.Read(ID)!;//מחזירה משימה נוכחית
-            //בדיקה אם למשימה שהכניס  אין משימות קודמות אז זה יהיה שווה למשימה הראשונה של הפרויקט
-            //if (lstPLinks == null)//משימה ראשונית
-            //{
-
-
-
             lstPLinks = _dal.Link.ReadAll(d => d.IdAssignments == ass.IdAssignments) ?? null!;//the previes ass
             if (lstPLinks.Count() == 0) // אם אין משימות קודמות
             {
@@ -35,7 +28,7 @@ namespace BO
                 ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
                 ass.status = GetEmployeeStatus(lstPLinks!);
                 s_bl.Assignments!.Update(ref ass);
-            
+
             }
             else
             {
@@ -58,7 +51,7 @@ namespace BO
                 ass.status = GetEmployeeStatus(lstPLinks!);
                 s_bl.Assignments!.Update(ref ass);
             }
-            
+
             //return GetEmployeeStatus(lstPLinks!);//מחשבת סטטוס
         }
         //function that convert BOToDO
@@ -105,21 +98,16 @@ namespace BO
                 ResultProduct = doAss.ResultProduct,
             };
         }
-        //public static Status calaStatus(DO.Assignments assignments)
-        //{
-        //    if (assignments.DateBegin is null)
-        //        return BO.Status.Unscheduled;
-        //    if (assignments.DeadLine is not null)
-        //        return BO.Status.OnTrack;
-        //    return BO.Status.Done;
-        //}
         public static Status calaStatus(DO.Assignments assignments)
         {
             BO.Assignments boAss = ConvertAssDOToBO(assignments);
             if (boAss.DateBegin is null)
                 return BO.Status.Unscheduled;
-            if (boAss.DeadLine is not null && boAss.links==null)
+            if (boAss.DeadLine is not null && boAss.links == null)
                 return BO.Status.OnTrack;
+            IEnumerable<Link> lstLinks = _dal.Link.ReadAll(d => d.IdAssignments == boAss.IdAssignments) ?? null!;//the previes ass
+            if (boAss.links != null)
+                return GetEmployeeStatus(lstLinks);
             return BO.Status.Done;
         }
 
