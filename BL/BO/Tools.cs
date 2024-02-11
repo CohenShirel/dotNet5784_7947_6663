@@ -20,7 +20,7 @@ namespace BO
             IEnumerable<Link> lstPLinks;
             //BO.Assignments ass = s_bl.Assignments.Read(ID)!;//מחזירה משימה נוכחית
             //בדיקה אם למשימה שהכניס  אין משימות קודמות אז זה יהיה שווה למשימה הראשונה של הפרויקט
-            lstPLinks = _dal.Link.ReadAll(d => d.IdAssignments == ass.IdAssignments);//the previes ass
+            lstPLinks = _dal.Link.ReadAll(d => d.IdAssignments == ass.IdAssignments) ?? null!;//the previes ass
 
             if (lstPLinks == null)//משימה ראשונית
             {

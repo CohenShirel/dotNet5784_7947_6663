@@ -57,10 +57,13 @@ internal class AssignmentsImplementation : BlApi.IAssignments
             Tools.CheckId(id);
             //BO.Assignments ass = Read(id)!;
             // Check if the assignment is linked to other assignments
-            for (int i = 0; i < ass1.links!.Count; i++)
-                //if there is ass that wasnt finished && the ass will finish after the current ass??????????
-                if (ass1.links[i].DeadLine != null && ass1.links[i].DeadLine > ass1.DateBegin)
-                    throw new Exceptions.BlInvalidOperationException($"Cannot delete assignment with ID={id} as it is linked to other assignments");
+            if(ass1.links != null)
+            {
+                for (int i = 0; i < ass1.links!.Count; i++)
+                    //if there is ass that wasnt finished && the ass will finish after the current ass??????????
+                    if (ass1.links[i].DeadLine != null && ass1.links[i].DeadLine > ass1.DateBegin)
+                        throw new Exceptions.BlInvalidOperationException($"Cannot delete assignment with ID={id} as it is linked to other assignments");
+            }
             try
             {
                 _dal.Assignments.Delete(id);
@@ -114,7 +117,7 @@ internal class AssignmentsImplementation : BlApi.IAssignments
                 DeadLine = doAssignments.DeadLine,
                 DurationAssignments = doAssignments.DurationAssignments,
                 //endProject = doAssignments.endProject,  
-                Worker = getWorker(doAssignments.IdWorker),
+                IdWorker = getWorker(doAssignments.IdWorker).Item1,
                 /////////links = Bl.GetLink(IdAssignments).ToList,
                 // = doAssignments.LevelAssignments,
                 ResultProduct = doAssignments.ResultProduct,

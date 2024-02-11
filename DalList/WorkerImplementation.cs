@@ -25,6 +25,7 @@ internal class WorkerImplementation: IWorker
     {
         Worker w = Read(a =>true)!;
         DataSource.Workers.Remove(w);
+
     }
     public Worker? Read(Func<Worker, bool> filter)
     {
