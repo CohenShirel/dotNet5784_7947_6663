@@ -102,12 +102,12 @@ internal class WorkerImplementation : IWorker
             DO.Assignments ass = _dal.Assignments.Read(t => t.IdWorker == doWrk.IdWorker)!;
             return new BO.Worker
             {
-                       Id = doWrk.IdWorker,
-                       Name = doWrk.Name,
-                       Email = doWrk.Email,
-                       Experience = doWrk.Experience,
-                       HourSalary = doWrk.HourSalary,
-                       currentAssignment = ass is not null ? new BO.WorkerInAssignments { WorkerId = doWrk.IdWorker, AssignmentsNumber = ass.IdAssignments } : null!,
+                Id = doWrk.IdWorker,
+                Name = doWrk.Name,
+                Email = doWrk.Email,
+                Experience = doWrk.Experience,
+                HourSalary = doWrk.HourSalary,
+                currentAssignment = ass is not null ? new BO.WorkerInAssignments { WorkerId = doWrk.IdWorker, AssignmentsNumber = ass.IdAssignments } : null!,
             };
         }
         catch (DO.DalAlreadyExistsException ex)
