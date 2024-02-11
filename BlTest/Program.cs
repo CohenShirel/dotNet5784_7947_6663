@@ -133,31 +133,31 @@ internal class Program
     //    }
 
     //}
-    public void Rec(BO.Assignments ass)
-    {
-        BO.Assignments currentAss;
-        IEnumerable<Link> lstNLinks;
+    //public void Rec(BO.Assignments ass)
+    //{
+    //    BO.Assignments currentAss;
+    //    IEnumerable<Link> lstNLinks;
 
-        lstNLinks = s_dal.Link.ReadAll(d => d.IdPAssignments == ass.IdAssignments);//the Next ass
-        foreach (var a in lstNLinks)
-        {
-            Console.WriteLine($"Enter startDate of the project And the mininal start time that you can begin is: {ass.DeadLine}");
-            if (!DateTime.TryParse(Console.ReadLine(), out DateTime dt))
-                throw new FormatException("datestart is not correct");
-            if (dt >= ass.DeadLine)
-            {
-                currentAss = s_bl.Assignments.Read(a.IdAssignments)!;
-                currentAss.DateBegin = dt;
-                currentAss.DeadLine = currentAss.DateBegin + TimeSpan.FromDays(currentAss.DurationAssignments);
-                s_bl.Assignments!.Update(currentAss);
-                Rec(currentAss);
+    //    lstNLinks = s_dal.Link.ReadAll(d => d.IdPAssignments == ass.IdAssignments);//the Next ass
+    //    foreach (var a in lstNLinks)
+    //    {
+    //        Console.WriteLine($"Enter startDate of the project And the mininal start time that you can begin is: {ass.DeadLine}");
+    //        if (!DateTime.TryParse(Console.ReadLine(), out DateTime dt))
+    //            throw new FormatException("datestart is not correct");
+    //        if (dt >= ass.DeadLine)
+    //        {
+    //            currentAss = s_bl.Assignments.Read(a.IdAssignments)!;
+    //            currentAss.DateBegin = dt;
+    //            currentAss.DeadLine = currentAss.DateBegin + TimeSpan.FromDays(currentAss.DurationAssignments);
+    //            s_bl.Assignments!.Update(currentAss);
+    //            Rec(currentAss);
 
-            }
-            throw new FormatException("datestart is not correct");
+    //        }
+    //        throw new FormatException("datestart is not correct");
 
-        }
+    //    }
 
-    }
+    //}
 
     public class ProjectScheduler
     {
@@ -257,8 +257,6 @@ internal class Program
                 {
                     Console.WriteLine("Invalid input. Please enter a valid number.");
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -305,6 +303,10 @@ internal class Program
                             {
                                 throw new FormatException("Wrong input");
                             }
+                            //Console.WriteLine("Enter currentAssigments (idA) of this worker : ");
+                            //if (!int.TryParse(Console.ReadLine(), out int tzA))
+                            //    throw new FormatException("Wrong input");
+                            //WorkerInAssignments asss =new WorkerInAssignments { WorkerId= id, AssignmentsNumber =tzA};
                             //DO.Worker wrk = new DO.Worker(id, userLevel, cost, name, email);
                             //Worker worker = ConvertWrkDOToBO(wrk);
                             //s_bl.Worker!.Create(worker);
@@ -315,6 +317,7 @@ internal class Program
                                 HourSalary = cost,
                                 Email = email,
                                 Name = name,
+                                //currentAssignment = asss,
                             };
                             s_bl.Worker!.Create(wrk);
 
@@ -347,6 +350,10 @@ internal class Program
                             if (!int.TryParse(Console.ReadLine(), out int updatedCost))
                                 throw new FormatException("Wrong input");
                             DO.Level updatedLevel = (DO.Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
+                            Console.WriteLine("Enter currentAssigments (idA) of this worker : ");
+                            if (!int.TryParse(Console.ReadLine(), out  int tzA))
+                                throw new FormatException("Wrong input");
+                            WorkerInAssignments a = new WorkerInAssignments { WorkerId = iD, AssignmentsNumber = tzA };
                             BO.Worker wrk1 = new BO.Worker
                             {
                                 Id = iD,
@@ -354,6 +361,7 @@ internal class Program
                                 HourSalary = updatedCost,
                                 Email = updetedEmail,
                                 Name = updatedName,
+                                currentAssignment = a,
                             };
                             s_bl.Worker!.Update(wrk1);
                             break;
