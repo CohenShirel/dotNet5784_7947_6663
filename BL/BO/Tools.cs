@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using BlImplementation;
 using static BO.Exceptions;
 
 namespace BO
@@ -16,50 +17,53 @@ namespace BO
 
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         static readonly IDal _dal = DalApi.Factory.Get;
-        public static Status ss(Status s)
-        {
-            return s;
-        }
+        
         public static void ScheduleProject(BO.Assignments ass)
         {
             IEnumerable<Link> lstPLinks;
             //BO.Assignments ass = s_bl.Assignments.Read(ID)!;//מחזירה משימה נוכחית
             //בדיקה אם למשימה שהכניס  אין משימות קודמות אז זה יהיה שווה למשימה הראשונה של הפרויקט
+            //if (lstPLinks == null)//משימה ראשונית
+            //{
+
+
+
             lstPLinks = _dal.Link.ReadAll(d => d.IdAssignments == ass.IdAssignments) ?? null!;//the previes ass
             if (lstPLinks.Count() == 0) // אם אין משימות קודמות
             {
-                ass.DateBegin = IBl.StartProjectTime;
+                ass.DateBegin = Bl.StartProjectTime;
                 ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
                 ass.status = GetEmployeeStatus(lstPLinks!);
-                //Status s = ss(ass.status);
                 s_bl.Assignments!.Update(ref ass);
-            //if (lstPLinks == null)//משימה ראשונית
-            //{
-                
+            
             }
-            var maxDeadline = lstPLinks!.MaxBy(a => s_bl.Assignments.Read(a.IdAssignments)!.DeadLine);
-            if (maxDeadline == null)
-                throw new FormatException("ERROR! There aren't dateBegin for previous assignments");
-            // תאריך התחלתי
-            // DateTime startDate = new DateTime(maxDeadline);
+            else
+            {
+                var maxDeadline = lstPLinks!.MaxBy(a => s_bl.Assignments.Read(a.IdAssignments)!.DeadLine);
+                if (maxDeadline == null)
+                    throw new FormatException("ERROR! There aren't dateBegin for previous assignments");
+                // תאריך התחלתי
+                // DateTime startDate = new DateTime(maxDeadline);
 
-            // יצירת מחולק רנדומלי
-            Random random = new Random();
-            // הגרלת מספר ימים בטווח של שבוע
-            int daysToAdd = random.Next(8);
+                // יצירת מחולק רנדומלי
+                Random random = new Random();
+                // הגרלת מספר ימים בטווח של שבוע
+                int daysToAdd = random.Next(8);
 
-            // הוספת מספר הימים המקריים לתאריך ההתחלתי
-            DateTime? dt = s_bl.Assignments.Read(maxDeadline.IdAssignments)!.DeadLine;
+                // הוספת מספר הימים המקריים לתאריך ההתחלתי
+                DateTime? dt = s_bl.Assignments.Read(maxDeadline.IdAssignments)!.DeadLine;
 
-            ass.DateBegin = dt + TimeSpan.FromDays(daysToAdd);
-            ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
-            ass.status = GetEmployeeStatus(lstPLinks!);
-            s_bl.Assignments!.Update(ref ass);
+                ass.DateBegin = dt + TimeSpan.FromDays(daysToAdd);
+                ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
+                ass.status = GetEmployeeStatus(lstPLinks!);
+                s_bl.Assignments!.Update(ref ass);
+            }
+            
             //return GetEmployeeStatus(lstPLinks!);//מחשבת סטטוס
         }
         //function that convert BOToDO
 
-        public static DO.Worker ConvertWrkBOToDO(BO.Worker doWorker)
+        public static DO.Worker ConvertWrkBOToDO(ref BO.Worker doWorker)
         {
             return new DO.Worker
             {
@@ -132,9 +136,9 @@ namespace BO
                 foreach (DO.Link lnk in lstLink)
                 {
                     assignment = s_bl.Assignments.Read(lnk.IdAssignments)!;
-                    assignment.status = Status.Unscheduled;
+                    assignment.status = Status.Scheduled;
                 }
-                return Status.Unscheduled; // אם אין הקצאת זמן למשימות, הסטטוס הוא התחלתי
+                return Status.Scheduled; // אם אין הקצאת זמן למשימות, הסטטוס הוא התחלתי
             }
             else if (allTime)
             {

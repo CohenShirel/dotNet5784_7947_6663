@@ -175,7 +175,7 @@ internal class WorkerImplementation : IWorker
                     Email = boWorker.Email,
                     currentAssignment = checkCurrentAssignment(boWorker) ? boWorker.currentAssignment : throw new BlInvalidOperationException("Failed to update currentAssignment"),
                 };
-                DO.Worker wrk = Tools.ConvertWrkBOToDO(bWorker);
+                DO.Worker wrk = Tools.ConvertWrkBOToDO(ref bWorker);
                 _dal.Worker.Update(ref wrk);
             }
             catch (DO.DalAlreadyExistsException ex)
@@ -207,7 +207,7 @@ internal class WorkerImplementation : IWorker
                     Email = boWorker.Email,
                     currentAssignment = checkCurrentAssignment(boWorker) ? boWorker.currentAssignment : throw new BlInvalidOperationException("Failed to update currentAssignment"),
                 };
-                DO.Worker wrk = Tools.ConvertWrkBOToDO(bWorker);
+                DO.Worker wrk = Tools.ConvertWrkBOToDO(ref bWorker);
                 _dal.Worker.Update(ref wrk);
             }
             catch (DO.DalAlreadyExistsException ex)
