@@ -320,7 +320,6 @@ internal class Program
                                 //currentAssignment = asss,
                             };
                             s_bl.Worker!.Create(wrk);
-
                             break;
                         case CRUD.READ:
                             // Perform read operation
