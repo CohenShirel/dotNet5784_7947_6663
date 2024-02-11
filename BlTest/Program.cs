@@ -541,7 +541,13 @@ internal class Program
                                 ResultProduct = ResultProduct1,
                                 //status = Tools.ScheduleProject(Id),
                             };
-                            Tools.ScheduleProject(ass1);
+                            Console.WriteLine("DO YOU WANT TO START TO UPDET DATES? Y/N");
+                            string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
+                            if (ans == "N") 
+                                s_bl.Assignments!.Update(ref ass1);
+                            else if((ans == "Y"))
+                                Tools.ScheduleProject(ass1);
+
                             //s_bl.Assignments!.Update(ass1);
                             break;
 
