@@ -128,7 +128,7 @@ internal class WorkerImplementation : IWorker
 
     public IEnumerable<WorkerInList> ReadAll(Func<BO.WorkerInList, bool>? filter = null) =>
        from DO.Worker doWrk in _dal.Worker.ReadAll()
-       let ass = _dal.Assignments.Read(t => t.IdWorker == doWrk.IdWorker && t.dateSrart is not null && t.DateFinish is null)
+       let ass = _dal.Assignments.Read(t => t.IdWorker == doWrk.IdWorker /*&& t.dateSrart is not null && t.DateFinish is null*/)
        let wrkLst = new BO.WorkerInList
        {
            Id = doWrk.IdWorker,
@@ -169,13 +169,14 @@ internal class WorkerImplementation : IWorker
             {
                 BO.Worker bWorker = new BO.Worker
                 {
+                    Id = boWorker.Id,
                     Experience = boWorker.Experience,
                     HourSalary = boWorker.HourSalary,
                     Name = boWorker.Name,
                     Email = boWorker.Email,
                     currentAssignment = checkCurrentAssignment(boWorker) ? boWorker.currentAssignment : throw new BlInvalidOperationException("Failed to update currentAssignment"),
                 };
-                DO.Worker wrk = Tools.ConvertWrkBOToDO(bWorker);
+                DO.Worker wrk = Tools.ConvertWrkBOToDO(ref bWorker);
                 _dal.Worker.Update(ref wrk);
             }
             catch (DO.DalAlreadyExistsException ex)
@@ -207,7 +208,7 @@ internal class WorkerImplementation : IWorker
                     Email = boWorker.Email,
                     currentAssignment = checkCurrentAssignment(boWorker) ? boWorker.currentAssignment : throw new BlInvalidOperationException("Failed to update currentAssignment"),
                 };
-                DO.Worker wrk = Tools.ConvertWrkBOToDO(bWorker);
+                DO.Worker wrk = Tools.ConvertWrkBOToDO(ref bWorker);
                 _dal.Worker.Update(ref wrk);
             }
             catch (DO.DalAlreadyExistsException ex)

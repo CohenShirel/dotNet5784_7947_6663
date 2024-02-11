@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using BlImplementation;
 using static BO.Exceptions;
 
 namespace BO
@@ -28,7 +29,7 @@ namespace BO
             lstPLinks = _dal.Link.ReadAll(d => d.IdAssignments == ass.IdAssignments) ?? null!;//the previes ass
             if (lstPLinks.Count() == 0) // אם אין משימות קודמות
             {
-                ass.DateBegin = IBl.StartProjectTime;
+                ass.DateBegin = Bl.StartProjectTime;
                 ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
                 ass.status = GetEmployeeStatus(lstPLinks!);
                 //Status s = ss(ass.status);
@@ -59,7 +60,7 @@ namespace BO
         }
         //function that convert BOToDO
 
-        public static DO.Worker ConvertWrkBOToDO(BO.Worker doWorker)
+        public static DO.Worker ConvertWrkBOToDO(ref BO.Worker doWorker)
         {
             return new DO.Worker
             {
