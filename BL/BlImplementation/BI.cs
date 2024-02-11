@@ -22,7 +22,7 @@ public /*internal */class Bl : IBl
     public static void reset()
     {
         //מנקה את כל הרשומות
-        BlApi.IBl bl = BlApi.Factory.Get();
+        BlApi.Factory.Get();
         s_dal=DalApi.Factory.Get;
         //DalTest.Initialization.Do();
         //המס הרצים חוזרים למס ההתחלתיים

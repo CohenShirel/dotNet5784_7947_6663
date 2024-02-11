@@ -20,7 +20,7 @@ internal class AssignmentsImplementation : BlApi.IAssignments
      {
             //check the name and the id
             Tools.IsName(boAssignments.Description!);
-            Tools.CheckId(boAssignments.IdAssignments);
+            //Tools.CheckId(boAssignments.IdAssignments);
             //Add dependencies for previous tasks from the existing ta
             //sk list
             for (int i = 0; i < boAssignments.links!.Count; i++)
@@ -137,8 +137,8 @@ internal class AssignmentsImplementation : BlApi.IAssignments
                     Id = doAssignments.IdAssignments,
                     AssignmentName = doAssignments.Name!,
                     IdWorker= doAssignments.IdWorker,
-                    DateBegin = doAssignments.DateBegin,
-                    DeadLine= doAssignments.DeadLine,   
+                    DeadLine= doAssignments.DeadLine,
+                    DateBegin= doAssignments.DateBegin,
                     //LevelAssignments = doAssignments.LevelAssignments,
                     status = Tools.calaStatus(doAssignments)
                 }
