@@ -98,7 +98,8 @@ internal class WorkerImplementation : IWorker
     {
         try
         {
-            DO.Worker doWrk = _dal.Worker.Read(wrk => wrk.IdWorker == id)!;
+            DO.Worker doWrk = _dal.Worker.Read(wrk => wrk.IdWorker == id)!
+            ?? throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exist");
             DO.Assignments ass = _dal.Assignments.Read(t => t.IdWorker == doWrk.IdWorker)!;
             return new BO.Worker
             {

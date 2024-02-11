@@ -454,6 +454,21 @@ internal class Program
                             DO.Level level = (DO.Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
                             //DO.Assignments ass = new DO.Assignments(DurationAssignments, level, IdWorker,
                             //name, Description, Remarks, ResultProduct);
+                            //get from the user the link assigments
+                            List<AssignmentsInList> list = new List<AssignmentsInList>();
+                            Console.WriteLine("Enter the links(id & name of assigments)till -1: ");
+                            if (!int.TryParse(Console.ReadLine(), out int ID))
+                                throw new FormatException("Wrong input");
+                            while (ID != -1)
+                            {
+                                string? nm = Console.ReadLine() ?? throw new FormatException("Wrong input");
+                                BO.AssignmentsInList assl = new BO.AssignmentsInList { Id = ID, AssignmentName = nm };
+                                list.Add(assl);
+                                Console.WriteLine("Enter the links(id & name of assigments)till -1: ");
+                                if (!int.TryParse(Console.ReadLine(), out ID))
+                                    throw new FormatException("Wrong input");
+                            }
+
                             BO.Assignments ass=new BO.Assignments
                             {
                                 DurationAssignments =DurationAssignments,
@@ -463,14 +478,15 @@ internal class Program
                                 Description =Description,
                                 Remarks =Remarks,
                                 ResultProduct =ResultProduct,
+                                links=list,
                             };
                             s_bl.Assignments!.Create(ass);
                             break;
                         case CRUD.READ:
                             Console.WriteLine("Enter Assignment ID: ");
-                            if (!int.TryParse(Console.ReadLine(), out int ID))
+                            if (!int.TryParse(Console.ReadLine(), out int ID1))
                                 throw new FormatException("Wrong input");
-                            BO.Assignments rea = s_bl.Assignments!.Read(ID)!;
+                            BO.Assignments rea = s_bl.Assignments!.Read(ID1)!;
                             Console.WriteLine(rea);
                             break;
 
