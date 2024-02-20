@@ -4,7 +4,7 @@ namespace DO;
 //עשיתי את זה גם לרמת משימה וגם לרמת עובד
 public enum Level
 {
-    Beginner, AdvancedBeginner, Intermediate, Advanced, Expert
+    Beginner, AdvancedBeginner, Intermediate, Advanced, Expert,None
 }
 public enum Option
 {

@@ -133,6 +133,7 @@ internal class WorkerImplementation : IWorker
        {
            Id = doWrk.IdWorker,
            Name = doWrk.Name!,
+           Experience= doWrk.Experience,
            currentAssignment = ass is not null ? new BO.WorkerInAssignments { AssignmentsNumber = ass.IdAssignments!, WorkerId = ass.IdWorker! } : null!,
        }
        where filter is null ? true : filter(wrkLst)

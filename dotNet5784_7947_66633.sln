@@ -20,9 +20,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{934476BD-0E0
 		xml\workers.xml = xml\workers.xml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{D4DFD218-B087-463B-BDFF-B8CA2DC0B562}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{D4DFD218-B087-463B-BDFF-B8CA2DC0B562}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlTest", "BlTest\BlTest.csproj", "{CEF39494-B4D6-4740-A1DB-69C7388876CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BlTest\BlTest.csproj", "{CEF39494-B4D6-4740-A1DB-69C7388876CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{19DDBFD4-9DE4-476B-ADB4-08E3336143B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +56,10 @@ Global
 		{CEF39494-B4D6-4740-A1DB-69C7388876CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEF39494-B4D6-4740-A1DB-69C7388876CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEF39494-B4D6-4740-A1DB-69C7388876CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19DDBFD4-9DE4-476B-ADB4-08E3336143B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19DDBFD4-9DE4-476B-ADB4-08E3336143B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19DDBFD4-9DE4-476B-ADB4-08E3336143B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19DDBFD4-9DE4-476B-ADB4-08E3336143B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
