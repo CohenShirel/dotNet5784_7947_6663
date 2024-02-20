@@ -40,7 +40,7 @@ namespace BO
                 int daysToAdd = random.Next(8);
 
                 // הוספת מספר הימים המקריים לתאריך ההתחלתי
-                ass.DateBegin = maxDeadline!.DeadLine + TimeSpan.FromDays(daysToAdd);       
+                ass.DateBegin = maxDeadline!.DeadLine + TimeSpan.FromDays(daysToAdd);
             }
             ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignment);
             s_bl.Assignment!.Update(ass);
@@ -95,10 +95,10 @@ namespace BO
             (_dal.StartProjectTime, _dal.Assignment) switch
             {
                 (null, _) => Status.Unscheduled,
-                (_, var assignment) when( assignment.ReadAll().Any(a => a.DateBegin is null) || (assignment.ReadAll().Count() == 0)) => Status.Scheduled,
+                (_, var assignment) when (assignment.ReadAll().Any(a => a.DateBegin is null) || (assignment.ReadAll().Count() == 0)) => Status.Scheduled,
                 _ => Status.OnTrack
             };
-        
+
         public static string ToStringProperty<T>(this T t)
         {
             string str = "";

@@ -1,0 +1,45 @@
+﻿<Window x:Class="PL.Worker.WorkerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Worker"
+        mc:Ignorable="d"
+        Title="WorkerWindow" Height="350" Width="350"
+        DataContext="{Binding curWrk,RelativeSource={RelativeSource self},Mode=TwoWay}"
+        >
+    <!--Extrnal Grid-->
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!--Internal, Upper Grid-->
+        <Grid Margin="58,39,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="ID:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtId" Text="{Binding Path=Id}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Name"  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtName" Text="{Binding Path=Name}"  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Email" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtEmail" Text="{Binding Path=Email}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Experience" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+            <ComboBox x:Name="cmbExperience" Text="{Binding Path=Experience}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top" Width="120"/>
+            <Label Content="HourSalary" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top" RenderTransformOrigin="0.697,9.624"/>
+            <TextBox x:Name="txtHourSalary" Text="{Binding Path=HourSalary}" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        </Grid>
+        <Button x:Name="btnAddUpdate" Grid.Row="1" HorizontalAlignment="Left" Margin="83,30,0,0" Height="31" Width="149" VerticalAlignment="Top" Click="btnAddUpdate_Click"/>
+        <Grid RenderTransformOrigin="1.49,0.665"/>
+    </Grid>
+</Window>

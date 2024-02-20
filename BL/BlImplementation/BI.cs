@@ -15,17 +15,17 @@ public /*internal */class Bl : IBl
 
     // DateTime? IBl.DeadLine => null;
 
-    public static void reset()
-    {
-        //מנקה את כל הרשומות
-        BlApi.Factory.Get();
-        s_dal = DalApi.Factory.Get;
-        //DalTest.Initialization.Do();
-        //המס הרצים חוזרים למס ההתחלתיים
-        s_dal!.Worker!.DeleteAll();
-        s_dal.Assignment!.DeleteAll();
-        s_dal.Link!.DeleteAll();
-    }
+    public static void reset() => DalTest.Initialization.Do();
+    //{
+    //    //מנקה את כל הרשומות
+    //    BlApi.Factory.Get();
+    //    s_dal=DalApi.Factory.Get;
+    //    //DalTest.Initialization.Do();
+    //    //המס הרצים חוזרים למס ההתחלתיים
+    //    s_dal!.Worker!.DeleteAll();
+    //    s_dal.Assignments!.DeleteAll();
+    //    s_dal.Link!.DeleteAll();
+    //}
     //לעשות כאן לוז אוטומטי??
     // public IWorkerInAssignment WorkerInAssignment => new WorkerInAssignmentImplementation();
 

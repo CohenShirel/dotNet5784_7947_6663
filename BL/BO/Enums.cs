@@ -1,5 +1,4 @@
-﻿
-namespace BO;
+﻿namespace BO;
 
 //level of the project:
 //public enum Status
