@@ -3,8 +3,8 @@
   <Worker>
     <IdWorker>11</IdWorker>
     <Experience>Intermediate</Experience>
-    <HourSalary>22</HourSalary>
-    <Name>H</Name>
-    <Email>H@GMAIL.COM</Email>
+    <HourSalary>2</HourSalary>
+    <Name>B</Name>
+    <Email>B@GMAIL.COM</Email>
   </Worker>
 </ArrayOfWorker>

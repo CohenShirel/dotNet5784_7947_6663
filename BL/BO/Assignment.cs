@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BO;
-public class Assignments
+﻿namespace BO;
+public class Assignment
 {
-    public int IdAssignments { get; init;}
-    public int DurationAssignments { get; set; }
-    public DO.Level LevelAssignments { get; set; }
+    public int IdAssignment { get; init; }
+    public int DurationAssignment { get; set; }
+    public DO.Level LevelAssignment { get; set; }
     public int IdWorker { get; set; }
-    public DateTime ? dateSrart { get; set; }
+    public DateTime? dateSrart { get; set; }
     public DateTime? DateBegin { get; set; }
     public DateTime? DeadLine { get; set; }//calculate the end of the project
     public DateTime? DateFinish { get; set; }
@@ -26,15 +20,15 @@ public class Assignments
     }
     public Status status { get; set; }
     //רשימת תלויות??????????????מסוג משימה ברשימה
-    public List<AssignmentsInList>? links { get; set; }//link ssignmentsInList?
+    public List<AssignmentInList>? Links { get; set; }//link ssignmentsInList?
     //החזרת עובד נוכחי עי שאילתא
-    public Tuple <int,string>? Worker { get; set; }
+    public Tuple<int, string>? Worker { get; set; }
 }
 
 
-//int IdAssignments,///////////////////////////////////////////
-//    int DurationAssignments,//////////////////////////////////
-//  Level LevelAssignments,
+//int IdAssignment,///////////////////////////////////////////
+//    int DurationAssignment,//////////////////////////////////
+//  Level LevelAssignment,
 //    int IdWorker,
 //  DateTime? dateSrart=null,
 //  DateTime? DateBegin = null,

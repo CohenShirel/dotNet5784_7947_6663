@@ -1,6 +1,5 @@
-﻿using DalApi;
+﻿using System.Reflection;
 using static DalApi.Config;
-using System.Reflection;
 namespace DalApi;
 public static class Factory
 {
@@ -12,10 +11,10 @@ public static class Factory
             DalImplementation dal = s_dalPackages[dalType] ?? throw new DalConfigException($"Package for {dalType} is not found in packages list in dal-config.xml");
 
             try
-            { 
-                Assembly.Load(dal.Package ?? throw new DalConfigException($"Package {dal.Package} is null")); 
+            {
+                Assembly.Load(dal.Package ?? throw new DalConfigException($"Package {dal.Package} is null"));
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 throw new DalConfigException($"Failed to load {dal.Package}.dll package", ex);
             }

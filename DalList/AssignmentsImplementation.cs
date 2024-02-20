@@ -1,28 +1,28 @@
 ﻿namespace Dal;
-using DO;
 using DalApi;
+using DO;
 using System.Collections.Generic;
 
 internal class AssignmentsImplementation : IAssignments
 {
-    public int Create(Assignments ass)
+    public int Create(Assignment ass)
     {
-        Assignments newAssignments = ass with { IdAssignments = DataSource.Config.idPAssignments };
+        Assignment newAssignments = ass with { IdAssignment = DataSource.Config.idPAssignments };
         DataSource.Assignmentss.Add(newAssignments);
-        return newAssignments.IdAssignments;
+        return newAssignments.IdAssignment;
     }
     public void Delete(int id)
     {
-        if (Read(a => a.IdAssignments == id) is null)
-            throw new DalDoesNotExistException($"Assignments with ID={id} not exists");
-        DataSource.Assignmentss.Remove(Read(a => a.IdAssignments == id)!);
+        if (Read(a => a.IdAssignment == id) is null)
+            throw new DalDoesNotExistException($"Assignment with ID={id} not exists");
+        DataSource.Assignmentss.Remove(Read(a => a.IdAssignment == id)!);
     }
     public void DeleteAll()
     {
-        Assignments ass = Read(a => true)!;
+        Assignment ass = Read(a => true)!;
         DataSource.Assignmentss.Remove(ass);
     }
-    public Assignments? Read(Func <Assignments, bool> filter)
+    public Assignment? Read(Func<Assignment, bool> filter)
     {
         return DataSource.Assignmentss.FirstOrDefault(filter);
     }
@@ -30,10 +30,10 @@ internal class AssignmentsImplementation : IAssignments
     //public int ReadName(string name)
     //{
     //    if (DataSource.Assignmentss.Find(n => n.Name == name) != null)
-    //        return DataSource.Assignmentss.Find(n => n.Name == name)!.IdAssignments;
+    //        return DataSource.Assignmentss.Find(n => n.Name == name)!.IdAssignment;
     //    return 0;
     //}
-    public IEnumerable<Assignments> ReadAll(Func<Assignments, bool>? filter = null) //stage 2
+    public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null) //stage 2
     {
         if (filter != null)
         {
@@ -45,9 +45,14 @@ internal class AssignmentsImplementation : IAssignments
                select item;
     }
 
-    public void Update(ref Assignments ass)
+    public void Update(Assignment ass)
     {
-        Delete(ass.IdAssignments);
-        Create(ass);
+        //Delete(ass.IdAssignment);
+        //Create(ass);
+        if (Read(a => a.IdAssignment == ass.IdAssignment) is null)
+            throw new DalDoesNotExistException($"Assignment with ID={ass.IdAssignment} not exists");
+        DataSource.Assignmentss.Remove(Read(a => a.IdAssignment == ass.IdAssignment)!);
+        DataSource.Assignmentss.Add(ass);
+
     }
 }

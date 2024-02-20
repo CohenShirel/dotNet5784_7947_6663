@@ -1,6 +1,4 @@
 ﻿using DalApi;
-using System.Data.Common;
-using System.Diagnostics;
 namespace Dal;
 
 //stage 3
@@ -10,7 +8,7 @@ sealed internal class DalXml : IDal
     private DalXml() { }
 
     public IWorker Worker => new WorkerImplementation();
-    public IAssignments Assignments => new AssignmentsImplementation();
+    public IAssignments Assignment => new AssignmentsImplementation();
     public ILink Link => new LinkImplementation();
     public DateTime? StartProjectTime
     {

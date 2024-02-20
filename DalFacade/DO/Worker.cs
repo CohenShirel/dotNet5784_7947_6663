@@ -1,7 +1,7 @@
 ﻿/// <summary>
 /// 
 /// </summary>
-/// <param זהות מספר="IdWorker"></param>
+/// <param זהות מספר="Id"></param>
 /// <param ניסיון="Experience"></param>
 /// <param לשעה שכר="HourSalary"></param>
 /// <param שם="Name"></param>
@@ -10,7 +10,7 @@ namespace DO;
 
 public record Worker
 (
-    int IdWorker,
+    int Id,
     Level Experience,
     int HourSalary,
     string? Name = null,

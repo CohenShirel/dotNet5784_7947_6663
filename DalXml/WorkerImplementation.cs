@@ -3,21 +3,19 @@ using DalApi;
 using DO;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Xml;
 using System.Xml.Linq;
 
 
 internal class WorkerImplementation : IWorker
 {
     readonly string s_workers_xml = "workers";
-    
+
     //fet element and return worker
     static Worker getWorker(XElement wrk)
     {
         return new Worker()
         {
-            IdWorker = int.TryParse((string?)wrk.Element("IdWorker"), out var IdWorker) ? IdWorker :throw new FormatException("can't convert id"),
+            Id = int.TryParse((string?)wrk.Element("IdWorker"), out var IdWorker) ? IdWorker : throw new FormatException("can't convert id"),
             Experience = Enum.TryParse<DO.Level>((string?)wrk.Element("Experience"), out var Experience) ? Experience : 0,
             HourSalary = int.TryParse((string?)wrk.Element("HourSalary"), out var HourSalary) ? HourSalary : 0,
             Name = (string?)wrk.Element("Name") ?? "",
@@ -27,19 +25,19 @@ internal class WorkerImplementation : IWorker
     public int Create(Worker item)
     {
         XElement? wrkRoot = XMLTools.LoadListFromXMLElement(s_workers_xml);
-        XElement? wrkElem = wrkRoot.Elements().FirstOrDefault(wrk => (int?)wrk.Element("IdWorker") == item.IdWorker);
-        if(wrkElem != null)
-            throw new DalAlreadyExistsException($"Worker with ID={item.IdWorker} already exists");
+        XElement? wrkElem = wrkRoot.Elements().FirstOrDefault(wrk => (int?)wrk.Element("IdWorker") == item.Id);
+        if (wrkElem != null)
+            throw new DalAlreadyExistsException($"Worker with ID={item.Id} already exists");
 
-        XElement id = new XElement("IdWorker", item.IdWorker);
+        XElement id = new XElement("IdWorker", item.Id);
         XElement Name = new XElement("Name", item.Name);
         XElement Email = new XElement("Email", item.Email);
         XElement Experience = new XElement("Experience", item.Experience);
         XElement HourSalary = new XElement("HourSalary", item.HourSalary);
-        wrkRoot.Add(new XElement("Worker",id,Experience, HourSalary,Name,Email));
+        wrkRoot.Add(new XElement("Worker", id, Experience, HourSalary, Name, Email));
 
         XMLTools.SaveListToXMLElement(wrkRoot, s_workers_xml);//save the changes in the file
-        return item.IdWorker;
+        return item.Id;
     }
     public void Delete(int id)
     {
@@ -74,10 +72,10 @@ internal class WorkerImplementation : IWorker
         //return getWorker(wrkElem);
     }
 
-    public IEnumerable<Worker?> ReadAll(Func<Worker, bool>? filter = null)
+    public IEnumerable<Worker> ReadAll(Func<Worker, bool>? filter = null)
     {
         XElement? wrkRoot = XMLTools.LoadListFromXMLElement(s_workers_xml);
-        List<DO.Worker> lstwrk=wrkRoot.Elements().Select(elemwrk=>getWorker(elemwrk)).ToList();
+        List<DO.Worker> lstwrk = wrkRoot.Elements().Select(elemwrk => getWorker(elemwrk)).ToList();
         if (filter != null)
         {
             return from item in lstwrk
@@ -88,9 +86,9 @@ internal class WorkerImplementation : IWorker
                select item;
     }
 
-    public void Update(ref Worker item)
+    public void Update(Worker item)
     {
-        Delete(item.IdWorker);
+        Delete(item.Id);
         Create(item);
     }
 }

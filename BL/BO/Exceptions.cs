@@ -1,5 +1,4 @@
-﻿using BO;
-namespace BO;
+﻿namespace BO;
 
 public class Exceptions
 {
@@ -22,7 +21,7 @@ public class Exceptions
         public BlNotCorrectDetailsException(string? message) : base(message) { }
     }
     [Serializable]
-    public class BlException: Exception
+    public class BlException : Exception
     {
         public BlException(string? message) : base(message) { }
         public BlException(string message, Exception innerException)

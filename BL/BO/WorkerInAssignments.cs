@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace BO;
 
-namespace BO;
-
-public class WorkerInAssignments
+public class WorkerInAssignment
 {
     public int WorkerId { get; init; }
-    public required int AssignmentsNumber { get; init; }
-   // public required string AssignmentsName { get; init; }
-  //  public DateTime? dateSrart { get; init; }
-   // public DateTime? DateBegin { get; init; }
+    public required int AssignmentNumber { get; init; }
+    // public required string AssignmentName { get; init; }
+    //  public DateTime? dateSrart { get; init; }
+    // public DateTime? DateBegin { get; init; }
     public override string ToString() => this.ToStringProperty();
 }

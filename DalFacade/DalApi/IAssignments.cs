@@ -1,9 +1,9 @@
 ﻿
 namespace DalApi;
 using DO;
-public interface IAssignments : ICrud<Assignments>
+public interface IAssignments : ICrud<Assignment>
 {
-   // List<Assignments> ReadName(); //stage 1 only, Reads all entity objects
+    // List<Assignment> ReadName(); //stage 1 only, Reads all entity objects
     //public int ReadName(string name);
 }
 

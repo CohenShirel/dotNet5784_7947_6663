@@ -3,7 +3,6 @@ using BlApi;
 using BO;
 using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
 using static BO.Exceptions;
 
 internal class WorkerImplementation : IWorker
@@ -12,9 +11,9 @@ internal class WorkerImplementation : IWorker
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
     // private BlApi.IBl _dal1 = BlApi.Factory.Get;
-    //private static Assignments lstAss = 
+    //private static Assignment lstAss = 
 
-    // private static Assignments lstAss = AssignmentsImplementation.ReadAll();
+    // private static Assignment lstAss = AssignmentImplementation.ReadAll();
 
     public int Create(BO.Worker boWorker)
     {
@@ -29,7 +28,7 @@ internal class WorkerImplementation : IWorker
         {
             DO.Worker dWorker = new DO.Worker
             {
-                IdWorker=boWorker.Id,
+                Id = boWorker.Id,
                 Experience = boWorker.Experience,
                 HourSalary = boWorker.HourSalary,
                 Name = boWorker.Name,
@@ -54,22 +53,22 @@ internal class WorkerImplementation : IWorker
         throw new Exceptions.BlException("Failed to create new worker");
     }
 
-    public IEnumerable<BO.AssignmentsInList> ConvertLstAssDOToBO()
+    public IEnumerable<BO.AssignmentInList> ConvertLstAssDOToBO()
     {
-        return (from DO.Assignments doAssignments in _dal.Assignments.ReadAll()
-                let ass = new BO.AssignmentsInList
+        return (from DO.Assignment doAssignment in _dal.Assignment.ReadAll()
+                let ass = new BO.AssignmentInList
                 {
-                    Id = doAssignments.IdAssignments,
-                    AssignmentName = doAssignments.Name!,
-                    //LevelAssignments = doAssignments.LevelAssignments,
-                    //status = Tools.calaStatus(doAssignments),
+                    Id = doAssignment.IdAssignment,
+                    AssignmentName = doAssignment.Name!,
+                    //LevelAssignment = doAssignment.LevelAssignment,
+                    //status = Tools.GetProjectStatus(doAssignment),
                 }
                 select ass);
     }
     public void Delete(int id)
     {
         BO.Worker wrk = Read(id)!;
-        Assignments a =s_bl.Assignments.Read(wrk.currentAssignment.AssignmentsNumber)!;
+        Assignment a = s_bl.Assignment.Read(wrk.currentAssignment.AssignmentNumber)!;
         if (a.status == Status.Unscheduled || a.status == Status.Scheduled)
         {
 
@@ -92,26 +91,26 @@ internal class WorkerImplementation : IWorker
                 // טיפול בחריגות אחרות כפי שנדרש
                 throw new Exceptions.BlException("Failed to delete task", ex);
             }
-        }     
+        }
     }
     public BO.Worker Read(int id)
     {
         try
         {
-            DO.Worker doWrk = _dal.Worker.Read(wrk => wrk.IdWorker == id)!
+            DO.Worker doWrk = _dal.Worker.Read(wrk => wrk.Id == id)!
             ?? throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exist");
-            DO.Assignments ass = _dal.Assignments.Read(t => t.IdWorker == doWrk.IdWorker)!;
+            DO.Assignment ass = _dal.Assignment.Read(t => t.WorkerId == doWrk.Id)!;
             return new BO.Worker
             {
-                Id = doWrk.IdWorker,
+                Id = doWrk.Id,
                 Name = doWrk.Name,
                 Email = doWrk.Email,
                 Experience = doWrk.Experience,
                 HourSalary = doWrk.HourSalary,
-                currentAssignment = ass is not null ? new BO.WorkerInAssignments { WorkerId = doWrk.IdWorker, AssignmentsNumber = ass.IdAssignments } : null!,
+                currentAssignment = ass is not null ? new BO.WorkerInAssignment { WorkerId = doWrk.Id, AssignmentNumber = ass.IdAssignment } : null!,
             };
         }
-        catch (DO.DalAlreadyExistsException ex)
+        catch (BlDoesNotExistException ex)
         {
             throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exists", ex);
         }
@@ -128,37 +127,43 @@ internal class WorkerImplementation : IWorker
 
     public IEnumerable<WorkerInList> ReadAll(Func<BO.WorkerInList, bool>? filter = null) =>
        from DO.Worker doWrk in _dal.Worker.ReadAll()
-       let ass = _dal.Assignments.Read(t => t.IdWorker == doWrk.IdWorker /*&& t.dateSrart is not null && t.DateFinish is null*/)
+       let ass = _dal.Assignment.Read(t => t.WorkerId == doWrk.Id /*&& t.dateSrart is not null && t.DateFinish is null*/)
        let wrkLst = new BO.WorkerInList
        {
-           Id = doWrk.IdWorker,
+           Id = doWrk.Id,
            Name = doWrk.Name!,
-           currentAssignment = ass is not null ? new BO.WorkerInAssignments { AssignmentsNumber = ass.IdAssignments!, WorkerId = ass.IdWorker! } : null!,
+           currentAssignment = ass is not null ? new BO.WorkerInAssignment { AssignmentNumber = ass.IdAssignment!,
+               WorkerId = ass.WorkerId! } : null!,
        }
        where filter is null ? true : filter(wrkLst)
        select wrkLst;
-    
+
+
     public bool checkCurrentAssignment(BO.Worker boWorker)
     {
-        BO.Assignments lstAss = s_bl.Assignments.Read(boWorker.currentAssignment.AssignmentsNumber)!;
-       // BO.Assignments lstAss=BO.Assignments
+        BO.Assignment lstAss = s_bl.Assignment.Read(boWorker.currentAssignment.AssignmentNumber)!;
+        // BO.Assignment lstAss=BO.Assignment
         // Check if the assignment is allocated to another worker
-        if (boWorker.currentAssignment == null|| boWorker.currentAssignment.WorkerId!= boWorker.Id)
+        if (boWorker.currentAssignment == null || boWorker.currentAssignment.WorkerId != boWorker.Id)
             throw new Exceptions.BlInvalidOperationException("The assignment is allocated to another worker");
 
         // Check if all dependent assignments are completed
-        Assignments a=s_bl.Assignments.Read(boWorker.currentAssignment.AssignmentsNumber)!;
-        if (a.links != null && a.links.All(l => l.status == Status.Done) == false)
+        Assignment a = s_bl.Assignment.Read(boWorker.currentAssignment.AssignmentNumber)!;
+        if (a.Links != null && a.Links.All(l => l.status == Status.Done) == false)
             throw new Exceptions.BlInvalidOperationException("Not all dependent assignments are completed");
 
         // Check if the assignment's level is not higher than the worker's experience level
-        if ((int)a.LevelAssignments > (int)boWorker.Experience)
+        if ((int)a.LevelAssignment > (int)boWorker.Experience)
             throw new Exceptions.BlInvalidOperationException("The assignment's level ishigher than the worker's experience level");
+        lstAss.IdWorker= boWorker.Id;
+        s_bl.Assignment.Update(lstAss);
+        //update ass
         return true;
     }
+
     public void Update(BO.Worker boWorker)
     {
-        Assignments a = s_bl.Assignments.Read(boWorker.currentAssignment.AssignmentsNumber)!;
+        Assignment a = s_bl.Assignment.Read(boWorker.currentAssignment.AssignmentNumber)!;
         if (a.status == Status.Unscheduled || a.status == Status.Scheduled)
         {
             Tools.CheckId(boWorker.Id);
@@ -167,6 +172,8 @@ internal class WorkerImplementation : IWorker
             Tools.IsMail(boWorker.Email!);
             try
             {
+                //WorkerInAssignment currentAssignment = boWorker.currentAssignment;
+
                 BO.Worker bWorker = new BO.Worker
                 {
                     Id = boWorker.Id,
@@ -177,7 +184,7 @@ internal class WorkerImplementation : IWorker
                     currentAssignment = checkCurrentAssignment(boWorker) ? boWorker.currentAssignment : throw new BlInvalidOperationException("Failed to update currentAssignment"),
                 };
                 DO.Worker wrk = Tools.ConvertWrkBOToDO(ref bWorker);
-                _dal.Worker.Update(ref wrk);
+                _dal.Worker.Update(wrk);
             }
             catch (DO.DalAlreadyExistsException ex)
             {
@@ -209,7 +216,7 @@ internal class WorkerImplementation : IWorker
                     currentAssignment = checkCurrentAssignment(boWorker) ? boWorker.currentAssignment : throw new BlInvalidOperationException("Failed to update currentAssignment"),
                 };
                 DO.Worker wrk = Tools.ConvertWrkBOToDO(ref bWorker);
-                _dal.Worker.Update(ref wrk);
+                _dal.Worker.Update(wrk);
             }
             catch (DO.DalAlreadyExistsException ex)
             {
@@ -233,7 +240,7 @@ internal class WorkerImplementation : IWorker
 //    try
 //    {
 //        return from DO.Worker doWrk in _dal.Worker.ReadAll()
-//               let ass = _dal.Assignments.Read(t => t.IdWorker == doWrk.IdWorker && t.dateSrart is not null && t.DateFinish is null)
+//               let ass = _dal.Assignment.Read(t => t.IdWorker == doWrk.IdWorker && t.dateSrart is not null && t.DateFinish is null)
 //               let worker = new BO.Worker
 //               {
 //                   Id = doWrk.IdWorker,
@@ -241,7 +248,7 @@ internal class WorkerImplementation : IWorker
 //                   Email = doWrk.Email,
 //                   Experience = doWrk.Experience,
 //                   HourSalary = doWrk.HourSalary,
-//                   currentAssignment = ass is not null ? new BO.WorkerInAssignments { AssignmentsNumber = ass.IdAssignments!, AssignmentsName = ass.Name } : null,
+//                   currentAssignment = ass is not null ? new BO.WorkerInAssignment { AssignmentNumber = ass.IdAssignment!, AssignmentName = ass.Name } : null,
 //               }
 //               where filter is null ? true : filter(worker)
 //               select worker;
@@ -312,13 +319,13 @@ internal class WorkerImplementation : IWorker
 
 
 
-//IEnumerable<BO.AssignmentsInList> lstA = (from DO.Assignments doAssignments in _dal.Assignments.ReadAll()
-//                                          let ass = new BO.AssignmentsInList
+//IEnumerable<BO.AssignmentInList> lstA = (from DO.Assignment doAssignment in _dal.Assignment.ReadAll()
+//                                          let ass = new BO.AssignmentInList
 //                                          {
-//                                              Id = doAssignments.IdAssignments,
-//                                              AssignmentName = doAssignments.Name!,
-//                                              LevelAssignments = doAssignments.LevelAssignments,
-//                                              status = Tools.calaStatus(doAssignments),
+//                                              Id = doAssignment.IdAssignment,
+//                                              AssignmentName = doAssignment.Name!,
+//                                              LevelAssignment = doAssignment.LevelAssignment,
+//                                              status = Tools.GetProjectStatus(doAssignment),
 //                                          }
 //                                          select ass);
 

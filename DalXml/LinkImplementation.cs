@@ -1,7 +1,5 @@
 ﻿using DalApi;
 using DO;
-using System.Data.Common;
-using System.Xml.Linq;
 
 namespace Dal;
 
@@ -11,7 +9,7 @@ internal class LinkImplementation : ILink
     public int Create(Link lnk)
     {
         List<DO.Link> links = XMLTools.LoadListFromXMLSerializer<DO.Link>(s_Links_xml);
-        Link newLink = lnk with { IdLink =Config.IDLink };
+        Link newLink = lnk with { IdLink = Config.IDLink };
         links.Add(newLink);
         XMLTools.SaveListToXMLSerializer<DO.Link>(links, s_Links_xml);
         return newLink.IdLink;
@@ -51,7 +49,7 @@ internal class LinkImplementation : ILink
         return from item in links
                select item;
     }
-    public void Update(ref Link item)
+    public void Update(Link item)
     {
         Delete(item.IdLink);
         Create(item);

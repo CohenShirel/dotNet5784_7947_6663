@@ -1,13 +1,8 @@
-﻿using BlApi;
+﻿using BlImplementation;
 using DalApi;
 using DO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using BlImplementation;
 using static BO.Exceptions;
 
 namespace BO
@@ -18,23 +13,24 @@ namespace BO
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         static readonly IDal _dal = DalApi.Factory.Get;
 
-        public static void ScheduleProject(BO.Assignments ass)
+        public static void ScheduleProject(BO.Assignment ass)
         {
-            IEnumerable<Link> lstPLinks;
-            lstPLinks = _dal.Link.ReadAll(d => d.IdAssignments == ass.IdAssignments) ?? null!;//the previes ass
-            if (lstPLinks.Count() == 0) // אם אין משימות קודמות
+            var lstPLinks = _dal.Link.ReadAll(d => d.IdAssignment == ass.IdAssignment).Select(d => d.IdPAssignment)
+                .ToHashSet();//the previes ass
+
+            if (lstPLinks.Count() is 0) // אם אין משימות קודמות
             {
                 ass.DateBegin = Bl.StartProjectTime;
-                ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
-                ass.status = GetEmployeeStatus(lstPLinks!);
-                s_bl.Assignments!.Update(ref ass);
-
             }
+
             else
             {
-                var maxDeadline = lstPLinks!.MaxBy(a => s_bl.Assignments.Read(a.IdAssignments)!.DeadLine);
-                if (maxDeadline == null)
-                    throw new FormatException("ERROR! There aren't dateBegin for previous assignments");
+                var assignments = s_bl.Assignment.ReadAll(a => lstPLinks.Contains(a.Id));
+                // if (lstPLinks.All(link => s_bl.Assignment.Read(link.IdAssignment)!.DeadLine != null))
+                var maxDeadline = assignments!.MaxBy(a => a.DeadLine);
+
+                if (maxDeadline!.DateBegin == null)
+                    throw new FormatException("ERROR! There aren't dateBegin for previous assignment");
                 // תאריך התחלתי
                 // DateTime startDate = new DateTime(maxDeadline);
 
@@ -44,15 +40,10 @@ namespace BO
                 int daysToAdd = random.Next(8);
 
                 // הוספת מספר הימים המקריים לתאריך ההתחלתי
-                DateTime? dt = s_bl.Assignments.Read(maxDeadline.IdAssignments)!.DeadLine;
-
-                ass.DateBegin = dt + TimeSpan.FromDays(daysToAdd);
-                ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignments);
-                ass.status = GetEmployeeStatus(lstPLinks!);
-                s_bl.Assignments!.Update(ref ass);
+                ass.DateBegin = maxDeadline!.DeadLine + TimeSpan.FromDays(daysToAdd);       
             }
-
-            //return GetEmployeeStatus(lstPLinks!);//מחשבת סטטוס
+            ass.DeadLine = ass.DateBegin + TimeSpan.FromDays(ass.DurationAssignment);
+            s_bl.Assignment!.Update(ass);
         }
         //function that convert BOToDO
 
@@ -60,7 +51,7 @@ namespace BO
         {
             return new DO.Worker
             {
-                IdWorker = doWorker.Id,
+                Id = doWorker.Id,
                 Name = doWorker.Name,
                 Email = doWorker.Email,
                 Experience = doWorker.Experience,
@@ -72,23 +63,24 @@ namespace BO
         {
             return new BO.Worker
             {
-                Id = doWorker.IdWorker,
+                Id = doWorker.Id,
                 Name = doWorker.Name,
                 Email = doWorker.Email,
                 Experience = doWorker.Experience,
                 HourSalary = doWorker.HourSalary,
             };
         }
+
         //function that convert DOToBO
-        public static BO.Assignments ConvertAssDOToBO(DO.Assignments doAss)
+        public static BO.Assignment ConvertAssDOToBO(DO.Assignment doAss)
         {
-            return new BO.Assignments
+            return new BO.Assignment
             {
-                IdAssignments = doAss.IdWorker,
-                DurationAssignments = doAss.DurationAssignments,
-                LevelAssignments = doAss.LevelAssignments,
-                IdWorker = doAss.IdWorker,
-                dateSrart = doAss.dateSrart,
+                IdAssignment = doAss.IdAssignment,
+                DurationAssignment = doAss.DurationAssignment,
+                LevelAssignment = doAss.LevelAssignment,
+                IdWorker = doAss.WorkerId,
+                dateSrart = doAss.DateSrart,
                 DateBegin = doAss.DateBegin,
                 DeadLine = doAss.DeadLine,
                 DateFinish = doAss.DateFinish,
@@ -98,127 +90,29 @@ namespace BO
                 ResultProduct = doAss.ResultProduct,
             };
         }
-        public static Status calaStatus(DO.Assignments assignments)
-        {
-            BO.Assignments boAss = ConvertAssDOToBO(assignments);
-            if (boAss.DateBegin is null)
-                return BO.Status.Unscheduled;
-            if (boAss.DeadLine is not null && boAss.links == null)
-                return BO.Status.OnTrack;
-            IEnumerable<Link> lstLinks = _dal.Link.ReadAll(d => d.IdAssignments == boAss.IdAssignments) ?? null!;//the previes ass
-            if (boAss.links != null)
-                return GetEmployeeStatus(lstLinks);
-            return BO.Status.Done;
-        }
 
-        public static Status GetEmployeeStatus(IEnumerable<Link> lstLink)
-        {
-            bool PartTime = false;// קיימת משימה עם תאריך
-            bool allTime = true;//לכל המשימות יש תאריך
-            BO.Assignments assignment;
-            //משימה ראשונה
-            int i = 0;
-            foreach (DO.Link lnk in lstLink)
+        public static Status GetProjectStatus() =>
+            (_dal.StartProjectTime, _dal.Assignment) switch
             {
-                assignment = s_bl.Assignments.Read(lnk.IdAssignments)!;
-                //if (task.DependencyTaskId != null)
-                if (assignment.DateBegin!=null)
-                    PartTime = true;// אז אם יש למשימה תלות, אז יש הקצאת זמן
-                else
-                    allTime = false;// אם יש משימה ללא הקצאת זמן, אז לא כל המשימות הוקצו
-            }
-            if (i==0)
-            {
-                //reset all the status
-                foreach (DO.Link lnk in lstLink)
-                {
-                    assignment = s_bl.Assignments.Read(lnk.IdAssignments)!;
-                    assignment.status = Status.Scheduled;
-                }
-                return Status.Scheduled; // אם אין הקצאת זמן למשימות, הסטטוס הוא התחלתי
-            }
-            else if (allTime)
-            {
-                //reset all the status
-                foreach (DO.Link lnk in lstLink)
-                {
-                    assignment = s_bl.Assignments.Read(lnk.IdAssignments)!;
-                    assignment.status = Status.OnTrack;
-                }
-                return Status.OnTrack; //אם כל המשימות הוקצו זמן, הסטטוס הוא סופי
-            }
-            else if (PartTime)
-            {
-                //reset all the status
-                foreach (DO.Link lnk in lstLink)
-                {
-                    assignment = s_bl.Assignments.Read(lnk.IdAssignments)!;
-                    assignment.status = Status.Scheduled;
-                }
-                return Status.Scheduled; // אם יש הקצאת זמן למשימות, הסטטוס הוא ביניים
-            }
-            else
-            {
-                //reset all the status
-                foreach (DO.Link lnk in lstLink)
-                {
-                    assignment = s_bl.Assignments.Read(lnk.IdAssignments)!;
-                    assignment.status = Status.Unscheduled;
-                }
-                return Status.Unscheduled; // אם אין הקצאת זמן למשימות, הסטטוס הוא התחלתי
-            }
-        }
-        //public static Status GetEmployeeStatus(List<DO.Link> lstLink)
-        //{
-        //    bool PartTime = false;// קיימת משימה עם תאריך
-        //    bool allTime = true;//לכל המשימות יש תאריך
-
-        //    foreach (Assignments assignment in lstAssignment)
-        //    {
-        //        //if (task.DependencyTaskId != null)
-        //        if (assignment.DateBegin != null)
-        //            PartTime = true;// אז אם יש למשימה תלות, אז יש הקצאת זמן
-        //        else
-        //            allTime = false;// אם יש משימה ללא הקצאת זמן, אז לא כל המשימות הוקצו
-        //    }
-        //    if (allTime)
-        //    {
-        //        //reset all the status
-        //        foreach (Assignments assignment in lstAssignment)
-        //            assignment.status = Status.OnTrack;
-        //        return Status.OnTrack; //אם כל המשימות הוקצו זמן, הסטטוס הוא סופי
-        //    }
-        //    else if (PartTime)
-        //    {
-        //        //reset all the status
-        //        foreach (Assignments assignment in lstAssignment)
-        //            assignment.status = Status.Scheduled;
-        //        return Status.Scheduled; // אם יש הקצאת זמן למשימות, הסטטוס הוא ביניים
-        //    }
-        //    else
-        //    {
-        //        //reset all the status
-        //        foreach (Assignments assignment in lstAssignment)
-        //            assignment.status = Status.Unscheduled;
-        //        return Status.Unscheduled; // אם אין הקצאת זמן למשימות, הסטטוס הוא התחלתי
-        //    }
-        //}
-
+                (null, _) => Status.Unscheduled,
+                (_, var assignment) when( assignment.ReadAll().Any(a => a.DateBegin is null) || (assignment.ReadAll().Count() == 0)) => Status.Scheduled,
+                _ => Status.OnTrack
+            };
+        
         public static string ToStringProperty<T>(this T t)
         {
             string str = "";
-            foreach (PropertyInfo item in t!.GetType().GetProperties()) 
+            foreach (PropertyInfo item in t!.GetType().GetProperties())
             {
                 str += "\n" + item.Name + ": " + item.GetValue(t, null);
             }
             return str;
         }
 
-
         public static string ToStringPropertyArray<T>(this T[] t)
         {
             string str = "";
-            foreach(var elem in t)
+            foreach (var elem in t)
             {
                 foreach (PropertyInfo item in t.GetType().GetProperties())
                 {
@@ -227,10 +121,11 @@ namespace BO
             }
             return str;
         }
+
         //האם צריך לעשות כאן בדיקה אם זה מספרר ?
         public static void checkCost(int a)
         {
-            if(a<0)
+            if (a < 0)
             {
                 throw new BlNotCorrectDetailsException("It's cannot be a negative number");
             }
@@ -238,19 +133,19 @@ namespace BO
         //האם צקיך לבדוק שזה אותיות בעברית או אנגלית?
         public static void IsName(string name)
         {
-            if (name==" ")
+            if (name == " ")
             {
                 throw new BlNotCorrectDetailsException("It's cannot be null");
             }
         }
         public static void IsEnum(int l)
         {
-            if (l<0 || l>5)
+            if (l < 0 || l > 5)
             {
                 throw new BlNotCorrectDetailsException("This level doesn't exist");
             }
         }
-        public static void IsMail(string s)
+        public static void IsMail(string s) /*=> new EmailAddressAttribute().IsValid(s);*/
         {
             int t = 0, c = 0;
             for (int i = 0; i < s.Length; i++)
@@ -290,7 +185,7 @@ namespace BO
         //בדיקת תקינות ת.ז
         public static void CheckId(int d)
         {
-            if(d<0)
+            if (d < 0)
                 throw new BlNotCorrectDetailsException("The id can't be a negative number");
             //while (d.Length < 9)
             //{
@@ -324,19 +219,19 @@ namespace BO
 
 }
 //check if there are ass that link
-//private static bool IsLinks(BO.Assignments ass)
+//private static bool IsLinks(BO.Assignment ass)
 //{
-//    for (int i = 0; i < ass.links!.Count; i++)
+//    for (int i = 0; i < ass.Links!.Count; i++)
 //        //if there is ass that wasnt finished && the ass will finish after the current ass??????????
-//        if (ass.links[i].DateFinish != null && ass.links[i].DateFinish > ass.dateSrart)
+//        if (ass.Links[i].DateFinish != null && ass.Links[i].DateFinish > ass.dateSrart)
 //            return false;
 //    return true;
 //}
-//private static bool NoStartDate(BO.Assignments ass)
+//private static bool NoStartDate(BO.Assignment ass)
 //{
-//    for (int i = 0; i < ass.links!.Count; i++)
+//    for (int i = 0; i < ass.Links!.Count; i++)
 //        //if there is ass that wasnt finished && the ass will finish after the current ass??????????
-//        if (ass.links[i].dateSrart!=null)
+//        if (ass.Links[i].dateSrart!=null)
 //            return false;
 //    return true;//there are start date for everyone
 //}

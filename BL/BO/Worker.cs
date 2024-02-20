@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BO;
+﻿namespace BO;
 public class Worker
 {
     public int Id { get; init; }
     public string? Name { get; set; }
     public string? Email { get; set; }
-    public DO.Level Experience { get; set;}
-    public int HourSalary { get; set;}
+    public DO.Level Experience { get; set; }
+    public int HourSalary { get; set; }
 
     //אתגרררררררררררר
     public override string ToString()
     {
-       return Tools.ToStringProperty(this);
+        return Tools.ToStringProperty(this);
     }
 
     //החזרה של משימה נוכחית עי שאילתא
-    public WorkerInAssignments currentAssignment { get; set; }
+    public WorkerInAssignment currentAssignment { get; set; }
 
     //public Tuple<int, string>? currentAssignment { get; set; }
 }

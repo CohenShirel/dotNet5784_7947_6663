@@ -3,7 +3,7 @@ using DalApi;
 using DO;
 using System.Collections.Generic;
 
-internal class LinkImplementation: ILink
+internal class LinkImplementation : ILink
 {
     public int Create(Link link)
     {
@@ -39,7 +39,7 @@ internal class LinkImplementation: ILink
         return from item in DataSource.Links
                select item;
     }
-    public void Update(ref Link item)
+    public void Update(Link item)
     {
         Delete(item.IdLink);
         Create(item);

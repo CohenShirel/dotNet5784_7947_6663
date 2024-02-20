@@ -1,10 +1,4 @@
-﻿using BlImplementation;
-using BO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BO;
 
 namespace BlApi;
 
@@ -17,7 +11,7 @@ public interface IWorker
 
     public void Update(BO.Worker item);
     public void Delete(int id);
-    //public BO.WorkerInAssignments GetDetailedCourseForStudent(int WorkerId, int AssignmentsId);
+    //public BO.WorkerInAssignment GetDetailedCourseForStudent(int WorkerId, int AssignmentId);
 }
 
 

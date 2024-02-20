@@ -14,7 +14,7 @@ static class Config
     );
 
     internal static string s_dalName;
-    internal static Dictionary <string, DalImplementation> s_dalPackages;
+    internal static Dictionary<string, DalImplementation> s_dalPackages;
 
     static Config()
     {

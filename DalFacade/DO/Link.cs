@@ -1,18 +1,15 @@
-﻿
-
-using DalApi;
-namespace DO;
+﻿namespace DO;
 /// <summary>
 /// 
 /// </summary>
 /// <param  מזהה מספר ="IdLink"></param>
-/// <param  תלויה משימה ="IdAssignments"></param>
-/// <param קודמת משימה="IdPAssignments"></param>
+/// <param  תלויה משימה ="IdAssignment"></param>
+/// <param קודמת משימה="IdPAssignment"></param>
 public record Link
 (
    int IdLink,
-   int IdAssignments,
-   int IdPAssignments
+   int IdAssignment,
+   int IdPAssignment
 )
 {
     //empty ctor
