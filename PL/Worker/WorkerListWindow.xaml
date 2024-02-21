@@ -28,12 +28,12 @@
             </Grid.ColumnDefinitions>
             <ComboBox Grid.Column="1" Margin="0,6,173,-2" SelectionChanged="Cmb_Levels" 
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                ItemsSource="{Binding Source={StaticResource StatussCollectionKey}}" SelectedValue="{Binding Path=level, Mode=TwoWay}"/>
+                ItemsSource="{Binding Source={StaticResource LevelsCollectionKey}}" SelectedValue="{Binding Path=level, Mode=TwoWay}"/>
             <Label Content="Level's worker:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="208,0,0,0"/>
         </Grid>
         <!--List of all the worker-->
         <!--Button to ADD worker-->
-        <Button Content="Add" Grid.Row="1" HorizontalAlignment="Center" Width="100" Margin="0,532,0,0"/>
+        <Button x:Name="btnAdd" Content="Add" Grid.Row="1" HorizontalAlignment="Center" Width="100" Margin="0,527,0,0" Click="BtnAdd_Click" Height="40" VerticalAlignment="Top"/>
         <ListView Grid.ColumnSpan="3" Margin="0,56,1,44" Grid.RowSpan="2" >
             <ListView.View>
                 <GridView>

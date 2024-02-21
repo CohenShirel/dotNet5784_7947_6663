@@ -2,6 +2,7 @@
 <config>
 	<IdPAssignments>1026</IdPAssignments>
 	<IDLink>46</IDLink>
+	<StartProjectTime>DateTime.Now</StartProjectTime>
 </config>
 
 

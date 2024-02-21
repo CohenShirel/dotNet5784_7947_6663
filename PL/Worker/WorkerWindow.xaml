@@ -5,17 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Worker"
         mc:Ignorable="d"
-        Title="WorkerWindow" Height="350" Width="350"
+        Title="WorkerWindow" Height="350" Width="300"
         DataContext="{Binding curWrk,RelativeSource={RelativeSource self},Mode=TwoWay}"
         >
     <!--Extrnal Grid-->
-    <Grid>
+    <Grid Height="auto" Width="auto">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <!--Internal, Upper Grid-->
-        <Grid Margin="58,39,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
+        <Grid Margin="40,39,0,0" VerticalAlignment="Top" HorizontalAlignment="Left">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -29,17 +29,22 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="ID:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtId" Text="{Binding Path=Id}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="txtId" Text="{Binding Path=Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
             <Label Content="Name"  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtName" Text="{Binding Path=Name}"  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="txtName" Text="{Binding Path=Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
             <Label Content="Email" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtEmail" Text="{Binding Path=Email}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="txtEmail" Text="{Binding Path=Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
             <Label Content="Experience" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
-            <ComboBox x:Name="cmbExperience" Text="{Binding Path=Experience}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top" Width="120"/>
+            <ComboBox x:Name="cmbExperience" ItemsSource="{Binding Source={StaticResource LevelsCollectionKey}}" 
+            SelectedValue="{Binding Path=level, Mode=TwoWay, NotifyOnValidationError=true,ValidatesOnExceptions=true}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top" Width="120" SelectionChanged="cmbExperience_SelectionChanged"/>
             <Label Content="HourSalary" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top" RenderTransformOrigin="0.697,9.624"/>
-            <TextBox x:Name="txtHourSalary" Text="{Binding Path=HourSalary}" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="txtHourSalary" Text="{Binding Path=HourSalary, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         </Grid>
-        <Button x:Name="btnAddUpdate" Grid.Row="1" HorizontalAlignment="Left" Margin="83,30,0,0" Height="31" Width="149" VerticalAlignment="Top" Click="btnAddUpdate_Click"/>
-        <Grid RenderTransformOrigin="1.49,0.665"/>
+
+        <Button Grid.Row="9" Grid.Column="0" 
+        Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" 
+        HorizontalAlignment="Center" Height="31" Width="150" Margin="3,0,0,0" VerticalAlignment="Top" Padding="5" 
+        Click="btnAddUpdate_Click"/>
     </Grid>
+
 </Window>
