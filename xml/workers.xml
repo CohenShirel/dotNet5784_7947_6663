@@ -1,10 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ArrayOfWorker>
+<ArrayOfWorker xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Worker>
+    <IdWorker>21</IdWorker>
+    <Experience>Intermediate</Experience>
+    <HourSalary>2</HourSalary>
+    <Name>S</Name>
+    <Email>S@GMAIL.COM</Email>
+  </Worker>
   <Worker>
     <IdWorker>11</IdWorker>
     <Experience>Intermediate</Experience>
-    <HourSalary>2</HourSalary>
-    <Name>B</Name>
-    <Email>B@GMAIL.COM</Email>
+    <HourSalary>22</HourSalary>
+    <Name>D</Name>
+    <Email>D@GMAIL.COM</Email>
   </Worker>
 </ArrayOfWorker>

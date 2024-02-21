@@ -1,6 +1,7 @@
 ﻿using BlImplementation;
 using DalApi;
 using DO;
+using System.Collections;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using static BO.Exceptions;
@@ -99,6 +100,7 @@ namespace BO
                 _ => Status.OnTrack
             };
 
+      
         public static string ToStringProperty<T>(this T t)
         {
             string str = "";
@@ -121,7 +123,6 @@ namespace BO
             }
             return str;
         }
-
         //האם צריך לעשות כאן בדיקה אם זה מספרר ?
         public static void checkCost(int a)
         {
