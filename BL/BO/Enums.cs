@@ -17,5 +17,5 @@ public enum Status
     //ביצוע המשימות
     //רלוונטי ללוז אוטומטי**********************
     //הסתיים
-    Unscheduled, Scheduled, OnTrack, Done, None
+    Unscheduled, Scheduled, OnTrack, Done
 }
