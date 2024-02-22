@@ -74,13 +74,19 @@ internal class WorkerImplementation : IWorker
             {
                 Assignment a = s_bl.Assignment.Read(wrk.currentAssignment.AssignmentNumber)!;
                 if (a.status == Status.Unscheduled || a.status == Status.Scheduled)
+                {
                     _dal.Worker.Delete(id);
+                    //_dal.Link.Delete();
+                }
                 else
-                   throw new Exceptions.BlInvalidOperationException($"Cannot delete worker with ID={id} because he has link to assignments");
+                    throw new Exceptions.BlInvalidOperationException($"Cannot delete worker with ID={id} because he has link to assignments");
             }
             else
                 // טיפול במקרה בו אין משימה נוכחית
                 _dal.Worker.Delete(id);
+
+            
+
         }
         catch(BlDoesNotExistException ex)
         {

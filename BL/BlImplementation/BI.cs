@@ -14,8 +14,18 @@ public /*internal */class Bl : IBl
     public static DateTime? StartProjectTime => s_dal!.StartProjectTime;//לעשות פונקציה שתבקש מהמשתמש תאריך התחלה לפרויקט
 
     // DateTime? IBl.DeadLine => null;
-
-    public static void reset() => DalTest.Initialization.Do();
+    public static void reset()
+    {
+        //מנקה את כל הרשומות
+        BlApi.Factory.Get();
+        s_dal = DalApi.Factory.Get;
+        //DalTest.Initialization.Do();
+        //המס הרצים חוזרים למס ההתחלתיים
+        s_dal!.Worker!.DeleteAll();
+        s_dal.Assignment!.DeleteAll();
+        s_dal.Link!.DeleteAll();
+    }
+    // public static void reset() => DalTest.Initialization.Do();
     //{
     //    //מנקה את כל הרשומות
     //    BlApi.Factory.Get();
