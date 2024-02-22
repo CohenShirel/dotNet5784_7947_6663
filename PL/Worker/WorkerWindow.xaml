@@ -10,7 +10,7 @@
     <Window.Resources>
         <Style x:Key="CustomButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Black"/>
-            <Setter Property="Foreground" Value="Gold"/>
+            <Setter Property="Foreground" Value="Goldenrod"/>
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="Padding" Value="10"/>

@@ -67,39 +67,50 @@ internal class WorkerImplementation : IWorker
     }
     public void Delete(int id)
     {
-        BO.Worker wrk = Read(id)!;
-        BO.Assignment? a = s_bl.Assignment.Read(ass => ass.WorkerId == id &&  ass.DateBegin != null && ass.DeadLine == null)??null;
-        if (a==null/*a.status == Status.Unscheduled || a.status == Status.Scheduled*/)//If you dont have currentAssignment
+        try
         {
-
-            //to check if the worker  in the middle of ass or he finished ass
-            //0??
-            bool hasCompletedTask = ConvertLstAssDOToBO().Any(ass => ass.IdWorker != null && ass.IdWorker.Equals(id) &&
-            (a.status == Status.Done || a.status == Status.OnTrack));
-            if (hasCompletedTask)
-                throw new Exceptions.BlInvalidOperationException($"Cannot delete worker with ID={id} because he has link to assignments");
-            try
+            BO.Worker wrk = Read(id)!;
+            if (wrk.currentAssignment != null && wrk.currentAssignment.AssignmentNumber != null)
             {
+                Assignment a = s_bl.Assignment.Read(wrk.currentAssignment.AssignmentNumber)!;
+                if (a.status == Status.Unscheduled || a.status == Status.Scheduled)
+                {
+                    _dal.Worker.Delete(id);
+                    //_dal.Link.Delete();
+                }
+                else
+                    throw new Exceptions.BlInvalidOperationException($"Cannot delete worker with ID={id} because he has link to assignments");
+            }
+            else
+                // טיפול במקרה בו אין משימה נוכחית
                 _dal.Worker.Delete(id);
-            }
-            catch (DO.DalAlreadyExistsException ex)
-            {
-                throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exists", ex);
-            }
-            catch (Exception ex)
-            {
-                // טיפול בחריגות אחרות כפי שנדרש
-                throw new Exceptions.BlException("Failed to delete task", ex);
-            }
+
+            
+
         }
+        catch(BlDoesNotExistException ex)
+        {
+            throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exists", ex);
+        }
+        catch (BlInvalidOperationException ex)
+        {
+            throw new Exceptions.BlInvalidOperationException($"Cannot delete worker with ID={id} because he has link to assignments", ex);
+        }
+        catch (Exception ex)
+        {
+            // טיפול בחריגות אחרות כפי שנדרש
+            throw new Exceptions.BlException("Failed to delete task", ex);
+        }
+
     }
+
     public BO.Worker Read(int id)
     {
         try
         {
             DO.Worker doWrk = _dal.Worker.Read(wrk => wrk.Id == id)!
             ?? throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exist");
-            DO.Assignment? ass = _dal.Assignment.Read(t => t.WorkerId == doWrk.Id && t.DateBegin is not null && t.DeadLine is null)?? null;
+            DO.Assignment ass = _dal.Assignment.Read(t => t.WorkerId == doWrk.Id)!;
             return new BO.Worker
             {
                 Id = doWrk.Id,
@@ -115,12 +126,16 @@ internal class WorkerImplementation : IWorker
         }
         catch (BlDoesNotExistException ex)
         {
-            throw new BlDoesNotExistException($"Worker with ID={id} does Not exists", ex);
+            throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exists", ex);
         }
         catch (BlInvalidOperationException ex)
         {
-            throw new BlInvalidOperationException($"Failed to update currentAssignment of Worker with ID={id} ", ex);
+            throw new Exceptions.BlInvalidOperationException($"Failed to update currentAssignment of Worker with ID={id} ", ex);
         }
+        //catch (BlInvalidOperationException ex)
+        //{
+        //    throw new BlInvalidOperationException($"Failed to update currentAssignment of Worker with ID={id} ", ex);
+        //}
         catch (Exception ex)
         {
             // טיפול בחריגות אחרות כפי שנדרש

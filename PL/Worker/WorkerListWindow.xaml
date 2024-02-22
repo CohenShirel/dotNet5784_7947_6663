@@ -8,8 +8,23 @@
         Title="WorkerListWindow" Height="640" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <!--conect the window to itself-->
+    <Window.Resources>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="Goldenrod"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Ariel"/>
+        </Style>
+    </Window.Resources>
     <!--Extrnal Grid-->
-    <Grid Height="Auto" VerticalAlignment="Top">
+    <Grid>
+        <Grid>
+            <Image Source="C:\Users\shire\Desktop\הפרויקט שלי\PL\ProjectImage\ProjetImage2.jpg" Stretch="UniformToFill"/>
+        </Grid>
+        <Grid Height="Auto" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="689*"/>
             <ColumnDefinition Width="0*"/>
@@ -27,20 +42,30 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ComboBox Grid.Column="1" Margin="0,6,173,-2" SelectionChanged="Cmb_Levels" 
+             <ComboBox Grid.Column="1" Margin="0,6,173,-2" SelectionChanged="Cmb_Levels" 
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                ItemsSource="{Binding Source={StaticResource LevelsCollectionKey}}" SelectedValue="{Binding Path=level, Mode=TwoWay}"/>
-            <Label Grid.Column="0" Content="Level's worker:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="208,0,0,0"/>
+                ItemsSource="{Binding Source={StaticResource LevelsCollectionKey}}" SelectedValue="{Binding Path=level, Mode=TwoWay}">
+                    <ComboBox.ItemContainerStyle>
+                    <Style TargetType="ComboBoxItem">
+                          <Setter Property="Foreground" Value="Goldenrod"/>
+                    </Style>
+                    </ComboBox.ItemContainerStyle>
+                    <ComboBox.Background>
+                        <SolidColorBrush Color="Black"/>
+                    </ComboBox.Background>
+            </ComboBox>
+            <Label Grid.Column="0" Content="Level's worker:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="Goldenrod"  Margin="208,0,0,0"/>
         </Grid>
         <!--List of all the worker-->
         <!--Button to ADD worker-->
-        <Button x:Name="btnAdd" Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="BtnAdd_Click"/>
-        <ListView ItemsSource="{Binding Path=ObserveListWorker}" HorizontalContentAlignment="Stretch" Grid.ColumnSpan="3" Margin="0,56,1,44" Grid.Row="1" >
+            <Button x:Name="btnAdd" Style="{StaticResource CustomButtonStyle}" Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="BtnAdd_Click"/>
+            <ListView ItemsSource="{Binding Path=ListWorker}" HorizontalContentAlignment="Stretch" Grid.ColumnSpan="3" Margin="0,56,1,44" Grid.Row="1" SelectionChanged="ListView_SelectionChanged" MouseDoubleClick="ListView_MouseDoubleClick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
+    </Grid>
     </Grid>
 </Window>

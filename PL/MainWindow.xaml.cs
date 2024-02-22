@@ -11,6 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BlApi;
+using BlImplementation;
 
 namespace PL
 {
@@ -37,7 +38,7 @@ namespace PL
             switch(mbResult) 
             {
                 case MessageBoxResult.OK:
-                    IBl.reset();//קראנו כאן לאבא...ןצריך לעדכן גם באקסמל
+                    Bl.reset();//קראנו כאן לאבא...ןצריך לעדכן גם באקסמל
                     break;
                 case MessageBoxResult.Cancel:
                     break;

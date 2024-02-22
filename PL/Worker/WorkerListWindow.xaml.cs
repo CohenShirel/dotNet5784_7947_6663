@@ -19,17 +19,17 @@ namespace PL.Worker
     public partial class WorkerListWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
+        public DO.Level level { get; set; } = DO.Level.None;
 
         //ObservableCollection <BO.WorkerInList> lsttWorker;
-        public ObservableCollection<IEnumerable<BO.WorkerInList>> ObserveListWorker
+        public IEnumerable<BO.WorkerInList> ListWorker
         {
-            get { return (ObservableCollection<IEnumerable<BO.WorkerInList>>)GetValue(observeListWorkerProperty); }
-            set { SetValue(observeListWorkerProperty, value); }
+            get { return (IEnumerable<BO.WorkerInList>)GetValue(ListWorkerProperty); }
+            set { SetValue(ListWorkerProperty, value); }
         }
         //יודעת לדווח על הגרפיקה על קיומה...מדווחת על שינויים על כל הוספה או מחיקה של מישהו
-        public static readonly DependencyProperty observeListWorkerProperty =
-            DependencyProperty.Register("ObserveListWorker", typeof(ObservableCollection<IEnumerable<BO.WorkerInList>>), typeof(WorkerListWindow), new PropertyMetadata(null));
+        public static readonly DependencyProperty ListWorkerProperty =
+            DependencyProperty.Register("ObserveListWorker", typeof(IEnumerable<BO.WorkerInList>), typeof(WorkerListWindow), new PropertyMetadata(null));
         //public IEnumerable<BO.WorkerInList> WorkerList
         //{
         //    get { return (IEnumerable<BO.WorkerInList>)GetValue(WorkerListProperty); }
@@ -41,26 +41,88 @@ namespace PL.Worker
         public WorkerListWindow()
         {
             InitializeComponent();
-           // ObserveListWorker = s_bl?.Worker.ReadAll()!;
-           // ComboBox.ItemsSource=Enums.GetValues(typeof(DO.Level));
+            ListWorker = s_bl.Worker.ReadAll();
         }
         private void Cmb_Levels(object sender, SelectionChangedEventArgs e)
         {
-            DO.Level currentLevel = Enum.TryParse<DO.Level>(((ComboBox)sender).SelectedItem?.ToString());
-            ObserveListWorker = (currentLevel == DO.Level.None) ?
-            s_bl?.Worker.ReadAll()! : s_bl?.Worker.ReadAll(item => item.Experience == currentLevel)!;
+            ListWorker = (level == DO.Level.None) ?
+              s_bl?.Worker.ReadAll() : s_bl?.Worker.ReadAll(item => item.Experience == level);
         }
+        private void BtnAdd_Click(object sender,RoutedEventArgs e)
+        {
+            new WorkerWindow().ShowDialog();
+            //we cant go back to previose window till we finish
+        }
+
+        private void ListView_MouseDoubleClick(object sender,MouseButtonEventArgs e)
+        {
+            BO.Worker wrk=((sender as ListView)?.SelectedItem as BO.Worker);
+            new WorkerWindow(wrk!.Id).ShowDialog();
+        }
+        private void ListView_SelectionChanged(object sender, EventArgs e)
+        {
+            ListWorker = (level == DO.Level.None) ?
+              s_bl?.Worker.ReadAll() : s_bl?.Worker.ReadAll(item => item.Experience == level);
+        }
+        //Activated="Window_Activated">
+
+
+
+
+
+
+
+        //private void Cmb_Levels(object sender, SelectionChangedEventArgs e)
+        //{
+        //    //if (Enum.TryParse<DO.Level>(((ComboBox)sender).SelectedItem?.ToString(), out DO.Level currentLevel))
+        //    //{
+        //    //    var wkr = (currentLevel == DO.Level.None) ?
+        //    //       s_bl?.Worker.ReadAll()?.Select(x => x)?.ToList() :
+        //    //       s_bl?.Worker.ReadAll(item => item.Experience == currentLevel)?.ToList();
+        //    //    if (wkr != null)
+        //    //    {
+        //    //        ObserveListWorker = new ObservableCollection<BO.WorkerInList>(wkr);
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        // אם המשתמש לא בחר כלום, תציג את כל העובדים
+        //    //        var workers = s_bl?.Worker.ReadAll();
+        //    //        if (workers != null)
+        //    //        {
+        //    //            var observableWorkers = new ObservableCollection<BO.WorkerInList>(workers);
+        //    //            ObserveListWorker.Clear();
+        //    //            foreach (var worker in observableWorkers)
+        //    //            {
+        //    //                if (workers != null)
+        //    //                {
+        //    //                    var observableWorkers2 = new ObservableCollection<BO.WorkerInList>(workers);
+        //    //                    ObserveListWorker.Clear();
+        //    //                    ObserveListWorker.Add(observableWorkers2);
+        //    //                }
+        //    //            }
+        //    //        }
+        //    //    }
+
+        //    //}
+        //}
+        //ObserveListWorker = (currentLevel == DO.Level.None) ?
+        //    s_bl?.Worker.ReadAll() : s_bl?.Worker.ReadAll(item => item.Experience == currentLevel);
+
+        //DO.Level currentLevel = Enum.TryParse<DO.Level>(((ComboBox)sender).SelectedItem?.ToString());
+        //ObserveListWorker = (currentLevel == DO.Level.None) ?
+        //s_bl?.Worker.ReadAll()! : s_bl?.Worker.ReadAll(item => item.Experience == currentLevel)!;
+
+
+
         //if (Enum.TryParse<DO.Level>(((ComboBox)sender).SelectedItem?.ToString(), out DO.Level currentLevel))
         //{
         //    ObserveListWorker = s_bl.Worker.ReadAll(w=>w.Experience==currentLevel);
         //}
         //else
         //    ObserveListWorker =s_bl.Worker.ReadAll();
+        //ObserveListWorker = s_bl?.Worker.ReadAll()!;
 
-        private void BtnAdd_Click(object sender, RoutedEventArgs e)
-        {
-            new WorkerWindow().ShowDialog();
-            //we cant go back to previose window till we finish
-        }
+        // ComboBox.ItemsSource=Enums.GetValues(typeof(DO.Level));
+
     }
 }

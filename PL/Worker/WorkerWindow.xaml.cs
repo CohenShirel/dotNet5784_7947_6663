@@ -38,6 +38,7 @@ public partial class WorkerWindow : Window
         DependencyProperty.Register("currentWorker", typeof(BO.Worker), typeof(WorkerWindow), new PropertyMetadata(null));
 
 
+    //currentWorker = (id != 0) ? s_bl.Worker.Read(id) : new BO.Worker() { Id = 0, Name = " ", Email = " ", Experience = DO.Level.None
 
     public WorkerWindow(int id = 0)
     {
@@ -45,6 +46,8 @@ public partial class WorkerWindow : Window
         try
         {
             currentWorker = (id != 0) ? s_bl.Worker.Read(id) : new BO.Worker() { Id = 0, Name = " ", Email = " ", Experience = DO.Level.None };
+            if (currentWorker!=null && currentWorker.Id != 0)
+                txtId.IsEnabled = false;
         }
         catch(BO.Exceptions.BlDoesNotExistException ex)
         {
@@ -84,8 +87,8 @@ public partial class WorkerWindow : Window
 
     private void cmbExperience_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        currentWorker = (level== DO.Level.None) ?
-            s_bl?.Worker.ReadAll()! : s_bl?.Worker.ReadAll(item => item.Experience == level)!;
+       // currentWorker = (level== DO.Level.None) ?
+        //    s_bl?.Worker.ReadAll()! : s_bl?.Worker.ReadAll(item => item.Experience == level)!;
     }
 
     private void txtId_TextChanged(object sender, TextChangedEventArgs e)
