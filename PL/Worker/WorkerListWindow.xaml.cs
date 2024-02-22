@@ -18,9 +18,8 @@ namespace PL.Worker
 {
     public partial class WorkerListWindow : Window
     {
-        public DO.Level level { get; set; } = DO.Level.None;
-
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
 
         //ObservableCollection <BO.WorkerInList> lsttWorker;
         public ObservableCollection<IEnumerable<BO.WorkerInList>> ObserveListWorker
@@ -42,22 +41,26 @@ namespace PL.Worker
         public WorkerListWindow()
         {
             InitializeComponent();
-            ObserveListWorker = s_bl?.Worker.ReadAll()!;
-            //ComboBox.ItemsSource=Enums.GetValues(typeof(DO.Level));
+           // ObserveListWorker = s_bl?.Worker.ReadAll()!;
+           // ComboBox.ItemsSource=Enums.GetValues(typeof(DO.Level));
         }
-
-       
-
         private void Cmb_Levels(object sender, SelectionChangedEventArgs e)
         {
-            ObserveListWorker = (level == DO.Level.None) ?
-            s_bl?.Worker.ReadAll()! : s_bl?.Worker.ReadAll(item => item.Experience == level)!;
-
+            DO.Level currentLevel = Enum.TryParse<DO.Level>(((ComboBox)sender).SelectedItem?.ToString());
+            ObserveListWorker = (currentLevel == DO.Level.None) ?
+            s_bl?.Worker.ReadAll()! : s_bl?.Worker.ReadAll(item => item.Experience == currentLevel)!;
         }
+        //if (Enum.TryParse<DO.Level>(((ComboBox)sender).SelectedItem?.ToString(), out DO.Level currentLevel))
+        //{
+        //    ObserveListWorker = s_bl.Worker.ReadAll(w=>w.Experience==currentLevel);
+        //}
+        //else
+        //    ObserveListWorker =s_bl.Worker.ReadAll();
 
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            new WorkerWindow().Show();
+            new WorkerWindow().ShowDialog();
+            //we cant go back to previose window till we finish
         }
     }
 }

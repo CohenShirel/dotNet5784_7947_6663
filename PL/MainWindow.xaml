@@ -7,14 +7,30 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
-        <LinearGradientBrush x:Key="my">
-            
-        </LinearGradientBrush>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Ariel"/>
+        </Style>
     </Window.Resources>
     <Grid>
-        <!--Button to show workers in list-->
-        <Button Content="Handle Workers" HorizontalAlignment="Left" Margin="217,187,0,0" VerticalAlignment="Top" Click="Button_Click"/>
-        <Button Content="Reset" HorizontalAlignment="Left" Margin="336,192,0,0" VerticalAlignment="Top" Click="Button_Click_1"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="465,192,0,0" VerticalAlignment="Top" Click="Button_Click_2"/>
+        <Grid>
+            <Image Source="C:\Users\shire\Desktop\הפרויקט שלי\PL\ProjectImage\ProjetImage.jpg" Stretch="UniformToFill"/>
+        </Grid>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <!--Button to show workers in list-->
+            <Button Style="{StaticResource CustomButtonStyle}" Content="Handle Workers" Grid.Column="0" Margin="5" Click="BtnWorkerListWindow_Click"/>
+            <Button Style="{StaticResource CustomButtonStyle}" Content="Reset" Grid.Column="1"  Margin="5" Click="BtnReset_Click"/>
+            <Button Style="{StaticResource CustomButtonStyle}" Content="Button" Grid.Column="2"  Margin="5" Click="BtnWorkerWindow_Click"/>
+        </Grid>
     </Grid>
 </Window>

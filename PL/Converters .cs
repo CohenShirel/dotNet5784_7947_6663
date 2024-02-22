@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 
 namespace PL;
@@ -26,7 +27,27 @@ public class ConvertIdToContent : IValueConverter
         throw new NotImplementedException();
     }
 }
+public class NameValidationRule : ValidationRule
+{
+    public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+    {
+        string name = value as string;
 
+        // ביצוע בדיקת האימות על שם המועבר
+        if (string.IsNullOrEmpty(name))
+        {
+            return new ValidationResult(false, "שדה זה הינו שדה חובה.");
+        }
+        else if (name.Length < 2)
+        {
+            return new ValidationResult(false, "השם חייב להכיל לפחות שני תווים.");
+        }
+        else
+        {
+            return ValidationResult.ValidResult;
+        }
+    }
+}
 ////        <local:VisibilityConverter x:Key="VisibilityConverterKey"/>
 
 //public class VisibilityConverter : IValueConverter

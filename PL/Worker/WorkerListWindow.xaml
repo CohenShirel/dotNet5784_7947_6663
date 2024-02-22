@@ -5,23 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Worker"
         mc:Ignorable="d"
-        Title="WorkerListWindow" Height="640" Width="700"
+        Title="WorkerListWindow" Height="640" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <!--conect the window to itself-->
     <!--Extrnal Grid-->
-    <Grid Height="630" VerticalAlignment="Top">
+    <Grid Height="Auto" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="689*"/>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="56*"/>
-            <RowDefinition Height="571*"/>
-            <RowDefinition Height="Auto" MinHeight="2.538"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <!--Internal, Upper Grid-->
-        <Grid Height="auto" Width="auto" RenderTransformOrigin="0.654,0.452" Margin="0,0,9,0">
+        <Grid HorizontalAlignment="Stretch" Height="auto"
+              Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -29,12 +30,12 @@
             <ComboBox Grid.Column="1" Margin="0,6,173,-2" SelectionChanged="Cmb_Levels" 
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                 ItemsSource="{Binding Source={StaticResource LevelsCollectionKey}}" SelectedValue="{Binding Path=level, Mode=TwoWay}"/>
-            <Label Content="Level's worker:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="208,0,0,0"/>
+            <Label Grid.Column="0" Content="Level's worker:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="208,0,0,0"/>
         </Grid>
         <!--List of all the worker-->
         <!--Button to ADD worker-->
-        <Button x:Name="btnAdd" Content="Add" Grid.Row="1" HorizontalAlignment="Center" Width="100" Margin="0,527,0,0" Click="BtnAdd_Click" Height="40" VerticalAlignment="Top"/>
-        <ListView Grid.ColumnSpan="3" Margin="0,56,1,44" Grid.RowSpan="2" >
+        <Button x:Name="btnAdd" Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="BtnAdd_Click"/>
+        <ListView ItemsSource="{Binding Path=ObserveListWorker}" HorizontalContentAlignment="Stretch" Grid.ColumnSpan="3" Margin="0,56,1,44" Grid.Row="1" >
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>

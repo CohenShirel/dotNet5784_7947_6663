@@ -68,8 +68,8 @@ internal class WorkerImplementation : IWorker
     public void Delete(int id)
     {
         BO.Worker wrk = Read(id)!;
-        Assignment a = s_bl.Assignment.Read(wrk.currentAssignment.AssignmentNumber)!;
-        if (a.status == Status.Unscheduled || a.status == Status.Scheduled)
+        BO.Assignment? a = s_bl.Assignment.Read(ass => ass.WorkerId == id &&  ass.DateBegin != null && ass.DeadLine == null)??null;
+        if (a==null/*a.status == Status.Unscheduled || a.status == Status.Scheduled*/)//If you dont have currentAssignment
         {
 
             //to check if the worker  in the middle of ass or he finished ass
@@ -99,7 +99,7 @@ internal class WorkerImplementation : IWorker
         {
             DO.Worker doWrk = _dal.Worker.Read(wrk => wrk.Id == id)!
             ?? throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exist");
-            DO.Assignment ass = _dal.Assignment.Read(t => t.WorkerId == doWrk.Id)!;
+            DO.Assignment? ass = _dal.Assignment.Read(t => t.WorkerId == doWrk.Id && t.DateBegin is not null && t.DeadLine is null)?? null;
             return new BO.Worker
             {
                 Id = doWrk.Id,
@@ -107,21 +107,24 @@ internal class WorkerImplementation : IWorker
                 Email = doWrk.Email,
                 Experience = doWrk.Experience,
                 HourSalary = doWrk.HourSalary,
-                currentAssignment = ass is not null ? new BO.WorkerInAssignment { WorkerId = doWrk.Id, AssignmentNumber = ass.IdAssignment } : null!,
+                currentAssignment = ass is not null ? new BO.WorkerInAssignment
+                {
+                    WorkerId = doWrk.Id, AssignmentNumber = ass.IdAssignment 
+                } : null!,
             };
         }
         catch (BlDoesNotExistException ex)
         {
-            throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exists", ex);
+            throw new BlDoesNotExistException($"Worker with ID={id} does Not exists", ex);
         }
         catch (BlInvalidOperationException ex)
         {
-            throw new Exceptions.BlInvalidOperationException($"Failed to update currentAssignment of Worker with ID={id} ", ex);
+            throw new BlInvalidOperationException($"Failed to update currentAssignment of Worker with ID={id} ", ex);
         }
         catch (Exception ex)
         {
             // טיפול בחריגות אחרות כפי שנדרש
-            throw new Exceptions.BlException("Failed to read worker", ex);
+            throw new BlException("Failed to read worker", ex);
         }
     }
 

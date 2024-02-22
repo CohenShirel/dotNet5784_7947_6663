@@ -6,7 +6,7 @@
         int Create(T item);
 
         T? Read(Func<T, bool> filter); // stage 2
-        //? Read(int id);
+        //T? Read(int id);
         IEnumerable<T> ReadAll(Func<T, bool>? filter = null); // stage 2
 
         //List<T> ReadAll();

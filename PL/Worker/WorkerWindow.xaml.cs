@@ -84,10 +84,18 @@ public partial class WorkerWindow : Window
 
     private void cmbExperience_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        //WorkerList = (level == DO.Level.None) ?
-        //    s_bl?.Worker.ReadAll()! : s_bl?.Worker.ReadAll(item => item.Experience == level)!;
+        currentWorker = (level== DO.Level.None) ?
+            s_bl?.Worker.ReadAll()! : s_bl?.Worker.ReadAll(item => item.Experience == level)!;
     }
 
+    private void txtId_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if(!int.TryParse(((TextBox)sender).Text, out int id))
+        {
+            ((TextBox)sender).IsEnabled = false;
+        }
+        
+    }
 }
 
 //ObservableCollection<BO.Worker> observeListWorker;

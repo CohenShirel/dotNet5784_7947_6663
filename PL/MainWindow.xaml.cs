@@ -10,7 +10,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using BL;
 using BlApi;
 
 namespace PL
@@ -26,12 +25,12 @@ namespace PL
             InitializeComponent();
         }
         //WorkerListWindow
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnWorkerListWindow_Click(object sender, RoutedEventArgs e)
         {
             new WorkerListWindow().Show();
         }
         //reset Data
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void BtnReset_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult mbResult =MessageBox.Show("Do you want to reset the Data?",
                 "RESET",MessageBoxButton.OKCancel, MessageBoxImage.Question);
@@ -45,7 +44,7 @@ namespace PL
             }
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void BtnWorkerWindow_Click(object sender, RoutedEventArgs e)
         {
             new WorkerWindow().Show();
         }

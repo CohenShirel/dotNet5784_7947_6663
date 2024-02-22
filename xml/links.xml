@@ -1,3 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfLink xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Link>
+    <IdLink>48</IdLink>
+    <IdAssignment>1028</IdAssignment>
+    <IdPAssignment>0</IdPAssignment>
+  </Link>
+  <Link>
+    <IdLink>49</IdLink>
+    <IdAssignment>1030</IdAssignment>
+    <IdPAssignment>0</IdPAssignment>
+  </Link>
+  <Link>
+    <IdLink>46</IdLink>
+    <IdAssignment>1027</IdAssignment>
+    <IdPAssignment>1</IdPAssignment>
+  </Link>
+  <Link>
+    <IdLink>47</IdLink>
+    <IdAssignment>1032</IdAssignment>
+    <IdPAssignment>1030</IdPAssignment>
+  </Link>
+  <Link>
+    <IdLink>48</IdLink>
+    <IdAssignment>1032</IdAssignment>
+    <IdPAssignment>1031</IdPAssignment>
+  </Link>
 </ArrayOfLink>

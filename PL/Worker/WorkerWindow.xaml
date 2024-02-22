@@ -6,8 +6,26 @@
         xmlns:local="clr-namespace:PL.Worker"
         mc:Ignorable="d"
         Title="WorkerWindow" Height="350" Width="300"
-        DataContext="{Binding curWrk,RelativeSource={RelativeSource self},Mode=TwoWay}"
-        >
+        DataContext="{Binding currentWorker,RelativeSource={RelativeSource self},Mode=TwoWay}">
+    <Window.Resources>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="Gold"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Ariel"/>
+        </Style>
+        <ControlTemplate x:Key="ErrorTemplate">
+            <DockPanel>
+                <Border BorderBrush="Red" BorderThickness="1">
+                    <AdornedElementPlaceholder />
+                </Border>
+                <TextBlock Text="Error!" Foreground="Red" FontSize="12" FontWeight="Bold" Margin="5"/>
+            </DockPanel>
+        </ControlTemplate>
+    </Window.Resources>
     <!--Extrnal Grid-->
     <Grid Height="auto" Width="auto">
         <Grid.RowDefinitions>
@@ -29,19 +47,19 @@
             </Grid.ColumnDefinitions>
 
             <Label Content="ID:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtId" Text="{Binding Path=Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="txtId" Text="{Binding Path=Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="txtId_TextChanged"/>
             <Label Content="Name"  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtName" Text="{Binding Path=Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"  Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="txtName" Text="{Binding Path=Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
             <Label Content="Email" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
-            <TextBox x:Name="txtEmail" Text="{Binding Path=Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="txtEmail" Text="{Binding Path=Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
             <Label Content="Experience" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
             <ComboBox x:Name="cmbExperience" ItemsSource="{Binding Source={StaticResource LevelsCollectionKey}}" 
             SelectedValue="{Binding Path=level, Mode=TwoWay, NotifyOnValidationError=true,ValidatesOnExceptions=true}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top" Width="120" SelectionChanged="cmbExperience_SelectionChanged"/>
             <Label Content="HourSalary" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top" RenderTransformOrigin="0.697,9.624"/>
-            <TextBox x:Name="txtHourSalary" Text="{Binding Path=HourSalary, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <TextBox x:Name="txtHourSalary" Text="{Binding Path=HourSalary, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         </Grid>
 
-        <Button Grid.Row="9" Grid.Column="0" 
+        <Button Grid.Row="9" Grid.Column="0"  Style="{StaticResource CustomButtonStyle}"
         Content="{Binding Id, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" 
         HorizontalAlignment="Center" Height="31" Width="150" Margin="3,0,0,0" VerticalAlignment="Top" Padding="5" 
         Click="btnAddUpdate_Click"/>

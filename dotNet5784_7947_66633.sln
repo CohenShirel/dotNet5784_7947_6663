@@ -13,8 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csp
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{934476BD-0E0F-44FE-B273-DCBD71288E96}"
 	ProjectSection(SolutionItems) = preProject
-		xml\assignmentss.xml = xml\assignmentss.xml
 		xml\dal-config.xml = xml\dal-config.xml
+		xml\assignments.xml = xml\assignments.xml
 		xml\data-config.xml = xml\data-config.xml
 		xml\links.xml = xml\links.xml
 		xml\workers.xml = xml\workers.xml
@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BL", "BL\BL.csproj", "{D4DF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlTest", "BlTest\BlTest.csproj", "{CEF39494-B4D6-4740-A1DB-69C7388876CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{19DDBFD4-9DE4-476B-ADB4-08E3336143B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PL", "PL\PL.csproj", "{19DDBFD4-9DE4-476B-ADB4-08E3336143B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
