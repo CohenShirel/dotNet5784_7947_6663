@@ -42,18 +42,15 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-             <ComboBox Grid.Column="1" Margin="0,6,173,-2" SelectionChanged="Cmb_Levels" 
+                <ComboBox Grid.Column="1" Margin="0,6,173,-2" "SelectionChanged="Cmb_Levels"   
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                 ItemsSource="{Binding Source={StaticResource LevelsCollectionKey}}" SelectedValue="{Binding Path=level, Mode=TwoWay}">
                     <ComboBox.ItemContainerStyle>
-                    <Style TargetType="ComboBoxItem">
-                          <Setter Property="Foreground" Value="Goldenrod"/>
-                    </Style>
+                        <Style TargetType="ComboBoxItem">
+                            <Setter Property="Foreground" Value="Goldenrod"/>
+                        </Style>
                     </ComboBox.ItemContainerStyle>
-                    <ComboBox.Background>
-                        <SolidColorBrush Color="Black"/>
-                    </ComboBox.Background>
-            </ComboBox>
+                </ComboBox>
             <Label Grid.Column="0" Content="Level's worker:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="Goldenrod"  Margin="208,0,0,0"/>
         </Grid>
         <!--List of all the worker-->
