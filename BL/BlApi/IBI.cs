@@ -9,6 +9,8 @@ public interface IBl
     //  public IWorkerInAssignment WorkerInAssignment { get; }
     // public ISchedule Schedule { get; }
     //לעשות כאן לוז אוטומטי;
+    public static void InitializeDB() { }
+
     public static DateTime? StartProjectTime { get; }//??
 
 }

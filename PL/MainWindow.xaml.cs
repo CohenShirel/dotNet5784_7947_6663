@@ -45,9 +45,18 @@ namespace PL
             }
         }
 
-        private void BtnWorkerWindow_Click(object sender, RoutedEventArgs e)
+        private void BtnInitializationWindow_Click(object sender, RoutedEventArgs e)
         {
-            new WorkerWindow().Show();
+            MessageBoxResult mbResult = MessageBox.Show("Do you want to initialize the Data?",
+                "initializition", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            switch (mbResult)
+            {
+                case MessageBoxResult.OK:
+                    Bl.InitializeDB();
+                    break;
+                case MessageBoxResult.Cancel:
+                    break;
+            }
         }
     }
 }
