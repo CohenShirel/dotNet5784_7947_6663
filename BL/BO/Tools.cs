@@ -100,7 +100,7 @@ namespace BO
                 _ => Status.OnTrack
             };
 
-      
+
         public static string ToStringProperty<T>(this T t)
         {
             string str = "";
@@ -123,6 +123,30 @@ namespace BO
             }
             return str;
         }
+        //public static string ToStringProperty<T>(this T t)
+        //{
+        //    string str = "";
+        //    foreach (PropertyInfo item in t!.GetType().GetProperties())
+        //    {
+        //        var value = item.GetValue(t, null);
+        //        if (value is IEnumerable enumerable)
+        //        {
+        //            str += enumerable.ToStringPropertyArray();
+        //        }
+        //        str += "\n" + item.Name + ": " + item.GetValue(t, null);
+        //    }
+        //    return str;
+        //}
+
+        //public static string ToStringPropertyArray(this IEnumerable t)
+        //{
+        //    string str = "";
+        //    foreach (PropertyInfo item in t.GetType().GetProperties())
+        //    {
+        //        str += "\n" + item.Name + ": " + item.GetValue(t, null);
+        //    }
+        //    return str;
+        //}
         //האם צריך לעשות כאן בדיקה אם זה מספרר ?
         public static void checkCost(int a)
         {

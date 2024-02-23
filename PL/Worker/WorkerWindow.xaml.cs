@@ -63,7 +63,7 @@ public partial class WorkerWindow : Window
     {
         try
         {
-            if ((sender as Button).DataContext.ToString() == "Update")
+            if ((sender as Button).Content.ToString() == "Update")
             {
                 s_bl.Worker.Update(currentWorker);
                 MessageBox.Show("The Update was successful");
