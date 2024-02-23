@@ -6,13 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PL;
-//class Enums
 //public class Enums
 //{
-//    public BO.Status status { get; set; } = BO.Status.None;
 //    public DO.Level level { get; set; } = DO.Level.None;
-//}  
-    internal class StatussCollection : IEnumerable
+//}
+internal class StatussCollection : IEnumerable
     {
         static readonly IEnumerable<BO.Status> s_enums =
         (Enum.GetValues(typeof(BO.Status)) as IEnumerable<BO.Status>)!;

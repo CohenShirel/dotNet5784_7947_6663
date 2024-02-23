@@ -1,10 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ArrayOfWorker>
-  <Worker>
-    <IdWorker>11</IdWorker>
-    <Experience>Intermediate</Experience>
-    <HourSalary>12000</HourSalary>
-    <Name>ADI</Name>
-    <Email>ADI@gmail.com</Email>
-  </Worker>
-</ArrayOfWorker>
+<ArrayOfWorker />

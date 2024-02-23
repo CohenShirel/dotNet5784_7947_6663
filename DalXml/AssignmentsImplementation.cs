@@ -7,7 +7,7 @@ namespace Dal;
 
 internal class AssignmentsImplementation : IAssignments
 {
-    readonly string s_assignmentss_xml = "assignments";
+    readonly string s_assignmentss_xml = "assignmentss";
     public int Create(Assignment ass)
     {
         List<DO.Assignment> assignmentss = XMLTools.LoadListFromXMLSerializer<DO.Assignment>(s_assignmentss_xml);

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BO;
+using DO;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -25,49 +27,121 @@ public partial class WorkerWindow : Window
     //רשימה שיודעת לדווח למי שמקושר אליה שנוספו אברים
     //לא יכול להיות  ליסט כי אז הוא יתקשר רק חדפ ואני רוצה שכל פעם זה יתעדכן מהגרפיקה לכאן
     
-    
-    
-    
-    
-    
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-
-    ObservableCollection<BO.Worker> observeListWorker;
-    public ObservableCollection<BO.Worker> observeListWorker
+    public BO.Worker currentWorker
     {
-        get { return (ObservableCollection<BO.Worker>)GetValue(observeListWorkerProperty); }
-        set { SetValue(observeListWorkerProperty, value); }
+        get { return (BO.Worker)GetValue(WorkerListProperty); }
+        set { SetValue(WorkerListProperty, value); }
     }
     //יודעת לדווח על הגרפיקה על קיומה...מדווחת על שינויים על כל הוספה או מחיקה של מישהו
-    public static readonly DependencyProperty observeListWorkerProperty =
-        DependencyProperty.Register("observeListWorker", typeof(ObservableCollection<BO.Worker>), typeof(WorkerWindow), new PropertyMetadata(null));
+    public static readonly DependencyProperty WorkerListProperty =
+        DependencyProperty.Register("currentWorker", typeof(BO.Worker), typeof(WorkerWindow), new PropertyMetadata(null));
 
 
+    //currentWorker = (id != 0) ? s_bl.Worker.Read(id) : new BO.Worker() { Id = 0, Name = " ", Email = " ", Experience = DO.Level.None
 
-    BO.Worker curWrk;
     public WorkerWindow(int id = 0)
     {
         InitializeComponent();
-
-        if (id != 0)//if it's update
+        try
         {
-            curWrk=s_bl.Worker.Read(id);
+            currentWorker = (id != 0) ? s_bl.Worker.Read(id) : new BO.Worker() { Id = 0, Name = " ", Email = " ", Experience = DO.Level.None };
+            if (currentWorker!=null && currentWorker.Id != 0)
+                txtId.IsEnabled = false;
         }
-        else
-        { 
-            curWrk = new BO.Worker();
+        catch(BO.Exceptions.BlDoesNotExistException ex)
+        {
+            MessageBox.Show(ex.Message,"Operation Faild",MessageBoxButton.OK,MessageBoxImage.Exclamation);
         }
-
+        catch(Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Operation Faild", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        }
     }
 
     private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
-        //if.....
-        s_bl.Worker.Update(curWrk);
-        s_bl.Worker.Create(curWrk);
+        try
+        {
+            if ((sender as Button).DataContext.ToString() == "Update")
+            {
+                s_bl.Worker.Update(currentWorker);
+                MessageBox.Show("The Update was successful");
+            }
+            else
+            {
+                int? id = s_bl.Worker.Create(currentWorker);
+                MessageBox.Show("The Addition was made successfully");
+            }
+            this.Close();
+        }
+        catch (BO.Exceptions.BlDoesNotExistException ex)
+        {
+            MessageBox.Show(ex.Message, "Operation Faild", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Operation Faild", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        }
     }
 
+    private void cmbExperience_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+       // currentWorker = (level== DO.Level.None) ?
+        //    s_bl?.Worker.ReadAll()! : s_bl?.Worker.ReadAll(item => item.Experience == level)!;
+    }
 
-    // public object 
-
+    private void txtId_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if(!int.TryParse(((TextBox)sender).Text, out int id))
+        {
+            ((TextBox)sender).IsEnabled = false;
+        }
+        
+    }
 }
+
+//ObservableCollection<BO.Worker> observeListWorker;
+//public ObservableCollection<BO.Worker> ObserveListWorker
+//{
+//    get { return (ObservableCollection<BO.Worker>)GetValue(observeListWorkerProperty); }
+//    set { SetValue(observeListWorkerProperty, value); }
+//}
+////יודעת לדווח על הגרפיקה על קיומה...מדווחת על שינויים על כל הוספה או מחיקה של מישהו
+//public static readonly DependencyProperty observeListWorkerProperty =
+//    DependencyProperty.Register("ObserveListWorker", typeof(ObservableCollection<BO.Worker>), typeof(WorkerWindow), new PropertyMetadata(null));
+
+//if ((sender as Button).DataContext.ToString() == "Update")
+//{
+//    try
+//    {
+//        s_bl.Worker.Update(curWrk);
+//        MessageBox.Show("The Update was successful");
+//        this.Close();
+//    }
+//    catch (BO.Exceptions.BlDoesNotExistException ex)
+//    {
+//        MessageBox.Show(ex.Message, "Operation Faild", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+//    }
+//    catch (Exception ex)
+//    {
+//        MessageBox.Show(ex.Message, "Operation Faild", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+//    }
+//}
+//else//Adding
+//{
+//    try
+//    {
+//        int? id = s_bl.Worker.Create(curWrk);
+//        MessageBox.Show("The Addition was made successfully");
+//        this.Close();
+//    }
+//    catch (BO.Exceptions.BlDoesNotExistException ex)
+//    {
+//        MessageBox.Show(ex.Message, "Operation Faild", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+//    }
+//    catch (Exception ex)
+//    {
+//        MessageBox.Show(ex.Message, "Operation Faild", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+//    }
+//}

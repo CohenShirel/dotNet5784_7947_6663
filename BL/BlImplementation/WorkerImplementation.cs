@@ -110,9 +110,7 @@ internal class WorkerImplementation : IWorker
         {
             DO.Worker doWrk = _dal.Worker.Read(wrk => wrk.Id == id)!
             ?? throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exist");
-            //DO.Assignment ass = _dal.Assignment.Read(t => t.WorkerId == doWrk.Id)!;
-
-            DO.Assignment? ass = _dal.Assignment.Read(t => t.WorkerId == doWrk.Id /*&& t.DateBegin is not null && t.DeadLine is null*/)?? null;
+            DO.Assignment ass = _dal.Assignment.Read(t => t.WorkerId == doWrk.Id)!;
             return new BO.Worker
             {
                 Id = doWrk.Id,
@@ -128,7 +126,11 @@ internal class WorkerImplementation : IWorker
         }
         catch (BlDoesNotExistException ex)
         {
-            throw new BlDoesNotExistException($"Worker with ID={id} does Not exists", ex);
+            throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exists", ex);
+        }
+        catch (BlInvalidOperationException ex)
+        {
+            throw new Exceptions.BlInvalidOperationException($"Failed to update currentAssignment of Worker with ID={id} ", ex);
         }
         //catch (BlInvalidOperationException ex)
         //{

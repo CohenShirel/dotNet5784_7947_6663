@@ -146,43 +146,43 @@ namespace BO
                 throw new BlNotCorrectDetailsException("This level doesn't exist");
             }
         }
-        public static void IsMail(string s) /*=> new EmailAddressAttribute().IsValid(s);*/
-        {
-            int t = 0, c = 0;
-            for (int i = 0; i < s.Length; i++)
-            {//בדיקה שאין אותיות בעברית
-                if ((s[i] < 'א' || s[i] >= 'ת') && (s[i] == ' '))
-                    throw new BlNotCorrectDetailsException("The mail can't include hebrow letters");
-                if (s[i] == '@')
-                {
-                    c++;
-                    if (c > 1)
-                        throw new BlNotCorrectDetailsException("The mail can't include @ more than one time");
-                }
+        public static void IsMail(string s) => new EmailAddressAttribute().IsValid(s);
+        //{
+        //    int t = 0, c = 0;
+        //    for (int i = 0; i < s.Length; i++)
+        //    {//בדיקה שאין אותיות בעברית
+        //        if ((s[i] < 'א' || s[i] >= 'ת') && (s[i] == ' '))
+        //            throw new BlNotCorrectDetailsException("The mail can't include hebrow letters");
+        //        if (s[i] == '@')
+        //        {
+        //            c++;
+        //            if (c > 1)
+        //                throw new BlNotCorrectDetailsException("The mail can't include @ more than one time");
+        //        }
 
-            }
-            if (!s.Contains("@"))//@ בדיקה אם יש 
-                throw new BlNotCorrectDetailsException("The mail have include @");
-            if (s.IndexOf('@') == 0)// לא ראשון @ בדיקה  
-                throw new BlNotCorrectDetailsException("The mail can't include @ first");
-            for (int i = s.IndexOf('@'); i < s.Length; i++)
-            {
-                if (s[i] == '.')
-                {
-                    if (t == 0)
-                    {
-                        t++;
-                        if (s.IndexOf("@") + 1 >= i)//בדיקה שיש אחרי שטרודל נקודה אבל לא ברצף
-                            throw new BlNotCorrectDetailsException("The mail can't include @ and point one by one");
-                        if (i == s.Length - 1)//בדיקה שהנקודה לא אחרונה
-                            throw new BlNotCorrectDetailsException("The mail can't include point in the end");
-                    }
-                }
-            }
-            if (t == 0)//בדיקה אם יש נקודה
-                throw new BlNotCorrectDetailsException("The mail have include point");
+        //    }
+        //    if (!s.Contains("@"))//@ בדיקה אם יש 
+        //        throw new BlNotCorrectDetailsException("The mail have include @");
+        //    if (s.IndexOf('@') == 0)// לא ראשון @ בדיקה  
+        //        throw new BlNotCorrectDetailsException("The mail can't include @ first");
+        //    for (int i = s.IndexOf('@'); i < s.Length; i++)
+        //    {
+        //        if (s[i] == '.')
+        //        {
+        //            if (t == 0)
+        //            {
+        //                t++;
+        //                if (s.IndexOf("@") + 1 >= i)//בדיקה שיש אחרי שטרודל נקודה אבל לא ברצף
+        //                    throw new BlNotCorrectDetailsException("The mail can't include @ and point one by one");
+        //                if (i == s.Length - 1)//בדיקה שהנקודה לא אחרונה
+        //                    throw new BlNotCorrectDetailsException("The mail can't include point in the end");
+        //            }
+        //        }
+        //    }
+        //    if (t == 0)//בדיקה אם יש נקודה
+        //        throw new BlNotCorrectDetailsException("The mail have include point");
 
-        }
+        //}
         //בדיקת תקינות ת.ז
         public static void CheckId(int d)
         {

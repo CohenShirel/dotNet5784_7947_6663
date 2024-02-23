@@ -6,5 +6,6 @@
     <Application.Resources>
         <local:StatussCollection x:Key="StatussCollectionKey" />
         <local:LevelsCollection  x:Key="LevelsCollectionKey" />
+        <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
     </Application.Resources>
 </Application>
