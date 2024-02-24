@@ -38,7 +38,7 @@ public partial class WorkerListWindow : Window
     }
     //יודעת לדווח על הגרפיקה על קיומה...מדווחת על שינויים על כל הוספה או מחיקה של מישהו
     public static readonly DependencyProperty ListWorkerProperty =
-        DependencyProperty.Register("ObserveListWorker", typeof(IEnumerable<BO.WorkerInList>), typeof(WorkerListWindow), new PropertyMetadata(null));
+        DependencyProperty.Register("ListWorker", typeof(IEnumerable<BO.WorkerInList>), typeof(WorkerListWindow), new PropertyMetadata(null));
     //public IEnumerable<BO.WorkerInList> WorkerList
     //{
     //    get { return (IEnumerable<BO.WorkerInList>)GetValue(WorkerListProperty); }

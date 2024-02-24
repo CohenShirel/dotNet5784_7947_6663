@@ -42,7 +42,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-                <ComboBox Grid.Column="1" Margin="0,6,173,-2" "SelectionChanged="Cmb_Levels"   
+                <ComboBox Grid.Column="1" Margin="0,6,173,-2" SelectionChanged="Cmb_Levels"   
                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                 ItemsSource="{Binding Source={StaticResource LevelsCollectionKey}}" SelectedValue="{Binding Path=level, Mode=TwoWay}">
                     <ComboBox.ItemContainerStyle>
