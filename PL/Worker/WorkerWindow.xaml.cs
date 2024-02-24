@@ -87,7 +87,8 @@ public partial class WorkerWindow : Window
 
     private void cmbExperience_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-       // currentWorker = (level== DO.Level.None) ?
+        //Level l= enum.TryParse(((ComboBox) sender).Text;
+        //currentWorker = (level== DO.Level.None) ?
         //    s_bl?.Worker.ReadAll()! : s_bl?.Worker.ReadAll(item => item.Experience == level)!;
     }
 

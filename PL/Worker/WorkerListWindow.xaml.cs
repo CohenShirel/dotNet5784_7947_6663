@@ -38,7 +38,7 @@ namespace PL.Worker
         }
         //יודעת לדווח על הגרפיקה על קיומה...מדווחת על שינויים על כל הוספה או מחיקה של מישהו
         public static readonly DependencyProperty ListWorkerProperty =
-            DependencyProperty.Register("ObserveListWorker", typeof(IEnumerable<BO.WorkerInList>), typeof(WorkerListWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("ListWorker", typeof(IEnumerable<BO.WorkerInList>), typeof(WorkerListWindow), new PropertyMetadata(null));
         //public IEnumerable<BO.WorkerInList> WorkerList
         //{
         //    get { return (IEnumerable<BO.WorkerInList>)GetValue(WorkerListProperty); }
@@ -91,36 +91,36 @@ namespace PL.Worker
         }
         //private void Cmb_Levels(object sender, SelectionChangedEventArgs e)
         //{
-        //    //if (Enum.TryParse<DO.Level>(((ComboBox)sender).SelectedItem?.ToString(), out DO.Level currentLevel))
-        //    //{
-        //    //    var wkr = (currentLevel == DO.Level.None) ?
-        //    //       s_bl?.Worker.ReadAll()?.Select(x => x)?.ToList() :
-        //    //       s_bl?.Worker.ReadAll(item => item.Experience == currentLevel)?.ToList();
-        //    //    if (wkr != null)
-        //    //    {
-        //    //        ObserveListWorker = new ObservableCollection<BO.WorkerInList>(wkr);
-        //    //    }
-        //    //    else
-        //    //    {
-        //    //        // אם המשתמש לא בחר כלום, תציג את כל העובדים
-        //    //        var workers = s_bl?.Worker.ReadAll();
-        //    //        if (workers != null)
-        //    //        {
-        //    //            var observableWorkers = new ObservableCollection<BO.WorkerInList>(workers);
-        //    //            ObserveListWorker.Clear();
-        //    //            foreach (var worker in observableWorkers)
-        //    //            {
-        //    //                if (workers != null)
-        //    //                {
-        //    //                    var observableWorkers2 = new ObservableCollection<BO.WorkerInList>(workers);
-        //    //                    ObserveListWorker.Clear();
-        //    //                    ObserveListWorker.Add(observableWorkers2);
-        //    //                }
-        //    //            }
-        //    //        }
-        //    //    }
+        //    if (Enum.TryParse<DO.Level>(((ComboBox)sender).SelectedItem?.ToString(), out DO.Level currentLevel))
+        //    {
+        //        var wkr = (currentLevel == DO.Level.None) ?
+        //           s_bl?.Worker.ReadAll()?.Select(x => x)?.ToList() :
+        //           s_bl?.Worker.ReadAll(item => item.Experience == currentLevel)?.ToList();
+        //        if (wkr != null)
+        //        {
+        //            ObserveListWorker = new ObservableCollection<BO.WorkerInList>(wkr);
+        //        }
+        //        else
+        //        {
+        //            // אם המשתמש לא בחר כלום, תציג את כל העובדים
+        //            var workers = s_bl?.Worker.ReadAll();
+        //            if (workers != null)
+        //            {
+        //                var observableWorkers = new ObservableCollection<BO.WorkerInList>(workers);
+        //                ObserveListWorker.Clear();
+        //                foreach (var worker in observableWorkers)
+        //                {
+        //                    if (workers != null)
+        //                    {
+        //                        var observableWorkers2 = new ObservableCollection<BO.WorkerInList>(workers);
+        //                        ObserveListWorker.Clear();
+        //                        ObserveListWorker.Add(observableWorkers2);
+        //                    }
+        //                }
+        //            }
+        //        }
 
-        //    //}
+        //    }
         //}
         //ObserveListWorker = (currentLevel == DO.Level.None) ?
         //    s_bl?.Worker.ReadAll() : s_bl?.Worker.ReadAll(item => item.Experience == currentLevel);
@@ -141,4 +141,4 @@ namespace PL.Worker
 
         // ComboBox.ItemsSource=Enums.GetValues(typeof(DO.Level));
     }
-    }
+}

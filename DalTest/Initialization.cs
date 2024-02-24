@@ -77,7 +77,7 @@ public static class Initialization
 
             // choose random level from Enums.Level
             Array levelArray = Enum.GetValues(typeof(Level));
-            Level randomLevel = (Level)levelArray.GetValue(s_rand.Next(levelArray.Length))!;
+            Level randomLevel = (Level)levelArray.GetValue(s_rand.Next(levelArray.Length-1))!;//?
 
 
             //I make new array just with all the worker with the same Experience
@@ -87,7 +87,7 @@ public static class Initialization
                 if (worker.Experience == randomLevel)
                     workersLst.Add(worker);
             }
-            int ID = workersLst!=null?workersLst[s_rand.Next(workersLst.Count)].Id:0;
+            int ID = workersLst.Count!=0?workersLst[s_rand.Next(workersLst.Count)].Id:0;
             //DateTime? dat = DateTime.FromDateTime(DateTime.Now);// help date
             DateTime? dat = DateTime.Now;
 
