@@ -340,7 +340,7 @@ internal class Program
                             if (!int.TryParse(Console.ReadLine(), out int updatedCost))
                                 throw new FormatException("Wrong input");
                             DO.Level updatedLevel = (DO.Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
-                            Console.WriteLine("Enter currentAssigments (idA) of this worker : ");
+                            Console.WriteLine("Enter currentAssigment (idA) of this worker : ");
                             if (!int.TryParse(Console.ReadLine(), out int tzA))
                                 throw new FormatException("Wrong input");
                             WorkerInAssignment a = new WorkerInAssignment { WorkerId = iD, AssignmentNumber = tzA };

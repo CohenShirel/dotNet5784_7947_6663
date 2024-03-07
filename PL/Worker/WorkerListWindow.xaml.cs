@@ -46,12 +46,15 @@ namespace PL.Worker
             //we cant go back to previose window till we finish
         }
 
+        //whennnn
         private void ListView_UpdateClick(object sender,System.Windows.Input.MouseButtonEventArgs e)
         {
             BO.WorkerInList wrk=((sender as ListView)?.SelectedItem as BO.WorkerInList)!;
             new WorkerWindow(wrk!.Id).ShowDialog();
             UpdateWorkerList();
         }
+
+        //whennnn
         private void ListView_SelectionChanged(object sender, EventArgs e)
         {
             ListWorker = (level == DO.Level.None) ?
@@ -59,12 +62,14 @@ namespace PL.Worker
         }
         //Activated="Window_Activated">
 
+        //whennnn
         private void UpdateWorkerList()
         {
             ListWorker = (level == DO.Level.None) ?
              s_bl?.Worker.ReadAll() : s_bl?.Worker.ReadAll(item => item.Experience == level).OrderBy(e => e.Id);
         }
 
+        //whennnn
         private void ComboBox_Selected(object sender, RoutedEventArgs e)
         {
             ListWorker = (level == DO.Level.None) ?
