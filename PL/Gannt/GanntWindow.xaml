@@ -1,0 +1,35 @@
+﻿<Window x:Class="PL.Manager.GanntWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Manager"
+        mc:Ignorable="d"
+        Title="GanntWindow" Height="600" Width="800">
+    <Grid>
+        <!-- DataGrid to display tasks and their dates -->
+        <DataGrid x:Name="dataGrid" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" HeadersVisibility="All" GridLinesVisibility="All" SelectionUnit="CellOrRowHeader" SelectionMode="Single">
+            <DataGrid.Columns>
+                <!-- Tasks column -->
+                <DataGridTextColumn Header="Tasks" Width="*" Binding="{Binding AssignmentName}" IsReadOnly="True"/>
+                <!-- Dynamic date columns -->
+                <DataGridTextColumn Header="Date1" Width="*" Binding="{Binding Date1}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Date2" Width="*" Binding="{Binding Date2}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Date3" Width="*" Binding="{Binding Date3}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Date4" Width="*" Binding="{Binding Date4}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Date5" Width="*" Binding="{Binding Date5}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Date6" Width="*" Binding="{Binding Date6}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Date7" Width="*" Binding="{Binding Date7}" IsReadOnly="True"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <!-- Color Key for Gantt Chart -->
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+            <Rectangle Width="20" Height="20" Fill="LightBlue" Margin="5"/>
+            <TextBlock Text="Task Completed" VerticalAlignment="Center"/>
+            <Rectangle Width="20" Height="20" Fill="Red" Margin="5"/>
+            <TextBlock Text="Task Delayed" VerticalAlignment="Center"/>
+            <Rectangle Width="20" Height="20" Fill="Yellow" Margin="5"/>
+            <TextBlock Text="Task Not Started" VerticalAlignment="Center"/>
+        </StackPanel>
+    </Grid>
+</Window>

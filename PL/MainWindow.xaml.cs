@@ -25,38 +25,14 @@ namespace PL
         {
             InitializeComponent();
         }
-        //WorkerListWindow
-        private void BtnWorkerListWindow_Click(object sender, RoutedEventArgs e)
+        private void BtnManagerWindow_Click(object sender, RoutedEventArgs e)
         {
-            new WorkerListWindow().Show();
-        }
-        //reset Data
-        private void BtnReset_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult mbResult =MessageBox.Show("Do you want to reset the Data?",
-                "RESET",MessageBoxButton.OKCancel, MessageBoxImage.Question);
-            switch(mbResult) 
-            {
-                case MessageBoxResult.OK:
-                    Bl.reset();//קראנו כאן לאבא...ןצריך לעדכן גם באקסמל
-                    break;
-                case MessageBoxResult.Cancel:
-                    break;
-            }
+            new ManagerWindow().Show();
         }
 
-        private void BtnInitializationWindow_Click(object sender, RoutedEventArgs e)
+        private void BtnWorkerWindow_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult mbResult = MessageBox.Show("Do you want to initialize the Data?",
-                "initializition", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-            switch (mbResult)
-            {
-                case MessageBoxResult.OK:
-                    Bl.InitializeDB();
-                    break;
-                case MessageBoxResult.Cancel:
-                    break;
-            }
+           // new MainWorkerWindow().Show();
         }
     }
 }
