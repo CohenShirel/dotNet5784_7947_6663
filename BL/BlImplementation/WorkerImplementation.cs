@@ -3,6 +3,7 @@ using BlApi;
 using BO;
 using System;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using static BO.Exceptions;
 
 internal class WorkerImplementation : IWorker
@@ -150,8 +151,9 @@ internal class WorkerImplementation : IWorker
        {
            Id = doWrk.Id,
            Name = doWrk.Name!,
+           Experience=doWrk.Experience,
            currentAssignment = ass is not null ? new BO.WorkerInAssignment { AssignmentNumber = ass.IdAssignment!,
-               WorkerId = ass.WorkerId! } : null!,
+           WorkerId = ass.WorkerId! } : null!,
        }
        where filter is null ? true : filter(wrkLst)
        select wrkLst;
@@ -178,80 +180,56 @@ internal class WorkerImplementation : IWorker
         //update ass
         return true;
     }
-
     public void Update(BO.Worker boWorker)
     {
-        Assignment a = s_bl.Assignment.Read(boWorker.currentAssignment.AssignmentNumber)!;
-        if (a.status == Status.Unscheduled || a.status == Status.Scheduled)
+        Tools.CheckId(boWorker.Id);
+        Tools.IsName(boWorker.Name!);
+        Tools.checkCost(boWorker.HourSalary);
+        Tools.IsMail(boWorker.Email!);
+        try
         {
-            Tools.CheckId(boWorker.Id);
-            Tools.IsName(boWorker.Name!);
-            Tools.checkCost(boWorker.HourSalary);
-            Tools.IsMail(boWorker.Email!);
-            try
-            {
-                //WorkerInAssignment currentAssignment = boWorker.currentAssignment;
+            //WorkerInAssignment currentAssignment = boWorker.currentAssignment;
 
-                BO.Worker bWorker = new BO.Worker
-                {
-                    Id = boWorker.Id,
-                    Experience = boWorker.Experience,
-                    HourSalary = boWorker.HourSalary,
-                    Name = boWorker.Name,
-                    Email = boWorker.Email,
-                    currentAssignment = checkCurrentAssignment(boWorker) ? boWorker.currentAssignment : throw new BlInvalidOperationException("Failed to update currentAssignment"),
-                };
-                DO.Worker wrk = Tools.ConvertWrkBOToDO(ref bWorker);
-                _dal.Worker.Update(wrk);
-            }
-            catch (DO.DalAlreadyExistsException ex)
+            BO.Worker bWorker = new BO.Worker
             {
-                throw new Exceptions.BlDoesNotExistException($"Worker with ID={boWorker.Id} does Not exists", ex);
-            }
-            catch (BlInvalidOperationException ex)
-            {
-                throw new Exceptions.BlInvalidOperationException($"Failed to update currentAssignment of Worker with ID={boWorker.Id} ", ex);
-            }
-            catch (Exception ex)
-            {
-                // טיפול בחריגות אחרות כפי שנדרש
-                throw new Exceptions.BlException("Failed to update worker", ex);
-            }
+                Id = boWorker.Id,
+                Experience = boWorker.Experience,
+                HourSalary = boWorker.HourSalary,
+                Name = boWorker.Name,
+                Email = boWorker.Email,
+               // currentAssignment = checkCurrentAssignment(boWorker) ? boWorker.currentAssignment : throw new BlInvalidOperationException("Failed to update currentAssignment"),
+            };
+            DO.Worker wrk = Tools.ConvertWrkBOToDO(ref bWorker);
+            _dal.Worker.Update(wrk);
         }
-        if (a.status == Status.OnTrack)
+        catch (DO.DalDoesNotExistException ex)
         {
-            Tools.CheckId(boWorker.Id);
-            Tools.IsName(boWorker.Name!);
-            Tools.checkCost(boWorker.HourSalary);
-            Tools.IsMail(boWorker.Email!);
-            try
-            {
-                BO.Worker bWorker = new BO.Worker
-                {
-                    HourSalary = boWorker.HourSalary,
-                    Name = boWorker.Name,
-                    Email = boWorker.Email,
-                    currentAssignment = checkCurrentAssignment(boWorker) ? boWorker.currentAssignment : throw new BlInvalidOperationException("Failed to update currentAssignment"),
-                };
-                DO.Worker wrk = Tools.ConvertWrkBOToDO(ref bWorker);
-                _dal.Worker.Update(wrk);
-            }
-            catch (DO.DalAlreadyExistsException ex)
-            {
-                throw new Exceptions.BlDoesNotExistException($"Worker with ID={boWorker.Id} does Not exists", ex);
-            }
-            catch (BlInvalidOperationException ex)
-            {
-                throw new Exceptions.BlInvalidOperationException($"Failed to update currentAssignment of Worker with ID={boWorker.Id} ", ex);
-            }
-            catch (Exception ex)
-            {
-                // טיפול בחריגות אחרות כפי שנדרש
-                throw new Exceptions.BlException("Failed to update worker", ex);
-            }
+            throw new Exceptions.BlDoesNotExistException($"Worker with ID={boWorker.Id} does Not exists", ex);
         }
+        catch (BlInvalidOperationException ex)
+        {
+            throw new Exceptions.BlInvalidOperationException($"Failed to update currentAssignment of Worker with ID={boWorker.Id} ", ex);
+        }
+        catch (Exception ex)
+        {
+            // טיפול בחריגות אחרות כפי שנדרש
+            throw new Exceptions.BlException("Failed to update worker", ex);
+        }
+
+
+
+
+
     }
 }
+
+
+
+
+
+
+
+
 
 //public IEnumerable<BO.Worker> Read(Func<BO.Worker, bool>? filter = null)
 //{

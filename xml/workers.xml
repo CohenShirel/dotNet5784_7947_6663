@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfWorker>
-<Worker>
-	<IdWorker>21</IdWorker>
-	<Experience>Intermediate</Experience>
-	<HourSalary>2</HourSalary>
-	<Name>S</Name>
-	<Email>S@GMAIL.COM</Email>
-</Worker>
-<Worker>
-	<IdWorker>11</IdWorker>
-	<Experience>Intermediate</Experience>
-	<HourSalary>22</HourSalary>
-	<Name>D</Name>
-	<Email>D@GMAIL.COM</Email>
-</Worker>
+  <Worker>
+    <IdWorker>214345454</IdWorker>
+    <Experience>Expert</Experience>
+    <HourSalary>2000000</HourSalary>
+    <Name> SHIREL</Name>
+    <Email> SHIREL@GMAIL.COM</Email>
+  </Worker>
+  <Worker>
+    <IdWorker>34</IdWorker>
+    <Experience>Advanced</Experience>
+    <HourSalary>23</HourSalary>
+    <Name> S</Name>
+    <Email> S@GMAIL.COM</Email>
+  </Worker>
 </ArrayOfWorker>

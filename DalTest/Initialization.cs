@@ -19,6 +19,13 @@ public static class Initialization
         //s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stage 2
         s_dal = Factory.Get; //stage 4  
     }
+    public static void Initialize()
+    {
+        Do();
+        creatWorkers();
+        creatAssignmentss();
+        creatLink();
+    }
     //function that creat random workers
     private static void creatWorkers()
     {
@@ -38,10 +45,11 @@ public static class Initialization
         {
             //id randomly
             int _idW;
-            do
-                _idW = s_rand.Next(200000000, 400000001);
-            while (s_dal.Worker!.Read(a => a.Id == _idW) != null);
-
+            _idW = s_dal.Worker != null ? s_rand.Next(200000000, 400000001) : 0;
+            if( _idW == 0 )
+                do
+                    _idW = s_rand.Next(200000000, 400000001);
+                while (s_dal.Worker!.Read(a => a.Id == _idW) != null);
             int _hourSalary = s_rand.Next(50, 600);
 
             // בחירת ערך רנדומלי מהמערך של Enums.Level
@@ -69,7 +77,7 @@ public static class Initialization
 
             // choose random level from Enums.Level
             Array levelArray = Enum.GetValues(typeof(Level));
-            Level randomLevel = (Level)levelArray.GetValue(s_rand.Next(levelArray.Length))!;
+            Level randomLevel = (Level)levelArray.GetValue(s_rand.Next(levelArray.Length-1))!;//?
 
 
             //I make new array just with all the worker with the same Experience
@@ -79,7 +87,7 @@ public static class Initialization
                 if (worker.Experience == randomLevel)
                     workersLst.Add(worker);
             }
-            int ID = workersLst[s_rand.Next(workersLst.Count)].Id;
+            int ID = workersLst.Count!=0?workersLst[s_rand.Next(workersLst.Count)].Id:0;
             //DateTime? dat = DateTime.FromDateTime(DateTime.Now);// help date
             DateTime? dat = DateTime.Now;
 

@@ -13,7 +13,13 @@ public /*internal */class Bl : IBl
 
     public static DateTime? StartProjectTime => s_dal!.StartProjectTime;//לעשות פונקציה שתבקש מהמשתמש תאריך התחלה לפרויקט
 
-    public static void InitializeDB() => DalTest.Initialization.Do();
+    /* => DalTest.Initialization.Do();*/
+    public static void InitializeDB()
+    {
+        DalTest.Initialization.Initialize();
+    }
+
+
 
     // DateTime? IBl.DeadLine => null;
     public static void reset()

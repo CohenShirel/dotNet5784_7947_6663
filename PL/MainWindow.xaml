@@ -19,7 +19,7 @@
     </Window.Resources>
     <Grid>
         <Grid>
-            <Image Source="C:\Users\shire\Desktop\הפרויקט שלי\PL\ProjectImage\ProjetImage3.jpg" Stretch="UniformToFill"/>
+            <Image Source="C:\Users\USER001\Desktop\dotNet5784_7947_6663\PL\ProjectImage\ProjetImage3.jpg" Stretch="UniformToFill"/>
         </Grid>
         <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>

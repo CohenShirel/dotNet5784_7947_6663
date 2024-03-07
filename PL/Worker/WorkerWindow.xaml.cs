@@ -63,7 +63,7 @@ public partial class WorkerWindow : Window
     {
         try
         {
-            if ((sender as Button).DataContext.ToString() == "Update")
+            if ((sender as Button).Content.ToString() == "Update")
             {
                 s_bl.Worker.Update(currentWorker);
                 MessageBox.Show("The Update was successful");
@@ -87,7 +87,8 @@ public partial class WorkerWindow : Window
 
     private void cmbExperience_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-       // currentWorker = (level== DO.Level.None) ?
+        //Level l= enum.TryParse(((ComboBox) sender).Text;
+        //currentWorker = (level== DO.Level.None) ?
         //    s_bl?.Worker.ReadAll()! : s_bl?.Worker.ReadAll(item => item.Experience == level)!;
     }
 
