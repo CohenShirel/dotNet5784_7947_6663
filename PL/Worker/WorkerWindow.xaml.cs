@@ -66,7 +66,7 @@ public partial class WorkerWindow : Window
             if ((sender as Button).Content.ToString() == "Update")
             {
                 s_bl.Worker.Update(currentWorker);
-                MessageBox.Show("The Update was successful");
+                MessageBox.Show("The Update was successfull");
             }
             else
             {
