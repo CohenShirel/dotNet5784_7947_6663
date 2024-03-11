@@ -18,7 +18,7 @@ namespace PL.Assignment
     /// <summary>
     /// Interaction logic for AssignmentsListWindow.xaml
     /// </summary>
-    public partial class AssignmentsListWindow : Window
+    public partial class AssignmentListWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         //public static readonly DependencyProperty ListAssignmentsProperty =
@@ -33,11 +33,11 @@ namespace PL.Assignment
 
         //יודעת לדווח על הגרפיקה על קיומה...מדווחת על שינויים על כל הוספה או מחיקה של מישהו
         public static readonly DependencyProperty ListAssignmentsProperty =
-            DependencyProperty.Register("ListAssignments", typeof(IEnumerable<BO.AssignmentInList>), typeof(AssignmentsListWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("ListAssignments", typeof(IEnumerable<BO.AssignmentInList>), typeof(AssignmentListWindow), new PropertyMetadata(null));
 
         
 
-        public AssignmentsListWindow()
+        public AssignmentListWindow()
         {
             InitializeComponent();
             ListAssignments = s_bl.Assignment.ReadAll();
