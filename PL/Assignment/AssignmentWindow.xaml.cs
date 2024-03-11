@@ -141,6 +141,7 @@ public partial class AssignmentWindow : Window
 
                 BO.AssignmentInList assl = new BO.AssignmentInList { Id = id, AssignmentName = name };
                 list.Add(assl);
+
             }
         }
         try
