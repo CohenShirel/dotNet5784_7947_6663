@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Worker;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -27,6 +28,55 @@ public class ConvertIdToContent : IValueConverter
         throw new NotImplementedException();
     }
 }
+public class NoBooleanToVisibilityConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        bool b = (bool)value;
+        if (b)
+        {
+            return Visibility.Collapsed;
+        }
+        else
+            return Visibility.Visible;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
+//public class BooleanToVisibilityConverter : IValueConverter
+//{
+//    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+//    {
+//        if (value is bool isVisible)
+//        {
+//            return isVisible ? Visibility.Visible : Visibility.Collapsed;
+//        }
+//        return Visibility.Collapsed;
+//    }
+
+//    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+//    {
+//        if (value is Visibility visibility)
+//        {
+//            return visibility == Visibility.Visible;
+//        }
+//        return false;
+//    }
+//}
+public class VisibilityContent : DependencyObject
+{
+    public Visibility AssignmentDetailsVisibility
+    {
+        get { return (Visibility)GetValue(AssignmentDetailsVisibilityProperty); }
+        set { SetValue(AssignmentDetailsVisibilityProperty, value); }
+    }
+    public static readonly DependencyProperty AssignmentDetailsVisibilityProperty =
+    DependencyProperty.Register("AssignmentDetailsVisibility", typeof(Visibility), typeof(CurrentWorkerWindow), new PropertyMetadata(Visibility.Collapsed));
+}
+
 public class NameValidationRule : ValidationRule
 {
     public override ValidationResult Validate(object value, CultureInfo cultureInfo)
@@ -46,6 +96,26 @@ public class NameValidationRule : ValidationRule
         {
             return ValidationResult.ValidResult;
         }
+    }
+}
+public class WorkerViewModel : DependencyObject
+{
+
+  
+    //=====================Visibility
+   
+
+    public Visibility AllAssignmentsDetailsVisibility
+    {
+        get { return (Visibility)GetValue(AllAssignmentsDetailsVisibilityProperty); }
+        set { SetValue(AllAssignmentsDetailsVisibilityProperty, value); }
+    }
+    public static readonly DependencyProperty AllAssignmentsDetailsVisibilityProperty =
+ DependencyProperty.Register("AllAssignmentsDetailsVisibility", typeof(Visibility), typeof(CurrentWorkerWindow), new PropertyMetadata(Visibility.Collapsed));
+
+    public WorkerViewModel(int id)
+    {
+        //ListAssignments = BlApi.Factory.Get().Assignment.ReadAllAss(ass => ass.LevelAssignment <= currentWorker.Experience && ass.IdWorker == default(int));
     }
 }
 ////        <local:VisibilityConverter x:Key="VisibilityConverterKey"/>

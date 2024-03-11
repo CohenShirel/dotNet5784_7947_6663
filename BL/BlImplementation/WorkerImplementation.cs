@@ -8,6 +8,9 @@ using static BO.Exceptions;
 
 internal class WorkerImplementation : IWorker
 {
+    private readonly IBl _bl;
+    internal WorkerImplementation(IBl bl) => _bl = bl;
+
     private DalApi.IDal _dal = DalApi.Factory.Get;
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
@@ -125,7 +128,7 @@ internal class WorkerImplementation : IWorker
                 } : null!,
             };
         }
-        catch (BlDoesNotExistException ex)
+        catch (DO.DalDoesNotExistException ex)
         {
             throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exists", ex);
         }

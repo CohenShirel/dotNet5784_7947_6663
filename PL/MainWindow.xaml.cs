@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BlApi;
 using BlImplementation;
+using DO;
 
 namespace PL
 {
@@ -21,6 +22,24 @@ namespace PL
     //static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     public partial class MainWindow : Window
     {
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        public int ID { get; set; }
+        //=================currentWorker
+        public BO.Worker currentWorker
+        {
+            get { return (BO.Worker)GetValue(WorkerListProperty); }
+            set { SetValue(WorkerListProperty, value); }
+        }
+        //יודעת לדווח על הגרפיקה על קיומה...מדווחת על שינויים על כל הוספה או מחיקה של מישהו
+        public static readonly DependencyProperty WorkerListProperty =
+            DependencyProperty.Register("currentWorker", typeof(BO.Worker), typeof(MainWindow), new PropertyMetadata(null));
+        public Visibility WorkerDetailsVisibility
+        {
+            get { return (Visibility)GetValue(WorkerDetailsVisibilityProperty); }
+            set { SetValue(WorkerDetailsVisibilityProperty, value); }
+        }
+        public static readonly DependencyProperty WorkerDetailsVisibilityProperty =
+         DependencyProperty.Register("WorkerDetailsVisibility", typeof(Visibility), typeof(MainWindow), new PropertyMetadata(Visibility.Collapsed));
         public MainWindow()
         {
             InitializeComponent();
@@ -32,7 +51,27 @@ namespace PL
 
         private void BtnWorkerWindow_Click(object sender, RoutedEventArgs e)
         {
-           // new MainWorkerWindow().Show();
+            if (WorkerDetailsVisibility == Visibility.Collapsed)
+                WorkerDetailsVisibility = Visibility.Visible;
+            else
+                WorkerDetailsVisibility = Visibility.Collapsed;
+        }
+
+        private void BtnAtackPanelWorker_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                currentWorker = s_bl.Worker.Read(ID);
+                new CurrentWorkerWindow(ID).Show();
+            }
+            catch (BO.Exceptions.BlDoesNotExistException ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Faild", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Operation Faild", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            } 
         }
     }
 }

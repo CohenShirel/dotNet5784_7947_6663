@@ -19,6 +19,7 @@ namespace PL.Manager;
 /// </summary>
 public partial class GanntWindow : Window
 {
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     public GanntWindow()
     {
         InitializeComponent();
@@ -94,6 +95,28 @@ public partial class GanntWindow : Window
                 }
             }
         }
+    }
+
+    private void dataGrid_Initialized(object sender, EventArgs e)
+    {
+        DataGrid? dg = (sender as DataGrid);
+        if (dg != null)
+        {
+            var lst = s_bl.Assignment.ReadAll().Select(ass => ass.DateBegin != null);
+            foreach (var item in lst)
+            {
+                dg.Columns.Add(new DataGridTextColumn() { Header = item.ToString() });
+            }
+        }
+       
+        //if (dg != null)
+        //{
+        //    dg.Columns.Add(new DataGridColumn() { Header = "TaskId"/*Binding  */});
+        //    dg.Columns.Add(new DataGridColumn() { Header = "TaskName"/*Binding  */});
+        //    dg.Columns.Add(new DataGridColumn() { Header = "WorkerId"/*Binding  */});
+        //    dg.Columns.Add(new DataGridColumn() { Header = "WorkerName"/*Binding  */});
+
+        //}
     }
 }
 

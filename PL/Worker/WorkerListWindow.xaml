@@ -57,12 +57,12 @@
         <!--Button to ADD worker-->
             <Button x:Name="btnAdd" Style="{StaticResource CustomButtonStyle}" Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="BtnAdd_Click"/>
             <ListView ItemsSource="{Binding Path=ListWorker}" HorizontalContentAlignment="Stretch" Grid.ColumnSpan="3" Margin="0,56,1,44" Grid.Row="1" MouseDoubleClick="ListView_UpdateClick">
-            <ListView.View>
+              <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
-            </ListView.View>
-        </ListView>
-    </Grid>
+             </ListView.View>
+            </ListView>
+        </Grid>
     </Grid>
 </Window>

@@ -1,14 +1,19 @@
 ﻿namespace BlImplementation;
+
+using BlApi;
 using BO;
 using DalApi;
 //using BlTest;
 //namespace Implementation
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 internal class AssignmentImplementation : BlApi.IAssignment
 {
     private static DalApi.IDal _dal = DalApi.Factory.Get;
-    
+    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    private readonly IBl _bl;
+    internal AssignmentImplementation(IBl bl) => _bl = bl;
     public int Create(BO.Assignment boAssignment)
     {
         Status s = Tools.GetProjectStatus();
@@ -354,7 +359,7 @@ internal class AssignmentImplementation : BlApi.IAssignment
             doAss = doAss with
             {
                 WorkerId = boAss.IdWorker,//להוסיף בדיקה אם 
-                DateSrart = DateTime.Now,
+                DateSrart = s_bl.Clock,
             };
         }
 

@@ -12,6 +12,15 @@ public interface IBl
     public static void InitializeDB() { }
 
     public static DateTime? StartProjectTime { get; }//??
+    //clock
+    #region Clock HandLing
+    public DateTime Clock { get; }
+    public void FormatClockOneHour() { }
+    public void FormatClockOneDay() { }
+    public void FormatClockOneMonth() { }
+    public void FormatClockOneYear() { }
+    public void ResetClock() { }
+    #endregion
 
 }
 
