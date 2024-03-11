@@ -45,7 +45,7 @@ public static class Initialization
         {
             //id randomly
             int _idW;
-            _idW = s_dal.Worker != null ? s_rand.Next(200000000, 400000001) : 0;
+            _idW = s_dal!.Worker != null ? s_rand.Next(200000000, 400000001) : 0;
             if( _idW == 0 )
                 do
                     _idW = s_rand.Next(200000000, 400000001);

@@ -1,0 +1,68 @@
+﻿<Window x:Class="PL.Assignment.AssignmentsListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Assignment"
+        mc:Ignorable="d"
+         Title="AssignmentsListWindow" Height="640" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+    <!--conect the window to itself-->
+    <Window.Resources>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="Goldenrod"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Ariel"/>
+        </Style>
+    </Window.Resources>
+    <!--Extrnal Grid-->
+    <Grid>
+        <Grid>
+            <Image Source="C:\Users\USER001\Desktop\dotNet5784_7947_6663\PL\ProjectImage\ProjetImage2.jpg" Stretch="UniformToFill"/>
+        </Grid>
+        <Grid Height="Auto" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="689*"/>
+                <ColumnDefinition Width="0*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="500*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <!--Internal, Upper Grid-->
+            <Grid HorizontalAlignment="Stretch" Height="auto"
+              Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox Margin="0,6,173,-2" SelectionChanged="Cmb_Levels" SelectedValue="{Binding Path= level, Mode=TwoWay}"
+                    HorizontalAlignment="Right" 
+                    ItemsSource="{Binding Source={StaticResource LevelsCollectionKey}}" Grid.ColumnSpan="2" Width="227" >
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="ComboBoxItem">
+                            <Setter Property="Foreground" Value="Goldenrod"/>
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
+                <Label Grid.Column="0" Content="Level's Assignment:" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Foreground="Goldenrod"  Margin="208,0,0,0"/>
+            </Grid>
+            <!--List of all the worker-->
+            <!--Button to ADD worker-->
+            <Button x:Name="btnAdd" Style="{StaticResource CustomButtonStyle}" Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="BtnAdd_Click"/>
+            <ListView ItemsSource="{Binding Path= ListAssignments}" HorizontalContentAlignment="Stretch" Grid.ColumnSpan="3" Margin="0,56,0,44" Grid.Row="1" MouseDoubleClick="ListView_UpdateClick">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</Window>

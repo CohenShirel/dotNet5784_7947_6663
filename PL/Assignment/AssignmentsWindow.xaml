@@ -1,0 +1,147 @@
+﻿<Window x:Class="PL.Assignment.AssignmentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL.Assignment"
+        mc:Ignorable="d"
+        Title="AssignmentWindow" Height="530" Width="600"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+
+    <Window.Resources>
+        <Style x:Key="CustomButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="Goldenrod"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Ariel"/>
+        </Style>
+        <ControlTemplate x:Key="ErrorTemplate">
+            <DockPanel>
+                <Border BorderBrush="Red" BorderThickness="1">
+                    <AdornedElementPlaceholder />
+                </Border>
+                <TextBlock Text="Error!" Foreground="Red" FontSize="12" FontWeight="Bold" Margin="5"/>
+            </DockPanel>
+        </ControlTemplate>
+    </Window.Resources>
+    <!--Extrnal Grid-->
+    <Grid Height="auto" Width="auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+
+        </Grid.ColumnDefinitions>
+        <!--Internal, Upper Grid-->
+        <Grid Margin="40,39,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" DataContext="{Binding currentAssignment}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="ID:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+            <!--<TextBox x:Name="txt_Id" Text="{Binding Path=IdAssignment, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="txtId_TextChanged"/>-->
+            <TextBlock x:Name="txtId" Text="{Binding Path=IdAssignment, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" Margin="0,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" />
+            <Label Content="Name"  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtName" Text="{Binding Path= Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="txtName_TextChanged"/>
+            <Label Content="Description" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtDescription" Text="{Binding Path=Description, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Remarks" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtRemarks" Text="{Binding Path=Remarks, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Label Content="ResultProduct" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtResultProduct" Text="{Binding Path=ResultProduct, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Duration" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtDuration" Text="{Binding Path=DurationAssignment, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Label Content="Level" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+            <ComboBox x:Name="cmbExperience" ItemsSource="{Binding Source={StaticResource LevelsCollectionKey}}" 
+            SelectedValue="{Binding Path= LevelAssignment, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top" Width="120" SelectionChanged="cmbExperience_SelectionChanged"/>
+            <StackPanel  Visibility="{Binding AssignmentDetailsVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AssignmentWindow}}}" Grid.Row="7">
+                <Label Content="Start Date" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Bottom"/>
+                <DatePicker x:Name="dpStartDate" SelectedDate="{Binding Path= dateStart, Mode=TwoWay}" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top" Width="120"/>
+                <Label Content="Begin Date" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Bottom"/>
+                <DatePicker x:Name="dpBeginDate" SelectedDate="{Binding Path= DateFinish, Mode=TwoWay}" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top" Width="120"/>
+                <Label Content="Worker ID" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Bottom"/>
+                <TextBox x:Name="txtWorkerId" Text="{Binding Path= IdWorker, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            </StackPanel>
+            <TextBox x:Name="txtSearch" TextChanged="txtSearch_TextChanged" Margin="-18,-24,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" />
+          
+        </Grid>
+        <Grid Grid.Row="1"  DataContext="{Binding currentAssignment}">
+            <Button Grid.Row="1" Grid.Column="0"  Style="{StaticResource CustomButtonStyle}"
+                Content="{Binding IdAssignment, Mode=OneTime, Converter={StaticResource ConverIdToContentKey}}" 
+                HorizontalAlignment="Center" Height="31" Width="150" Margin="3,0,0,0" VerticalAlignment="Top" Padding="5" 
+                Click="btnAddUpdate_Click"/>
+        </Grid>
+        <ListView MaxHeight="330" Grid.Column="1" x:Name="lview"  ItemsSource="{Binding ListAssignments}" HorizontalContentAlignment="Stretch" Width="300">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn>
+                            <!-- Content for the GridViewColumn -->
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding}" />
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+
+
+    </Grid>
+
+</Window>
+    
+    
+    
+<!--<ScrollViewer Grid.Column="1"  >
+     <ListView MaxHeight="330" x:Name="lview" ItemsSource="{Binding ListAssignments}" HorizontalContentAlignment="Stretch" Width="300">
+         <ListView.View>
+             <GridView>
+                 <GridViewColumn/>
+             </GridView>
+         </ListView.View>
+
+         <ListView.ItemContainerStyle>
+             <Style TargetType="ListViewItem">
+                 <Setter Property="Template">
+                     <Setter.Value>
+                         <ControlTemplate TargetType="ListViewItem">
+                             <CheckBox IsChecked="{Binding DataContext.AssignmentDetailsLCBox.IsChecked, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" 
+                               Content="{Binding}" />
+                         </ControlTemplate>
+                     </Setter.Value>
+                 </Setter>
+             </Style>
+         </ListView.ItemContainerStyle>
+
+
+     </ListView>
+ </ScrollViewer>-->

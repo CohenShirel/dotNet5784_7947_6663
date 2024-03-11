@@ -13,5 +13,6 @@ public class AssignmentInList
     public DateTime? DateBegin { get; set; }
     public Status status { get; set; }
     public int IdWorker { get; set; }
+    public DO.Level LevelAssignment { get; set; }
     public override string ToString() => this.ToStringProperty();
 }

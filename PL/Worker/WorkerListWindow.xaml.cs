@@ -59,12 +59,20 @@ namespace PL.Worker
             new WorkerWindow(wrk.Id).ShowDialog();
             UpdateWorkerList();
         }
+        //private void ListView_SelectionChanged(object sender, EventArgs e)
+        //{
+        //    ListWorker = (level == DO.Level.None) ?
+        //      s_bl?.Worker.ReadAll() : s_bl?.Worker.ReadAll(item => item.Experience == level).OrderBy(e => e.Id);
+        //}
+        //Activated="Window_Activated">
+
         private void UpdateWorkerList()
         {
             ListWorker = (level == DO.Level.None) ?
              s_bl?.Worker.ReadAll() : s_bl?.Worker.ReadAll(item => item.Experience == level).OrderBy(e => e.Id);
         }
 
+        //whennnn
         private void ComboBox_Selected(object sender, RoutedEventArgs e)
         {
             ListWorker = (level == DO.Level.None) ?
