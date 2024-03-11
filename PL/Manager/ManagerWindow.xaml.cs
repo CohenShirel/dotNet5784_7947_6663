@@ -1,5 +1,6 @@
 ﻿using BlApi;
 using BlImplementation;
+using PL.Assignment;
 using PL.Gantt;
 using PL.Manager;
 using PL.Worker;
@@ -45,7 +46,7 @@ namespace PL
 
         private void BtnTasksListWindow_Click(object sender, RoutedEventArgs e)
         {
-            //new AssignmentsListWindow().Show();
+            new AssignmentListWindow().Show();
         }
 
         private void BtnGanntWindow_Click(object sender, RoutedEventArgs e)
