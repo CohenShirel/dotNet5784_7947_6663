@@ -7,13 +7,13 @@ namespace Dal;
 
 internal class AssignmentsImplementation : IAssignments
 {
-    readonly string s_assignmentss_xml = "assignmentss";
+    readonly string s_assignmentss_xml = "assignments";
     public int Create(Assignment ass)
     {
-        List<DO.Assignment> assignmentss = XMLTools.LoadListFromXMLSerializer<DO.Assignment>(s_assignmentss_xml);
+        List<DO.Assignment> assignments = XMLTools.LoadListFromXMLSerializer<DO.Assignment>(s_assignmentss_xml);
         Assignment newAssignments = ass with { IdAssignment = Config.IdPAssignments };
-        assignmentss.Add(newAssignments);
-        XMLTools.SaveListToXMLSerializer<DO.Assignment>(assignmentss, s_assignmentss_xml);
+        assignments.Add(newAssignments);
+        XMLTools.SaveListToXMLSerializer<DO.Assignment>(assignments, s_assignmentss_xml);
         return newAssignments.IdAssignment;
     }
 

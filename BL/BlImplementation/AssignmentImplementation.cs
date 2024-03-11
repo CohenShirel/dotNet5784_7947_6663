@@ -175,7 +175,7 @@ internal class AssignmentImplementation : BlApi.IAssignment
             IdWorker = doAssignment.WorkerId,
             DeadLine = doAssignment.DeadLine,
             DateBegin = doAssignment.DateBegin,
-            //LevelAssignment = doAssignment.LevelAssignment,
+            LevelAssignment = doAssignment.LevelAssignment,
             status = Tools.GetProjectStatus(),
             //status = Tools.GetProjectStatus(doAssignment)
 

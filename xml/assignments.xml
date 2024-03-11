@@ -1,2 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfAssignment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ArrayOfAssignment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Assignment>
+    <IdAssignment>1620</IdAssignment>
+    <DurationAssignment>55</DurationAssignment>
+    <LevelAssignment>AdvancedBeginner</LevelAssignment>
+    <WorkerId>0</WorkerId>
+    <DateSrart xsi:nil="true" />
+    <DateBegin xsi:nil="true" />
+    <DeadLine xsi:nil="true" />
+    <DateFinish xsi:nil="true" />
+    <Name>b </Name>
+    <Description> bb</Description>
+    <Remarks> b</Remarks>
+    <ResultProduct> b</ResultProduct>
+    <Milestone>false</Milestone>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>1619</IdAssignment>
+    <DurationAssignment>22</DurationAssignment>
+    <LevelAssignment>AdvancedBeginner</LevelAssignment>
+    <WorkerId>0</WorkerId>
+    <DateSrart xsi:nil="true" />
+    <DateBegin xsi:nil="true" />
+    <DeadLine xsi:nil="true" />
+    <DateFinish xsi:nil="true" />
+    <Name> aaaaaaaa</Name>
+    <Description> aaa</Description>
+    <Remarks> aa</Remarks>
+    <ResultProduct> a</ResultProduct>
+    <Milestone>false</Milestone>
+  </Assignment>
+</ArrayOfAssignment>

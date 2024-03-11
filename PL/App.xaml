@@ -7,5 +7,6 @@
         <local:StatussCollection x:Key="StatussCollectionKey" />
         <local:LevelsCollection  x:Key="LevelsCollectionKey" />
         <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
+        <local:NoBooleanToVisibilityConverter x:Key="noBooleanToVisibilityConverter"/>
     </Application.Resources>
 </Application>

@@ -55,7 +55,7 @@ namespace PL.Worker
 
         private void ListView_UpdateClick(object sender,MouseButtonEventArgs e)
         {
-            BO.Worker wrk=((sender as ListView)?.SelectedItem as BO.Worker)!;
+            var wrk=((sender as ListView)?.SelectedItem as BO.WorkerInList)!;
             new WorkerWindow(wrk!.Id).ShowDialog();
             UpdateWorkerList();
         }
