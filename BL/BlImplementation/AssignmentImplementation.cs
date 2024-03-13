@@ -187,30 +187,35 @@ internal class AssignmentImplementation : BlApi.IAssignment
         }
         where filter is null ? true : filter!(ass)
         select ass;
-    public IEnumerable<BO.Assignment> ReadAllAss(Func<BO.Assignment, bool>? filter = null)
-    {
-        return (from DO.Assignment doAssignment in _dal.Assignment.ReadAll()
-                let ass = new BO.Assignment
-                {
-                    IdAssignment = doAssignment.IdAssignment,
-                    DurationAssignment = doAssignment.DurationAssignment,
-                    IdWorker = doAssignment.WorkerId,
-                    Name = doAssignment.Name!,
-                    Description = doAssignment.Description,
-                    Remarks = doAssignment.Remarks,
-                    ResultProduct = doAssignment.ResultProduct,
-                    LevelAssignment = doAssignment.LevelAssignment,
-                    dateSrart = doAssignment.DateSrart,
-                    DateBegin = doAssignment.DateBegin,
-                    DeadLine = doAssignment.DeadLine,
-                    DateFinish = doAssignment.DateFinish,
-                    status = Tools.GetProjectStatus()
-                    //status = Tools.GetProjectStatus(doAssignment)
+    //public IEnumerable<BO.Assignment> ReadAllAss(Func<BO.Assignment, bool>? filter = null)
+    //{
+    //    return (from DO.Assignment doAssignment in _dal.Assignment.ReadAll()
+    //            let ass = new BO.Assignment
+    //            {
+    //                IdAssignment = doAssignment.IdAssignment,
+    //                DurationAssignment = doAssignment.DurationAssignment,
+    //                IdWorker = doAssignment.WorkerId,
+    //                Name = doAssignment.Name!,
+    //                Description = doAssignment.Description,
+    //                Remarks = doAssignment.Remarks,
+    //                ResultProduct = doAssignment.ResultProduct,
+    //                LevelAssignment = doAssignment.LevelAssignment,
+    //                dateSrart = doAssignment.DateSrart,
+    //                DateBegin = doAssignment.DateBegin,
+    //                DeadLine = doAssignment.DeadLine,
+    //                DateFinish = doAssignment.DateFinish,
+    //                status = Tools.GetProjectStatus()
+    //                //status = Tools.GetProjectStatus(doAssignment)
 
-                }
-                where filter!(ass)
-                select ass);
-    }
+    //            }
+    //            where filter!(ass)
+    //            select ass);
+    //}
+    public IEnumerable<BO.Assignment> ReadAllAss(Func<BO.Assignment, bool>? filter = null) =>
+      from ass in _dal.Assignment.ReadAll()
+      let boAss = Tools.ConvertAssDOToBO(ass)
+      where filter is null ? true : filter!(boAss)
+      select boAss;
     public void Update(BO.Assignment boAss)
     {
         BO.Assignment ass = Read(boAss.IdAssignment)!;

@@ -93,20 +93,21 @@
                 HorizontalAlignment="Center" Height="31" Width="150" Margin="3,0,0,0" VerticalAlignment="Top" Padding="5" 
                 Click="btnAddUpdate_Click"/>
         </Grid>
-        <ListView MaxHeight="330" Grid.Column="1" x:Name="lview"  ItemsSource="{Binding ListAssignments}" HorizontalContentAlignment="Stretch" Width="300">
-                <ListView.View>
-                    <GridView>
+        <ListView MaxHeight="330" Grid.Column="1" x:Name="lview" ItemsSource="{Binding ListAssignments}" HorizontalContentAlignment="Stretch" Width="300">
+            <ListView.View>
+
+                <GridView>
                         <GridViewColumn>
                             <!-- Content for the GridViewColumn -->
                         </GridViewColumn>
                     </GridView>
-                </ListView.View>
-                <ListView.ItemContainerStyle>
+                </ListView.View> 
+                <ListView.ItemContainerStyle >
                     <Style TargetType="ListViewItem">
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListViewItem">
-                                    <CheckBox IsChecked="{Binding IsSelected}" Content="{Binding}" />
+                                <CheckBox IsChecked="{Binding lCBox}" Content="{Binding}"/>
                                 </ControlTemplate>
                             </Setter.Value>
                         </Setter>

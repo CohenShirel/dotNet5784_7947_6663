@@ -33,8 +33,6 @@ public partial class AssignmentWindow : Window
         get { return (IEnumerable<BO.AssignmentInList>)GetValue(List1AssignmentsProperty); }
         set { SetValue(List1AssignmentsProperty, value); }
     }
-
-
     //יודעת לדווח על הגרפיקה על קיומה...מדווחת על שינויים על כל הוספה או מחיקה של מישהו
     public static readonly DependencyProperty List1AssignmentsProperty =
         DependencyProperty.Register("ListAssignments", typeof(IEnumerable<BO.AssignmentInList>), typeof(AssignmentWindow), new PropertyMetadata(null));
@@ -129,23 +127,26 @@ public partial class AssignmentWindow : Window
     {
 
     }
+
+   
+
     private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
-        List<AssignmentInList> list = new List<AssignmentInList>();
-        foreach (var x in lCBox)
-        {
-            if (x.IsChecked == true)
-            {
-                int id = GetAssignmentId(x);
-                string name = GetAssignmentName(x);
-
-                BO.AssignmentInList assl = new BO.AssignmentInList { Id = id, AssignmentName = name };
-                list.Add(assl);
-
-            }
-        }
         try
         {
+            List<AssignmentInList> list = new List<AssignmentInList>();
+            foreach (var x in lCBox)
+            {
+                if (x.IsChecked == true)
+                {
+                    int id = GetAssignmentId(x);
+                    string name = GetAssignmentName(x);
+
+                    BO.AssignmentInList assl = new BO.AssignmentInList { Id = id, AssignmentName = name };
+                    list.Add(assl);
+
+                }
+            }
             if ((sender as Button).Content.ToString() == "Update")
             {
                 s_bl.Assignment.Update(currentAssignment);
@@ -180,6 +181,7 @@ public partial class AssignmentWindow : Window
 
     }
 
+
     private int GetAssignmentId(CheckBox checkBox)
     {
         // במידה והתיבה מכילה את המידע בפורמט AssignmentInList, יש להוציא את המזהה מה־Content שלה
@@ -210,6 +212,10 @@ public partial class AssignmentWindow : Window
         return string.Empty; // ניתן לשנות את הערך לפי הצורך
     }
 
+    private void lview_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
+    }
 }
 
 

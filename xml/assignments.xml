@@ -1,22 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfAssignment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Assignment>
-    <IdAssignment>1620</IdAssignment>
-    <DurationAssignment>55</DurationAssignment>
-    <LevelAssignment>AdvancedBeginner</LevelAssignment>
-    <WorkerId>0</WorkerId>
-    <DateSrart xsi:nil="true" />
-    <DateBegin xsi:nil="true" />
-    <DeadLine xsi:nil="true" />
-    <DateFinish xsi:nil="true" />
-    <Name>b </Name>
-    <Description> bb</Description>
-    <Remarks> b</Remarks>
-    <ResultProduct> b</ResultProduct>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>1619</IdAssignment>
+    <IdAssignment>1693</IdAssignment>
     <DurationAssignment>22</DurationAssignment>
     <LevelAssignment>AdvancedBeginner</LevelAssignment>
     <WorkerId>0</WorkerId>
@@ -24,10 +9,40 @@
     <DateBegin xsi:nil="true" />
     <DeadLine xsi:nil="true" />
     <DateFinish xsi:nil="true" />
-    <Name> aaaaaaaa</Name>
-    <Description> aaa</Description>
-    <Remarks> aa</Remarks>
-    <ResultProduct> a</ResultProduct>
+    <Name> A</Name>
+    <Description>A </Description>
+    <Remarks> A</Remarks>
+    <ResultProduct> A</ResultProduct>
+    <Milestone>false</Milestone>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>1695</IdAssignment>
+    <DurationAssignment>44</DurationAssignment>
+    <LevelAssignment>Intermediate</LevelAssignment>
+    <WorkerId>0</WorkerId>
+    <DateSrart xsi:nil="true" />
+    <DateBegin xsi:nil="true" />
+    <DeadLine xsi:nil="true" />
+    <DateFinish xsi:nil="true" />
+    <Name> BB</Name>
+    <Description> B</Description>
+    <Remarks> B</Remarks>
+    <ResultProduct> B</ResultProduct>
+    <Milestone>false</Milestone>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>1694</IdAssignment>
+    <DurationAssignment>33</DurationAssignment>
+    <LevelAssignment>Advanced</LevelAssignment>
+    <WorkerId>0</WorkerId>
+    <DateSrart xsi:nil="true" />
+    <DateBegin xsi:nil="true" />
+    <DeadLine xsi:nil="true" />
+    <DateFinish xsi:nil="true" />
+    <Name> S</Name>
+    <Description> S</Description>
+    <Remarks> S</Remarks>
+    <ResultProduct>S </ResultProduct>
     <Milestone>false</Milestone>
   </Assignment>
 </ArrayOfAssignment>
