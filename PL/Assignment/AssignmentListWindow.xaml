@@ -56,10 +56,19 @@
             <!--List of all the worker-->
             <!--Button to ADD worker-->
             <Button x:Name="btnAdd" Style="{StaticResource CustomButtonStyle}" Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="50" Width="100" Click="BtnAdd_Click"/>
-            <ListView ItemsSource="{Binding Path= ListAssignments}" HorizontalContentAlignment="Stretch" Grid.ColumnSpan="3" Margin="0,56,0,44" Grid.Row="1" MouseDoubleClick="ListView_UpdateClick">
+            <!--<ListView ItemsSource="{Binding Path= ListAssignments}" HorizontalContentAlignment="Stretch" Grid.ColumnSpan="3" Margin="0,56,0,44" Grid.Row="1" MouseDoubleClick="ListView_UpdateClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>
+                    </GridView>
+                </ListView.View>
+            </ListView>-->
+            <ListView ItemsSource="{Binding Path=ListAssignments}" Grid.Row="1" Grid.ColumnSpan="3" HorizontalContentAlignment="Stretch" Margin="0,56,1,44" MouseDoubleClick="ListView_UpdateClick">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="Auto"/>
+                        <GridViewColumn Header="Name of Task" DisplayMemberBinding="{Binding AssignmentName}" Width="Auto"/>
+                        <GridViewColumn Header="Experience" DisplayMemberBinding="{Binding LevelAssignment}" Width="Auto"/>
                     </GridView>
                 </ListView.View>
             </ListView>

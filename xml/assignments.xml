@@ -6,8 +6,8 @@
     <LevelAssignment>AdvancedBeginner</LevelAssignment>
     <WorkerId>0</WorkerId>
     <DateSrart xsi:nil="true" />
-    <DateBegin xsi:nil="true" />
-    <DeadLine xsi:nil="true" />
+    <DateBegin>2024-03-13T11:27:08.4376908+02:00</DateBegin>
+    <DeadLine>2024-05-07T11:27:08.4376908+03:00</DeadLine>
     <DateFinish xsi:nil="true" />
     <Name> A</Name>
     <Description>A </Description>
@@ -36,8 +36,8 @@
     <LevelAssignment>Advanced</LevelAssignment>
     <WorkerId>0</WorkerId>
     <DateSrart xsi:nil="true" />
-    <DateBegin xsi:nil="true" />
-    <DeadLine xsi:nil="true" />
+    <DateBegin>2024-03-13T11:27:08.4376908+02:00</DateBegin>
+    <DeadLine>2024-04-04T11:27:08.4376908+03:00</DeadLine>
     <DateFinish xsi:nil="true" />
     <Name> S</Name>
     <Description> S</Description>
