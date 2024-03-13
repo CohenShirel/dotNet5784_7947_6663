@@ -42,11 +42,13 @@
                 <Button Style="{StaticResource CustomButtonStyle}" Content="My possible Tasks" Grid.Column="1" HorizontalAlignment="Center" Margin="5" Click="BtnAllMyTasks_Click"/>
             </Grid>
             <StackPanel Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Stretch" DataContext="{Binding ListAssignments}" Visibility="{Binding VisibilityListAssignment, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CurrentWorkerWindow}}}">
-                <ListView ItemsSource="{Binding ListAssignments}" HorizontalContentAlignment="Stretch">
+                <ListView ItemsSource="{Binding ListAssignments}" HorizontalContentAlignment="Stretch" MouseDoubleClick="ListView_MouseDoubleClick">
                     <!-- Define ListView layout -->
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn/>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding IdAssignment}" Width="Auto"/>
+                            <GridViewColumn Header="Name of Task" DisplayMemberBinding="{Binding Name}" Width="Auto"/>
+                            <GridViewColumn Header="Experience" DisplayMemberBinding="{Binding LevelAssignment}" Width="Auto"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
