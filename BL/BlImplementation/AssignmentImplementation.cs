@@ -34,6 +34,7 @@ internal class AssignmentImplementation : BlApi.IAssignment
             catch (DO.DalAlreadyExistsException ex)
             {
                 throw new Exceptions.BlAlreadyExistsException($"Assignment with ID={boAssignment.IdAssignment} already exists", ex);
+
             }
             catch (Exception ex)
             {
