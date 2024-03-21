@@ -27,9 +27,8 @@ internal class AssignmentImplementation : BlApi.IAssignment
             try
             {
                 int idAss = _dal.Assignment.Create(doAss);
-                if (boAssignment.Links != null && boAssignment.Links.Any())
-                    for (int i = 0; i < boAssignment.Links.Count; i++)
-                        _dal.Link!.Create(new DO.Link(i, idAss, boAssignment.Links[i].Id));
+                boAssignment.IdAssignment = idAss;
+                updateDependincies(boAssignment);
                 return idAss;
             }
             catch (DO.DalAlreadyExistsException ex)
@@ -42,6 +41,19 @@ internal class AssignmentImplementation : BlApi.IAssignment
             }
         }
         throw new Exceptions.BlException("Failed to create task");
+    }
+
+    private void updateDependincies(Assignment boAssignment)
+    {
+        if (boAssignment.Links != null && boAssignment.Links.Any())
+        {
+            for (int i = 0; i < boAssignment.Links.Count; i++)
+            {
+                _dal.Link!.Create(new DO.Link(i, boAssignment.IdAssignment, boAssignment.Links[i].Id));
+            }
+        }
+        //if (boAssignment.Links is not null)
+        //boAssignment.Links.Select(dependency => _dal.Link.Create(new DO.Link(0, boAssignment.IdAssignment, dependency.Id)));
     }
 
     public void Delete(int id)
@@ -88,7 +100,6 @@ internal class AssignmentImplementation : BlApi.IAssignment
         string name = worker.Name!;
         return new Tuple<int, string>(id, name);
     }
-
     public BO.Assignment? Read(int id)
     {
         try
@@ -128,29 +139,29 @@ internal class AssignmentImplementation : BlApi.IAssignment
         //try
         //{
         DO.Assignment doAssignment = _dal.Assignment.Read(filter) ?? null;
-                //?? throw new Exceptions.BlDoesNotExistException("Assignment matching the filter does not exist");
-                if (doAssignment == null)
-                    return null;
-            return new BO.Assignment
-            {
-                IdAssignment = doAssignment.IdAssignment,
-                Name = doAssignment.Name,
-                Description = doAssignment.Description,
-                status = Tools.GetProjectStatus(),
-                //status = Tools.GetProjectStatus(doAssignment),
-                dateSrart = doAssignment.DateSrart,
-                DateBegin = doAssignment.DateBegin,
-                DateFinish = doAssignment.DateFinish,
-                LevelAssignment = doAssignment.LevelAssignment,//???
-                DeadLine = doAssignment.DeadLine,
-                DurationAssignment = doAssignment.DurationAssignment,
-                //endProject = doAssignment.endProject,  
-                IdWorker = getWorker(doAssignment.WorkerId).Item1,
-                /////////Links = Bl.GetLink(IdAssignment).ToList,
-                // = doAssignment.LevelAssignment,
-                ResultProduct = doAssignment.ResultProduct,
-                Remarks = doAssignment?.Remarks,
-            };
+        //?? throw new Exceptions.BlDoesNotExistException("Assignment matching the filter does not exist");
+        if (doAssignment == null)
+            return null;
+        return new BO.Assignment
+        {
+            IdAssignment = doAssignment.IdAssignment,
+            Name = doAssignment.Name,
+            Description = doAssignment.Description,
+            status = Tools.GetProjectStatus(),
+            //status = Tools.GetProjectStatus(doAssignment),
+            dateSrart = doAssignment.DateSrart,
+            DateBegin = doAssignment.DateBegin,
+            DateFinish = doAssignment.DateFinish,
+            LevelAssignment = doAssignment.LevelAssignment,//???
+            DeadLine = doAssignment.DeadLine,
+            DurationAssignment = doAssignment.DurationAssignment,
+            //endProject = doAssignment.endProject,  
+            IdWorker = getWorker(doAssignment.WorkerId).Item1,
+            /////////Links = Bl.GetLink(IdAssignment).ToList,
+            // = doAssignment.LevelAssignment,
+            ResultProduct = doAssignment.ResultProduct,
+            Remarks = doAssignment?.Remarks,
+        };
         //}
         //catch (BlDoesNotExistException ex)
         //{
@@ -163,7 +174,7 @@ internal class AssignmentImplementation : BlApi.IAssignment
         //    throw new Exceptions.BlException("Failed to read task", ex);
         //}
     }
-   
+
     public IEnumerable<BO.AssignmentInList> ReadAll(Func<BO.AssignmentInList, bool>? filter = null) =>
         from DO.Assignment doAssignment in _dal.Assignment.ReadAll()
         let ass = new BO.AssignmentInList
@@ -179,17 +190,12 @@ internal class AssignmentImplementation : BlApi.IAssignment
         }
         where filter is null ? true : filter!(ass)
         select ass;
-
-    public IEnumerable<BO.Assignment> ReadAllAss(Func<BO.Assignment, bool>? filter = null)=>
+    public IEnumerable<BO.Assignment> ReadAllAss(Func<BO.Assignment, bool>? filter = null) =>
         from ass in _dal.Assignment.ReadAll()
-        let boAss= Tools.ConvertAssDOToBO(ass)
-        where filter is null? true : filter!(boAss)
+        let boAss = Tools.ConvertAssDOToBO(ass)
+        where filter is null ? true : filter!(boAss)
         select boAss;
 
-                }
-                where filter!(ass)
-                select ass);
-    }
     public void Update(BO.Assignment boAss)
     {
         BO.Assignment ass = Read(boAss.IdAssignment)!;
@@ -209,6 +215,7 @@ internal class AssignmentImplementation : BlApi.IAssignment
                     ResultProduct = boAss.ResultProduct
                 };
                 _dal.Assignment.Update(doAss);
+                updateDependincies(boAss);
             }
             catch (DO.DalAlreadyExistsException ex)
             {
@@ -267,6 +274,8 @@ internal class AssignmentImplementation : BlApi.IAssignment
                     DateBegin = boAss.DateBegin,
                     DeadLine = boAss.DeadLine,
                 };
+                updateDependincies(boAss);
+
                 _dal.Assignment.Update(doAss);
             }
             catch (DO.DalAlreadyExistsException ex)
@@ -292,7 +301,6 @@ internal class AssignmentImplementation : BlApi.IAssignment
         };
         return doAss;
     }
-
     private static DO.Assignment updateAssigmentWorkerId(Assignment boAss, Status s, DO.Assignment doAss)
     {
         if (s == Status.Scheduled)
@@ -356,12 +364,6 @@ internal class AssignmentImplementation : BlApi.IAssignment
 //{
 //    throw new NotImplementedException();
 //}
-
-
-
-
-
-
 //private static DateTime? a (DO.Assignment assignments)
 //{
 //    return a > 0 ? assignments.Date : null; 

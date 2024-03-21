@@ -1,7 +1,7 @@
 ﻿namespace BO;
 public class Assignment
 {
-    public int IdAssignment { get; init; }
+    public int IdAssignment { get; set; }
     public int DurationAssignment { get; set; }
     public DO.Level LevelAssignment { get; set; }
     public int IdWorker { get; set; }

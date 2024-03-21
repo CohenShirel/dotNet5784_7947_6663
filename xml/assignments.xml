@@ -1,48 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfAssignment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Assignment>
-    <IdAssignment>1693</IdAssignment>
+    <IdAssignment>1777</IdAssignment>
     <DurationAssignment>22</DurationAssignment>
-    <LevelAssignment>AdvancedBeginner</LevelAssignment>
-    <WorkerId>0</WorkerId>
-    <DateSrart xsi:nil="true" />
-    <DateBegin>2024-03-13T11:27:08.4376908+02:00</DateBegin>
-    <DeadLine>2024-05-07T11:27:08.4376908+03:00</DeadLine>
-    <DateFinish xsi:nil="true" />
-    <Name> A</Name>
-    <Description>A </Description>
-    <Remarks> A</Remarks>
-    <ResultProduct> A</ResultProduct>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>1695</IdAssignment>
-    <DurationAssignment>44</DurationAssignment>
-    <LevelAssignment>Intermediate</LevelAssignment>
+    <LevelAssignment>Advanced</LevelAssignment>
     <WorkerId>0</WorkerId>
     <DateSrart xsi:nil="true" />
     <DateBegin xsi:nil="true" />
     <DeadLine xsi:nil="true" />
     <DateFinish xsi:nil="true" />
-    <Name> BB</Name>
+    <Name> A</Name>
+    <Description> A</Description>
+    <Remarks> A</Remarks>
+    <ResultProduct> A</ResultProduct>
+    <Milestone>false</Milestone>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>1779</IdAssignment>
+    <DurationAssignment>76</DurationAssignment>
+    <LevelAssignment>Expert</LevelAssignment>
+    <WorkerId>0</WorkerId>
+    <DateSrart xsi:nil="true" />
+    <DateBegin xsi:nil="true" />
+    <DeadLine xsi:nil="true" />
+    <DateFinish xsi:nil="true" />
+    <Name> C</Name>
+    <Description> C</Description>
+    <Remarks> C</Remarks>
+    <ResultProduct> C</ResultProduct>
+    <Milestone>false</Milestone>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>1778</IdAssignment>
+    <DurationAssignment>5</DurationAssignment>
+    <LevelAssignment>Advanced</LevelAssignment>
+    <WorkerId>0</WorkerId>
+    <DateSrart xsi:nil="true" />
+    <DateBegin xsi:nil="true" />
+    <DeadLine xsi:nil="true" />
+    <DateFinish xsi:nil="true" />
+    <Name> B</Name>
     <Description> B</Description>
     <Remarks> B</Remarks>
     <ResultProduct> B</ResultProduct>
     <Milestone>false</Milestone>
   </Assignment>
   <Assignment>
-    <IdAssignment>1694</IdAssignment>
-    <DurationAssignment>33</DurationAssignment>
-    <LevelAssignment>Advanced</LevelAssignment>
+    <IdAssignment>1780</IdAssignment>
+    <DurationAssignment>76</DurationAssignment>
+    <LevelAssignment>AdvancedBeginner</LevelAssignment>
     <WorkerId>0</WorkerId>
     <DateSrart xsi:nil="true" />
-    <DateBegin>2024-03-13T11:27:08.4376908+02:00</DateBegin>
-    <DeadLine>2024-04-04T11:27:08.4376908+03:00</DeadLine>
+    <DateBegin xsi:nil="true" />
+    <DeadLine xsi:nil="true" />
     <DateFinish xsi:nil="true" />
-    <Name> S</Name>
-    <Description> S</Description>
-    <Remarks> S</Remarks>
-    <ResultProduct>S </ResultProduct>
+    <Name>DNF </Name>
+    <Description> D</Description>
+    <Remarks>D </Remarks>
+    <ResultProduct> D</ResultProduct>
     <Milestone>false</Milestone>
   </Assignment>
 </ArrayOfAssignment>

@@ -16,6 +16,24 @@ internal class Converters
     
 
 }
+public class BooleanToSymbolConverter : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        // קבלת ערך בוליאני מהמודל
+        bool isLinked = (bool)value;
+
+        // אם המשימה קשורה, החזר את הסימון שבחרת (לדוגמה "V")
+        // אחרת, החזר מחרוזת ריקה
+        return isLinked ? "V" : string.Empty;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotSupportedException();
+    }
+}
+
 
 //public class NoBooleanToVisibilityConverter : IValueConverter
 //{
@@ -134,7 +152,7 @@ public class WorkerViewModel : DependencyObject
 
     public WorkerViewModel(int id)
     {
-        //ListAssignments = BlApi.Factory.Get().Assignment.ReadAllAss(ass => ass.LevelAssignment <= currentWorker.Experience && ass.IdWorker == default(int));
+        //Assignments = BlApi.Factory.Get().Assignment.ReadAllAss(ass => ass.LevelAssignment <= currentWorker.Experience && ass.IdWorker == default(int));
     }
 }
 ////        <local:VisibilityConverter x:Key="VisibilityConverterKey"/>

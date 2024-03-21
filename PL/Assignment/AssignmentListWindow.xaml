@@ -22,7 +22,7 @@
     <!--Extrnal Grid-->
     <Grid>
         <Grid>
-            <Image Source="C:\Users\USER001\Desktop\dotNet5784_7947_6663\PL\ProjectImage\ProjetImage2.jpg" Stretch="UniformToFill"/>
+            <!--<Image Source="C:\Users\USER001\Desktop\dotNet5784_7947_6663\PL\ProjectImage\ProjetImage2.jpg" Stretch="UniformToFill"/>-->
         </Grid>
         <Grid Height="Auto" VerticalAlignment="Top">
             <Grid.ColumnDefinitions>
@@ -42,7 +42,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox Margin="0,6,173,-2" SelectionChanged="Cmb_Levels" SelectedValue="{Binding Path= level, Mode=TwoWay}"
+                <ComboBox Margin="0,6,173,-2"  SelectionChanged="Cmb_Levels" SelectedValue="{Binding Path= level, Mode=TwoWay}"
                     HorizontalAlignment="Right" 
                     ItemsSource="{Binding Source={StaticResource LevelsCollectionKey}}" Grid.ColumnSpan="2" Width="227" >
                     <ComboBox.ItemContainerStyle>

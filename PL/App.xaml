@@ -10,6 +10,8 @@
             <local:StatussCollection x:Key="StatussCollectionKey" />
             <local:LevelsCollection  x:Key="LevelsCollectionKey" />
             <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
+            <local:BooleanToSymbolConverter x:Key="BooleanToSymbolConverterKey"/>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />

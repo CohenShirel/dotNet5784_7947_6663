@@ -22,7 +22,7 @@ namespace PL.Assignment
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         //public static readonly DependencyProperty ListAssignmentsProperty =
-        //        DependencyProperty.Register("currentAssignments", typeof(IEnumerable<BO.AssignmentInList>), typeof(AssignmentsListWindow));
+        //        DependencyProperty.Register("currentAssignments", typeof(IEnumerable<BO.Assignment>), typeof(AssignmentsListWindow));
         public DO.Level level { get; set; } = DO.Level.None;
         public IEnumerable<BO.AssignmentInList> ListAssignments
         {
@@ -33,7 +33,7 @@ namespace PL.Assignment
 
         //יודעת לדווח על הגרפיקה על קיומה...מדווחת על שינויים על כל הוספה או מחיקה של מישהו
         public static readonly DependencyProperty ListAssignmentsProperty =
-            DependencyProperty.Register("ListAssignments", typeof(IEnumerable<BO.AssignmentInList>), typeof(AssignmentListWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("Assignments", typeof(IEnumerable<BO.AssignmentInList>), typeof(AssignmentListWindow), new PropertyMetadata(null));
 
         
 
@@ -90,17 +90,17 @@ namespace PL.Assignment
 
         //יודעת לדווח על הגרפיקה על קיומה...מדווחת על שינויים על כל הוספה או מחיקה של מישהו
         public static readonly DependencyProperty ListAssignmentsProperty =
-            DependencyProperty.Register("ListAssignments", typeof(IEnumerable<BO.WorkerInList>), typeof(AssignmentsListWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("Assignments", typeof(IEnumerable<BO.WorkerInList>), typeof(AssignmentsListWindow), new PropertyMetadata(null));
 
         public AssignmentsListWindow()
         {
             InitializeComponent();
-            ListAssignments = s_bl.Assignment.ReadAll();
+            Assignments = s_bl.Assignment.ReadAll();
 
         }
         private void Cmb_Levels(object sender, SelectionChangedEventArgs e)
         {
-            ListAssignments = (level == DO.Level.None) ?
+            Assignments = (level == DO.Level.None) ?
               s_bl?.Assignment.ReadAll() : s_bl?.Assignment.ReadAll(item => item.LevelAssignment == level).OrderBy(e => e.Id);
         }
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
@@ -118,7 +118,7 @@ namespace PL.Assignment
         }
         private void ListView_SelectionChanged(object sender, EventArgs e)
         {
-            ListAssignments = (level == DO.Level.None) ?
+            Assignments = (level == DO.Level.None) ?
               s_bl?.Assignment.ReadAll() : s_bl?.Assignment.ReadAll(item => item.LevelAssignment == level).OrderBy(e => e.Id);
         }
         //Activated="Window_Activated">
@@ -126,14 +126,14 @@ namespace PL.Assignment
         //whennnn
         private void UpdateWorkerList()
         {
-            ListAssignments = (level == DO.Level.None) ?
+            Assignments = (level == DO.Level.None) ?
              s_bl?.Worker.ReadAll() : s_bl?.Worker.ReadAll(item => item.l == level).OrderBy(e => e.Id);
         }
 
 //whennnn
         private void ComboBox_Selected(object sender, RoutedEventArgs e)
         {
-            ListAssignments = (level == DO.Level.None) ?
+            Assignments = (level == DO.Level.None) ?
              s_bl?.Assignment.ReadAll() : s_bl?.Assignment.ReadAll(item => item.LevelAssignment == level);
         }
         //private void Cmb_Levels(object sender, SelectionChangedEventArgs e)
@@ -239,11 +239,11 @@ namespace PL.Assignment
 //    {
 //        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 //        public static readonly DependencyProperty ListAssignmentsProperty =
-//        DependencyProperty.Register("currentAssignments", typeof(IEnumerable<BO.AssignmentInList>), typeof(AssignmentListWindow));
+//        DependencyProperty.Register("currentAssignments", typeof(IEnumerable<BO.Assignment>), typeof(AssignmentListWindow));
 //        public DO.Level level { get; set; } = DO.Level.None;
-//        public IEnumerable<BO.AssignmentInList> currentAssignments
+//        public IEnumerable<BO.Assignment> currentAssignments
 //        {
-//            get { return (IEnumerable<BO.AssignmentInList>)GetValue(ListAssignmentsProperty); }
+//            get { return (IEnumerable<BO.Assignment>)GetValue(ListAssignmentsProperty); }
 //            set { SetValue(ListAssignmentsProperty, value); }
 //        }
 //        public AssignmentsListWindow()
@@ -266,7 +266,7 @@ namespace PL.Assignment
 
 //        private void ListView_UpdateClick(object sender, MouseButtonEventArgs e)
 //        {
-//            BO.AssignmentInList wrk = ((sender as ListView)?.SelectedItem as BO.AssignmentInList)!;
+//            BO.Assignment wrk = ((sender as ListView)?.SelectedItem as BO.Assignment)!;
 //           new AssignmentsWindow(wrk!.Id).ShowDialog();
 //            UpdateAssignmentsList();
 //        }
