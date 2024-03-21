@@ -394,6 +394,7 @@ internal class AssignmentImplementation : BlApi.IAssignment
 //            return from DO.Worker doWrk in _dal.Worker.ReadAll()
 //                   let ass = _dal.Assignment.Read(t => t.IdWorker == doWrk.IdWorker && t.dateSrart is not null && t.DateFinish is null)
 //                   let worker = new BO.Worker
+
 //                   {
 //                       Id = doWrk.IdWorker,
 //                       Name = doWrk.Name,
