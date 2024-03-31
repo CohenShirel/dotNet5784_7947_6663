@@ -15,8 +15,6 @@ public class Worker
 
     //החזרה של משימה נוכחית עי שאילתא
     public WorkerInAssignment currentAssignment { get; set; }
-
-    //public Tuple<int, string>? currentAssignment { get; set; }
 }
 
 //public bool IsActive { get; set; }

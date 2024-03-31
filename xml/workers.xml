@@ -1,2 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ArrayOfWorker />
+<ArrayOfWorker>
+  <Worker>
+    <IdWorker>123</IdWorker>
+    <Experience>Intermediate</Experience>
+    <HourSalary>23</HourSalary>
+    <Name>shirel</Name>
+    <Email>shir@gmail.com</Email>
+  </Worker>
+  <Worker>
+    <IdWorker>1234</IdWorker>
+    <Experience>Expert</Experience>
+    <HourSalary>23</HourSalary>
+    <Name> osh</Name>
+    <Email> osg@gmail.com</Email>
+  </Worker>
+  <Worker>
+    <IdWorker>12</IdWorker>
+    <Experience>Intermediate</Experience>
+    <HourSalary>24</HourSalary>
+    <Name> neomi</Name>
+    <Email> n@gmail.com</Email>
+  </Worker>
+</ArrayOfWorker>

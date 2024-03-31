@@ -32,8 +32,8 @@ namespace PL
             get { return (DateTime)GetValue(CurrentTimeProperty); }
             set { SetValue(CurrentTimeProperty, value); }
         }
-        public static readonly DependencyProperty CurrentTimeProperty=
-          DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(ManagerWindow), new PropertyMetadata(DateTime.Now));
+        public static readonly DependencyProperty CurrentTimeProperty =
+          DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(ManagerWindow), new PropertyMetadata(null));
         public ManagerWindow()
         {
             InitializeComponent();
@@ -56,8 +56,8 @@ namespace PL
 
         private void BtnSchedule_Click(object sender, RoutedEventArgs e)
         {
-             MessageBoxResult mbResult = MessageBox.Show("Do you want to update dates for all assignments?",
-               "Schedule", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            MessageBoxResult mbResult = MessageBox.Show("Do you want to update dates for all assignments?",
+              "Schedule", MessageBoxButton.OKCancel, MessageBoxImage.Question);
             switch (mbResult)
             {
                 case MessageBoxResult.OK:
@@ -96,7 +96,7 @@ namespace PL
                     break;
             }
         }
-        
+
         private void BtnResetClock_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult mbResult = MessageBox.Show("Do you want to reset the Clock?",
@@ -116,8 +116,7 @@ namespace PL
             s_bl.FormatClockOneHour();
             CurrentTime = s_bl.Clock;
         }
-
-        private void BtnDay_Click(object sender, RoutedEventArgs e)
+private void BtnDay_Click(object sender, RoutedEventArgs e)
         {
             s_bl.FormatClockOneDay();
             CurrentTime = s_bl.Clock;
@@ -134,29 +133,6 @@ namespace PL
             s_bl.FormatClockOneYear();
             CurrentTime = s_bl.Clock;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         private void SaveDateButton_Click(object sender, RoutedEventArgs e)
         {
 

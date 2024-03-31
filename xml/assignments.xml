@@ -1,63 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfAssignment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Assignment>
-    <IdAssignment>1777</IdAssignment>
-    <DurationAssignment>22</DurationAssignment>
-    <LevelAssignment>Advanced</LevelAssignment>
+    <IdAssignment>1804</IdAssignment>
+    <DurationAssignment>34</DurationAssignment>
+    <LevelAssignment>Beginner</LevelAssignment>
     <WorkerId>0</WorkerId>
     <DateSrart xsi:nil="true" />
     <DateBegin xsi:nil="true" />
     <DeadLine xsi:nil="true" />
-    <DateFinish xsi:nil="true" />
-    <Name> A</Name>
-    <Description> A</Description>
-    <Remarks> A</Remarks>
-    <ResultProduct> A</ResultProduct>
+    <DateFinish>2024-04-04T00:00:00</DateFinish>
+    <Name> cleaning</Name>
+    <Description>fg </Description>
+    <Remarks> fg</Remarks>
+    <ResultProduct>fg </ResultProduct>
     <Milestone>false</Milestone>
   </Assignment>
   <Assignment>
-    <IdAssignment>1779</IdAssignment>
-    <DurationAssignment>76</DurationAssignment>
-    <LevelAssignment>Expert</LevelAssignment>
+    <IdAssignment>1805</IdAssignment>
+    <DurationAssignment>23</DurationAssignment>
+    <LevelAssignment>Beginner</LevelAssignment>
     <WorkerId>0</WorkerId>
     <DateSrart xsi:nil="true" />
     <DateBegin xsi:nil="true" />
     <DeadLine xsi:nil="true" />
-    <DateFinish xsi:nil="true" />
-    <Name> C</Name>
-    <Description> C</Description>
-    <Remarks> C</Remarks>
-    <ResultProduct> C</ResultProduct>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>1778</IdAssignment>
-    <DurationAssignment>5</DurationAssignment>
-    <LevelAssignment>Advanced</LevelAssignment>
-    <WorkerId>0</WorkerId>
-    <DateSrart xsi:nil="true" />
-    <DateBegin xsi:nil="true" />
-    <DeadLine xsi:nil="true" />
-    <DateFinish xsi:nil="true" />
-    <Name> B</Name>
-    <Description> B</Description>
-    <Remarks> B</Remarks>
-    <ResultProduct> B</ResultProduct>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>1780</IdAssignment>
-    <DurationAssignment>76</DurationAssignment>
-    <LevelAssignment>AdvancedBeginner</LevelAssignment>
-    <WorkerId>0</WorkerId>
-    <DateSrart xsi:nil="true" />
-    <DateBegin xsi:nil="true" />
-    <DeadLine xsi:nil="true" />
-    <DateFinish xsi:nil="true" />
-    <Name>DNF </Name>
-    <Description> D</Description>
-    <Remarks>D </Remarks>
-    <ResultProduct> D</ResultProduct>
+    <DateFinish>2024-04-04T00:00:00</DateFinish>
+    <Name> sub</Name>
+    <Description> fw</Description>
+    <Remarks> fwer</Remarks>
+    <ResultProduct> wef</ResultProduct>
     <Milestone>false</Milestone>
   </Assignment>
 </ArrayOfAssignment>

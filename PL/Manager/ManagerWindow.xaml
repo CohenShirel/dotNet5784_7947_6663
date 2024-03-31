@@ -60,7 +60,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <!--לעשות כאן את השעון-->
-                <Label   Content="{Binding CurrentTime, StringFormat='{}{0:dd/MM/yyyy}'}" Grid.Row="0" Grid.ColumnSpan="4" Margin="70,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="26" Foreground="Red" FontWeight="Bold"/>
+                <Label   Content="{Binding CurrentTime, StringFormat='dd/MM/yyyy'}" Grid.Row="0" Grid.ColumnSpan="4" Margin="70,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="26" Foreground="Red" FontWeight="Bold"/>
                 <Button  Content="One Hour" Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Height="40" FontSize="10" Background="Black"  Foreground="Goldenrod" Click="BtnHour_Click"/>
                 <Button  Content="One Day" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Height="40" FontSize="10" Background="Black"  Foreground="Goldenrod"  Click="BtnDay_Click"/>
                 <Button  Content="One Month" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Height="40" FontSize="10" Background="Black"  Foreground="Goldenrod" Click="BtnMonth_Click"/>
