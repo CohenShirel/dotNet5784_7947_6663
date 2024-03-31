@@ -44,6 +44,15 @@ public partial class AssignmentWindow : Window
     public static readonly DependencyProperty List1AssignmentsProperty =
         DependencyProperty.Register("Assignments", typeof(ObservableCollection<BO.AssignmentInList>), typeof(AssignmentWindow), new PropertyMetadata(null));
 
+    //public BO.Assignment currentAssignment
+    //{
+    //    get
+    //    {
+    //        var value = GetValue(AssignmentsListProperty);
+    //        return value != null ? (BO.Assignment)value : new BO.Assignment() { IdAssignment = -1 };
+    //    }
+    //    set { SetValue(AssignmentsListProperty, value); }
+    //}
     public BO.Assignment currentAssignment
     {
         get { return (BO.Assignment)GetValue(AssignmentsListProperty); }
@@ -52,6 +61,9 @@ public partial class AssignmentWindow : Window
 
     public static readonly DependencyProperty AssignmentsListProperty =
     DependencyProperty.Register("currentAssignment", typeof(BO.Assignment), typeof(AssignmentWindow), new PropertyMetadata(null));/*typeof(IEnumerable<BO.Assignment>), typeof(AssignmentListWindow)*/
+
+
+
 
     public Visibility AssignmentDetailsVisibility
     {
@@ -98,15 +110,28 @@ public partial class AssignmentWindow : Window
         //List<CheckBox> lCBox = new List<CheckBox>();
 
         CheckBox checkBox;
+        //currentAssignment = s_bl.Assignment.Read(id)!;
 
-        Assignments = new ObservableCollection<AssignmentInList>(s_bl.Assignment.ReadAll());
-       
-
+        //Assignments = new ObservableCollection<AssignmentInList>(s_bl.Assignment.ReadAll());
+        
         //lview.ItemsSource= lCBox;
         //
 
         try
         {
+           
+
+            //sp.Visibility = Visibility.Collapsed;
+            //currentAssignment = (id != 0) ? new List<BO.Assignment>() { s_bl.Assignment.Read(id)!} : new List<BO.Assignment>() { new BO.Assignment() {IdAssignment=0, DurationAssignment = 0, Name = " ", Description = " ", Remarks = " ", ResultProduct = " ", Links = null } };
+            currentAssignment = (id != 0) ? s_bl.Assignment.Read(id)! : new BO.Assignment() { IdAssignment = 0, DurationAssignment = 0, Name = " ", Description = " ", Remarks = " ", ResultProduct = " ", Links = null, LevelAssignment = DO.Level.None };
+            if (currentAssignment != null && currentAssignment.IdAssignment != 0)
+                txtId.IsEnabled = false;
+            var allAssignments = s_bl.Assignment.ReadAll().ToList(); // Read all assignments
+            var assignmentsExceptCurrent = allAssignments.Where(a => a.Id != currentAssignment.IdAssignment); // Exclude the current assignment
+            Assignments = new ObservableCollection<AssignmentInList>(assignmentsExceptCurrent); // Create ObservableCollection from the filtered assignments
+            //var allAssignments = s_bl.Assignment.ReadAll().ToList(); // קריאת כל המשימות
+            //Assignments = new ObservableCollection<AssignmentInList>(FilterAssignmentsToShow(allAssignments, currentAssignment!)); // יצירת ObservableCollection מהמשימות הסוננות
+
             Status s = Tools.GetProjectStatus();
             if (s == BO.Status.Unscheduled || s == BO.Status.Scheduled)
             {
@@ -116,12 +141,6 @@ public partial class AssignmentWindow : Window
             }
             else
                 AssignmentDetailsVisibility = Visibility.Collapsed;
-
-            //sp.Visibility = Visibility.Collapsed;
-            //currentAssignment = (id != 0) ? new List<BO.Assignment>() { s_bl.Assignment.Read(id)!} : new List<BO.Assignment>() { new BO.Assignment() {IdAssignment=0, DurationAssignment = 0, Name = " ", Description = " ", Remarks = " ", ResultProduct = " ", Links = null } };
-            currentAssignment = (id != 0) ? s_bl.Assignment.Read(id) : new BO.Assignment() { IdAssignment = 0, DurationAssignment = 0, Name = " ", Description = " ", Remarks = " ", ResultProduct = " ", Links = null, LevelAssignment = DO.Level.None };
-            if (currentAssignment != null && currentAssignment.IdAssignment != 0)
-                txtId.IsEnabled = false;
         }
         catch (BO.Exceptions.BlDoesNotExistException ex)
         {
@@ -132,6 +151,27 @@ public partial class AssignmentWindow : Window
             MessageBox.Show(ex.Message, "Operation Faild", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
     }
+
+    //private IEnumerable<AssignmentInList> FilterAssignmentsToShow(IEnumerable<AssignmentInList> allAssignments, BO.Assignment currentAssignment)
+    //{
+    //    // סינון המשימות הנותרות לתצוגה
+    //    foreach (var ass in allAssignments)
+    //    {
+
+    //        BO.Assignment linkAss = s_bl.Assignment.Read(a=>a.IdAssignment==ass.Id && a. != currentAssignment.Links);
+                    
+
+    //        var filteredAssignments = allAssignments.Where(a =>
+    //    a.Id != currentAssignment.IdAssignment &&
+    //    a.Links!= currentAssignment.Links
+    //    //a.IdWorker == 0 
+
+    //    );
+    //    }
+        
+    //    return filteredAssignments;
+    //}
+
     public BO.Assignment currentAssignmentData
     {
         get { return currentAssignment; }
@@ -268,37 +308,37 @@ public partial class AssignmentWindow : Window
             {
                 _selectedAssignments.Add(task);
                 // Update the visual appearance of the ListViewItem to indicate that the task is linked
-                UpdateListViewItemAppearance(checkBox!, true);
+                //UpdateListViewItemAppearance(checkBox!, true);
             }
             else
             {
                 _selectedAssignments.Remove(task);
                 // Update the visual appearance of the ListViewItem to indicate that the task is not linked
-                UpdateListViewItemAppearance(checkBox!, false);
+                //UpdateListViewItemAppearance(checkBox!, false);
             }
             //checkBox!.IsChecked = _selectedAssignments.Contains(task);
 
         }
     }
 
-    private void UpdateListViewItemAppearance(CheckBox checkBox, bool isLinked)
-    {
-        // Find the parent ListViewItem of the CheckBox
-        ListViewItem item = FindVisualParent<ListViewItem>(checkBox);
-        if (item != null)
-        {
-            // Update the visual appearance based on whether the task is linked or not
-            if (isLinked)
-            {
-                item.Background = Brushes.LightGray;
-            }
-            else
-            {
-                // Restore the original background color of the ListViewItem
-                item.Background = Brushes.Transparent;
-            }
-        }
-    }
+    //private void UpdateListViewItemAppearance(CheckBox checkBox, bool isLinked)
+    //{
+    //    // Find the parent ListViewItem of the CheckBox
+    //    ListViewItem item = FindVisualParent<ListViewItem>(checkBox);
+    //    if (item != null)
+    //    {
+    //        // Update the visual appearance based on whether the task is linked or not
+    //        if (isLinked)
+    //        {
+    //            item.Background = Brushes.LightGray;
+    //        }
+    //        else
+    //        {
+    //            // Restore the original background color of the ListViewItem
+    //            item.Background = Brushes.Transparent;
+    //        }
+    //    }
+    //}
 
     private static T FindVisualParent<T>(DependencyObject obj) where T : DependencyObject
     {

@@ -63,7 +63,7 @@
                     </GridView>
                 </ListView.View>
             </ListView>-->
-            <ListView ItemsSource="{Binding Path=ListAssignments}" Grid.Row="1" Grid.ColumnSpan="3" HorizontalContentAlignment="Stretch" Margin="0,56,1,44" MouseDoubleClick="ListView_UpdateClick">
+            <ListView ItemsSource="{Binding Path= ListAssignments}" Grid.Row="1" Grid.ColumnSpan="3" HorizontalContentAlignment="Stretch" Margin="0,56,1,44" MouseDoubleClick="ListView_UpdateClick">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="Auto"/>
