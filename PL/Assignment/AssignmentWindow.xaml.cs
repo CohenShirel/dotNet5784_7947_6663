@@ -283,10 +283,14 @@ public partial class AssignmentWindow : Window
     }
     private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
     {
-        string searchText = txtSearch.Text.ToLower(); // Convert search text to lowercase for case-insensitive search
+        // Convert the search text to lowercase for case-insensitive search
+        string searchText = txtSearch.Text.ToLower();
+
+        // Filter the list of assignments based on the search text
         IEnumerable<BO.AssignmentInList> filteredList = Assignments.Where
             (assignment => assignment.AssignmentName.ToLower().Contains(searchText));
 
+        // Set the filtered list as the ItemsSource of the ListView
         lview.ItemsSource = filteredList;
     }
     private string GetAssignmentName(CheckBox checkBox)
