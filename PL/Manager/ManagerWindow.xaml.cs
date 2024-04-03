@@ -1,25 +1,9 @@
-﻿using BlApi;
-using BlImplementation;
-using DalApi;
+﻿using BlImplementation;
 using PL.Assignment;
 using PL.Gantt;
-using PL.Manager;
 using PL.Worker;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace PL
 {
@@ -27,32 +11,35 @@ namespace PL
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         //public List<BO.Assignment> lstAssignments { get; set; }
-        public List<BO.Assignment> lstAssignments
-        {
-            get { return (List<BO.Assignment>)GetValue(lstAssignmentsProperty); }
-            set { SetValue(lstAssignmentsProperty, value); }
-        }
+       // private static List<BO.Assignment> lstAssignments;
+       // public static List<BO.Assignment> LstAssignments { get => LstAssignments; set => LstAssignments = value; }
+        //{
+        //    get { return (List<BO.Assignment>)GetValue(lstAssignmentsProperty); }
+        //    set { SetValue(lstAssignmentsProperty, value); }
+        //}
         public static readonly DependencyProperty lstAssignmentsProperty =
           DependencyProperty.Register("lstAssignments", typeof(List<BO.Assignment>), typeof(ManagerWindow), new PropertyMetadata(null));
-        public DateTime CurrentTime
+        public DateTime? CurrentTime
         {
-            get { return (DateTime)GetValue(CurrentTimeProperty); }
+            get { return (DateTime?)GetValue(CurrentTimeProperty); }
             set { SetValue(CurrentTimeProperty, value); }
         }
         public static readonly DependencyProperty CurrentTimeProperty =
-          DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(ManagerWindow), new PropertyMetadata(null));
+          DependencyProperty.Register("CurrentTime", typeof(DateTime?), typeof(ManagerWindow), new PropertyMetadata(null));
         public Visibility VisibilityNewMessages
         {
             get { return (Visibility)GetValue(VisibilityNewMessagesProperty); }
             set { SetValue(VisibilityNewMessagesProperty, value); }
         }
+
+
         public static readonly DependencyProperty VisibilityNewMessagesProperty =
          DependencyProperty.Register("VisibilityNewMessages", typeof(Visibility), typeof(ManagerWindow), new PropertyMetadata(Visibility.Hidden));
         public ManagerWindow()
         {
             InitializeComponent();
-            lstAssignments = s_bl.lstAssignments;
-            CurrentTime = s_bl.Clock;
+
+            CurrentTime = s_bl.Clock.GetStartProject();
         }
         private void BtnWorkersListWindow_Click(object sender, RoutedEventArgs e)
         {
@@ -119,8 +106,8 @@ namespace PL
             switch (mbResult)
             {
                 case MessageBoxResult.OK:
-                    s_bl.ResetClock();
-                    CurrentTime = s_bl.Clock;
+                    s_bl.Clock.resetClock();
+                    CurrentTime = s_bl.Clock.GetStartProject();
                     break;
                 case MessageBoxResult.Cancel:
                     break;
@@ -128,25 +115,25 @@ namespace PL
         }
         private void BtnHour_Click(object sender, RoutedEventArgs e)
         {
-            s_bl.FormatClockOneHour();
-            CurrentTime = s_bl.Clock;
+            s_bl.Clock.FormatClockOneHour();
+            CurrentTime = s_bl.Clock.GetStartProject();
         }
         private void BtnDay_Click(object sender, RoutedEventArgs e)
         {
-            s_bl.FormatClockOneDay();
-            CurrentTime = s_bl.Clock;
+            s_bl.Clock.FormatClockOneDay();
+            CurrentTime = s_bl.Clock.GetStartProject();
         }
 
         private void BtnMonth_Click(object sender, RoutedEventArgs e)
         {
-            s_bl.FormatClockOneMonth();
-            CurrentTime = s_bl.Clock;
+            s_bl.Clock.FormatClockOneMonth();
+            CurrentTime = s_bl.Clock.GetStartProject();
         }
 
         private void BtnYear_Click(object sender, RoutedEventArgs e)
         {
-            s_bl.FormatClockOneYear();
-            CurrentTime = s_bl.Clock;
+            s_bl.Clock.FormatClockOneYear();
+            CurrentTime = s_bl.Clock.GetStartProject();
         }
         private void SaveDateButton_Click(object sender, RoutedEventArgs e)
         {
@@ -161,25 +148,25 @@ namespace PL
         {
             if (sender is Label)
             {
-                (sender as Label)!.Content = CurrentTime.ToString("dd/MM/yyyy HH:mm:ss");
+                (sender as Label)!.Content = CurrentTime.ToString(); //"dd/MM/yyyy HH:mm:ss"
             }
         }
 
-        private void BtnNewMessages_Click(object sender, RoutedEventArgs e)
-        {
-            if (VisibilityNewMessages == Visibility.Hidden && s_bl.lstAssignments.Count !=0)
-                VisibilityNewMessages = Visibility.Visible;
-            else if (VisibilityNewMessages == Visibility.Visible && s_bl.lstAssignments.Count != 0)
-                VisibilityNewMessages = Visibility.Hidden;
-            else if (s_bl.lstAssignments.Count == 0)
-                MessageBox.Show("There aren't completed tasks yet!", "No New Messages!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
-        }
+        //private void BtnNewMessages_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (VisibilityNewMessages == Visibility.Hidden && s_bl.lstAssignments.Count != 0)
+        //        VisibilityNewMessages = Visibility.Visible;
+        //    else if (VisibilityNewMessages == Visibility.Visible && s_bl.lstAssignments.Count != 0)
+        //        VisibilityNewMessages = Visibility.Hidden;
+        //    else if (s_bl.lstAssignments.Count == 0)
+        //        MessageBox.Show("There aren't completed tasks yet!", "No New Messages!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        //}
 
-        private void BtnClearMessages_Click(object sender, RoutedEventArgs e)
-        {
-            s_bl.lstAssignments?.Clear();
-            lstAssignments = s_bl.lstAssignments!;
-            VisibilityNewMessages = Visibility.Hidden;
-        }
+        //private void BtnClearMessages_Click(object sender, RoutedEventArgs e)
+        //{
+        //    s_bl.lstAssignments?.Clear();
+        //    LstAssignments = s_bl.lstAssignments!;
+        //    VisibilityNewMessages = Visibility.Hidden;
+        //}
     }
 }

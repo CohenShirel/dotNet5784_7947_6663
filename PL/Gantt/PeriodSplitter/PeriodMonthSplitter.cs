@@ -3,25 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace nGantt.PeriodSplitter
+namespace PL.Gantt.PeriodSplitter
 {
-    public class PeriodHourSplitter : PeriodSplitter
+    public class PeriodMonthSplitter : PeriodSplitter
     {
-        public PeriodHourSplitter(DateTime min, DateTime max)
+        public PeriodMonthSplitter(DateTime min, DateTime max)
             : base(min, max)
-        {
-
-        }
+        { }
 
         public override List<Period> Split()
         {
-            var precedingBreak = new DateTime(min.Year, min.Month, min.Day, min.Hour, 0, 0);
+            var precedingBreak = new DateTime(min.Year, min.Month, 1);
             return base.Split(precedingBreak);
         }
 
         protected override DateTime Increase(DateTime date, int value)
         {
-            return date.AddHours(value);
+            return date.AddMonths(value);
         }
     }
 }

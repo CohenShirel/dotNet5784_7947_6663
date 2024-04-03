@@ -1,4 +1,4 @@
-﻿using nGantt.PeriodSplitter;
+﻿using PL.Gantt.PeriodSplitter;
 using System.Windows.Input;
 
 namespace PL.Gantt.GanttChart

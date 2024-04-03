@@ -106,7 +106,7 @@ public partial class CurrentWorkerWindow : Window
         foreach (AssignmentInList link in Links)
         {
             BO.Assignment currentAssignment = s_bl.Assignment.Read(link.Id)!;
-            if (currentAssignment.DateFinish > s_bl.Clock)
+            if (currentAssignment.DateFinish > s_bl.Clock.GetStartProject())
                 return false;
         }
         return true;
@@ -127,12 +127,13 @@ public partial class CurrentWorkerWindow : Window
             ResultProduct = currentAssignment.ResultProduct,
             DateBegin = currentAssignment.DateBegin,
             DeadLine = currentAssignment.DeadLine,
-            DateFinish =s_bl.Clock,
+            DateFinish =s_bl.Clock.GetStartProject(),
             dateSrart = currentAssignment.dateSrart,
         };
         s_bl.Assignment.Update(newAss);
         UpdateWindow();
         VisibilityAssignment = Visibility.Hidden;
+        //ManagerWindow.LstAssignments.Add(oldA);
         //להודיע כאן למנהל על סיום משמימה
     }
     private void UpdateWindow()
@@ -168,7 +169,7 @@ public partial class CurrentWorkerWindow : Window
                             DateBegin = ass.DateBegin,
                             DeadLine = ass.DeadLine,
                             DateFinish =null,
-                            dateSrart= s_bl.Clock,//שיהיה כאן גם תאריך וכם שעה
+                            dateSrart= s_bl.Clock.GetStartProject(),//שיהיה כאן גם תאריך וכם שעה
                         };
                         s_bl.Assignment.Update(newAss);
                         //currentAssignment = newAss;

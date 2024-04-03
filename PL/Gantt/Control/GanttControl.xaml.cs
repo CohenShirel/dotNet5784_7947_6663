@@ -1,6 +1,6 @@
-﻿using nGantt.PeriodSplitter;
-using PL.Gantt;
+﻿using PL.Gantt;
 using PL.Gantt.GanttChart;
+using PL.Gantt.PeriodSplitter;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;

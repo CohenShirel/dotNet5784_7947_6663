@@ -6,12 +6,11 @@ public /*internal */class Bl : IBl
 {
     private static DalApi.IDal s_dal = DalApi.Factory.Get;
 
-
     public BlApi.IWorker Worker => new WorkerImplementation(this);
 
     public BlApi.IAssignment Assignment => new AssignmentImplementation(this);
 
-    public static DateTime? StartProjectTime => s_dal!.StartProjectTime;//לעשות פונקציה שתבקש מהמשתמש תאריך התחלה לפרויקט
+    //public static DateTime? StartProjectTime => s_dal!.StartProjectTime;//לעשות פונקציה שתבקש מהמשתמש תאריך התחלה לפרויקט
 
     /* => DalTest.Initialization.Do();*/
     public static void InitializeDB()
@@ -29,16 +28,17 @@ public /*internal */class Bl : IBl
         s_dal.Assignment!.DeleteAll();
         s_dal.Link!.DeleteAll();
     }
-    private DateTime s_Clock = DateTime.Now;
-    public DateTime Clock { get { return s_Clock; }  set { s_Clock = value; } }
-    public void FormatClockOneHour()=> Clock=Clock.AddHours(1);
-    public void FormatClockOneDay() => Clock = Clock.AddDays(1);
-    public void FormatClockOneMonth() => Clock = Clock.AddMonths(1);
-    public void FormatClockOneYear()=> Clock= Clock.AddYears(1);
-    public void ResetClock()=>Clock=DateTime.Now.Date;
+    //private DateTime s_Clock = DateTime.Now;
+    //public DateTime Clock { get { return s_Clock; }  set { s_Clock = value; } }
+    //public void FormatClockOneHour()=> Clock=Clock.AddHours(1);
+    //public void FormatClockOneDay() => Clock = Clock.AddDays(1);
+    //public void FormatClockOneMonth() => Clock = Clock.AddMonths(1);
+    //public void FormatClockOneYear()=> Clock= Clock.AddYears(1);
+    //public void ResetClock()=>Clock=DateTime.Now;
 
     public List<BO.Assignment> lstAssignments { get; } = new();
 
+    public IClock Clock =>new ClockImplemention();
 }
 
 

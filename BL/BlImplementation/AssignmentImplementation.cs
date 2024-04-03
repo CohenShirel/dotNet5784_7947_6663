@@ -344,7 +344,7 @@ internal class AssignmentImplementation : BlApi.IAssignment
             doAss = doAss with
             {
                 WorkerId = boAss.IdWorker,//להוסיף בדיקה אם 
-                DateSrart = s_bl.Clock,
+                DateSrart = s_bl.Clock.GetStartProject()
             };
         }
         return doAss;

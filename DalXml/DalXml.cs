@@ -10,14 +10,16 @@ sealed internal class DalXml : IDal
     public IWorker Worker => new WorkerImplementation();
     public IAssignments Assignment => new AssignmentsImplementation();
     public ILink Link => new LinkImplementation();
-    public DateTime? StartProjectTime
-    {
+    //public DateTime? StartProjectTime
+    //{
 
-        get { return Config.StartProjectTime; }
+    //    get { return Config.StartProjectTime; }
 
-        set { StartProjectTime = value; }
+    //    set { StartProjectTime = value; }
 
-    }
+    //}
+    public IClock Clock => new ClockImplemetation();
+
     //public DateTime Clock
     //{
 

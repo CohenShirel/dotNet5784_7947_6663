@@ -1,5 +1,5 @@
-﻿using nGantt.PeriodSplitter;
-using PL.Gantt.GanttChart;
+﻿using PL.Gantt.GanttChart;
+using PL.Gantt.PeriodSplitter;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;

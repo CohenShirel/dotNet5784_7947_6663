@@ -15,7 +15,9 @@ using System.Windows.Shapes;
 
 namespace PL.Assignment
 {
- 
+    /// <summary>
+    /// Interaction logic for AssignmentsListWindow.xaml
+    /// </summary>
     public partial class AssignmentListWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
@@ -33,7 +35,7 @@ namespace PL.Assignment
         public static readonly DependencyProperty ListAssignmentsProperty =
             DependencyProperty.Register("ListAssignments", typeof(IEnumerable<BO.AssignmentInList>), typeof(AssignmentListWindow), new PropertyMetadata(null));
 
-        
+
 
         public AssignmentListWindow()
         {
@@ -71,7 +73,7 @@ namespace PL.Assignment
             ListAssignments = (level == DO.Level.None) ?
              s_bl?.Assignment.ReadAll() : s_bl?.Assignment.ReadAll(item => item.LevelAssignment == level).OrderBy(e => e.Id);
         }
-    
+
 
         private void ComboBox_Selected(object sender, RoutedEventArgs e)
         {
@@ -79,7 +81,7 @@ namespace PL.Assignment
              s_bl?.Assignment.ReadAll() : s_bl?.Assignment.ReadAll(item => item.LevelAssignment == level);
         }
 
-      
+
     }
 }
 

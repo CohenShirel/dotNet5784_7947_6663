@@ -14,13 +14,13 @@ internal static class DataSource
         private static int IDLink = IdLink;
         internal static int idlink { get => IDLink++; }
         // public static DateTime? dateStart { get; set; } = null;
-        internal static DateTime? StartProjectTime { get; set; } = DateTime.Now;
+        // internal static DateTime?
+        // Time { get; set; } = DateTime.Now;
+        internal static DateTime? StartDate = DateTime.Now;
+        //internal static DateTime? EndDate = null;
     }
     //list of name,assigment,link
     internal static List<DO.Worker> Workers { get; } = new();
     internal static List<DO.Assignment> Assignmentss { get; } = new();
     internal static List<DO.Link> Links { get; } = new();
-
-
-
 }

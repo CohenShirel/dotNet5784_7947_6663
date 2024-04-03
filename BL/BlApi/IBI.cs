@@ -1,4 +1,6 @@
-﻿namespace BlApi;
+﻿using DalApi;
+
+namespace BlApi;
 public interface IBl
 {
 
@@ -11,16 +13,29 @@ public interface IBl
     //לעשות כאן לוז אוטומטי;
     public static void InitializeDB() { }
 
-    public static DateTime? StartProjectTime { get; }//??
+    public IClock Clock { get; }
+
+
+
+
+
+
+
+
+
+
+    public List<BO.Assignment> lstAssignments { get; }
+
+
+    //public static DateTime? StartProjectTime { get; }//??
     //clock
     #region Clock HandLing
-    public DateTime Clock { get; }
-    public List<BO.Assignment> lstAssignments { get; }
-    public void FormatClockOneHour() { }
-    public void FormatClockOneDay() { }
-    public void FormatClockOneMonth() { }
-    public void FormatClockOneYear() { }
-    public void ResetClock() { }
+    //public DateTime Clock { get; }
+    //public void FormatClockOneHour() { }
+    //public void FormatClockOneDay() { }
+    //public void FormatClockOneMonth() { }
+    //public void FormatClockOneYear() { }
+    //public void ResetClock() { }
     #endregion
 
 }

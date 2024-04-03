@@ -5,54 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Worker"
         mc:Ignorable="d"
-        Title="CurrentWorkerWindow" Height="450" Width="850"
-        DataContext="{Binding RelativeSource={RelativeSource self}}">
+        Title="CurrentWorkerWindow" Height="450" Width="800"
+        DataContext="{Binding ListAssignments, RelativeSource={RelativeSource self}}">
     <Window.Resources>
         <Style x:Key="CustomButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Black"/>
-            <Setter Property="Foreground" Value="Goldenrod"/>
+            <Setter Property="Background" Value="AliceBlue"/>
+            <Setter Property="Foreground" Value="DarkSlateBlue"/>
             <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderBrush" Value="AliceBlue"/>
             <Setter Property="Padding" Value="10"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontFamily" Value="Ariel"/>
         </Style>
     </Window.Resources>
     <Grid>
-        <!--<Grid>
-            <Image Source="C:\Users\shire\Desktop\הפרויקט שלי\PL\ProjectImage\ProjetImage2.jpg" Stretch="UniformToFill"/>
-        </Grid>-->
-        <Grid Height="Auto" VerticalAlignment="Top">
+        <Grid.Background>
+            <ImageBrush ImageSource="/PL;component/ProjectImage/PI1.jpg" />
+        </Grid.Background>
+
+        <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <!-- First row with buttons -->
                 <Button Style="{StaticResource CustomButtonStyle}" Content="My Task" Grid.Column="0" HorizontalAlignment="Center" Margin="5" Click="btnMyTask_Click" />
                 <Button Style="{StaticResource CustomButtonStyle}" Content="My possible Tasks" Grid.Column="1" HorizontalAlignment="Center" Margin="5" Click="BtnAllMyTasks_Click"/>
             </Grid>
-
-            <ListView ItemsSource="{Binding Path=ListAssignments}" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Stretch" HorizontalAlignment="Left"
-              Visibility="{Binding VisibilityListAssignment, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CurrentWorkerWindow}}}" MouseDoubleClick="ListView_MouseDoubleClick">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding IdAssignment}" Width="Auto"/>
-                        <GridViewColumn Header="Name of Task" DisplayMemberBinding="{Binding Name}" Width="Auto"/>
-                        <GridViewColumn Header="Experience" DisplayMemberBinding="{Binding LevelAssignment}" Width="Auto"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-
+            <StackPanel Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Stretch"  Visibility="{Binding VisibilityListAssignment, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CurrentWorkerWindow}}}">
+                <ListView ItemsSource="{Binding ListAssignments}" HorizontalContentAlignment="Stretch" >
+                    <!-- Define ListView layout -->
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding IdAssignment}" Width="Auto"/>
+                            <GridViewColumn Header="Name of Task" DisplayMemberBinding="{Binding Name}" Width="Auto"/>
+                            <GridViewColumn Header="Experience" DisplayMemberBinding="{Binding LevelAssignment}" Width="Auto"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
             <Grid Grid.Column="0" Grid.Row="1" DataContext="{Binding currentAssignment}" Visibility="{Binding VisibilityAssignment, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CurrentWorkerWindow}}}" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -75,24 +76,24 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Label Content="Name: " Foreground="Goldenrod" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+                <Label Content="Name: " Foreground="DarkSlateBlue" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
                 <TextBox Text="{Binding Path= IdAssignment,Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Label Content="Description: " Foreground="Goldenrod" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+                <Label Content="Description: " Foreground="DarkSlateBlue" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
                 <TextBox Text="{Binding Path=Description, Mode=TwoWay}"  Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Label Content="Remarks: " Foreground="Goldenrod" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+                <Label Content="Remarks: " Foreground="DarkSlateBlue" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
                 <TextBox Text="{Binding Path=Remarks, Mode=TwoWay}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Label Content="ResultProduct: " Foreground="Goldenrod" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+                <Label Content="ResultProduct: " Foreground="DarkSlateBlue" Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
                 <TextBox Text="{Binding Path=ResultProduct, Mode=TwoWay}" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
-                <Label Content="Duration: " Foreground="Goldenrod" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+                <Label Content="Duration: " Foreground="DarkSlateBlue" Grid.Column="0" Grid.Row="5" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
                 <TextBlock Text="{Binding Path=DurationAssignment}" Grid.Column="1" Grid.Row="5" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <Label Content="Level: "  Foreground="Goldenrod" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+                <Label Content="Level: "  Foreground="DarkSlateBlue" Grid.Column="0" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
                 <TextBlock Text="{Binding Path= LevelAssignment}" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top" Width="120"/>
-                <Label Content="Actual Start Date" Foreground="Goldenrod" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Bottom"/>
+                <Label Content="Actual Start Date" Foreground="DarkSlateBlue" Grid.Column="0" Grid.Row="7" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Bottom"/>
                 <TextBlock Text="{Binding Path= dateStart}" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top" Width="120"/>
-                <Label Content="Planned Start Date: " Foreground="Goldenrod" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Bottom"/>
+                <Label Content="Planned Start Date: " Foreground="DarkSlateBlue" Grid.Column="0" Grid.Row="8" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Bottom"/>
                 <TextBlock Text="{Binding Path= DateFinish}" Grid.Column="1" Grid.Row="8" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top" Width="120"/>
-                <Label Content="Planned Finish Date: " Foreground="Goldenrod" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Bottom"/>
+                <Label Content="Planned Finish Date: " Foreground="DarkSlateBlue" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Bottom"/>
                 <TextBlock Text="{Binding Path= DateFinish}" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top" Width="120"/>
                 <Button Style="{StaticResource CustomButtonStyle}" Content="End of Task" Grid.ColumnSpan="2" Grid.Row="10" Click="btnEndAssignment_Click"/>
             </Grid>

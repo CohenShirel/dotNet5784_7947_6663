@@ -12,12 +12,17 @@ sealed internal class DalList : IDal
     public IAssignments Assignment => new AssignmentsImplementation();
 
     public ILink Link => new LinkImplementation();
-    public DateTime? StartProjectTime
-    {
 
-        get { return DataSource.Config.StartProjectTime; }
+    public IClock Clock { get; set; }
+    //public DateTime?
+    //
+    //
+    //Time
+    //{
 
-        set { DataSource.Config.StartProjectTime = value; }
+    //    get { return DataSource.Config.StartProjectTime; }
 
-    }
+    //    set { DataSource.Config.StartProjectTime = value; }
+
+    //}
 }

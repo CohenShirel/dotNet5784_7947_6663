@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace nGantt.PeriodSplitter
+namespace PL.Gantt.PeriodSplitter
 {
     public class PeriodYearSplitter : PeriodSplitter
     {
@@ -14,7 +14,7 @@ namespace nGantt.PeriodSplitter
         public override List<Period> Split()
         {
             var precedingBreak = new DateTime(min.Year, 1, 1);
-            return base.Split(precedingBreak);
+            return Split(precedingBreak);
         }
 
         protected override DateTime Increase(DateTime date, int value)

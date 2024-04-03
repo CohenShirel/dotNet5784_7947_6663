@@ -22,7 +22,7 @@ namespace BO
 
             if (lstPLinks.Count() is 0) // אם אין משימות קודמות
             {
-                ass.DateBegin = Bl.StartProjectTime;
+                ass.DateBegin = s_bl.Clock.GetStartProject();
             }
 
             else
@@ -94,7 +94,7 @@ namespace BO
         }
 
         public static Status GetProjectStatus() =>
-            (_dal.StartProjectTime, _dal.Assignment) switch
+            (_dal.Clock.GetStartProject(), _dal.Assignment) switch
             {
                 (null, _) => Status.Unscheduled,
                 (_, var assignment) when (assignment.ReadAll().Any(a => a.DateBegin is null) || (assignment.ReadAll().Count() == 0)) => Status.Scheduled,

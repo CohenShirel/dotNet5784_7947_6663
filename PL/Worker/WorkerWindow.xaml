@@ -9,10 +9,10 @@
         DataContext="{Binding currentWorker,RelativeSource={RelativeSource self},Mode=TwoWay}">
     <Window.Resources>
         <Style x:Key="CustomButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="Black"/>
-            <Setter Property="Foreground" Value="Goldenrod"/>
+            <Setter Property="Background" Value="DarkSlateBlue"/>
+            <Setter Property="Foreground" Value="AliceBlue"/>
             <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderBrush" Value="DarkSlateBlue"/>
             <Setter Property="Padding" Value="10"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="FontFamily" Value="Ariel"/>
@@ -45,7 +45,6 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-
             <Label Content="ID:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
             <TextBox x:Name="txtId" Text="{Binding Path=Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="txtId_TextChanged"/>
             <Label Content="Name"  Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>

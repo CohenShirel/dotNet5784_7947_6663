@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace nGantt.PeriodSplitter
+namespace PL.Gantt.PeriodSplitter
 {
     public abstract class PeriodSplitter
     {
