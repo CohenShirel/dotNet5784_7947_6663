@@ -14,7 +14,7 @@ public interface IBl
     public static DateTime? StartProjectTime { get; }//??
     //clock
     #region Clock HandLing
-    public DateTime Clock { get; }
+    public DateTime Clock { get; set; }
     public void FormatClockOneHour() { }
     public void FormatClockOneDay() { }
     public void FormatClockOneMonth() { }

@@ -18,5 +18,13 @@ sealed internal class DalXml : IDal
         set { StartProjectTime = value; }
 
     }
+    //public DateTime Clock
+    //{
+
+    //    get { return Config.Clock; }
+
+    //    set { Clock = value; }
+
+    //}
 }
 

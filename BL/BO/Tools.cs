@@ -3,6 +3,7 @@ using DalApi;
 using DO;
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Mail;
 using System.Reflection;
 using static BO.Exceptions;
 
@@ -170,7 +171,7 @@ namespace BO
                 throw new BlNotCorrectDetailsException("This level doesn't exist");
             }
         }
-        public static void IsMail(string s) => new EmailAddressAttribute().IsValid(s);
+        //public static void IsMail0(string s) => new EmailAddressAttribute().IsValid(s);
         //{
         //    int t = 0, c = 0;
         //    for (int i = 0; i < s.Length; i++)
@@ -238,11 +239,39 @@ namespace BO
 
             //if (s % 10 == 0)
             //    throw new BlNotCorrectDetailsException("The id isn't correct");
+
         }
+
+        public static void IsMail(string email)
+        {
+            try
+            {
+                MailAddress mailAddress = new MailAddress(email);
+                // בדיקת תקינות של הכתובת האימייל בכלל
+                string[] parts = email.Split('@');
+                if (parts.Length != 2)
+                {
+                    throw new BlNotCorrectDetailsException("THE EMAIL IS NOT CORRECT");
+                }
+
+                // בדיקת תקינות של הדומיין
+                string domain = parts[1].ToLower(); // להמרה לאותיות קטנות לצורך השוואה
+                if (domain != "gmail.com")
+                {
+                    throw new BlNotCorrectDetailsException("THE EMAIL IS NOT CORRECT");
+                }
+            }
+            catch (FormatException)
+            {
+                throw new BlNotCorrectDetailsException("THE EMAIL IS NOT CORRECT");
+
+
+            }
+        }
+
     }
-
-
 }
+
 //check if there are ass that link
 //private static bool IsLinks(BO.Assignment ass)
 //{

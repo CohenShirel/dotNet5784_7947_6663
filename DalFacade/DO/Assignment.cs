@@ -31,8 +31,8 @@ public record Assignment
     string? Description = null,
     string? Remarks = null,
     string? ResultProduct = null,
-    bool Milestone = false
-
+    bool Milestone = false,
+    bool IsConnected = false
 )
 {
 

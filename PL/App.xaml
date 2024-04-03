@@ -11,6 +11,10 @@
             <local:LevelsCollection  x:Key="LevelsCollectionKey" />
             <local:ConvertIdToContent x:Key="ConverIdToContentKey"/>
             <local:BooleanToSymbolConverter x:Key="BooleanToSymbolConverterKey"/>
+            <local:AssignmentSelectionConverter x:Key="AssignmentSelectionConverterKey"/>
+            <local:LevelsCollectionExceptNone x:Key="LevelsCollectionExceptNoneKey"/>
+
+
 
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />

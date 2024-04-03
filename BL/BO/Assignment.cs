@@ -13,6 +13,8 @@ public class Assignment
     public string? Description { get; set; }
     public string? Remarks { get; set; }
     public string? ResultProduct { get; set; }
+
+    public bool IsConnected { get; set; }
     //אתגררררררררררררר//
     public override string ToString()
     {

@@ -16,6 +16,36 @@ internal class Converters
     
 
 }
+public class AssignmentSelectionConverter : IMultiValueConverter
+{
+    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (values.Length < 2)
+            return false;
+
+        // השאילתא המקבלת את רשימת המשימות שנבחרו ומשימת המשימות בחלון
+        var selectedTasks = values[0] as IEnumerable<BO.AssignmentInList>;
+        var allTasks = values[1] as IEnumerable<BO.AssignmentInList>;
+
+        // ודא ששתי הרשימות אינן ריקות
+        if (selectedTasks == null || allTasks == null)
+            return false;
+
+        // לולאה שתבדוק האם כל משימה מרשימת המשימות קיימת ברשימת המשימות שנבחרו
+        foreach (var task in allTasks)
+        {
+            if (selectedTasks.Any(selectedTask => selectedTask.Id == task.Id))
+                return true;
+        }
+
+        return false;
+    }
+
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
 public class BooleanToSymbolConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
