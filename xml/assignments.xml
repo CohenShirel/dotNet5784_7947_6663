@@ -1,278 +1,503 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfAssignment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Assignment>
-    <IdAssignment>2068</IdAssignment>
-    <DurationAssignment>532</DurationAssignment>
-    <LevelAssignment>Intermediate</LevelAssignment>
-    <WorkerId>353534362</WorkerId>
-    <DateSrart>2024-05-18T13:40:15.4700698+03:00</DateSrart>
-    <DateBegin>2024-07-04T13:40:15.4700698+03:00</DateBegin>
-    <DeadLine>2026-05-18T13:40:15.4700698+03:00</DeadLine>
-    <DateFinish>2026-07-01T13:40:15.4700698+03:00</DateFinish>
-    <Name>Building_foundations</Name>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>2073</IdAssignment>
-    <DurationAssignment>532</DurationAssignment>
-    <LevelAssignment>Intermediate</LevelAssignment>
-    <WorkerId>353534362</WorkerId>
-    <DateSrart>2024-05-15T13:40:15.4786476+03:00</DateSrart>
-    <DateBegin>2024-07-14T13:40:15.4786476+03:00</DateBegin>
-    <DeadLine>2025-05-15T13:40:15.4786476+03:00</DeadLine>
-    <DateFinish>2025-06-21T13:40:15.4786476+03:00</DateFinish>
-    <Name>paving</Name>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>2074</IdAssignment>
-    <DurationAssignment>593</DurationAssignment>
-    <LevelAssignment>Expert</LevelAssignment>
-    <WorkerId>0</WorkerId>
-    <DateSrart>2024-06-01T13:40:15.4803834+03:00</DateSrart>
-    <DateBegin>2024-07-31T13:40:15.4803834+03:00</DateBegin>
-    <DeadLine>2025-06-01T13:40:15.4803834+03:00</DeadLine>
-    <DateFinish>2025-07-29T13:40:15.4803834+03:00</DateFinish>
-    <Name>Climate_systems</Name>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>2076</IdAssignment>
-    <DurationAssignment>180</DurationAssignment>
-    <LevelAssignment>Expert</LevelAssignment>
-    <WorkerId>0</WorkerId>
-    <DateSrart>2024-05-11T13:40:15.4837015+03:00</DateSrart>
-    <DateBegin>2024-06-21T13:40:15.4837015+03:00</DateBegin>
-    <DeadLine>2025-05-11T13:40:15.4837015+03:00</DeadLine>
-    <DateFinish>2025-07-08T13:40:15.4837015+03:00</DateFinish>
-    <Name>elevators</Name>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>2078</IdAssignment>
-    <DurationAssignment>151</DurationAssignment>
-    <LevelAssignment>Intermediate</LevelAssignment>
-    <WorkerId>353534362</WorkerId>
-    <DateSrart>2024-05-08T13:40:15.4878505+03:00</DateSrart>
-    <DateBegin>2024-06-21T13:40:15.4878505+03:00</DateBegin>
-    <DeadLine>2026-05-08T13:40:15.4878505+03:00</DeadLine>
-    <DateFinish>2026-07-06T13:40:15.4878505+03:00</DateFinish>
-    <Name>plumbing</Name>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>2081</IdAssignment>
-    <DurationAssignment>331</DurationAssignment>
+    <IdAssignment>2007</IdAssignment>
+    <DurationAssignment>319</DurationAssignment>
     <LevelAssignment>Beginner</LevelAssignment>
-    <WorkerId>388283592</WorkerId>
-    <DateSrart>2024-05-15T13:40:15.4954386+03:00</DateSrart>
-    <DateBegin>2024-07-06T13:40:15.4954386+03:00</DateBegin>
-    <DeadLine>2025-05-15T13:40:15.4954386+03:00</DeadLine>
-    <DateFinish>2025-07-06T13:40:15.4954386+03:00</DateFinish>
-    <Name>Automation_networks</Name>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>2082</IdAssignment>
-    <DurationAssignment>201</DurationAssignment>
-    <LevelAssignment>Expert</LevelAssignment>
-    <WorkerId>0</WorkerId>
-    <DateSrart>2024-06-02T13:40:15.4979893+03:00</DateSrart>
-    <DateBegin>2024-07-12T13:40:15.4979893+03:00</DateBegin>
-    <DeadLine>2026-06-02T13:40:15.4979893+03:00</DeadLine>
-    <DateFinish>2026-07-15T13:40:15.4979893+03:00</DateFinish>
-    <Name>Safety_systems</Name>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>2083</IdAssignment>
-    <DurationAssignment>299</DurationAssignment>
-    <LevelAssignment>Beginner</LevelAssignment>
-    <WorkerId>388283592</WorkerId>
-    <DateSrart>2024-05-12T13:40:15.4996135+03:00</DateSrart>
-    <DateBegin>2024-06-14T13:40:15.4996135+03:00</DateBegin>
-    <DeadLine>2027-05-12T13:40:15.4996135+03:00</DeadLine>
-    <DateFinish>2027-06-18T13:40:15.4996135+03:00</DateFinish>
-    <Name>External_installations</Name>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>2086</IdAssignment>
-    <DurationAssignment>329</DurationAssignment>
-    <LevelAssignment>Intermediate</LevelAssignment>
-    <WorkerId>353534362</WorkerId>
-    <DateSrart>2024-05-30T13:40:15.5042747+03:00</DateSrart>
-    <DateBegin>2024-07-17T13:40:15.5042747+03:00</DateBegin>
-    <DeadLine>2026-05-30T13:40:15.5042747+03:00</DeadLine>
-    <DateFinish>2026-07-20T13:40:15.5042747+03:00</DateFinish>
-    <Name>4Form</Name>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>2087</IdAssignment>
-    <DurationAssignment>501</DurationAssignment>
-    <LevelAssignment>Beginner</LevelAssignment>
-    <WorkerId>388283592</WorkerId>
-    <DateSrart>2024-05-11T13:40:15.505995+03:00</DateSrart>
-    <DateBegin>2024-06-19T13:40:15.505995+03:00</DateBegin>
-    <DeadLine>2025-05-11T13:40:15.505995+03:00</DeadLine>
-    <DateFinish>2025-06-28T13:40:15.505995+03:00</DateFinish>
-    <Name>residents_Transferring</Name>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>2084</IdAssignment>
-    <DurationAssignment>0</DurationAssignment>
-    <LevelAssignment>Beginner</LevelAssignment>
-    <WorkerId>0</WorkerId>
-    <DateSrart>2024-05-22T13:40:15.5009909+03:00</DateSrart>
-    <DateBegin xsi:nil="true" />
-    <DeadLine xsi:nil="true" />
-    <DateFinish>2024-04-03T13:42:39.5481435+03:00</DateFinish>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>2085</IdAssignment>
-    <DurationAssignment>207</DurationAssignment>
-    <LevelAssignment>AdvancedBeginner</LevelAssignment>
-    <WorkerId>0</WorkerId>
-    <DateSrart xsi:nil="true" />
-    <DateBegin>2024-06-13T13:40:15.5026376+03:00</DateBegin>
-    <DeadLine>2026-05-08T13:40:15.5026376+03:00</DeadLine>
-    <DateFinish xsi:nil="true" />
-    <Name>final_inspections</Name>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>2069</IdAssignment>
-    <DurationAssignment>58</DurationAssignment>
-    <LevelAssignment>Advanced</LevelAssignment>
-    <WorkerId>0</WorkerId>
-    <DateSrart xsi:nil="true" />
-    <DateBegin>2024-06-07T13:40:15.471651+03:00</DateBegin>
-    <DeadLine>2025-05-03T13:40:15.471651+03:00</DeadLine>
-    <DateFinish xsi:nil="true" />
-    <Name>Sewage_infrastructure</Name>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>2072</IdAssignment>
-    <DurationAssignment>469</DurationAssignment>
-    <LevelAssignment>Advanced</LevelAssignment>
-    <WorkerId>0</WorkerId>
-    <DateSrart xsi:nil="true" />
-    <DateBegin>2024-06-10T13:40:15.4770134+03:00</DateBegin>
-    <DeadLine>2026-05-07T13:40:15.4770134+03:00</DeadLine>
-    <DateFinish xsi:nil="true" />
-    <Name>ceilings</Name>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>2077</IdAssignment>
-    <DurationAssignment>109</DurationAssignment>
-    <LevelAssignment>Advanced</LevelAssignment>
-    <WorkerId>0</WorkerId>
-    <DateSrart xsi:nil="true" />
-    <DateBegin>2024-06-29T13:40:15.48571+03:00</DateBegin>
-    <DeadLine>2025-05-30T13:40:15.48571+03:00</DeadLine>
-    <DateFinish xsi:nil="true" />
-    <Name>Emergency_systems</Name>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>2067</IdAssignment>
-    <DurationAssignment>146</DurationAssignment>
-    <LevelAssignment>AdvancedBeginner</LevelAssignment>
-    <WorkerId>0</WorkerId>
-    <DateSrart xsi:nil="true" />
-    <DateBegin>2024-06-24T13:40:15.4684201+03:00</DateBegin>
-    <DeadLine>2025-05-24T13:40:15.4684201+03:00</DeadLine>
-    <DateFinish xsi:nil="true" />
-    <Name>Architectural_design</Name>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>2079</IdAssignment>
-    <DurationAssignment>277</DurationAssignment>
-    <LevelAssignment>AdvancedBeginner</LevelAssignment>
-    <WorkerId>0</WorkerId>
-    <DateSrart xsi:nil="true" />
-    <DateBegin>2024-07-16T13:40:15.489659+03:00</DateBegin>
-    <DeadLine>2026-05-29T13:40:15.489659+03:00</DeadLine>
-    <DateFinish xsi:nil="true" />
-    <Name>interior_design</Name>
-    <Milestone>false</Milestone>
-  </Assignment>
-  <Assignment>
-    <IdAssignment>2065</IdAssignment>
-    <DurationAssignment>137</DurationAssignment>
-    <LevelAssignment>Beginner</LevelAssignment>
-    <WorkerId>0</WorkerId>
-    <DateSrart xsi:nil="true" />
-    <DateBegin>2024-06-24T13:40:15.4647138+03:00</DateBegin>
-    <DeadLine>2026-05-19T13:40:15.4647138+03:00</DeadLine>
-    <DateFinish xsi:nil="true" />
+    <WorkerId>264461796</WorkerId>
+    <DateSrart>2024-05-04T14:13:19.9185223+03:00</DateSrart>
+    <DateBegin>2024-06-25T14:13:19.9185223+03:00</DateBegin>
+    <DeadLine>2026-05-04T14:13:19.9185223+03:00</DeadLine>
+    <DateFinish>2026-06-30T14:13:19.9185223+03:00</DateFinish>
     <Name>confirmation</Name>
     <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
   </Assignment>
   <Assignment>
-    <IdAssignment>2066</IdAssignment>
-    <DurationAssignment>102</DurationAssignment>
-    <LevelAssignment>Beginner</LevelAssignment>
+    <IdAssignment>2008</IdAssignment>
+    <DurationAssignment>218</DurationAssignment>
+    <LevelAssignment>Expert</LevelAssignment>
     <WorkerId>0</WorkerId>
-    <DateSrart xsi:nil="true" />
-    <DateBegin>2024-07-07T13:40:15.4669253+03:00</DateBegin>
-    <DeadLine>2026-05-19T13:40:15.4669253+03:00</DeadLine>
-    <DateFinish xsi:nil="true" />
+    <DateSrart>2024-05-05T14:13:20.1090426+03:00</DateSrart>
+    <DateBegin>2024-06-22T14:13:20.1090426+03:00</DateBegin>
+    <DeadLine>2026-05-05T14:13:20.1090426+03:00</DeadLine>
+    <DateFinish>2026-06-29T14:13:20.1090426+03:00</DateFinish>
     <Name>budget_planning</Name>
     <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
   </Assignment>
   <Assignment>
-    <IdAssignment>2070</IdAssignment>
-    <DurationAssignment>398</DurationAssignment>
+    <IdAssignment>2009</IdAssignment>
+    <DurationAssignment>505</DurationAssignment>
     <LevelAssignment>Beginner</LevelAssignment>
+    <WorkerId>296939042</WorkerId>
+    <DateSrart>2024-05-06T14:13:23.018447+03:00</DateSrart>
+    <DateBegin>2024-07-01T14:13:23.018447+03:00</DateBegin>
+    <DeadLine>2025-05-06T14:13:23.018447+03:00</DeadLine>
+    <DateFinish>2025-06-11T14:13:23.018447+03:00</DateFinish>
+    <Name>Architectural_design</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2010</IdAssignment>
+    <DurationAssignment>156</DurationAssignment>
+    <LevelAssignment>AdvancedBeginner</LevelAssignment>
     <WorkerId>0</WorkerId>
-    <DateSrart xsi:nil="true" />
-    <DateBegin>2024-07-04T13:40:15.4733554+03:00</DateBegin>
-    <DeadLine>2025-05-11T13:40:15.4733554+03:00</DeadLine>
-    <DateFinish xsi:nil="true" />
+    <DateSrart>2024-05-07T14:13:23.0413074+03:00</DateSrart>
+    <DateBegin>2024-06-26T14:13:23.0413074+03:00</DateBegin>
+    <DeadLine>2026-05-07T14:13:23.0413074+03:00</DeadLine>
+    <DateFinish>2026-06-25T14:13:23.0413074+03:00</DateFinish>
+    <Name>Building_foundations</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2011</IdAssignment>
+    <DurationAssignment>374</DurationAssignment>
+    <LevelAssignment>Intermediate</LevelAssignment>
+    <WorkerId>229594498</WorkerId>
+    <DateSrart>2024-05-20T14:13:23.1286695+03:00</DateSrart>
+    <DateBegin>2024-06-26T14:13:23.1286695+03:00</DateBegin>
+    <DeadLine>2027-05-20T14:13:23.1286695+03:00</DeadLine>
+    <DateFinish>2027-07-16T14:13:23.1286695+03:00</DateFinish>
+    <Name>Sewage_infrastructure</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2012</IdAssignment>
+    <DurationAssignment>342</DurationAssignment>
+    <LevelAssignment>AdvancedBeginner</LevelAssignment>
+    <WorkerId>0</WorkerId>
+    <DateSrart>2024-05-21T14:13:23.1644016+03:00</DateSrart>
+    <DateBegin>2024-06-25T14:13:23.1644016+03:00</DateBegin>
+    <DeadLine>2026-05-21T14:13:23.1644016+03:00</DeadLine>
+    <DateFinish>2026-07-16T14:13:23.1644016+03:00</DateFinish>
     <Name>Electrical_Systems</Name>
     <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
   </Assignment>
   <Assignment>
-    <IdAssignment>2071</IdAssignment>
-    <DurationAssignment>445</DurationAssignment>
-    <LevelAssignment>Beginner</LevelAssignment>
-    <WorkerId>0</WorkerId>
-    <DateSrart xsi:nil="true" />
-    <DateBegin>2024-06-30T13:40:15.4751356+03:00</DateBegin>
-    <DeadLine>2025-05-29T13:40:15.4751356+03:00</DeadLine>
-    <DateFinish xsi:nil="true" />
+    <IdAssignment>2013</IdAssignment>
+    <DurationAssignment>466</DurationAssignment>
+    <LevelAssignment>Intermediate</LevelAssignment>
+    <WorkerId>229594498</WorkerId>
+    <DateSrart>2024-05-15T14:13:23.2480166+03:00</DateSrart>
+    <DateBegin>2024-07-12T14:13:23.2480166+03:00</DateBegin>
+    <DeadLine>2025-05-15T14:13:23.2480166+03:00</DeadLine>
+    <DateFinish>2025-06-23T14:13:23.2480166+03:00</DateFinish>
     <Name>walls</Name>
     <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
   </Assignment>
   <Assignment>
-    <IdAssignment>2075</IdAssignment>
-    <DurationAssignment>93</DurationAssignment>
-    <LevelAssignment>Beginner</LevelAssignment>
+    <IdAssignment>2014</IdAssignment>
+    <DurationAssignment>432</DurationAssignment>
+    <LevelAssignment>AdvancedBeginner</LevelAssignment>
     <WorkerId>0</WorkerId>
-    <DateSrart xsi:nil="true" />
-    <DateBegin>2024-06-22T13:40:15.4820486+03:00</DateBegin>
-    <DeadLine>2026-05-09T13:40:15.4820486+03:00</DeadLine>
-    <DateFinish xsi:nil="true" />
+    <DateSrart>2024-05-19T14:13:23.2586583+03:00</DateSrart>
+    <DateBegin>2024-07-09T14:13:23.2586583+03:00</DateBegin>
+    <DeadLine>2027-05-19T14:13:23.2586583+03:00</DeadLine>
+    <DateFinish>2027-06-24T14:13:23.2586583+03:00</DateFinish>
+    <Name>ceilings</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2015</IdAssignment>
+    <DurationAssignment>467</DurationAssignment>
+    <LevelAssignment>Expert</LevelAssignment>
+    <WorkerId>0</WorkerId>
+    <DateSrart>2024-05-20T14:13:23.2989906+03:00</DateSrart>
+    <DateBegin>2024-06-27T14:13:23.2989906+03:00</DateBegin>
+    <DeadLine>2025-05-20T14:13:23.2989906+03:00</DeadLine>
+    <DateFinish>2025-06-27T14:13:23.2989906+03:00</DateFinish>
+    <Name>paving</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2016</IdAssignment>
+    <DurationAssignment>517</DurationAssignment>
+    <LevelAssignment>Intermediate</LevelAssignment>
+    <WorkerId>229594498</WorkerId>
+    <DateSrart>2024-05-30T14:13:23.3073378+03:00</DateSrart>
+    <DateBegin>2024-07-18T14:13:23.3073378+03:00</DateBegin>
+    <DeadLine>2026-05-30T14:13:23.3073378+03:00</DeadLine>
+    <DateFinish>2026-07-29T14:13:23.3073378+03:00</DateFinish>
+    <Name>Climate_systems</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2017</IdAssignment>
+    <DurationAssignment>118</DurationAssignment>
+    <LevelAssignment>Intermediate</LevelAssignment>
+    <WorkerId>229594498</WorkerId>
+    <DateSrart>2024-05-18T14:13:23.3122974+03:00</DateSrart>
+    <DateBegin>2024-06-26T14:13:23.3122974+03:00</DateBegin>
+    <DeadLine>2026-05-18T14:13:23.3122974+03:00</DeadLine>
+    <DateFinish>2026-07-16T14:13:23.3122974+03:00</DateFinish>
     <Name>Windows_doors</Name>
     <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
   </Assignment>
   <Assignment>
-    <IdAssignment>2080</IdAssignment>
-    <DurationAssignment>72</DurationAssignment>
+    <IdAssignment>2018</IdAssignment>
+    <DurationAssignment>521</DurationAssignment>
+    <LevelAssignment>Intermediate</LevelAssignment>
+    <WorkerId>229594498</WorkerId>
+    <DateSrart>2024-05-20T14:13:23.31885+03:00</DateSrart>
+    <DateBegin>2024-07-12T14:13:23.31885+03:00</DateBegin>
+    <DeadLine>2027-05-20T14:13:23.31885+03:00</DeadLine>
+    <DateFinish>2027-07-09T14:13:23.31885+03:00</DateFinish>
+    <Name>elevators</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2019</IdAssignment>
+    <DurationAssignment>540</DurationAssignment>
     <LevelAssignment>Beginner</LevelAssignment>
-    <WorkerId>0</WorkerId>
-    <DateSrart xsi:nil="true" />
-    <DateBegin>2024-06-27T13:40:15.4928723+03:00</DateBegin>
-    <DeadLine>2026-05-19T13:40:15.4928723+03:00</DeadLine>
-    <DateFinish xsi:nil="true" />
+    <WorkerId>296939042</WorkerId>
+    <DateSrart>2024-05-30T14:13:23.3265952+03:00</DateSrart>
+    <DateBegin>2024-07-13T14:13:23.3265952+03:00</DateBegin>
+    <DeadLine>2025-05-30T14:13:23.3265952+03:00</DeadLine>
+    <DateFinish>2025-07-12T14:13:23.3265952+03:00</DateFinish>
+    <Name>Emergency_systems</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2020</IdAssignment>
+    <DurationAssignment>230</DurationAssignment>
+    <LevelAssignment>Intermediate</LevelAssignment>
+    <WorkerId>229594498</WorkerId>
+    <DateSrart>2024-05-16T14:13:23.3376103+03:00</DateSrart>
+    <DateBegin>2024-07-14T14:13:23.3376103+03:00</DateBegin>
+    <DeadLine>2025-05-16T14:13:23.3376103+03:00</DeadLine>
+    <DateFinish>2025-07-15T14:13:23.3376103+03:00</DateFinish>
+    <Name>plumbing</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2021</IdAssignment>
+    <DurationAssignment>305</DurationAssignment>
+    <LevelAssignment>Advanced</LevelAssignment>
+    <WorkerId>263983559</WorkerId>
+    <DateSrart>2024-05-25T14:13:23.3503609+03:00</DateSrart>
+    <DateBegin>2024-07-09T14:13:23.3503609+03:00</DateBegin>
+    <DeadLine>2026-05-25T14:13:23.3503609+03:00</DeadLine>
+    <DateFinish>2026-06-27T14:13:23.3503609+03:00</DateFinish>
+    <Name>interior_design</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2022</IdAssignment>
+    <DurationAssignment>313</DurationAssignment>
+    <LevelAssignment>Beginner</LevelAssignment>
+    <WorkerId>264461796</WorkerId>
+    <DateSrart>2024-05-16T14:13:23.3771674+03:00</DateSrart>
+    <DateBegin>2024-06-21T14:13:23.3771674+03:00</DateBegin>
+    <DeadLine>2026-05-16T14:13:23.3771674+03:00</DeadLine>
+    <DateFinish>2026-06-17T14:13:23.3771674+03:00</DateFinish>
     <Name>Finishes_colors</Name>
     <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2023</IdAssignment>
+    <DurationAssignment>250</DurationAssignment>
+    <LevelAssignment>Advanced</LevelAssignment>
+    <WorkerId>263983559</WorkerId>
+    <DateSrart>2024-05-10T14:13:23.3861284+03:00</DateSrart>
+    <DateBegin>2024-06-25T14:13:23.3861284+03:00</DateBegin>
+    <DeadLine>2026-05-10T14:13:23.3861284+03:00</DeadLine>
+    <DateFinish>2026-06-28T14:13:23.3861284+03:00</DateFinish>
+    <Name>Automation_networks</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2024</IdAssignment>
+    <DurationAssignment>475</DurationAssignment>
+    <LevelAssignment>Beginner</LevelAssignment>
+    <WorkerId>296939042</WorkerId>
+    <DateSrart>2024-05-07T14:13:23.4092552+03:00</DateSrart>
+    <DateBegin>2024-06-18T14:13:23.4092552+03:00</DateBegin>
+    <DeadLine>2027-05-07T14:13:23.4092552+03:00</DeadLine>
+    <DateFinish>2027-06-24T14:13:23.4092552+03:00</DateFinish>
+    <Name>Safety_systems</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2025</IdAssignment>
+    <DurationAssignment>283</DurationAssignment>
+    <LevelAssignment>Intermediate</LevelAssignment>
+    <WorkerId>229594498</WorkerId>
+    <DateSrart>2024-05-15T14:13:23.417536+03:00</DateSrart>
+    <DateBegin>2024-06-24T14:13:23.417536+03:00</DateBegin>
+    <DeadLine>2026-05-15T14:13:23.417536+03:00</DeadLine>
+    <DateFinish>2026-06-15T14:13:23.417536+03:00</DateFinish>
+    <Name>External_installations</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2026</IdAssignment>
+    <DurationAssignment>166</DurationAssignment>
+    <LevelAssignment>Beginner</LevelAssignment>
+    <WorkerId>296939042</WorkerId>
+    <DateSrart>2024-05-26T14:13:23.4244924+03:00</DateSrart>
+    <DateBegin>2024-07-03T14:13:23.4244924+03:00</DateBegin>
+    <DeadLine>2026-05-26T14:13:23.4244924+03:00</DeadLine>
+    <DateFinish>2026-06-28T14:13:23.4244924+03:00</DateFinish>
+    <Name>Technological_spaces</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2027</IdAssignment>
+    <DurationAssignment>111</DurationAssignment>
+    <LevelAssignment>AdvancedBeginner</LevelAssignment>
+    <WorkerId>0</WorkerId>
+    <DateSrart>2024-05-31T14:13:23.4309322+03:00</DateSrart>
+    <DateBegin>2024-07-09T14:13:23.4309322+03:00</DateBegin>
+    <DeadLine>2026-05-31T14:13:23.4309322+03:00</DeadLine>
+    <DateFinish>2026-07-13T14:13:23.4309322+03:00</DateFinish>
+    <Name>final_inspections</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2028</IdAssignment>
+    <DurationAssignment>469</DurationAssignment>
+    <LevelAssignment>Expert</LevelAssignment>
+    <WorkerId>0</WorkerId>
+    <DateSrart>2024-05-09T14:13:23.451731+03:00</DateSrart>
+    <DateBegin>2024-07-05T14:13:23.451731+03:00</DateBegin>
+    <DeadLine>2025-05-09T14:13:23.451731+03:00</DeadLine>
+    <DateFinish>2025-06-14T14:13:23.451731+03:00</DateFinish>
+    <Name>4Form</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2029</IdAssignment>
+    <DurationAssignment>245</DurationAssignment>
+    <LevelAssignment>Beginner</LevelAssignment>
+    <WorkerId>296939042</WorkerId>
+    <DateSrart>2024-05-28T14:13:23.5009013+03:00</DateSrart>
+    <DateBegin>2024-07-09T14:13:23.5009013+03:00</DateBegin>
+    <DeadLine>2025-05-28T14:13:23.5009013+03:00</DeadLine>
+    <DateFinish>2025-07-20T14:13:23.5009013+03:00</DateFinish>
+    <Name>residents_Transferring</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2030</IdAssignment>
+    <DurationAssignment>357</DurationAssignment>
+    <LevelAssignment>Expert</LevelAssignment>
+    <WorkerId>0</WorkerId>
+    <DateSrart>2024-06-01T14:14:40.7160474+03:00</DateSrart>
+    <DateBegin>2024-07-24T14:14:40.7160474+03:00</DateBegin>
+    <DeadLine>2025-06-01T14:14:40.7160474+03:00</DeadLine>
+    <DateFinish>2025-07-23T14:14:40.7160474+03:00</DateFinish>
+    <Name>confirmation</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2031</IdAssignment>
+    <DurationAssignment>155</DurationAssignment>
+    <LevelAssignment>Beginner</LevelAssignment>
+    <WorkerId>278696297</WorkerId>
+    <DateSrart>2024-05-26T14:14:40.9537931+03:00</DateSrart>
+    <DateBegin>2024-07-10T14:14:40.9537931+03:00</DateBegin>
+    <DeadLine>2025-05-26T14:14:40.9537931+03:00</DeadLine>
+    <DateFinish>2025-07-24T14:14:40.9537931+03:00</DateFinish>
+    <Name>budget_planning</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2032</IdAssignment>
+    <DurationAssignment>199</DurationAssignment>
+    <LevelAssignment>Expert</LevelAssignment>
+    <WorkerId>0</WorkerId>
+    <DateSrart>2024-05-05T14:14:44.806049+03:00</DateSrart>
+    <DateBegin>2024-06-29T14:14:44.806049+03:00</DateBegin>
+    <DeadLine>2025-05-05T14:14:44.806049+03:00</DeadLine>
+    <DateFinish>2025-06-18T14:14:44.806049+03:00</DateFinish>
+    <Name>Architectural_design</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2033</IdAssignment>
+    <DurationAssignment>107</DurationAssignment>
+    <LevelAssignment>Intermediate</LevelAssignment>
+    <WorkerId>229594498</WorkerId>
+    <DateSrart>2024-05-31T14:14:44.8113841+03:00</DateSrart>
+    <DateBegin>2024-07-03T14:14:44.8113841+03:00</DateBegin>
+    <DeadLine>2025-05-31T14:14:44.8113841+03:00</DeadLine>
+    <DateFinish>2025-07-21T14:14:44.8113841+03:00</DateFinish>
+    <Name>Building_foundations</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2034</IdAssignment>
+    <DurationAssignment>123</DurationAssignment>
+    <LevelAssignment>Expert</LevelAssignment>
+    <WorkerId>0</WorkerId>
+    <DateSrart>2024-05-15T14:14:44.8155845+03:00</DateSrart>
+    <DateBegin>2024-07-11T14:14:44.8155845+03:00</DateBegin>
+    <DeadLine>2027-05-15T14:14:44.8155845+03:00</DeadLine>
+    <DateFinish>2027-07-07T14:14:44.8155845+03:00</DateFinish>
+    <Name>Sewage_infrastructure</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2035</IdAssignment>
+    <DurationAssignment>122</DurationAssignment>
+    <LevelAssignment>Advanced</LevelAssignment>
+    <WorkerId>391322204</WorkerId>
+    <DateSrart>2024-06-01T14:14:44.8201996+03:00</DateSrart>
+    <DateBegin>2024-07-08T14:14:44.8201996+03:00</DateBegin>
+    <DeadLine>2026-06-01T14:14:44.8201996+03:00</DeadLine>
+    <DateFinish>2026-07-16T14:14:44.8201996+03:00</DateFinish>
+    <Name>Electrical_Systems</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2036</IdAssignment>
+    <DurationAssignment>409</DurationAssignment>
+    <LevelAssignment>Advanced</LevelAssignment>
+    <WorkerId>391322204</WorkerId>
+    <DateSrart>2024-05-14T14:14:44.9690947+03:00</DateSrart>
+    <DateBegin>2024-07-06T14:14:44.9690947+03:00</DateBegin>
+    <DeadLine>2026-05-14T14:14:44.9690947+03:00</DeadLine>
+    <DateFinish>2026-06-29T14:14:44.9690947+03:00</DateFinish>
+    <Name>walls</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2037</IdAssignment>
+    <DurationAssignment>55</DurationAssignment>
+    <LevelAssignment>AdvancedBeginner</LevelAssignment>
+    <WorkerId>243938031</WorkerId>
+    <DateSrart>2024-05-25T14:14:44.9754172+03:00</DateSrart>
+    <DateBegin>2024-07-23T14:14:44.9754172+03:00</DateBegin>
+    <DeadLine>2027-05-25T14:14:44.9754172+03:00</DeadLine>
+    <DateFinish>2027-06-24T14:14:44.9754172+03:00</DateFinish>
+    <Name>ceilings</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2038</IdAssignment>
+    <DurationAssignment>253</DurationAssignment>
+    <LevelAssignment>Expert</LevelAssignment>
+    <WorkerId>0</WorkerId>
+    <DateSrart>2024-05-23T14:14:45.0109631+03:00</DateSrart>
+    <DateBegin>2024-07-05T14:14:45.0109631+03:00</DateBegin>
+    <DeadLine>2025-05-23T14:14:45.0109631+03:00</DeadLine>
+    <DateFinish>2025-07-08T14:14:45.0109631+03:00</DateFinish>
+    <Name>paving</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2039</IdAssignment>
+    <DurationAssignment>557</DurationAssignment>
+    <LevelAssignment>Expert</LevelAssignment>
+    <WorkerId>0</WorkerId>
+    <DateSrart>2024-05-12T14:14:45.0315875+03:00</DateSrart>
+    <DateBegin>2024-07-03T14:14:45.0315875+03:00</DateBegin>
+    <DeadLine>2026-05-12T14:14:45.0315875+03:00</DeadLine>
+    <DateFinish>2026-06-11T14:14:45.0315875+03:00</DateFinish>
+    <Name>Climate_systems</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2040</IdAssignment>
+    <DurationAssignment>414</DurationAssignment>
+    <LevelAssignment>Beginner</LevelAssignment>
+    <WorkerId>278696297</WorkerId>
+    <DateSrart>2024-06-02T14:14:45.0592821+03:00</DateSrart>
+    <DateBegin>2024-07-07T14:14:45.0592821+03:00</DateBegin>
+    <DeadLine>2027-06-02T14:14:45.0592821+03:00</DeadLine>
+    <DateFinish>2027-07-31T14:14:45.0592821+03:00</DateFinish>
+    <Name>Windows_doors</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2041</IdAssignment>
+    <DurationAssignment>380</DurationAssignment>
+    <LevelAssignment>Intermediate</LevelAssignment>
+    <WorkerId>229594498</WorkerId>
+    <DateSrart>2024-05-03T14:14:45.1062857+03:00</DateSrart>
+    <DateBegin>2024-06-23T14:14:45.1062857+03:00</DateBegin>
+    <DeadLine>2027-05-03T14:14:45.1062857+03:00</DeadLine>
+    <DateFinish>2027-06-16T14:14:45.1062857+03:00</DateFinish>
+    <Name>elevators</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2042</IdAssignment>
+    <DurationAssignment>206</DurationAssignment>
+    <LevelAssignment>Advanced</LevelAssignment>
+    <WorkerId>218202470</WorkerId>
+    <DateSrart>2024-05-15T14:14:45.1153623+03:00</DateSrart>
+    <DateBegin>2024-07-02T14:14:45.1153623+03:00</DateBegin>
+    <DeadLine>2025-05-15T14:14:45.1153623+03:00</DeadLine>
+    <DateFinish>2025-06-26T14:14:45.1153623+03:00</DateFinish>
+    <Name>Emergency_systems</Name>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>2043</IdAssignment>
+    <DurationAssignment>354</DurationAssignment>
+    <LevelAssignment>Expert</LevelAssignment>
+    <WorkerId>0</WorkerId>
+    <DateSrart xsi:nil="true" />
+    <DateBegin xsi:nil="true" />
+    <DeadLine xsi:nil="true" />
+    <DateFinish xsi:nil="true" />
+    <Name>A </Name>
+    <Description> A</Description>
+    <Remarks> A</Remarks>
+    <ResultProduct> A</ResultProduct>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
+  </Assignment>
+  <Assignment>
+    <IdAssignment>1949</IdAssignment>
+    <DurationAssignment>666</DurationAssignment>
+    <LevelAssignment>Intermediate</LevelAssignment>
+    <WorkerId>0</WorkerId>
+    <DateSrart xsi:nil="true" />
+    <DateBegin xsi:nil="true" />
+    <DeadLine xsi:nil="true" />
+    <DateFinish xsi:nil="true" />
+    <Name> B</Name>
+    <Description> B</Description>
+    <Remarks> B</Remarks>
+    <ResultProduct> B</ResultProduct>
+    <Milestone>false</Milestone>
+    <IsConnected>false</IsConnected>
   </Assignment>
 </ArrayOfAssignment>

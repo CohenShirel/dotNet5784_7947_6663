@@ -30,7 +30,7 @@ public /*internal */class Bl : IBl
         s_dal.Link!.DeleteAll();
     }
     private DateTime s_Clock = DateTime.Now;
-    public DateTime Clock { get { return s_Clock; } private set { s_Clock = value; } }
+    public DateTime Clock { get { return s_Clock; }  set { s_Clock = value; } }
     public void FormatClockOneHour()=> Clock=Clock.AddHours(1);
     public void FormatClockOneDay() => Clock = Clock.AddDays(1);
     public void FormatClockOneMonth() => Clock = Clock.AddMonths(1);

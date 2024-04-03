@@ -19,3 +19,13 @@ namespace PL;
         (Enum.GetValues(typeof(DO.Level)) as IEnumerable<DO.Level>)!;
         public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
     }
+
+    internal class LevelsCollectionExceptNone : IEnumerable
+    {
+     static readonly IEnumerable<DO.Level> s_enums =
+    Enum.GetValues(typeof(DO.Level))
+    .OfType<DO.Level>()
+    .Where(x => x != DO.Level.None);
+
+    public IEnumerator GetEnumerator() => s_enums.GetEnumerator();
+    }

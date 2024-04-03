@@ -103,6 +103,34 @@ internal class AssignmentImplementation : BlApi.IAssignment
         string name = worker.Name!;
         return new Tuple<int, string>(id, name);
     }
+
+    public IEnumerable<AssignmentInList> GetLinkedAssignments(BO.Assignment currentAssignment)
+    {
+        List<AssignmentInList> links = new List<AssignmentInList>();
+
+        // אם המשימה הנוכחית אינה מוגדרת, תחזיר רשימה ריקה
+        if (currentAssignment == null)
+            return Enumerable.Empty<AssignmentInList>();
+        //var links = currentAssignment.Links[0];
+
+        if (currentAssignment.Links != null && currentAssignment.Links.Any())
+        {
+            for (int i = 0; i < currentAssignment.Links.Count; i++)
+            {
+                links.Add(currentAssignment.Links[i]);         
+            }
+        }
+
+
+        // קבל את רשימת התלויות של המשימה הנוכחית
+
+        // אם אין תלויות, תחזיר רשימה ריקה
+        if (links == null)
+            return Enumerable.Empty<AssignmentInList>();
+
+        // כעת תוכל להחזיר את רשימת התלויות
+        return links;
+    }
     public BO.Assignment? Read(int id)
     {
         try
