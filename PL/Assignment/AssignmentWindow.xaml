@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Assignment"
         mc:Ignorable="d"
-        Title="AssignmentWindow" Height="530" Width="600"
+        Title="AssignmentWindow" Height="530" Width="622"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <Window.Resources>
@@ -84,7 +84,6 @@
                 <!--<Label Content="Worker ID" Grid.Column="0" Grid.Row="9" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Bottom"/>
                 <TextBox x:Name="txtWorkerId" Text="{Binding Path= IdWorker, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Left" Margin="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>-->
             </StackPanel>
-            <TextBox x:Name="txtSearch" TextChanged="txtSearch_TextChanged" Margin="-18,-24,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" />
           
         </Grid>
         <Grid Grid.Row="1"  DataContext="{Binding currentAssignment}">
@@ -93,8 +92,21 @@
                 HorizontalAlignment="Center" Height="31" Width="150" Margin="3,0,0,0" VerticalAlignment="Top" Padding="5" 
                 Click="btnAddUpdate_Click"/>
         </Grid>
-        <ListView MaxHeight="330" Grid.Column="1" x:Name="lview" ItemsSource="{Binding Assignments}" HorizontalContentAlignment="Stretch" Width="300">
-            <!--<ListView.ItemContainerStyle>
+        <Grid Margin="0,40,0,0" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1.2*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel  Visibility="{Binding AssignmentDetailsVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:AssignmentWindow}}}" Grid.Row="1">
+                <Label Content="Search:" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" Margin="3" VerticalAlignment="Top"/>
+
+                <TextBox x:Name="txtSearch" TextChanged="txtSearch_TextChanged" Margin="50,-24,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" Grid.Row="1"/>
+                <ListView MaxHeight="330" x:Name="lview" ItemsSource="{Binding Assignments}" HorizontalContentAlignment="Stretch" Width="300">
+                    <!--<ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding IsLinked}" Value="True">
@@ -103,34 +115,37 @@
                     </Style.Triggers>
                 </Style>
             </ListView.ItemContainerStyle>-->
-            <ListView.View>
+                    <ListView.View>
 
-                <GridView>
-                    <GridViewColumn>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <!-- Check if the task is already linked, and if so, display "V" -->
-                                    <!-- Display the checkbox for selecting the task -->
-                                    <CheckBox Checked="CheckBox_Checked"/>
-                                    <!-- Display the task name -->
-                                </StackPanel>
-                                <!--<CheckBox Checked="CheckBox_Checked"></CheckBox>-->
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+                        <GridView>
+                            <GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <!-- Check if the task is already linked, and if so, display "V" -->
+                                            <!-- Display the task name -->
+                                            <!-- Display the checkbox for selecting the task -->
+                                            <CheckBox Checked="CheckBox_Checked"/>
+                                            
+                                        </StackPanel>
+                                        <!--<CheckBox Checked="CheckBox_Checked"></CheckBox>-->
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
 
-                    <GridViewColumn>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding AssignmentName}"></TextBlock>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-                </ListView.View> 
-               
-            </ListView>
+                            <GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding AssignmentName}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+
+                </ListView>
+            </StackPanel>
+        </Grid>
 
     </Grid>
 

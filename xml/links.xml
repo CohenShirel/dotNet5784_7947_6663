@@ -1,2 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfLink xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" />
+<ArrayOfLink xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Link>
+    <IdLink>1547</IdLink>
+    <IdAssignment>1949</IdAssignment>
+    <IdPAssignment>1948</IdPAssignment>
+  </Link>
+  <Link>
+    <IdLink>1548</IdLink>
+    <IdAssignment>1949</IdAssignment>
+    <IdPAssignment>1948</IdPAssignment>
+  </Link>
+</ArrayOfLink>

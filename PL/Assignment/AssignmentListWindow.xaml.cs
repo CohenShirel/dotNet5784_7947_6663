@@ -33,7 +33,7 @@ namespace PL.Assignment
 
         //יודעת לדווח על הגרפיקה על קיומה...מדווחת על שינויים על כל הוספה או מחיקה של מישהו
         public static readonly DependencyProperty ListAssignmentsProperty =
-            DependencyProperty.Register("Assignments", typeof(IEnumerable<BO.AssignmentInList>), typeof(AssignmentListWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("ListAssignments", typeof(IEnumerable<BO.AssignmentInList>), typeof(AssignmentListWindow), new PropertyMetadata(null));
 
         
 
@@ -73,6 +73,7 @@ namespace PL.Assignment
             ListAssignments = (level == DO.Level.None) ?
              s_bl?.Assignment.ReadAll() : s_bl?.Assignment.ReadAll(item => item.LevelAssignment == level).OrderBy(e => e.Id);
         }
+    
 
         private void ComboBox_Selected(object sender, RoutedEventArgs e)
         {
