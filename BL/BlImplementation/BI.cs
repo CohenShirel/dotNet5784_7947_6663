@@ -36,6 +36,9 @@ public /*internal */class Bl : IBl
     public void FormatClockOneMonth() => Clock = Clock.AddMonths(1);
     public void FormatClockOneYear()=> Clock= Clock.AddYears(1);
     public void ResetClock()=>Clock=DateTime.Now.Date;
+
+    public List<BO.Assignment> lstAssignments { get; } = new();
+
 }
 
 

@@ -15,6 +15,7 @@ public interface IBl
     //clock
     #region Clock HandLing
     public DateTime Clock { get; }
+    public List<BO.Assignment> lstAssignments { get; }
     public void FormatClockOneHour() { }
     public void FormatClockOneDay() { }
     public void FormatClockOneMonth() { }

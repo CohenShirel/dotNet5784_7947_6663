@@ -23,72 +23,63 @@ using static PL.Assignment.AssignmentWindow;
 namespace PL.Assignment;
 public partial class AssignmentWindow : Window
 {
-    static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+    //List<CheckBox> AssignmentDetailsLCBox = new();
+    // List<CheckBox> lCBox = new List<CheckBox>();
+
+    static readonly BlApi.IBl _bl = BlApi.Factory.Get();
     public DO.Level level { get; set; } = DO.Level.None;
-    private HashSet<BO.AssignmentInList> _assignmentSet => Assignments.ToHashSet();
 
-    public ObservableCollection<BO.AssignmentInList> Assignments
+    public ObservableCollection<BO.AssignmentInList> Assignmentslst
     {
-        get { return (ObservableCollection<BO.AssignmentInList>)GetValue(List1AssignmentsProperty); }
-        set { SetValue(List1AssignmentsProperty, value); }
+        get { return (ObservableCollection<BO.AssignmentInList>)GetValue(LstAssignmentsProperty); }
+        set { SetValue(LstAssignmentsProperty, value); }
     }
-
+    public static readonly DependencyProperty LstAssignmentsProperty =
+      DependencyProperty.Register("Assignments", typeof(ObservableCollection<BO.AssignmentInList>), typeof(AssignmentWindow), new PropertyMetadata(null));
+    private HashSet<BO.AssignmentInList> assignmentSet => Assignmentslst.ToHashSet();
     //יודעת לדווח על הגרפיקה על קיומה...מדווחת על שינויים על כל הוספה או מחיקה של מישהו
-    public static readonly DependencyProperty List1AssignmentsProperty =
-        DependencyProperty.Register("Assignments", typeof(ObservableCollection<BO.AssignmentInList>), typeof(AssignmentWindow), new PropertyMetadata(null));
-
-    //public BO.Assignment currentAssignment
-    //{
-    //    get
-    //    {
-    //        var value = GetValue(AssignmentsListProperty);
-    //        return value != null ? (BO.Assignment)value : new BO.Assignment() { IdAssignment = -1 };
-    //    }
-    //    set { SetValue(AssignmentsListProperty, value); }
-    //}
-    public BO.Assignment currentAssignment
+ 
+    public BO.Assignment currentAss
     {
-        get { return (BO.Assignment)GetValue(AssignmentsListProperty); }
-        set { SetValue(AssignmentsListProperty, value); }
+        get { return (BO.Assignment)GetValue(AssListProperty); }
+        set { SetValue(AssListProperty, value); }
     }
 
-    public static readonly DependencyProperty AssignmentsListProperty =
-    DependencyProperty.Register("currentAssignment", typeof(BO.Assignment), typeof(AssignmentWindow), new PropertyMetadata(null));/*typeof(IEnumerable<BO.Assignment>), typeof(AssignmentListWindow)*/
-
-
-
-
-    public Visibility AssignmentDetailsVisibility
+    public static readonly DependencyProperty AssListProperty =
+    DependencyProperty.Register("currentAss", typeof(BO.Assignment), typeof(AssignmentWindow), new PropertyMetadata(null));/*typeof(IEnumerable<BO.Assignment>), typeof(AssignmentListWindow)*/
+    public Visibility AssDetailsVisibility
     {
-        get { return (Visibility)GetValue(AssignmentDetailsVisibilityProperty); }
-        set { SetValue(AssignmentDetailsVisibilityProperty, value); }
+        get { return (Visibility)GetValue(AssDetailsVisibilityProperty); }
+        set { SetValue(AssDetailsVisibilityProperty, value); }
     }
-    public static readonly DependencyProperty AssignmentDetailsVisibilityProperty =
+    public static readonly DependencyProperty AssDetailsVisibilityProperty =
     DependencyProperty.Register("AssignmentDetailsVisibility", typeof(Visibility), typeof(AssignmentWindow), new PropertyMetadata(Visibility.Collapsed));
 
-    private List<BO.AssignmentInList> _selectedAssignments = new();
+    private List<BO.AssignmentInList> selectedAssignments = new();
     public AssignmentWindow(int id = 0)
     {
         InitializeComponent();
         CheckBox checkBox;
-        //currentAssignment = s_bl.Assignment.Read(id)!;
-
-        //Assignments = new ObservableCollection<AssignmentInList>(s_bl.Assignment.ReadAll());
-        
-        //lview.ItemsSource= lCBox;
-        //
-
         try
         {
+            currentAss = (id != 0) ? _bl.Assignment.Read(id)! : new BO.Assignment() { IdAssignment = 0, DurationAssignment = 0, Name = " ", Description = " ", Remarks = " ", ResultProduct = " ", Links = null, LevelAssignment = DO.Level.None };
+            if (currentAss != null && currentAss.IdAssignment != 0)
+                txtId.IsEnabled = false;
+            var allAssignments = _bl.Assignment.ReadAll().ToList(); // Read all assignments
+            var assignmentsExceptCurrent = allAssignments.Where(a => a.Id != currentAss.IdAssignment); // Exclude the current assignment
+            Assignmentslst = new ObservableCollection<AssignmentInList>(assignmentsExceptCurrent); // Create ObservableCollection from the filtered assignments
+            //var allAssignments = s_bl.Assignment.ReadAll().ToList(); // קריאת כל המשימות
+            //Assignments = new ObservableCollection<AssignmentInList>(FilterAssignmentsToShow(allAssignments, currentAssignment!)); // יצירת ObservableCollection מהמשימות הסוננות
+
             Status s = Tools.GetProjectStatus();
             if (s == BO.Status.Unscheduled || s == BO.Status.Scheduled)
             {
                 //sp.Visibility = Visibility.Visible;
-                AssignmentDetailsVisibility = Visibility.Visible;
+                AssDetailsVisibility = Visibility.Visible;
 
             }
             else
-                AssignmentDetailsVisibility = Visibility.Collapsed;
+                AssDetailsVisibility = Visibility.Collapsed;
         }
         catch (BO.Exceptions.BlDoesNotExistException ex)
         {
@@ -99,31 +90,10 @@ public partial class AssignmentWindow : Window
             MessageBox.Show(ex.Message, "Operation Faild", MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
     }
-
-    //private IEnumerable<AssignmentInList> FilterAssignmentsToShow(IEnumerable<AssignmentInList> allAssignments, BO.Assignment currentAssignment)
-    //{
-    //    // סינון המשימות הנותרות לתצוגה
-    //    foreach (var ass in allAssignments)
-    //    {
-
-    //        BO.Assignment linkAss = s_bl.Assignment.Read(a=>a.IdAssignment==ass.Id && a. != currentAssignment.Links);
-                    
-
-    //        var filteredAssignments = allAssignments.Where(a =>
-    //    a.Id != currentAssignment.IdAssignment &&
-    //    a.Links!= currentAssignment.Links
-    //    //a.IdWorker == 0 
-
-    //    );
-    //    }
-        
-    //    return filteredAssignments;
-    //}
-
     public BO.Assignment currentAssignmentData
     {
-        get { return currentAssignment; }
-        set { currentAssignment = value; }
+        get { return currentAss; }
+        set { currentAss = value; }
     }
     private void txtId_TextChanged(object sender, TextChangedEventArgs e)
     {
@@ -134,34 +104,50 @@ public partial class AssignmentWindow : Window
     {
 
     }
+
+
+
     private void btnAddUpdate_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            currentAssignment.Links = _selectedAssignments;
+            currentAss.Links = selectedAssignments;
 
             if ((sender as Button).Content.ToString() == "Update")
             {
-                s_bl.Assignment.Update(currentAssignment);
+                _bl.Assignment.Update(currentAss);
 
                 // Create a new HashSet to hold the remaining tasks
-                var remainingTasks = new HashSet<BO.AssignmentInList>(_assignmentSet);
+                var remainingTasks = new HashSet<BO.AssignmentInList>(assignmentSet);
 
                 // Remove selected tasks from the set of remaining tasks
-                foreach (var assignmentCheckBox in _selectedAssignments)
+                foreach (var assignmentCheckBox in selectedAssignments)
                 {
                     remainingTasks.Remove(assignmentCheckBox);
                 }
 
                 // Update Assignments with the remaining tasks
-                Assignments = new ObservableCollection<AssignmentInList>(remainingTasks);
+                Assignmentslst = new ObservableCollection<AssignmentInList>(remainingTasks);
+
                 MessageBox.Show("The Update was successful");
+                //s_bl.Assignment.Update(currentAssignment);
+                //foreach (var assignmentCheckBox in _selectedAssignments) _assignmentSet.Remove(assignmentCheckBox);
+                //Assignments = new ObservableCollection<AssignmentInList>(_assignmentSet); //    _selectedAssignments
+                //MessageBox.Show("The Update was successfull");
+                // Clear the Assignments collection
+                //Assignments.Clear();
+
+                // Add the remaining items from _assignmentSet to Assignments
+                //foreach (var assignment in _assignmentSet)
+                //{
+                //    Assignments.Add(assignment);
+                //}
             }
             else
             {
-                int? id = s_bl.Assignment.Create(currentAssignment);
-                foreach (var assignmentCheckBox in _selectedAssignments) _assignmentSet.Remove(assignmentCheckBox);
-                Assignments = new ObservableCollection<AssignmentInList>(_assignmentSet); //_assignmentSet
+                int? id = _bl.Assignment.Create(currentAss);
+                foreach (var assignmentCheckBox in selectedAssignments) assignmentSet.Remove(assignmentCheckBox);
+                Assignmentslst = new ObservableCollection<AssignmentInList>(assignmentSet); //_assignmentSet
                 MessageBox.Show("The Addition was made successfully");
             }
             this.Close();
@@ -203,7 +189,7 @@ public partial class AssignmentWindow : Window
     private void txtSearch_TextChanged(object sender, TextChangedEventArgs e)
     {
         string searchText = txtSearch.Text.ToLower(); // Convert search text to lowercase for case-insensitive search
-        IEnumerable<BO.AssignmentInList> filteredList = Assignments.Where
+        IEnumerable<BO.AssignmentInList> filteredList = Assignmentslst.Where
             (assignment => assignment.AssignmentName.ToLower().Contains(searchText));
 
         lview.ItemsSource = filteredList;
@@ -233,41 +219,23 @@ public partial class AssignmentWindow : Window
         //if (checkBox?.IsChecked is var value) _selectedAssignments.Add(task!);
         //else
         //    _selectedAssignments.Remove(task);
+
         if (checkBox?.IsChecked is var value && task != null)
         {
             if (value!.Value)
             {
-                _selectedAssignments.Add(task);
+                selectedAssignments.Add(task);
                 // Update the visual appearance of the ListViewItem to indicate that the task is linked
                 //UpdateListViewItemAppearance(checkBox!, true);
             }
             else
             {
-                _selectedAssignments.Remove(task);
+                selectedAssignments.Remove(task);
                 // Update the visual appearance of the ListViewItem to indicate that the task is not linked
                 //UpdateListViewItemAppearance(checkBox!, false);
             }
             //checkBox!.IsChecked = _selectedAssignments.Contains(task);
 
-        }
-    }
-
-    private void UpdateListViewItemAppearance(CheckBox checkBox, bool isLinked)
-    {
-        // Find the parent ListViewItem of the CheckBox
-        ListViewItem item = FindVisualParent<ListViewItem>(checkBox);
-        if (item != null)
-        {
-            // Update the visual appearance based on whether the task is linked or not
-            if (isLinked)
-            {
-                item.Background = Brushes.LightGray;
-            }
-            else
-            {
-                // Restore the original background color of the ListViewItem
-                item.Background = Brushes.Transparent;
-            }
         }
     }
 

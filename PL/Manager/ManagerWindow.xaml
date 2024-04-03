@@ -23,7 +23,30 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
+
+        <Grid HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Button Style="{StaticResource CustomButtonStyle}" Content="New Messages" Grid.Row="0" Margin="0" Height="Auto" Click="BtnNewMessages_Click"/>
+            <ListView ItemsSource="{Binding Path=lstAssignments}" Grid.Row="1" HorizontalContentAlignment="Stretch" HorizontalAlignment="Right"
+               Visibility="{Binding VisibilityNewMessages, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ManagerWindow}}}" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Path=Name}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Style="{StaticResource CustomButtonStyle}" Content="Clear The Messages" Grid.Row="2" Margin="0" Height="Auto" Click="BtnClearMessages_Click" 
+               Visibility="{Binding VisibilityNewMessages, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:ManagerWindow}}}"/>
+            <!--<Button Content="Clear The Messages" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Click="BtnClearMessages_Click"/>-->
+        </Grid>
 
         <Grid HorizontalAlignment="Left" VerticalAlignment="Stretch" Grid.Column="0">
             <Grid.RowDefinitions>

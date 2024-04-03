@@ -3,10 +3,12 @@
 using BlApi;
 using BO;
 using DalApi;
+using DO;
 //using BlTest;
 //namespace Implementation
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static BO.Exceptions;
 
 internal class AssignmentImplementation : BlApi.IAssignment
@@ -44,7 +46,7 @@ internal class AssignmentImplementation : BlApi.IAssignment
         throw new Exceptions.BlException("Failed to create task");
     }
 
-    private void updateDependincies(Assignment boAssignment)
+    private void updateDependincies(BO.Assignment boAssignment)
     {
         if (boAssignment.Links != null && boAssignment.Links.Any())
         {
@@ -213,7 +215,12 @@ internal class AssignmentImplementation : BlApi.IAssignment
                 {
                     Description = boAss.Description,
                     Remarks = boAss.Remarks,
-                    ResultProduct = boAss.ResultProduct
+                    ResultProduct = boAss.ResultProduct,
+                    //תאריך התחלה וסיום בפועל!!!
+                    DateSrart=boAss.dateSrart,
+                    DateFinish=boAss.DateFinish,
+                    IdAssignment=boAss.IdAssignment,
+                    WorkerId=boAss.IdWorker,
                 };
                 _dal.Assignment.Update(doAss);
                 updateDependincies(boAss);
@@ -290,7 +297,7 @@ internal class AssignmentImplementation : BlApi.IAssignment
         }
     }
 
-    private static DO.Assignment updateBasicAssigmentDetails(Assignment boAss, DO.Assignment doAss)
+    private static DO.Assignment updateBasicAssigmentDetails(BO.Assignment boAss, DO.Assignment doAss)
     {
         Tools.IsName(boAss.Description!);
         Tools.CheckId(boAss.IdAssignment);
@@ -302,7 +309,7 @@ internal class AssignmentImplementation : BlApi.IAssignment
         };
         return doAss;
     }
-    private static DO.Assignment updateAssigmentWorkerId(Assignment boAss, Status s, DO.Assignment doAss)
+    private static DO.Assignment updateAssigmentWorkerId(BO.Assignment boAss, Status s, DO.Assignment doAss)
     {
         if (s == Status.Scheduled)
         {

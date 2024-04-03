@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace PL.Assignment
 {
-    /// <summary>
-    /// Interaction logic for AssignmentsListWindow.xaml
-    /// </summary>
+ 
     public partial class AssignmentListWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();

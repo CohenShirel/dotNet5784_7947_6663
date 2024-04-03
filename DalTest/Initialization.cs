@@ -54,7 +54,7 @@ public static class Initialization
 
             // בחירת ערך רנדומלי מהמערך של Enums.Level
             Array levelArray = Enum.GetValues(typeof(Level));
-            Level randomLevel = (Level)levelArray.GetValue(s_rand.Next(levelArray.Length))!;
+            Level randomLevel = (Level)levelArray.GetValue(s_rand.Next(levelArray.Length-1))!;
 
             Worker newWork = new(_idW, randomLevel, _hourSalary, _name, WorkersEmail[index++]);
 

@@ -1,24 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfWorker>
   <Worker>
-    <IdWorker>123</IdWorker>
-    <Experience>Intermediate</Experience>
-    <HourSalary>23</HourSalary>
-    <Name>shirel</Name>
-    <Email>shir@gmail.com</Email>
+    <IdWorker>392828507</IdWorker>
+    <Experience>AdvancedBeginner</Experience>
+    <HourSalary>319</HourSalary>
+    <Name>Dani Levi</Name>
+    <Email>Dani@gmail.com</Email>
   </Worker>
   <Worker>
-    <IdWorker>1234</IdWorker>
-    <Experience>Expert</Experience>
-    <HourSalary>23</HourSalary>
-    <Name> osh</Name>
-    <Email> osg@gmail.com</Email>
+    <IdWorker>255948812</IdWorker>
+    <Experience>Advanced</Experience>
+    <HourSalary>306</HourSalary>
+    <Name>Eli Amar</Name>
+    <Email>Eli@gmail.com</Email>
   </Worker>
   <Worker>
-    <IdWorker>12</IdWorker>
+    <IdWorker>355971104</IdWorker>
+    <Experience>AdvancedBeginner</Experience>
+    <HourSalary>153</HourSalary>
+    <Name>Yair Cohen</Name>
+    <Email>Yair@gmail.com</Email>
+  </Worker>
+  <Worker>
+    <IdWorker>388283592</IdWorker>
+    <Experience>Beginner</Experience>
+    <HourSalary>72</HourSalary>
+    <Name>Ariela Levin</Name>
+    <Email>Ariela@gmail.com</Email>
+  </Worker>
+  <Worker>
+    <IdWorker>353534362</IdWorker>
     <Experience>Intermediate</Experience>
-    <HourSalary>24</HourSalary>
-    <Name> neomi</Name>
-    <Email> n@gmail.com</Email>
+    <HourSalary>418</HourSalary>
+    <Name>Dina Klein</Name>
+    <Email>Dina@gmail.com</Email>
+  </Worker>
+  <Worker>
+    <IdWorker>321985525</IdWorker>
+    <Experience>AdvancedBeginner</Experience>
+    <HourSalary>486</HourSalary>
+    <Name>Shira Israelof</Name>
+    <Email>Shira@gmail.com</Email>
   </Worker>
 </ArrayOfWorker>

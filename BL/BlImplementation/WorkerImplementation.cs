@@ -124,7 +124,9 @@ internal class WorkerImplementation : IWorker
                 HourSalary = doWrk.HourSalary,
                 currentAssignment = ass is not null ? new BO.WorkerInAssignment
                 {
-                    WorkerId = doWrk.Id, AssignmentNumber = ass.IdAssignment 
+                    WorkerId = doWrk.Id,
+                    AssignmentNumber = ass.IdAssignment,
+                    AssignmentName=ass.Name
                 } : null!,
             };
         }
@@ -155,8 +157,12 @@ internal class WorkerImplementation : IWorker
            Id = doWrk.Id,
            Name = doWrk.Name!,
            Experience=doWrk.Experience,
-           currentAssignment = ass is not null ? new BO.WorkerInAssignment { AssignmentNumber = ass.IdAssignment!,
-           WorkerId = ass.WorkerId! } : null!,
+           currentAssignment = ass is not null ? new BO.WorkerInAssignment 
+           {
+               AssignmentNumber = ass.IdAssignment!,
+               WorkerId = ass.WorkerId!,
+               AssignmentName = ass.Name!,
+           } : null!,
        }
        where filter is null ? true : filter(wrkLst)
        select wrkLst;

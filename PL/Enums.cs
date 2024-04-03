@@ -6,10 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace PL;
-//public class Enums
-//{
-//    public DO.Level level { get; set; } = DO.Level.None;
-//}
     internal class StatussCollection : IEnumerable
     {
         static readonly IEnumerable<BO.Status> s_enums =

@@ -21,12 +21,17 @@ using System.Windows.Threading;
 
 namespace PL
 {
-    /// <summary>
-    /// Interaction logic for ManagerWindow.xaml
-    /// </summary>
     public partial class ManagerWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        //public List<BO.Assignment> lstAssignments { get; set; }
+        public List<BO.Assignment> lstAssignments
+        {
+            get { return (List<BO.Assignment>)GetValue(lstAssignmentsProperty); }
+            set { SetValue(lstAssignmentsProperty, value); }
+        }
+        public static readonly DependencyProperty lstAssignmentsProperty =
+          DependencyProperty.Register("lstAssignments", typeof(List<BO.Assignment>), typeof(ManagerWindow), new PropertyMetadata(null));
         public DateTime CurrentTime
         {
             get { return (DateTime)GetValue(CurrentTimeProperty); }
@@ -34,9 +39,17 @@ namespace PL
         }
         public static readonly DependencyProperty CurrentTimeProperty =
           DependencyProperty.Register("CurrentTime", typeof(DateTime), typeof(ManagerWindow), new PropertyMetadata(null));
+        public Visibility VisibilityNewMessages
+        {
+            get { return (Visibility)GetValue(VisibilityNewMessagesProperty); }
+            set { SetValue(VisibilityNewMessagesProperty, value); }
+        }
+        public static readonly DependencyProperty VisibilityNewMessagesProperty =
+         DependencyProperty.Register("VisibilityNewMessages", typeof(Visibility), typeof(ManagerWindow), new PropertyMetadata(Visibility.Hidden));
         public ManagerWindow()
         {
             InitializeComponent();
+            lstAssignments = s_bl.lstAssignments;
             CurrentTime = s_bl.Clock;
         }
         private void BtnWorkersListWindow_Click(object sender, RoutedEventArgs e)
@@ -116,7 +129,7 @@ namespace PL
             s_bl.FormatClockOneHour();
             CurrentTime = s_bl.Clock;
         }
-private void BtnDay_Click(object sender, RoutedEventArgs e)
+        private void BtnDay_Click(object sender, RoutedEventArgs e)
         {
             s_bl.FormatClockOneDay();
             CurrentTime = s_bl.Clock;
@@ -146,8 +159,25 @@ private void BtnDay_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Label)
             {
-                (sender as Label).Content = CurrentTime.ToString("dd/MM/yyyy HH:mm:ss");
+                (sender as Label)!.Content = CurrentTime.ToString("dd/MM/yyyy HH:mm:ss");
             }
+        }
+
+        private void BtnNewMessages_Click(object sender, RoutedEventArgs e)
+        {
+            if (VisibilityNewMessages == Visibility.Hidden && s_bl.lstAssignments.Count !=0)
+                VisibilityNewMessages = Visibility.Visible;
+            else if (VisibilityNewMessages == Visibility.Visible && s_bl.lstAssignments.Count != 0)
+                VisibilityNewMessages = Visibility.Hidden;
+            else if (s_bl.lstAssignments.Count == 0)
+                MessageBox.Show("There aren't completed tasks yet!", "No New Messages!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        }
+
+        private void BtnClearMessages_Click(object sender, RoutedEventArgs e)
+        {
+            s_bl.lstAssignments?.Clear();
+            lstAssignments = s_bl.lstAssignments!;
+            VisibilityNewMessages = Visibility.Hidden;
         }
     }
 }
