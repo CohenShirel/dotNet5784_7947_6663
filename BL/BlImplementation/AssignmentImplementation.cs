@@ -221,11 +221,32 @@ internal class AssignmentImplementation : BlApi.IAssignment
         }
         where filter is null ? true : filter!(ass)
         select ass;
+
     public IEnumerable<BO.Assignment> ReadAllAss(Func<BO.Assignment, bool>? filter = null) =>
-        from ass in _dal.Assignment.ReadAll()
-        let boAss = Tools.ConvertAssDOToBO(ass)
-        where filter is null ? true : filter!(boAss)
-        select boAss;
+         from DO.Assignment doAssignment in _dal.Assignment.ReadAll()
+         let ass = new BO.Assignment
+         {
+             IdAssignment = doAssignment.IdAssignment,
+             Name = doAssignment.Name!,
+             IdWorker = doAssignment.WorkerId,
+             DeadLine = doAssignment.DeadLine,
+             DateBegin = doAssignment.DateBegin,
+             LevelAssignment = doAssignment.LevelAssignment,
+             status = Tools.GetProjectStatus(),
+             dateSrart=doAssignment.DateSrart,
+             DateFinish=doAssignment.DateFinish,
+             Remarks=doAssignment.Remarks,
+             Description = doAssignment.Description,
+             ResultProduct=doAssignment.ResultProduct,
+             DurationAssignment=doAssignment.DurationAssignment
+             //status = Tools.GetProjectStatus(doAssignment)
+         }
+         where filter is null ? true : filter!(ass)
+         select ass;
+    //from ass in _dal.Assignment.ReadAll()
+    //let boAss = Tools.ConvertAssDOToBO(ass)
+    //where filter is null ? true : filter!(boAss)
+    //select boAss;
 
     public void Update(BO.Assignment boAss)
     {

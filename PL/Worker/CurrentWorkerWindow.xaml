@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Worker"
         mc:Ignorable="d"
-        Title="CurrentWorkerWindow" Height="450" Width="800"
-        DataContext="{Binding ListAssignments, RelativeSource={RelativeSource self}}">
+        Title="CurrentWorkerWindow" Height="450" Width="850"
+        DataContext="{Binding RelativeSource={RelativeSource self}}">
     <Window.Resources>
         <Style x:Key="CustomButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="AliceBlue"/>
@@ -19,41 +19,40 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Grid.Background>
-            <ImageBrush ImageSource="/PL;component/ProjectImage/PI1.jpg" />
-        </Grid.Background>
-
-        <Grid >
+        <!--<Grid>
+            <Image Source="C:\Users\shire\Desktop\הפרויקט שלי\PL\ProjectImage\ProjetImage2.jpg" Stretch="UniformToFill"/>
+        </Grid>-->
+        <Grid Height="Auto" VerticalAlignment="Top">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Grid Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Top">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <!-- First row with buttons -->
                 <Button Style="{StaticResource CustomButtonStyle}" Content="My Task" Grid.Column="0" HorizontalAlignment="Center" Margin="5" Click="btnMyTask_Click" />
                 <Button Style="{StaticResource CustomButtonStyle}" Content="My possible Tasks" Grid.Column="1" HorizontalAlignment="Center" Margin="5" Click="BtnAllMyTasks_Click"/>
             </Grid>
-            <StackPanel Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Stretch"  Visibility="{Binding VisibilityListAssignment, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CurrentWorkerWindow}}}">
-                <ListView ItemsSource="{Binding ListAssignments}" HorizontalContentAlignment="Stretch" >
-                    <!-- Define ListView layout -->
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="ID" DisplayMemberBinding="{Binding IdAssignment}" Width="Auto"/>
-                            <GridViewColumn Header="Name of Task" DisplayMemberBinding="{Binding Name}" Width="Auto"/>
-                            <GridViewColumn Header="Experience" DisplayMemberBinding="{Binding LevelAssignment}" Width="Auto"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </StackPanel>
+
+            <ListView ItemsSource="{Binding Path=ListAssignments}" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Stretch" HorizontalAlignment="Left"
+              Visibility="{Binding VisibilityListAssignment, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CurrentWorkerWindow}}}" MouseDoubleClick="ListView_MouseDoubleClick">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding IdAssignment}" Width="Auto"/>
+                        <GridViewColumn Header="Name of Task" DisplayMemberBinding="{Binding Name}" Width="Auto"/>
+                        <GridViewColumn Header="Experience" DisplayMemberBinding="{Binding LevelAssignment}" Width="Auto"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
             <Grid Grid.Column="0" Grid.Row="1" DataContext="{Binding currentAssignment}" Visibility="{Binding VisibilityAssignment, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type local:CurrentWorkerWindow}}}" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
