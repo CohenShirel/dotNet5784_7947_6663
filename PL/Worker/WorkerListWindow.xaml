@@ -64,7 +64,7 @@
                         <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}" Width="Auto"/>
                         <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="Auto"/>
                         <GridViewColumn Header="Experience" DisplayMemberBinding="{Binding Experience}" Width="Auto"/>
-                        <GridViewColumn Header="Current Task" DisplayMemberBinding="{Binding currentAssignment}" Width="Auto"/>
+                        <GridViewColumn Header="Current Task" DisplayMemberBinding="{Binding currentAssignment.AssignmentName}" Width="Auto"/>
                     </GridView>
                 </ListView.View>
             </ListView>
