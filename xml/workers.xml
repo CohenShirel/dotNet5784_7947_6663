@@ -42,4 +42,25 @@
     <Name>Shira Israelof</Name>
     <Email>Shira@gmail.com</Email>
   </Worker>
+  <Worker>
+    <IdWorker>12</IdWorker>
+    <Experience>Intermediate</Experience>
+    <HourSalary>34</HourSalary>
+    <Name> sw</Name>
+    <Email> s@gmail.com</Email>
+  </Worker>
+  <Worker>
+    <IdWorker>23</IdWorker>
+    <Experience>AdvancedBeginner</Experience>
+    <HourSalary>34</HourSalary>
+    <Name> ass</Name>
+    <Email> s@gmail.com</Email>
+  </Worker>
+  <Worker>
+    <IdWorker>0</IdWorker>
+    <Experience>AdvancedBeginner</Experience>
+    <HourSalary>4</HourSalary>
+    <Name> f</Name>
+    <Email> f@gmail.com</Email>
+  </Worker>
 </ArrayOfWorker>

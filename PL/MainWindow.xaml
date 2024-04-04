@@ -19,6 +19,15 @@
         </Style>
     </Window.Resources>
     <Grid>
+        <Grid>
+            <!-- DataGrid to display tasks and their dates -->
+            <!-- Color Key for Gantt Chart -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                <Rectangle Width="20" Height="20" Fill="LightBlue" Margin="5"/>
+                <Rectangle Width="20" Height="20" Fill="Blue" Margin="5"/>
+                <Rectangle Width="20" Height="20" Fill="LightBlue" Margin="5"/>
+            </StackPanel>
+        </Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/PL;component/ProjectImage/PI2.jpg" />
         </Grid.Background>
