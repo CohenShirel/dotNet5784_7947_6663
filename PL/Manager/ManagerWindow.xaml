@@ -57,15 +57,14 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <!--Button to show workers in list-->
             <Button Style="{StaticResource CustomButtonStyle}" Content="Workers List" Grid.Row="0" Margin="0" Height="Auto" Click="BtnWorkersListWindow_Click"/>
             <Button Style="{StaticResource CustomButtonStyle}" Content="Tasks List" Grid.Row="1" Margin="0" Height="Auto" Click="BtnTasksListWindow_Click"/>
             <Button Style="{StaticResource CustomButtonStyle}" Content="Gannt" Grid.Row="2" Margin="0" Height="Auto" Click="BtnGanntWindow_Click"/>
-            <Button Style="{StaticResource CustomButtonStyle}" Content="Handle Schedule" Grid.Row="3" Height="Auto" Margin="0" Click="BtnSchedule_Click"/>
-            <Button Style="{StaticResource CustomButtonStyle}" Content="Reset" Grid.Row="4" Margin="0" Height="Auto" Click="BtnReset_Click"/>
-            <Button Style="{StaticResource CustomButtonStyle}" Content="Initialization" Grid.Row="5" Margin="0" Height="Auto" Click="BtnInitialization_Click"/>
+            <!--<Button Style="{StaticResource CustomButtonStyle}" Content="Handle Schedule" Grid.Row="3" Height="Auto" Margin="0" Click="BtnSchedule_Click"/>-->
+            <Button Style="{StaticResource CustomButtonStyle}" Content="Reset" Grid.Row="3" Margin="0" Height="Auto" Click="BtnReset_Click"/>
+            <Button Style="{StaticResource CustomButtonStyle}" Content="Initialization" Grid.Row="4" Margin="0" Height="Auto" Click="BtnInitialization_Click"/>
         </Grid>
 
         <Grid Grid.Column="1">
@@ -81,7 +80,6 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <!--לעשות כאן את השעון-->
                 <Label   Content="{Binding CurrentTime, StringFormat='dd/MM/yyyy'}" Grid.Row="0" Grid.ColumnSpan="4" Margin="70,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" FontSize="26" Foreground="Red" FontWeight="Bold"/>
                 <Button  Content="One Hour" Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Height="40" FontSize="10" Background="AliceBlue"  Foreground="DarkSlateBlue" Click="BtnHour_Click"/>
                 <Button  Content="One Day" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="90" Height="40" FontSize="10" Background="AliceBlue"  Foreground="DarkSlateBlue"  Click="BtnDay_Click"/>

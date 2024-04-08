@@ -5,14 +5,9 @@ using static BO.Exceptions;
 namespace BlTest;
 
 internal class Program
-{//program
- //
-
-
+{
     private static readonly Random s_rand = new();
     static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-    //BO.Worker? boWork = s_bl.Worker.Read(3);
-
     static readonly IDal _dal = DalApi.Factory.Get;
     IEnumerable<BO.Assignment> lstAss1 = s_bl.Assignment.ReadAllAss();
     public enum ENTITY
@@ -36,24 +31,19 @@ internal class Program
     {
         private List<Task> tasks;
         private DateTime? projectStartDate;
-
         public ProjectScheduler()
         {
             tasks = new List<Task>();
             projectStartDate = null;
         }
-
         public void AddTask(Task task)
         {
             tasks.Add(task);
         }
-
         public void SetProjectStartDate(DateTime startDate)
         {
             projectStartDate = startDate;
         }
-
-
     }
 
     //function that convert DOToBO
@@ -89,17 +79,13 @@ internal class Program
     }
     static void Main(string[] args)
     {
-        //Initialization.Do(s_dal);
         Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
         string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
-        if (ans == "Y") //stage 3
-        {
+        if (ans == "Y")
             Bl.reset();
-        }
         ENTITY myChoice = ENTITY.ASSIGNMENT;
         do
         {
-
             try
             {
                 Console.WriteLine("choose 0 for exit main menu");
@@ -110,16 +96,12 @@ internal class Program
                     switch (myChoice)
                     {
                         case ENTITY.EXIT:
-                            //SCUDLE
-                            // יציאה
                             break;
                         case ENTITY.WORKER:
-                            // פעולות לקריאת כל האובייקטים
                             optionWorker();
                             break;
                         case ENTITY.ASSIGNMENT:
                             optionAssignment();
-                            // פעולת למחיקה
                             break;
                         default:
                             Console.WriteLine("ERROR");
@@ -136,7 +118,6 @@ internal class Program
                 Console.WriteLine(ex.Message);
             }
         } while (myChoice != ENTITY.EXIT);
-
     }
 
     private static void optionWorker()
@@ -153,29 +134,21 @@ internal class Program
                 Console.WriteLine("4 - Update");
                 Console.WriteLine("5 - Delete");
                 Console.WriteLine("0 - Exit");
-                // Get input from the user and try to parse it to the Enum type
                 if (Enum.TryParse(Console.ReadLine(), out myChoice))
                 {
                     switch (myChoice)
                     {
                         case CRUD.CREATE:
-                            // Perform create operation
                             Console.WriteLine("Enter worker ID, Cost, name and Email, level : ");
-
                             if (!int.TryParse(Console.ReadLine(), out int id))
                                 throw new FormatException("Wrong input");
                             if (!int.TryParse(Console.ReadLine(), out int cost))
                                 throw new FormatException("Wrong input");
                             string? name = Console.ReadLine() ?? throw new FormatException("Wrong input");
                             string? email = Console.ReadLine() ?? throw new FormatException("Wrong input");
-                            // if(!)
                             DO.Level userLevel;
-                            // Level level = (Level)int.Parse(Console.ReadLine() ?? throw new IndexOutOfRangeException("Out Of Array"));
-
                             if (!Enum.TryParse(Console.ReadLine(), out userLevel))
-                            {
                                 throw new FormatException("Wrong input");
-                            }
                             BO.Worker wrk = new BO.Worker
                             {
                                 Id = id,
@@ -183,12 +156,10 @@ internal class Program
                                 HourSalary = cost,
                                 Email = email,
                                 Name = name,
-                                //currentAssignment = asss,
                             };
                             s_bl.Worker!.Create(wrk);
                             break;
                         case CRUD.READ:
-                            // Perform read operation
                             Console.WriteLine("Enter worker ID: ");
                             if (!int.TryParse(Console.ReadLine(), out int ID))
                                 throw new FormatException("Wrong input");
@@ -196,15 +167,10 @@ internal class Program
                             Console.WriteLine(rea);
                             break;
                         case CRUD.READ_ALL:
-                            // Perform read all operation
                             foreach (var Workers in s_bl.Worker!.ReadAll())
-                            
-                            {
                                 Console.WriteLine(Workers);
-                            }
                             break;
                         case CRUD.UPDATE:
-                            // Perform update operation
                             Console.WriteLine("Enter worker ID: ");
                             if (!int.TryParse(Console.ReadLine(), out int iD))
                                 throw new FormatException("Wrong input");
@@ -219,7 +185,7 @@ internal class Program
                             Console.WriteLine("Enter currentAssigment (idA) of this worker : ");
                             if (!int.TryParse(Console.ReadLine(), out int tzA))
                                 throw new FormatException("Wrong input");
-                            WorkerInAssignment a = new WorkerInAssignment { WorkerId = iD, AssignmentNumber = tzA };
+                            WorkerInAssignment a = new WorkerInAssignment { WorkerId = iD, AssignmentNumber = tzA , AssignmentName = updatedName };
                             BO.Worker wrk1 = new BO.Worker
                             {
                                 Id = iD,
@@ -232,7 +198,6 @@ internal class Program
                             s_bl.Worker!.Update(wrk1);
                             break;
                         case CRUD.DELETE:
-                            // Perform delete operation
                             Console.WriteLine("Enter worker ID: ");
                             if (!int.TryParse(Console.ReadLine(), out int Id))
                                 throw new FormatException("Wrong input");
@@ -247,16 +212,13 @@ internal class Program
                     }
                 }
                 else
-                {
                     Console.WriteLine("Invalid input. Please enter a valid number.");
-                }
 
             } while (myChoice != CRUD.EXIT);
         }
         catch (BlAlreadyExistsException ex)
         {
             Console.WriteLine($"Exception Type: {ex.GetType().Name},Exception Message: {ex.Message}");
-            // Check if there is inner exception
             if (ex.InnerException != null)
             {
                 Console.WriteLine($"Inner Exception Type: {ex.InnerException.GetType().Name}");
@@ -267,7 +229,6 @@ internal class Program
         catch (BlDoesNotExistException ex)
         {
             Console.WriteLine($"Exception Type: {ex.GetType().Name},Exception Message: {ex.Message}");
-            // Check if there is inner exception
             if (ex.InnerException != null)
             {
                 Console.WriteLine($"Inner Exception Type: {ex.InnerException.GetType().Name}");
@@ -277,7 +238,6 @@ internal class Program
         catch (FormatException ex)
         {
             Console.WriteLine($"Exception Type: {ex.GetType().Name},Exception Message: {ex.Message}");
-            // Check if there is inner exception
             if (ex.InnerException != null)
             {
                 Console.WriteLine($"Inner Exception Type: {ex.InnerException.GetType().Name}");
@@ -300,7 +260,6 @@ internal class Program
                 Console.WriteLine("5 - Delete");
                 Console.WriteLine("0 - Exit");
 
-                // Get input from the user and try to parse it to the Enum type
                 if (Enum.TryParse(Console.ReadLine(), out myChoice))
                 {
                     switch (myChoice)
@@ -337,8 +296,6 @@ internal class Program
                             BO.Assignment ass = new BO.Assignment
                             {
                                 DurationAssignment = DurationAssignments,
-                                //LevelAssignments = level,
-                                //WorkerId =WorkerId,
                                 Name = name,
                                 Description = Description,
                                 Remarks = Remarks,
@@ -354,7 +311,6 @@ internal class Program
                             BO.Assignment rea = s_bl.Assignment!.Read(ID1)!;
                             Console.WriteLine(rea);
                             break;
-
                         case CRUD.READ_ALL:
                             Console.WriteLine("List of Assigments: ");
                             foreach (var item in s_bl.Assignment!.ReadAll())
@@ -397,7 +353,6 @@ internal class Program
                                 Description = Description1,
                                 Remarks = Remarks1,
                                 ResultProduct = ResultProduct1,
-                                //status = Tools.ScheduleProject(Id),
                             };
                             Console.WriteLine("DO YOU WANT TO START TO UPDET DATES? Y/N");
                             string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
@@ -405,8 +360,6 @@ internal class Program
                                 s_bl.Assignment!.Update(ass1);
                             else if ((ans == "Y"))
                                 Tools.ScheduleProject(ass1);
-
-                            //s_bl.Assignment!.Update(ass1);
                             break;
 
                         case CRUD.DELETE:
@@ -426,16 +379,13 @@ internal class Program
                     }
                 }
                 else
-                {
                     Console.WriteLine("Invalid input. Please enter a valid number.");
-                }
 
             } while (myChoice != CRUD.EXIT);
         }
         catch (BlAlreadyExistsException ex)
         {
             Console.WriteLine($"Exception Type: {ex.GetType().Name},Exception Message: {ex.Message}");
-            // Check if there is inner exception
             if (ex.InnerException != null)
             {
                 Console.WriteLine($"Inner Exception Type: {ex.InnerException.GetType().Name}");
@@ -445,7 +395,6 @@ internal class Program
         catch (BlDoesNotExistException ex)
         {
             Console.WriteLine($"Exception Type: {ex.GetType().Name},Exception Message: {ex.Message}");
-            // Check if there is inner exception
             if (ex.InnerException != null)
             {
                 Console.WriteLine($"Inner Exception Type: {ex.InnerException.GetType().Name}");
@@ -455,7 +404,6 @@ internal class Program
         catch (FormatException ex)
         {
             Console.WriteLine($"Exception Type: {ex.GetType().Name},Exception Message: {ex.Message}");
-            // Check if there is inner exception
             if (ex.InnerException != null)
             {
                 Console.WriteLine($"Inner Exception Type: {ex.InnerException.GetType().Name}");

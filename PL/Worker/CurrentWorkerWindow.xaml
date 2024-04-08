@@ -19,9 +19,6 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <!--<Grid>
-            <Image Source="C:\Users\shire\Desktop\הפרויקט שלי\PL\ProjectImage\ProjetImage2.jpg" Stretch="UniformToFill"/>
-        </Grid>-->
         <Grid Height="Auto" VerticalAlignment="Top">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>

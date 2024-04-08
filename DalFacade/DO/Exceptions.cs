@@ -1,8 +1,6 @@
-﻿
+﻿namespace DO;
 
-namespace DO;
-
-[Serializable]//האובייקט לא קיים
+[Serializable]
 public class DalDoesNotExistException : Exception
 {
     public DalDoesNotExistException(string? message) : base(message)
@@ -11,7 +9,7 @@ public class DalDoesNotExistException : Exception
     }
 }
 
-[Serializable]//האובייקט כבר קיים
+[Serializable]
 public class DalAlreadyExistsException : Exception
 {
     public DalAlreadyExistsException(string? message) : base(message)
@@ -20,7 +18,7 @@ public class DalAlreadyExistsException : Exception
     }
 }
 
-[Serializable]//המחיקה בלתי אפשרית
+[Serializable]
 public class DalDeletionImpossible : Exception
 {
     public DalDeletionImpossible(string? message) : base(message)

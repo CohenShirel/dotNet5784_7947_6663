@@ -1,6 +1,4 @@
-﻿
-
-using DalApi;
+﻿using DalApi;
 using DO;
 using System.Reflection.Metadata;
 
@@ -25,9 +23,6 @@ internal class AssignmentsImplementation : IAssignments
         {
             throw new DalDoesNotExistException($"Assignment with id {id} does not exist");
         }
-        //if (Read(a => a.IdAssignment == id) is null)
-        //    throw new DalDoesNotExistException($"Assignment with ID={id} not exists");
-        //assignmentss.Remove(Read(a => a.IdAssignment == id)!);
         XMLTools.SaveListToXMLSerializer<DO.Assignment>(assignmentss, s_assignmentss_xml);
     }
 
@@ -45,7 +40,6 @@ internal class AssignmentsImplementation : IAssignments
     public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null)
     {
         List<DO.Assignment> assignmentss = XMLTools.LoadListFromXMLSerializer<DO.Assignment>(s_assignmentss_xml);
-
         if (filter != null)
         {
             return from item in assignmentss
@@ -58,32 +52,14 @@ internal class AssignmentsImplementation : IAssignments
 
     public void Update(Assignment ass)
     {
-        /*(ass.IdAssignment);
-        Create(ass);*/
-        /*List<DO.Assignment> assignmentss = XMLTools.LoadListFromXMLSerializer<DO.Assignment>(s_assignmentss_xml);
-        if (assignmentss.RemoveAll(item => item.IdAssignment == ass.IdAssignment) == 0)
-        {
-            throw new DalDoesNotExistException($"Assignment with id {ass.IdAssignment} does not exist");
-        }
-        assignmentss.Add(ass);
-        XMLTools.SaveListToXMLSerializer<DO.Assignment>(assignmentss, s_assignmentss_xml);*/
-
         List<DO.Assignment> assignmentss1 = XMLTools.LoadListFromXMLSerializer<DO.Assignment>(s_assignmentss_xml);
         if (assignmentss1.RemoveAll(item => item.IdAssignment == ass.IdAssignment) == 0)
         {
             throw new DalDoesNotExistException($"Assignment with id {ass.IdAssignment} does not exist");
         }
-        //if (Read(a => a.IdAssignment == id) is null)
-        //    throw new DalDoesNotExistException($"Assignment with ID={id} not exists");
-        //assignmentss.Remove(Read(a => a.IdAssignment == id)!);
         XMLTools.SaveListToXMLSerializer<DO.Assignment>(assignmentss1, s_assignmentss_xml);
-
         List<DO.Assignment> assignmentss = XMLTools.LoadListFromXMLSerializer<DO.Assignment>(s_assignmentss_xml);
-        //Assignment newAssignments = ass with { IdAssignment = Config.IdPAssignments };
         assignmentss.Add(ass);
         XMLTools.SaveListToXMLSerializer<DO.Assignment>(assignmentss, s_assignmentss_xml);
-
-
     }
-
 }

@@ -9,7 +9,6 @@ public class Exceptions
         public BlDoesNotExistException(string message, Exception innerException)
                     : base(message, innerException) { }
     }
-
     [Serializable]
     public class BlNullPropertyException : Exception
     {
@@ -42,7 +41,6 @@ public class Exceptions
         public BlDeletionImpossibleException(string message, Exception innerException)
                     : base(message, innerException) { }
     }
-    //business Logic Invalid 
     [Serializable]
     public class BlInvalidOperationException : Exception
     {

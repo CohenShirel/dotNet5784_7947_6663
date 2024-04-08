@@ -18,7 +18,6 @@
 /// <param דרן אבן="Milestone"></param>
 public record Assignment
 (
-
     int IdAssignment,
     int DurationAssignment,
     Level LevelAssignment,
@@ -35,12 +34,7 @@ public record Assignment
     bool IsConnected = false
 )
 {
-
-    //empty ctor
-    public Assignment() : this(0, 0, 0, 0)
-    {
-
-    }
+    public Assignment() : this(0, 0, 0, 0) { }
 }
 
 

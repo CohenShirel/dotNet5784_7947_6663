@@ -26,13 +26,6 @@ internal class AssignmentsImplementation : IAssignments
     {
         return DataSource.Assignmentss.FirstOrDefault(filter);
     }
-
-    //public int ReadName(string name)
-    //{
-    //    if (DataSource.Assignmentss.Find(n => n.Name == name) != null)
-    //        return DataSource.Assignmentss.Find(n => n.Name == name)!.IdAssignment;
-    //    return 0;
-    //}
     public IEnumerable<Assignment> ReadAll(Func<Assignment, bool>? filter = null) //stage 2
     {
         if (filter != null)
@@ -47,12 +40,9 @@ internal class AssignmentsImplementation : IAssignments
 
     public void Update(Assignment ass)
     {
-        //Delete(ass.IdAssignment);
-        //Create(ass);
         if (Read(a => a.IdAssignment == ass.IdAssignment) is null)
             throw new DalDoesNotExistException($"Assignment with ID={ass.IdAssignment} not exists");
         DataSource.Assignmentss.Remove(Read(a => a.IdAssignment == ass.IdAssignment)!);
         DataSource.Assignmentss.Add(ass);
-
     }
 }

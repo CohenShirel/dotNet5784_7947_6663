@@ -15,6 +15,4 @@ public interface IClock
     public void FormatClockOneDay();
     public void FormatClockOneMonth();
     public void FormatClockOneYear();
-    //public DateTime? SetEndProject(DateTime endProject);
-    //public DateTime? GetEndProject();
 }

@@ -11,11 +11,7 @@ using System.Windows.Data;
 
 namespace PL;
 
-internal class Converters
-{
-    
-
-}
+internal class Converters{}
 public class AssignmentSelectionConverter : IMultiValueConverter
 {
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
@@ -63,27 +59,6 @@ public class BooleanToSymbolConverter : IValueConverter
         throw new NotSupportedException();
     }
 }
-
-
-//public class NoBooleanToVisibilityConverter : IValueConverter
-//{
-//    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-//    {
-//        bool b = (bool)value;
-//        if (b)
-//        {
-//            return Visibility.Visible;
-//        }
-//        else
-//            return Visibility.Collapsed;    
-//    }
-
-//    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-//    {
-//        throw new NotImplementedException();
-//    }
-//}
-
 public class ConvertIdToContent : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -96,44 +71,6 @@ public class ConvertIdToContent : IValueConverter
         throw new NotImplementedException();
     }
 }
-//public class NoBooleanToVisibilityConverter : IValueConverter
-//{
-//    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-//    {
-//        bool b = (bool)value;
-//        if (b)
-//        {
-//            return Visibility.Collapsed;
-//        }
-//        else
-//            return Visibility.Visible;
-//    }
-
-//    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-//    {
-//        throw new NotImplementedException();
-//    }
-//}
-//public class BooleanToVisibilityConverter : IValueConverter
-//{
-//    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-//    {
-//        if (value is bool isVisible)
-//        {
-//            return isVisible ? Visibility.Visible : Visibility.Collapsed;
-//        }
-//        return Visibility.Collapsed;
-//    }
-
-//    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-//    {
-//        if (value is Visibility visibility)
-//        {
-//            return visibility == Visibility.Visible;
-//        }
-//        return false;
-//    }
-//}
 public class VisibilityContent : DependencyObject
 {
     public Visibility AssignmentDetailsVisibility
@@ -150,8 +87,6 @@ public class NameValidationRule : ValidationRule
     public override ValidationResult Validate(object value, CultureInfo cultureInfo)
     {
         string name = value as string;
-
-        // ביצוע בדיקת האימות על שם המועבר
         if (string.IsNullOrEmpty(name))
         {
             return new ValidationResult(false, "שדה זה הינו שדה חובה.");
@@ -168,11 +103,6 @@ public class NameValidationRule : ValidationRule
 }
 public class WorkerViewModel : DependencyObject
 {
-
-  
-    //=====================Visibility
-   
-
     public Visibility AllAssignmentsDetailsVisibility
     {
         get { return (Visibility)GetValue(AllAssignmentsDetailsVisibilityProperty); }
@@ -181,27 +111,5 @@ public class WorkerViewModel : DependencyObject
     public static readonly DependencyProperty AllAssignmentsDetailsVisibilityProperty =
  DependencyProperty.Register("AllAssignmentsDetailsVisibility", typeof(Visibility), typeof(CurrentWorkerWindow), new PropertyMetadata(Visibility.Collapsed));
 
-    public WorkerViewModel(int id)
-    {
-        //Assignments = BlApi.Factory.Get().Assignment.ReadAllAss(ass => ass.LevelAssignment <= currentWorker.Experience && ass.IdWorker == default(int));
-    }
+    public WorkerViewModel(int id){}
 }
-////        <local:VisibilityConverter x:Key="VisibilityConverterKey"/>
-
-//public class VisibilityConverter : IValueConverter
-//{
-//    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-//    {
-//        if (value == null || parameter == null)
-//            return Visibility.Collapsed;
-
-//        string expectedId = parameter.ToString()!;
-//        string currentId = value.ToString()!;
-
-//        return currentId.Equals(expectedId, StringComparison.InvariantCultureIgnoreCase) ? Visibility.Visible : Visibility.Collapsed;
-//    }
-
-//    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-//    {
-//        throw new NotImplementedException();
-//    }

@@ -8,7 +8,6 @@ internal class WorkerImplementation : IWorker
 {
     public int Create(Worker w)
     {
-        //for entities with normal id (not auto id)
         if (Read(a => a.Id == w.Id) is not null)
             throw new DalAlreadyExistsException($"Worker with ID={w.Id} already exists");
         DataSource.Workers.Add(w);
@@ -25,7 +24,6 @@ internal class WorkerImplementation : IWorker
     {
         Worker w = Read(a => true)!;
         DataSource.Workers.Remove(w);
-
     }
     public Worker? Read(Func<Worker, bool> filter)
     {

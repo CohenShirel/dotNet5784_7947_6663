@@ -3,19 +3,15 @@ using System.Xml.Linq;
 
 static class Config
 {
-    /// <summary>
-    /// internal PDS class
-    /// </summary>
     internal record DalImplementation
     (
-     string Package,   // package/dll name
-     string Namespace, // namespace where DAL implementation class is contained in
-     string Class   // DAL implementation class name
+     string Package,
+     string Namespace,
+     string Class
     );
 
     internal static string s_dalName;
     internal static Dictionary<string, DalImplementation> s_dalPackages;
-
     static Config()
     {
         XElement dalConfig = XElement.Load(@"..\xml\dal-config.xml") ??

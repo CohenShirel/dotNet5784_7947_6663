@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DalApi;
-
+﻿namespace DalApi;
 public interface IClock
 {
     public DateTime? SetStartProject(DateTime startProject);
@@ -15,10 +7,6 @@ public interface IClock
     public void FormatClockOneDay();
     public void FormatClockOneMonth();
     public void FormatClockOneYear();
-
-    //public DateTime? SetEndProject(DateTime? endProject);
-    //public DateTime? GetEndProject();
-
     public void resetClock();
 }
 

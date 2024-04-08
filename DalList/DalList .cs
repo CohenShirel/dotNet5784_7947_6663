@@ -12,17 +12,5 @@ sealed internal class DalList : IDal
     public IAssignments Assignment => new AssignmentsImplementation();
 
     public ILink Link => new LinkImplementation();
-
-    public IClock Clock { get; set; }
-    //public DateTime?
-    //
-    //
-    //Time
-    //{
-
-    //    get { return DataSource.Config.StartProjectTime; }
-
-    //    set { DataSource.Config.StartProjectTime = value; }
-
-    //}
+    public IClock Clock => new ClockImplemention();
 }

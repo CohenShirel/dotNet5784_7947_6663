@@ -16,21 +16,15 @@ using DO;
 
 namespace PL
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    //static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
     public partial class MainWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public int ID { get; set; }
-        //=================currentWorker
         public BO.Worker currentWorker
         {
             get { return (BO.Worker)GetValue(WorkerListProperty); }
             set { SetValue(WorkerListProperty, value); }
         }
-        //יודעת לדווח על הגרפיקה על קיומה...מדווחת על שינויים על כל הוספה או מחיקה של מישהו
         public static readonly DependencyProperty WorkerListProperty =
             DependencyProperty.Register("currentWorker", typeof(BO.Worker), typeof(MainWindow), new PropertyMetadata(null));
         public Visibility WorkerDetailsVisibility
@@ -40,6 +34,7 @@ namespace PL
         }
         public static readonly DependencyProperty WorkerDetailsVisibilityProperty =
          DependencyProperty.Register("WorkerDetailsVisibility", typeof(Visibility), typeof(MainWindow), new PropertyMetadata(Visibility.Collapsed));
+        
         public MainWindow()
         {
             InitializeComponent();

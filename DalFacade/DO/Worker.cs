@@ -7,7 +7,6 @@
 /// <param שם="Name"></param>
 /// <param מייל="Email"></param>
 namespace DO;
-
 public record Worker
 (
     int Id,
@@ -17,7 +16,6 @@ public record Worker
     string? Email = null
 )
 {
-    //empty ctor
     public Worker() : this(0, 0, 0)
     {
 

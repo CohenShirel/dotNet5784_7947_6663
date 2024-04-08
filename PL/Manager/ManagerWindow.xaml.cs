@@ -10,13 +10,6 @@ namespace PL
     public partial class ManagerWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        //public List<BO.Assignment> lstAssignments { get; set; }
-       // private static List<BO.Assignment> lstAssignments;
-       // public static List<BO.Assignment> LstAssignments { get => LstAssignments; set => LstAssignments = value; }
-        //{
-        //    get { return (List<BO.Assignment>)GetValue(lstAssignmentsProperty); }
-        //    set { SetValue(lstAssignmentsProperty, value); }
-        //}
         public static readonly DependencyProperty lstAssignmentsProperty =
           DependencyProperty.Register("lstAssignments", typeof(List<BO.Assignment>), typeof(ManagerWindow), new PropertyMetadata(null));
         public DateTime? CurrentTime
@@ -35,6 +28,7 @@ namespace PL
 
         public static readonly DependencyProperty VisibilityNewMessagesProperty =
          DependencyProperty.Register("VisibilityNewMessages", typeof(Visibility), typeof(ManagerWindow), new PropertyMetadata(Visibility.Hidden));
+       
         public ManagerWindow()
         {
             InitializeComponent();
@@ -135,15 +129,6 @@ namespace PL
             s_bl.Clock.FormatClockOneYear();
             CurrentTime = s_bl.Clock.GetStartProject();
         }
-        private void SaveDateButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-        private void Label_Initialized(object sender, EventArgs e)
-        {
-            //(sender as Label).Content = CurrentTime.ToString("dd/MM/yyyy HH:mm:ss");
-        }
-
         private void UpdateCurrentTimeLabel(object sender, RoutedEventArgs e)
         {
             if (sender is Label)

@@ -4,20 +4,11 @@ namespace DalTest;
 
 public static class Initialization
 {
-    private static IDal? s_dal;//stage 2
-    //private static IWorker? s_dalWorker;//stage 1
-    //private static IAssignments? s_dalAssignments; //stage 1
-    //private static ILink? s_dalLink; //stage 1
-
+    private static IDal? s_dal;
     private static readonly Random s_rand = new();
-
-
-    //Initialization class from a public method, which will schedule
-    //the private methods we have prepared and trigger the initialization of the lists.
     public static void Do()
     {
-        //s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stage 2
-        s_dal = Factory.Get; //stage 4  
+        s_dal = Factory.Get;
     }
     public static void Initialize()
     {
@@ -26,7 +17,6 @@ public static class Initialization
         creatAssignmentss();
         creatLink();
     }
-    //function that creat random workers
     private static void creatWorkers()
     {
 
@@ -43,7 +33,6 @@ public static class Initialization
         int index = 0;
         foreach (var _name in WorkersNames)
         {
-            //id randomly
             int _idW;
             _idW = s_dal!.Worker != null ? s_rand.Next(200000000, 400000001) : 0;
             if( _idW == 0 )
@@ -51,17 +40,13 @@ public static class Initialization
                     _idW = s_rand.Next(200000000, 400000001);
                 while (s_dal.Worker!.Read(a => a.Id == _idW) != null);
             int _hourSalary = s_rand.Next(50, 600);
-
-            // בחירת ערך רנדומלי מהמערך של Enums.Level
             Array levelArray = Enum.GetValues(typeof(Level));
             Level randomLevel = (Level)levelArray.GetValue(s_rand.Next(levelArray.Length-1))!;
 
             Worker newWork = new(_idW, randomLevel, _hourSalary, _name, WorkersEmail[index++]);
-
             s_dal!.Worker.Create(newWork);
         }
     }
-    //function that creat random assignment
     private static void creatAssignmentss()
     {
         string[] AssignmentssNames =
@@ -74,12 +59,8 @@ public static class Initialization
         foreach (var _name in AssignmentssNames)
         {
             int _durationA = s_rand.Next(50, 600);
-
-            // choose random level from Enums.Level
             Array levelArray = Enum.GetValues(typeof(Level));
             Level randomLevel = (Level)levelArray.GetValue(s_rand.Next(levelArray.Length-1))!;//?
-
-
             //I make new array just with all the worker with the same Experience
             List<Worker> workersLst = new List<Worker>();
             foreach (var worker in s_dal.Worker!.ReadAll())
@@ -88,7 +69,6 @@ public static class Initialization
                     workersLst.Add(worker);
             }
             int ID = workersLst.Count!=0?workersLst[s_rand.Next(workersLst.Count)].Id:0;
-            //DateTime? dat = DateTime.FromDateTime(DateTime.Now);// help date
             DateTime? dat = DateTime.Now;
 
             DateTime? _dateStart = dat?.AddDays(s_rand.Next(30, 61));//random date for "datestart" in range of month=תאריך מתוכנן להתחלה
@@ -101,10 +81,8 @@ public static class Initialization
             bool _milestone = false;
             Assignment newA = new(0, _durationA, randomLevel, ID, _dateStart, _dateBegin, _deadLine,
                 _dateFinish, _name, _description, _remarks, _resultProduct, _milestone);
-
             s_dal.Assignment!.Create(newA);
         }
-
     }
     //function that creat random links
     private static void creatLink()

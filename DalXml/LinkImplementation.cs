@@ -33,7 +33,6 @@ internal class LinkImplementation : ILink
     public Link? Read(Func<Link, bool> filter)
     {
         List<DO.Link> links = XMLTools.LoadListFromXMLSerializer<DO.Link>(s_Links_xml);
-        //return assignmentss.FirstOrDefault(item => filter(item));
         return links.FirstOrDefault(filter);
     }
 

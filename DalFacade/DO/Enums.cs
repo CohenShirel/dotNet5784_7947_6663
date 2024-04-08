@@ -1,7 +1,4 @@
-﻿//Enum
-namespace DO;
-
-//עשיתי את זה גם לרמת משימה וגם לרמת עובד
+﻿namespace DO;
 public enum Level
 {
     Beginner, AdvancedBeginner, Intermediate, Advanced, Expert,None

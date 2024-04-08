@@ -12,7 +12,6 @@ public record Link
    int IdPAssignment
 )
 {
-    //empty ctor
     public Link() : this(0, 0, 0)
     {
 

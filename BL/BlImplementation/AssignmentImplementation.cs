@@ -55,8 +55,6 @@ internal class AssignmentImplementation : BlApi.IAssignment
                 _dal.Link!.Create(new DO.Link(i, boAssignment.IdAssignment, boAssignment.Links[i].Id));
             }
         }
-        //if (boAssignment.Links is not null)
-        //boAssignment.Links.Select(dependency => _dal.Link.Create(new DO.Link(0, boAssignment.IdAssignment, dependency.Id)));
     }
 
     public void Delete(int id)
@@ -69,7 +67,6 @@ internal class AssignmentImplementation : BlApi.IAssignment
             if (ass1.Links != null && ass1.Links.Any())
             {
                 for (int i = 0; i < ass1.Links!.Count; i++)
-                    //if there is ass that wasnt finished && the ass will finish after the current ass??????????
                     if (ass1.Links[i].DeadLine != null && ass1.Links[i].DeadLine > ass1.DateBegin)
                         throw new Exceptions.BlInvalidOperationException($"Cannot delete assignment with ID={id} as it is linked to other assignments");
             }
@@ -83,14 +80,11 @@ internal class AssignmentImplementation : BlApi.IAssignment
             }
             catch (Exception ex)
             {
-                // טיפול בחריגות אחרות כפי שנדרש
                 throw new Exceptions.BlException("Failed to delete task", ex);
             }
         }
         else
             throw new Exceptions.BlException("YOU MUSTN'T DELEDTE THIS ASSIGNMENT");
-
-        //שימו לב: אי אפשר למחוק משימות לאחר יצירת לו"ז הפרויקט.
     }
 
     private static Tuple<int, string> getWorker(int id)
@@ -108,11 +102,8 @@ internal class AssignmentImplementation : BlApi.IAssignment
     {
         List<AssignmentInList> links = new List<AssignmentInList>();
 
-        // אם המשימה הנוכחית אינה מוגדרת, תחזיר רשימה ריקה
         if (currentAssignment == null)
             return Enumerable.Empty<AssignmentInList>();
-        //var links = currentAssignment.Links[0];
-
         if (currentAssignment.Links != null && currentAssignment.Links.Any())
         {
             for (int i = 0; i < currentAssignment.Links.Count; i++)
@@ -120,15 +111,8 @@ internal class AssignmentImplementation : BlApi.IAssignment
                 links.Add(currentAssignment.Links[i]);         
             }
         }
-
-
-        // קבל את רשימת התלויות של המשימה הנוכחית
-
-        // אם אין תלויות, תחזיר רשימה ריקה
         if (links == null)
             return Enumerable.Empty<AssignmentInList>();
-
-        // כעת תוכל להחזיר את רשימת התלויות
         return links;
     }
     public BO.Assignment? Read(int id)
@@ -144,33 +128,25 @@ internal class AssignmentImplementation : BlApi.IAssignment
                 Name = doAssignment.Name,
                 Description = doAssignment.Description,
                 status = Tools.GetProjectStatus(),
-                //status = Tools.GetProjectStatus(doAssignment),
                 dateSrart = doAssignment.DateSrart,
                 DateBegin = doAssignment.DateBegin,
                 DateFinish = doAssignment.DateFinish,
-                LevelAssignment = doAssignment.LevelAssignment,//???
+                LevelAssignment = doAssignment.LevelAssignment,
                 DeadLine = doAssignment.DeadLine,
                 DurationAssignment = doAssignment.DurationAssignment,
-                //endProject = doAssignment.endProject,  
                 IdWorker = getWorker(doAssignment.WorkerId).Item1,
-                /////////Links = Bl.GetLink(IdAssignment).ToList,
-                // = doAssignment.LevelAssignment,
                 ResultProduct = doAssignment.ResultProduct,
                 Remarks = doAssignment?.Remarks,
             };
         }
         catch (Exception ex)
         {
-            // טיפול בחריגות אחרות כפי שנדרש
             throw new Exceptions.BlException("Failed to read task", ex);
         }
     }
     public BO.Assignment? Read(Func<DO.Assignment, bool> filter)
     {
-        //try
-        //{
         DO.Assignment doAssignment = _dal.Assignment.Read(filter) ?? null;
-        //?? throw new Exceptions.BlDoesNotExistException("Assignment matching the filter does not exist");
         if (doAssignment == null)
             return null;
         return new BO.Assignment
@@ -179,31 +155,16 @@ internal class AssignmentImplementation : BlApi.IAssignment
             Name = doAssignment.Name,
             Description = doAssignment.Description,
             status = Tools.GetProjectStatus(),
-            //status = Tools.GetProjectStatus(doAssignment),
             dateSrart = doAssignment.DateSrart,
             DateBegin = doAssignment.DateBegin,
             DateFinish = doAssignment.DateFinish,
-            LevelAssignment = doAssignment.LevelAssignment,//???
+            LevelAssignment = doAssignment.LevelAssignment,
             DeadLine = doAssignment.DeadLine,
             DurationAssignment = doAssignment.DurationAssignment,
-            //endProject = doAssignment.endProject,  
             IdWorker = getWorker(doAssignment.WorkerId).Item1,
-            /////////Links = Bl.GetLink(IdAssignment).ToList,
-            // = doAssignment.LevelAssignment,
             ResultProduct = doAssignment.ResultProduct,
             Remarks = doAssignment?.Remarks,
         };
-        //}
-        //catch (BlDoesNotExistException ex)
-        //{
-        //    // Handle other exceptions as required
-        //    throw new BlDoesNotExistException("Assignment matching the filter does not exist", ex);
-        //}
-        //catch (Exception ex)
-        //{
-        //    // Handle other exceptions as required
-        //    throw new Exceptions.BlException("Failed to read task", ex);
-        //}
     }
 
     public IEnumerable<BO.AssignmentInList> ReadAll(Func<BO.AssignmentInList, bool>? filter = null) =>
@@ -217,7 +178,6 @@ internal class AssignmentImplementation : BlApi.IAssignment
             DateBegin = doAssignment.DateBegin,
             LevelAssignment = doAssignment.LevelAssignment,
             status = Tools.GetProjectStatus(),
-            //status = Tools.GetProjectStatus(doAssignment)
         }
         where filter is null ? true : filter!(ass)
         select ass;
@@ -239,14 +199,9 @@ internal class AssignmentImplementation : BlApi.IAssignment
              Description = doAssignment.Description,
              ResultProduct=doAssignment.ResultProduct,
              DurationAssignment=doAssignment.DurationAssignment
-             //status = Tools.GetProjectStatus(doAssignment)
          }
          where filter is null ? true : filter!(ass)
          select ass;
-    //from ass in _dal.Assignment.ReadAll()
-    //let boAss = Tools.ConvertAssDOToBO(ass)
-    //where filter is null ? true : filter!(boAss)
-    //select boAss;
 
     public void Update(BO.Assignment boAss)
     {
@@ -255,7 +210,6 @@ internal class AssignmentImplementation : BlApi.IAssignment
         DO.Assignment doAss;
         if (s == Status.OnTrack)
         {
-            //check the name and the id
             Tools.IsName(boAss.Description!);
             Tools.CheckId(boAss.IdAssignment);
             try
@@ -265,7 +219,6 @@ internal class AssignmentImplementation : BlApi.IAssignment
                     Description = boAss.Description,
                     Remarks = boAss.Remarks,
                     ResultProduct = boAss.ResultProduct,
-                    //תאריך התחלה וסיום בפועל!!!
                     DateSrart=boAss.dateSrart,
                     DateFinish=boAss.DateFinish,
                     IdAssignment=boAss.IdAssignment,
@@ -280,13 +233,11 @@ internal class AssignmentImplementation : BlApi.IAssignment
             }
             catch (Exception ex)
             {
-                // טיפול בחריגות אחרות כפי שנדרש
                 throw new Exceptions.BlException("Failed to create task", ex);
             }
         }
         if (s == Status.Unscheduled)
         {
-            //check the name and the id
             Tools.IsName(boAss.Description!);
             Tools.CheckId(boAss.IdAssignment);
             try
@@ -306,11 +257,9 @@ internal class AssignmentImplementation : BlApi.IAssignment
             }
             catch (Exception ex)
             {
-                // טיפול בחריגות אחרות כפי שנדרש
                 throw new Exceptions.BlException("Failed to create task", ex);
             }
         }
-        // if (((boAss.status== Status.Scheduled) && (ass.status == Status.UnScheduled)) || boAss.status == Status.Scheduled)
         if (s == Status.Scheduled)
         {
             //check the name and the id
@@ -323,7 +272,7 @@ internal class AssignmentImplementation : BlApi.IAssignment
                     IdAssignment = boAss.IdAssignment,
                     DurationAssignment = boAss.DurationAssignment,
                     LevelAssignment = boAss.LevelAssignment,
-                    WorkerId = boAss.IdWorker,//להוסיף בדיקה אם 
+                    WorkerId = boAss.IdWorker,
                     Name = boAss.Name,
                     Description = boAss.Description,
                     Remarks = boAss.Remarks,
@@ -364,148 +313,10 @@ internal class AssignmentImplementation : BlApi.IAssignment
         {
             doAss = doAss with
             {
-                WorkerId = boAss.IdWorker,//להוסיף בדיקה אם 
+                WorkerId = boAss.IdWorker,
                 DateSrart = s_bl.Clock.GetStartProject()
             };
         }
         return doAss;
     }
 }
-
-
-//int idAss = _dal.Assignment.Create(doAss);
-//for (int i = 0; i < boAssignment.Links!.Count; i++)
-//{
-//    if (boAssignment.Links is not null)
-//    {
-//        _dal.Link!.Create(new DO.Link(i, doAss.IdAssignment, boAssignment.Links[i].Id));
-
-//        //boAssignment.Links!.Select(Links => _dal.Link.Create(new DO.Link(i, doAss.IdAssignment, boAssignment.Links[i].Id)));
-//    }
-//}
-////for (int i = 0; i < boAssignment.Links!.Count; i++)
-////{
-////    _dal.Link!.Create(new DO.Link(i, doAss.IdAssignment, boAssignment.Links[i].Id));
-////}
-//return idAss;
-
-
-
-//{
-
-//    return (from DO.Assignment doAssignment in _dal.Assignment.ReadAll()
-//            let ass = new BO.Assignment
-//            {
-//                IdAssignment = doAssignment.IdAssignment,
-//                DurationAssignment = doAssignment.DurationAssignment,
-//                IdWorker = doAssignment.WorkerId,
-//                Name = doAssignment.Name!,
-//                Description = doAssignment.Description,
-//                Remarks = doAssignment.Remarks,
-//                ResultProduct = doAssignment.ResultProduct,
-//                LevelAssignment = doAssignment.LevelAssignment,
-//                dateSrart = doAssignment.DateSrart,
-//                DateBegin = doAssignment.DateBegin,
-//                DeadLine = doAssignment.DeadLine,
-//                DateFinish = doAssignment.DateFinish,
-//                status = Tools.GetProjectStatus()
-//                //status = Tools.GetProjectStatus(doAssignment)
-
-//            }
-//            where filter!(ass)
-//            select ass);
-//}
-
-
-//public WorkerInAssignment GetDetailedCourseForStudent(int WorkerId, int AssignmentId)
-//{
-//    throw new NotImplementedException();
-//}
-//private static DateTime? a (DO.Assignment assignments)
-//{
-//    return a > 0 ? assignments.Date : null; 
-//}
-//schudledate->  DateBegin  העבודה לתחילת מתוכנן תאריך   
-//completedate   DateFinish  בפועל סיום תארי  
-//startdate      DateStart   המשימה על העבודה תחילת תאריך
-//daedtimedate              לסיום מתוכנן תאריך="DeadLine
-// Unscheduled, Scheduled,OnTrack,InJeopardy,Done
-//private static Status GetProjectStatus(DO.Assignment assignments)
-//{
-//    if (assignments.DateBegin is null)
-//        return BO.Status.Unscheduled;
-//    if (assignments.DateFinish is not null)
-//        return BO.Status.Done;
-//    return BO.Status.Done;//לא צריך את השורה הזאת
-//    //if(assignments.dateSrart is null)
-//    //    return BI.s_Clock= assignments.requidifferent :assignments.DeadLine
-//    //    ?Status.InJeopardy: Status.Scheduled;
-//    ////assignments has started but hasnt finished
-//    //return BI.s_Clock = (+assignments.requidifferent - (BI.s_Clock - assignments.dateSrart))
-//    //    > assignments.DeadLine ? Status.InJeopardy : Status.OnTrack;
-//}
-//תאריך משוער לסיום,לעשות פונקציה כזאת כמו של הסטטוס
-//לעשות את ריד עפ פילטר
-//    try
-//        {
-//            return from DO.Worker doWrk in _dal.Worker.ReadAll()
-//                   let ass = _dal.Assignment.Read(t => t.IdWorker == doWrk.IdWorker && t.dateSrart is not null && t.DateFinish is null)
-//                   let worker = new BO.Worker
-
-//                   {
-//                       Id = doWrk.IdWorker,
-//                       Name = doWrk.Name,
-//                       Email = doWrk.Email,
-//                       Experience = doWrk.Experience,
-//                       HourSalary = doWrk.HourSalary,
-//                       currentAssignment = ass is not null ? new BO.WorkerInAssignment { AssignmentNumber = ass.IdAssignment!, AssignmentName = ass.Name } : null,
-//                   }
-//                   where filter is null ? true : filter(worker)
-//                   select worker;
-//}
-//          catch (DO.DalAlreadyExistsException ex)
-//        {
-//            throw new Exceptions.BlDoesNotExistException($"Worker with ID={id} does Not exists", ex);
-//        }
-//        catch (BlInvalidOperationException ex)
-//        {
-//            throw new Exceptions.BlInvalidOperationException($"Failed to update currentAssignment of Worker with ID={boWorker.Id} ", ex);
-//        }
-//        catch (Exception ex)
-//        {
-//            // טיפול בחריגות אחרות כפי שנדרש
-//            throw new Exceptions.BlException("Failed to read worker", ex);
-//        }
-//public BO.Assignment? Read(Func<BO.Assignment, bool>? filter = null)
-//{
-//    try
-//    {
-//        return from DO.Assignment doAssignment in _dal.Assignment.ReadAll()
-//               let ass = new BO.Assignment
-//               {
-//                   IdAssignment = doAssignment.IdAssignment,
-//                   Name = doAssignment.Name,
-//                   Description = doAssignment.Description,
-//                   status = Tools.GetProjectStatus(doAssignment),
-//                   dateSrart = doAssignment.dateSrart,
-//                   DateBegin = doAssignment.DateBegin,
-//                   DateFinish = doAssignment.DateFinish,
-//                   LevelAssignment = doAssignment.LevelAssignment,//???
-//                   DeadLine = doAssignment.DeadLine,
-//                   DurationAssignment = doAssignment.DurationAssignment,
-//                   //endProject = doAssignment.endProject,  
-//                   Worker = getWorker(doAssignment.IdWorker),
-//                   /////////Links = Bl.GetLink(IdAssignment).ToList,
-//                   // = doAssignment.LevelAssignment,
-//                   ResultProduct = doAssignment.ResultProduct,
-//                   Remarks = doAssignment?.Remarks,
-//               }
-//               where filter is null ? true : filter(ass)
-//               select ass;
-//    }
-//    catch (Exception ex)
-//    {
-//        // טיפול בחריגות אחרות כפי שנדרש
-//        throw new Exceptions.BlException("Failed to delete task", ex);
-//    }
-//}

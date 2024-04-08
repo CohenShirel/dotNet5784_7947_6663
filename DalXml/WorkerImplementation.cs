@@ -8,8 +8,6 @@ using System.Xml.Linq;
 internal class WorkerImplementation : IWorker
 {
     readonly string s_workers_xml = "workers";
-
-    //fet element and return worker
     static Worker getWorker(XElement wrk)
     {
         return new Worker()
@@ -63,12 +61,6 @@ internal class WorkerImplementation : IWorker
         if (wrk == null)
             throw new DalDoesNotExistException($"Worker does not exist");
         return wrk;
-
-        //XElement? wrkRoot = XMLTools.LoadListFromXMLElement(s_workers_xml);
-        //XElement? wrkElem = wrkRoot.Elements().FirstOrDefault(wrk => (int?)wrk.Element("IdWorker") == id);
-        //if (wrkElem == null)
-        //    throw new DalDoesNotExistException($"Worker with ID={Worker.id} not exists");
-        //return getWorker(wrkElem);
     }
 
     public IEnumerable<Worker> ReadAll(Func<Worker, bool>? filter = null)

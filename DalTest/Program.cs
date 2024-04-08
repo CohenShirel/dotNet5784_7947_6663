@@ -1,16 +1,8 @@
 ﻿
 //Shirel Cohen 214377947
 //Neomi Golkin 325946663
-//עשינו את התוספת של TryParse
-//עשינו את התוספת של ToString  בשיטת Reflection
 using DalApi;
 using DO;
-//using DalXml;
-
-
-//לינק ומטלות
-//האם מספיק פורמט להכל וזהו
-//האם הטריי והקאצ טובים?
 namespace DalTest
 {
     public enum ENTITY
@@ -36,26 +28,14 @@ namespace DalTest
     internal class Program
     {
         private static readonly Random s_rand = new();
-
-        //private static IWorker? s_dal.Worker = new WorkerImplementation();
-        //private static IAssignments? s_dal.Assignment = new AssignmentsImplementation();
-        //private static ILink? s_dal.Link = new LinkImplementation();
-
-
-        // static readonly IDal s_dal = new Dal.DalList(); //stage 2
-        // static readonly IDal s_dal = new Dal.DalXml(); //stage 3
-        static readonly IDal s_dal = Factory.Get; //stage 4
-
+        static readonly IDal s_dal = Factory.Get;
         static void Main(string[] args)
         {
-            //Initialization.Do(s_dal);
             Console.Write("Would you like to create Initial data? (Y/N)"); //stage 3
             string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input"); //stage 3
-            if (ans == "Y") //stage 3
+            if (ans == "Y")
             {
-                //Initialization.Do(s_dal); //stage 2
-                Initialization.Do(); //stage 4
-                //reset the data
+                Initialization.Do();
                 s_dal.Worker!.DeleteAll();
                 s_dal.Link!.DeleteAll();
                 s_dal.Assignment!.DeleteAll();
@@ -63,7 +43,6 @@ namespace DalTest
             ENTITY myChoice = ENTITY.ASSIGNMENT;
             do
             {
-
                 try
                 {
                     Console.WriteLine("choose 0 for exit main menu");
@@ -75,19 +54,15 @@ namespace DalTest
                         switch (myChoice)
                         {
                             case ENTITY.EXIT:
-                                // יציאה
                                 break;
                             case ENTITY.WORKER:
-                                // פעולות לקריאת כל האובייקטים
                                 optionWorker();
                                 break;
                             case ENTITY.LINK:
-                                // פעולות לעדכון
                                 optionLink();
                                 break;
                             case ENTITY.ASSIGNMENT:
                                 optionAssignment();
-                                // פעולת למחיקה
                                 break;
                             default:
                                 Console.WriteLine("ERROR");
@@ -95,19 +70,13 @@ namespace DalTest
                         }
                     }
                     else
-                    {
                         Console.WriteLine("Invalid input. Please enter a valid number.");
-                    }
-
-
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
             } while (myChoice != ENTITY.EXIT);
-
-
         }
 
         private static void optionWorker()
@@ -139,14 +108,9 @@ namespace DalTest
                                     throw new FormatException("Wrong input");
                                 string? name = Console.ReadLine() ?? throw new FormatException("Wrong input");
                                 string? email = Console.ReadLine() ?? throw new FormatException("Wrong input");
-                                // if(!)
                                 Level userLevel;
-                                // Level level = (Level)int.Parse(Console.ReadLine() ?? throw new IndexOutOfRangeException("Out Of Array"));
-
                                 if (!Enum.TryParse(Console.ReadLine(), out userLevel))
-                                {
                                     throw new FormatException("Wrong input");
-                                }
                                 s_dal.Worker!.Create(new(id, userLevel, cost, name, email));
                                 break;
                             case CRUD.READ:
@@ -177,11 +141,6 @@ namespace DalTest
                                 if (!int.TryParse(Console.ReadLine(), out int updatedCost))
                                     throw new FormatException("Wrong input");
                                 Level updatedLevel = (Level)int.Parse(Console.ReadLine() ?? $"{s_rand.Next(0, 5)}");
-                                //if i got space/null save the old one
-                                //if (string.IsNullOrWhiteSpace(updatedName))
-                                //    updatedName = s_dal.Worker.Read(iD)!.Name;
-                                //if (string.IsNullOrWhiteSpace(updetedEmail))
-                                //    updetedEmail = s_dal.Worker.Read(iD)!.Email;
                                 Worker worker = new Worker(iD, updatedLevel, updatedCost, updatedName, updetedEmail);
                                 s_dal.Worker!.Update(worker);
                                 break;
@@ -201,10 +160,7 @@ namespace DalTest
                         }
                     }
                     else
-                    {
                         Console.WriteLine("Invalid input. Please enter a valid number.");
-                    }
-
                 } while (myChoice != CRUD.EXIT);
             }
             catch (DalAlreadyExistsException ex)
@@ -234,7 +190,6 @@ namespace DalTest
                     Console.WriteLine("4 - Update");
                     Console.WriteLine("5 - Delete");
                     Console.WriteLine("0 - Exit");
-
                     // Get input from the user and try to parse it to the Enum type
                     if (Enum.TryParse(Console.ReadLine(), out myChoice))
                     {
@@ -249,10 +204,6 @@ namespace DalTest
                                 Console.WriteLine("enter AssignmentsID of the link: ");
                                 if (!int.TryParse(Console.ReadLine(), out idAssigment2))
                                     throw new FormatException("Wrong input");
-                                //do
-                                //{
-
-                                //} while (s_dalAssignments!.Read(idAssigment2) != null && s_dal.Assignment!=null);
                                 s_dal.Link!.Create(new(0, idAssigment1, idAssigment2));
                                 break;
                             case CRUD.READ:
@@ -295,16 +246,13 @@ namespace DalTest
                             case CRUD.EXIT:
                                 Console.WriteLine("Exiting program");
                                 break;
-
                             default:
                                 Console.WriteLine("Invalid choice! Please enter a valid option");
                                 break;
                         }
                     }
                     else
-                    {
                         Console.WriteLine("Invalid input. Please enter a valid number.");
-                    }
                 } while (myChoice != CRUD.EXIT);
             }
             catch (DalAlreadyExistsException ex)
@@ -429,15 +377,6 @@ namespace DalTest
                                     throw new FormatException("datestart is not correct");
                                 if (!DateTime.TryParse(Console.ReadLine(), out DateTime DateFinish1))
                                     throw new FormatException("datestart is not correct");
-                                //if i got space/null save the old one
-                                //if (string.IsNullOrWhiteSpace(name1))
-                                //    name1 = s_dal.Assignment.Read(Id)!.Name;
-                                //if (string.IsNullOrWhiteSpace(Description1))
-                                //    Description1 = s_dal.Assignment.Read(Id)!.Description;
-                                //if (string.IsNullOrWhiteSpace(Remarks1))
-                                //    Remarks1 = s_dal.Assignment.Read(Id)!.Remarks;
-                                //if (string.IsNullOrWhiteSpace(ResultProduct1))
-                                //    ResultProduct1 = s_dal.Assignment.Read(Id)!.ResultProduct;
                                 Assignment ass = new Assignment(Id, DurationAssignments1, level1, IdWorker1, datestart1, DateBegin1, DeadLine1,
                                 DateFinish1, name1, Description1, Remarks1, ResultProduct1, milestone1);
                                 s_dal.Assignment!.Update(ass);
@@ -481,51 +420,3 @@ namespace DalTest
         }
     }
 }
-
-
-//Console.WriteLine("choose 1 for exit main menue");
-//Console.WriteLine("choose 2 for creat a new object");
-//Console.WriteLine("choose 3 for Object display by ID (Read)");
-//Console.WriteLine("choose 4 for read all objects of the entity type");
-//Console.WriteLine("choose 5 for updating existing object data");
-//Console.WriteLine("choose 6 for deleting an existing object from a list");
-
-////Option op;
-//do
-//{
-//    Array OptionArray = Enum.GetValues(typeof(Option));
-//   // LevelWorker randomLevel = (LevelWorker)levelArray.GetValue(s_rand.Next(levelArray.Length));
-//    //op = (Option)Enum.Parse(typeof(Option), Console.ReadLine() ?? string.Empty);
-
-//    switch (OptionArray)
-//    {
-//        case ADD:
-//            // פעולות להוספה
-//            break;
-//        case READ:
-//            // פעולות לקריאה
-//            break;
-//        case ReadAll:
-//            // פעולות לקריאת כל האובייקטים
-//            break;
-//        case Update:
-//            // פעולות לעדכון
-//            break;
-//        case Delete:
-//            // פעולות למחיקה
-//            break;
-//        case Exit:
-//            // יציאה
-//            break;
-//        default:
-//            Console.WriteLine("ERROR");
-//            break;
-//    }
-//} while (op != Option.Exit);
-
-
-
-
-
-
-

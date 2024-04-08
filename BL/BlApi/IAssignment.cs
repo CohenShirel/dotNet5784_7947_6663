@@ -9,7 +9,5 @@ public interface IAssignment
 
     public void Update(BO.Assignment item);
     public void Delete(int id);
-    // public BO.WorkerInAssignment GetDetailedCourseForStudent(int WorkerId, int AssignmentId);
     IEnumerable<BO.AssignmentInList> GetLinkedAssignments(BO.Assignment A);
-
 }
